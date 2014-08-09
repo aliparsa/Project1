@@ -18,15 +18,18 @@
         >
 
         <EditText
+            android:id="@+id/etxt_fragmentLogin_username"
             android:layout_width="200dp"
             android:layout_height="fill_parent" />
 
 
         <EditText
+            android:id="@+id/etxt_fragmentLogin_password"
             android:layout_width="200dp"
             android:layout_height="wrap_content" />
 
         <Button
+            android:id="@+id/btn_fragmentLogin_login"
             android:layout_width="100dp"
             android:layout_height="wrap_content" />
 

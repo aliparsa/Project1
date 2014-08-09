@@ -1,5 +1,6 @@
 package com.pga.project1.fragment;
 
+
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -28,13 +29,14 @@ public class FragmentLogin extends Fragment {
 
     //{Constructor-----------------------------------------------------
 
+
     public FragmentLogin(){
 
     }
-
     //-----------------------------------------------------Constructor}
 
     //{override functions---------------------------------------------
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,6 +45,7 @@ public class FragmentLogin extends Fragment {
                 container, false);
         return view;
     }
+
 
     //-----------------------------------------------------override functions}
 
