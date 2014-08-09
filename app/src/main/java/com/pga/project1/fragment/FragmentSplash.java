@@ -9,6 +9,7 @@ import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.ActionBar.TabListener;
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,6 +23,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.pga.project1.MainActivity;
 import com.pga.project1.R;
 
 public class FragmentSplash extends Fragment {
@@ -66,6 +68,13 @@ public class FragmentSplash extends Fragment {
 		getActivity().getActionBar().hide();
 		
 		//CheckIntenetConnection();
+
+        // Call Login Fraqgment
+        Fragment frag = new FragmentLogin();
+        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.container, frag)
+                .commit();
 
 		return view;
 	}
