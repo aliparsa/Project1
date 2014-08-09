@@ -1,4 +1,4 @@
-package com.pga.project1;
+package com.pga.project1.fragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +21,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import com.pga.project1.R;
 
 public class FragmentSplash extends Fragment {
 
