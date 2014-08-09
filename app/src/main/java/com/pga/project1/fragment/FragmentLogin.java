@@ -1,9 +1,17 @@
 package com.pga.project1.fragment;
 
+import android.app.Fragment;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import com.pga.project1.R;
+
 /**
  * Created by ashkan on 8/9/2014.
  */
-public class FragmentLogin {
+public class FragmentLogin extends Fragment {
 
 
     //{Constants-----------------------------------------------------
@@ -20,9 +28,21 @@ public class FragmentLogin {
 
     //{Constructor-----------------------------------------------------
 
+    public FragmentLogin(){
+
+    }
+
     //-----------------------------------------------------Constructor}
 
     //{override functions---------------------------------------------
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.activity_main,
+                container, false);
+        return view;
+    }
 
     //-----------------------------------------------------override functions}
 
