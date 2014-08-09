@@ -19,9 +19,9 @@ import com.pga.project1.Utilities.ValidationMessage;
 public class FragmentLogin extends Fragment {
 
 
-    //{Constants-----------------------------------------------------
+    // Constants-----------------------------------------------------
 
-    //-----------------------------------------------------Constants}
+    //-----------------------------------------------------Constants
 
     //{static fields-----------------------------------------------------
 

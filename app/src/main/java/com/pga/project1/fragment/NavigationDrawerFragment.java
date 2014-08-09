@@ -1,4 +1,4 @@
-package com.pga.project1;
+package com.pga.project1.fragment;
 
 
 import android.app.Activity;
@@ -6,7 +6,6 @@ import android.app.ActionBar;
 import android.app.Fragment;
 import android.graphics.BitmapFactory;
 import android.support.v4.app.ActionBarDrawerToggle;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -20,9 +19,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.pga.project1.Adapters.CustomNavigationDrawerAdapter;
+import com.pga.project1.R;
+import com.pga.project1.Structures.AdapterInputType;
 
 import java.util.ArrayList;
 
