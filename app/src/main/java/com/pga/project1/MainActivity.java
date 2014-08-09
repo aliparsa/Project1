@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.support.v4.widget.DrawerLayout;
 
 import com.pga.project1.fragment.FragmentSplash;
+import com.pga.project1.fragment.NavigationDrawerFragment;
 
 
 public class MainActivity extends Activity

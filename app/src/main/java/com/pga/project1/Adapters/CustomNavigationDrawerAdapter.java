@@ -1,4 +1,4 @@
-package com.pga.project1;
+package com.pga.project1.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,6 +8,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.pga.project1.R;
+import com.pga.project1.Structures.AdapterInputType;
 
 import java.util.List;
 

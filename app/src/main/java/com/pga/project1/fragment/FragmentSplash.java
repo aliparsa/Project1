@@ -69,6 +69,9 @@ public class FragmentSplash extends Fragment {
 		
 		//CheckIntenetConnection();
 
+
+        // Activate Action bar
+
         // Call Login Fraqgment
         Fragment frag = new FragmentLogin();
         FragmentManager fragmentManager = getFragmentManager();
