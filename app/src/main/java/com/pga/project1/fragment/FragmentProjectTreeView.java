@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -42,9 +43,7 @@ public class FragmentProjectTreeView extends Fragment {
 
         final FragmentProjectTreeView self = this;
 
-
-        Webservice webservice = new Webservice();
-        webservice.getProjects(new CallBackArraylist<Chart>() {
+        Webservice.getProjects(new CallBackArraylist<Chart>() {
             @Override
             public void onSuccess(ArrayList<Chart> result) {
                 //TODO Create Adapter
@@ -62,6 +61,8 @@ public class FragmentProjectTreeView extends Fragment {
                         new ListViewCustomAdapter(self.getActivity(), R.layout.fragment_layout_project_tree_view, itemList);
 
                 lv.setAdapter(adapter);
+
+                lv.setOnItemClickListener(new onTreeViewClickListener());
             }
 
 
@@ -78,7 +79,19 @@ public class FragmentProjectTreeView extends Fragment {
         return view;
     }
     // ------------------------------------------------------------------------------------
+    public class onTreeViewClickListener implements AdapterView.OnItemClickListener {
 
+        @Override
+        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            String type = ((ListViewCustomAdapter.DrawerItemHolder) view.getTag()).getType();
+
+            if (type.equals(ListViewCustomAdapter.ICON_TITLE_SUBTITLE)) {
+                //TODO Call  Get Child from Webservice
+            }
+
+
+        }
+    }
     // ------------------------------------------------------------------------------------
     // ------------------------------------------------------------------------------------
     // ------------------------------------------------------------------------------------

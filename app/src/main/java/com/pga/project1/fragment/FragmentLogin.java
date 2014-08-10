@@ -3,7 +3,9 @@ package com.pga.project1.fragment;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.method.CharacterPickerDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +17,7 @@ import android.widget.Toast;
 import com.pga.project1.Intefaces.CallBackJSON;
 import com.pga.project1.Intefaces.CallBackLogin;
 import com.pga.project1.R;
+import com.pga.project1.Utilities.Account;
 import com.pga.project1.Utilities.ValidationMessage;
 import com.pga.project1.Utilities.Webservice;
 
@@ -59,12 +62,26 @@ public class FragmentLogin extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_login,
                 container, false);
+
+
         return view;
     }
+
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+
+        if (Account.getInstant(getActivity()).alreadyHaveToken()) {
+            // Call Login Fraqgment
+            Fragment frag = new FragmentProjectTreeView();
+            FragmentManager fragmentManager = getFragmentManager();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.container, frag)
+                    .commit();
+        }
+
 
         txtUsername = (EditText) getView().findViewById(R.id.etxt_fragmentLogin_username);
         txtPassword = (EditText) getView().findViewById(R.id.etxt_fragmentLogin_password);
@@ -98,7 +115,10 @@ public class FragmentLogin extends Fragment {
         Webservice.Login(username, password, new CallBackLogin() {
             @Override
             public void onSuccess(String token) {
+
                 Toast.makeText(getActivity(), token, Toast.LENGTH_SHORT).show();
+                Account.getInstant(getActivity()).storeToken(token);
+
             }
 
             @Override
@@ -110,6 +130,7 @@ public class FragmentLogin extends Fragment {
         });
 
     }
+
 
     //-----------------------------------------------------Functions}
 
