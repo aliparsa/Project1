@@ -5,7 +5,7 @@ import com.pga.project1.Intefaces.CallBack;
 import com.pga.project1.Structures.Chart;
 
 import com.pga.project1.Asyncs.AsyncLoad;
-import com.pga.project1.Asyncs.AsyncLogin;
+import com.pga.project1.Asyncs.AsyncLoginByUserPass;
 import com.pga.project1.Intefaces.CallBackArraylist;
 import com.pga.project1.Intefaces.CallBackAsync;
 import com.pga.project1.Intefaces.CallBackJSON;
@@ -27,7 +27,7 @@ public class Webservice {
     final static public String GET_PROJECTS_URL = SERVER_ADDRESS + "/get_projects.json";
     final static public String LOGIN_URL = SERVER_ADDRESS + "/login";
 
-    public void getProjects(final CallBackArraylist<Chart> callBack) {
+    public static void getProjects(final CallBackArraylist<Chart> callBack) {
 
         CallBackJSON  callback_json = new CallBackJSON() {
             @Override
@@ -53,7 +53,7 @@ public class Webservice {
 
 
     public static void Login(String username, String password, final CallBackLogin callbackLogin) {
-        new AsyncLogin(LOGIN_URL, username, password, new CallBackAsync() {
+        new AsyncLoginByUserPass(LOGIN_URL, username, password, new CallBackAsync() {
             @Override
             public void onSuccess(JSONObject jsonObject) {
                 try {

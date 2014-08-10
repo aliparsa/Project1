@@ -26,7 +26,7 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
     int layoutResID;
 
     String IMAGE_DRAWER_ITEM = "image";
-    String ICON_TITLE_SUBTITLE = "icon+title+subtitle";
+    public static String ICON_TITLE_SUBTITLE = "icon+title+subtitle";
     String FOOTER = "footer";
 
 
@@ -80,6 +80,8 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
 
                 PleaseOnlyShow(lv_image);
 
+                drawerItemHolder.setType(itemList.get(position).type);
+
                 // set item holder to view
                 view.setTag(drawerItemHolder);
 
@@ -103,6 +105,8 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
 
                 PleaseOnlyShow(lv_icon_title_subtitle);
 
+                drawerItemHolder.setType(itemList.get(position).type);
+
                 // set item holder to view
                 view.setTag(drawerItemHolder);
             }
@@ -124,6 +128,8 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
 
 
                     PleaseOnlyShow(lv_icon_title_subtitle);
+
+                    drawerItemHolder.setType(itemList.get(position).type);
 
                     // set item holder to view
                     view.setTag(drawerItemHolder);
@@ -171,12 +177,20 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
         return view;
     }
 
-    private static class DrawerItemHolder {
+    public static class DrawerItemHolder {
         TextView title;
         TextView subtitle;
         ImageView icon;
         ImageView icon_in_title_subtitle;
+        private String type;
 
+        public String getType() {
+            return type;
+        }
+
+        public void setType(String type) {
+            this.type = type;
+        }
     }
 
     public void  PleaseOnlyShow(LinearLayout lv){

@@ -28,7 +28,7 @@ import java.util.List;
 /**
  * Created by aliparsa on 8/9/2014.
  */
-public class AsyncLogin extends AsyncTask<String, String, String> {
+public class AsyncLoginByUserPass extends AsyncTask<String, String, String> {
 
     // Global variable
     String type;
@@ -40,7 +40,7 @@ public class AsyncLogin extends AsyncTask<String, String, String> {
     CallBackAsync callBackAsync;
 
 
-    public AsyncLogin(String url, String username, String password, CallBackAsync callBackAsync) {
+    public AsyncLoginByUserPass(String url, String username, String password, CallBackAsync callBackAsync) {
         this.callBackAsync = callBackAsync;
         this.username = username;
         this.password = password;
