@@ -7,12 +7,15 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.pga.project1.Adapters.ListViewCustomAdapter;
 import com.pga.project1.Adapters.ProjectTreeViewCustomAdapter;
 import com.pga.project1.Intefaces.CallBack;
 import com.pga.project1.R;
@@ -62,8 +65,8 @@ public class FragmentProjectTreeView extends Fragment {
 
                 }
 
-                ProjectTreeViewCustomAdapter adapter =
-                        new ProjectTreeViewCustomAdapter(self.getActivity(), R.layout.fragment_layout_project_tree_view, itemList );
+                ListViewCustomAdapter adapter =
+                        new ListViewCustomAdapter(self.getActivity(), R.layout.fragment_layout_project_tree_view, itemList);
 
                 lv.setAdapter(adapter);
             }
@@ -79,7 +82,8 @@ public class FragmentProjectTreeView extends Fragment {
             }
         });
 
-		return view;
+
+        return view;
 	}
 	// ------------------------------------------------------------------------------------
 
