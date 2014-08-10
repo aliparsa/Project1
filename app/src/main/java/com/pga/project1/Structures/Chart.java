@@ -26,10 +26,10 @@ public class Chart {
     private String price;
     private String is_pay;
     private String root_id;
-    private String work_uint;
+    private String work_unit;
 
 
-    public Chart(int id, int type_id, String name, String start_date, String end_date, String personnel_id, String allow_delay, String estimated_start, String estimated_end, String status, String price, String is_pay, String root_id, String work_uint) {
+    public Chart(int id, int type_id, String name, String start_date, String end_date, String personnel_id, String allow_delay, String estimated_start, String estimated_end, String status, String price, String is_pay, String root_id, String work_unit) {
         this.id = id;
         this.type_id = type_id;
         this.name = name;
@@ -43,7 +43,7 @@ public class Chart {
         this.price = price;
         this.is_pay = is_pay;
         this.root_id = root_id;
-        this.work_uint = work_uint;
+        this.work_unit = work_unit;
     }
 
 
@@ -82,7 +82,7 @@ public class Chart {
                 String price = jsonObject.getString("price");
                 String is_pay = jsonObject.getString("is_pay");
                 String root_id = jsonObject.getString("root_id");
-                String work_uint = jsonObject.getString("work_uint");
+                String work_unit = jsonObject.getString("work_unit");
 
                 Chart chartItem = new Chart(
                         id,
@@ -98,7 +98,7 @@ public class Chart {
                         price,
                         is_pay,
                         root_id,
-                        work_uint
+                        work_unit
                 );
 
                 itemlist.add(chartItem);
@@ -109,6 +109,62 @@ public class Chart {
             e.printStackTrace();
         }
         return itemlist;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public int getType_id() {
+        return type_id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getStart_date() {
+        return start_date;
+    }
+
+    public String getEnd_date() {
+        return end_date;
+    }
+
+    public String getPersonnel_id() {
+        return personnel_id;
+    }
+
+    public String getAllow_delay() {
+        return allow_delay;
+    }
+
+    public String getEstimated_start() {
+        return estimated_start;
+    }
+
+    public String getEstimated_end() {
+        return estimated_end;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public String getIs_pay() {
+        return is_pay;
+    }
+
+    public String getRoot_id() {
+        return root_id;
+    }
+
+    public String getWork_unit() {
+        return work_unit;
     }
 }
 
