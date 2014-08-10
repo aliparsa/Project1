@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * Created by aliparsa on 8/5/2014.
  */
-public class CustomNavigationDrawerAdapter extends ArrayAdapter<AdapterInputType> {
+public class NavigationDrawerCustomAdapter extends ArrayAdapter<AdapterInputType> {
 
     Context context;
     public List<AdapterInputType> itemList;
@@ -33,7 +33,7 @@ public class CustomNavigationDrawerAdapter extends ArrayAdapter<AdapterInputType
     LinearLayout lv_icon_title_subtitle;
 
 
-    public CustomNavigationDrawerAdapter(Context context, int layoutResourceID,
+    public NavigationDrawerCustomAdapter(Context context, int layoutResourceID,
                                          List<AdapterInputType> itemList) {
         super(context, layoutResourceID, itemList);
 

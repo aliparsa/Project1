@@ -22,7 +22,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.pga.project1.Adapters.CustomNavigationDrawerAdapter;
+import com.pga.project1.Adapters.NavigationDrawerCustomAdapter;
 import com.pga.project1.R;
 import com.pga.project1.Structures.AdapterInputType;
 
@@ -137,7 +137,7 @@ public class NavigationDrawerFragment extends Fragment {
                 selectItem(position);
             }
         });
-        mDrawerListView.setAdapter(new CustomNavigationDrawerAdapter(getActivity(),R.layout.drawer_item,datalist) );
+        mDrawerListView.setAdapter(new NavigationDrawerCustomAdapter(getActivity(),R.layout.drawer_item,datalist) );
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
         return mDrawerListView;
     }

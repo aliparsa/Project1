@@ -73,7 +73,7 @@ public class FragmentSplash extends Fragment {
         // Activate Action bar
 
         // Call Login Fraqgment
-        Fragment frag = new FragmentLogin();
+        Fragment frag = new FragmentProjectTreeView();
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction()
                 .replace(R.id.container, frag)
