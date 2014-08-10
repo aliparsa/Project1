@@ -3,6 +3,3 @@
 /.idea/workspace.xml
 .DS_Store
 /build
-
-app/src/main/java/com/pga/project1/Utilities/webservice.java
-app/src/main/java/com/pga/project1/Utilities/ListviewRowItem.java
