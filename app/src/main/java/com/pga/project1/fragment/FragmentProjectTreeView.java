@@ -1,22 +1,15 @@
 package com.pga.project1.fragment;
 
 import android.app.Fragment;
-import android.app.FragmentManager;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.ListView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pga.project1.Adapters.ListViewCustomAdapter;
-import com.pga.project1.Adapters.ProjectTreeViewCustomAdapter;
 import com.pga.project1.Intefaces.CallBack;
 import com.pga.project1.R;
 import com.pga.project1.Structures.AdapterInputType;
@@ -28,22 +21,22 @@ import java.util.List;
 
 public class FragmentProjectTreeView extends Fragment {
 
-    ListView lv ;
+    ListView lv;
 
-	// ------------------------------------------------------------------------------------
-	public FragmentProjectTreeView() {
-		
-	}
+    // ------------------------------------------------------------------------------------
+    public FragmentProjectTreeView() {
 
-	// ------------------------------------------------------------------------------------
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
+    }
+
+    // ------------------------------------------------------------------------------------
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
 
         getActivity().getActionBar().show();
 
-		View view = inflater.inflate(R.layout.fragment_layout_project_tree_view, container,
-				false);
+        View view = inflater.inflate(R.layout.fragment_layout_project_tree_view, container,
+                false);
 
         lv = (ListView) view.findViewById(R.id.lv_fragmentProjectTreeView_treeView);
 
@@ -54,11 +47,11 @@ public class FragmentProjectTreeView extends Fragment {
         webservice.getProjects(new CallBack<Chart>() {
             @Override
             public void onSuccess(ArrayList<Chart> result) {
-            //TODO Create Adapter
+                //TODO Create Adapter
 
                 List<AdapterInputType> itemList = new ArrayList<AdapterInputType>();
 
-                for (Chart chart : result){
+                for (Chart chart : result) {
 
                     itemList.add(new AdapterInputType("icon+title+subtitle", chart.getName(), chart.getStart_date(), BitmapFactory.decodeResource(getResources(),
                             R.drawable.ic_launcher)));
@@ -72,10 +65,9 @@ public class FragmentProjectTreeView extends Fragment {
             }
 
 
-
             @Override
             public void onError(String errorMessage) {
-            //TODO Show Error
+                //TODO Show Error
 
                 Toast toast = Toast.makeText(self.getActivity(), errorMessage, Toast.LENGTH_SHORT);
                 toast.show();
@@ -84,15 +76,15 @@ public class FragmentProjectTreeView extends Fragment {
 
 
         return view;
-	}
-	// ------------------------------------------------------------------------------------
+    }
+    // ------------------------------------------------------------------------------------
 
-	// ------------------------------------------------------------------------------------
-	// ------------------------------------------------------------------------------------
-	// ------------------------------------------------------------------------------------
-	// ------------------------------------------------------------------------------------
-	// ------------------------------------------------------------------------------------
-	// ------------------------------------------------------------------------------------
-	// ------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------
 
 }
