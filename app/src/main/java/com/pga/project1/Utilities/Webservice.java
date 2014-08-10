@@ -1,16 +1,9 @@
 package com.pga.project1.Utilities;
 
-<<<<<<< HEAD
+
 import com.pga.project1.Intefaces.CallBack;
 import com.pga.project1.Structures.Chart;
 
-/**
- * Created by ashkan on 8/10/2014.
- */
-public class Webservice {
-    public void getProjects(CallBack<Chart> callBack) {
-    }
-=======
 import com.pga.project1.Asyncs.AsyncLoad;
 import com.pga.project1.Intefaces.CallBack;
 import com.pga.project1.Intefaces.CallBackJSON;
@@ -21,9 +14,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-/**
- * Created by aliparsa on 8/9/2014.
- */
 
 
 public class Webservice {
@@ -55,5 +45,4 @@ public class Webservice {
         return null;
     }
 
->>>>>>> origin/master
 }
