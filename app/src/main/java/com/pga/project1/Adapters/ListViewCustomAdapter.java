@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * Created by aliparsa on 8/5/2014.
  */
-public class NavigationDrawerCustomAdapter extends ArrayAdapter<AdapterInputType> {
+public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
 
     Context context;
     public List<AdapterInputType> itemList;
@@ -33,8 +33,8 @@ public class NavigationDrawerCustomAdapter extends ArrayAdapter<AdapterInputType
     LinearLayout lv_icon_title_subtitle;
 
 
-    public NavigationDrawerCustomAdapter(Context context, int layoutResourceID,
-                                         List<AdapterInputType> itemList) {
+    public ListViewCustomAdapter(Context context, int layoutResourceID,
+                                 List<AdapterInputType> itemList) {
         super(context, layoutResourceID, itemList);
 
         this.context = context;
@@ -55,10 +55,11 @@ public class NavigationDrawerCustomAdapter extends ArrayAdapter<AdapterInputType
         if (view == null) {
             // TODO New View Created
 
-            // create view
+            //create view
             LayoutInflater inflater = (LayoutInflater) context.getSystemService
                     (Context.LAYOUT_INFLATER_SERVICE);
             view = inflater.inflate(R.layout.drawer_item, null);
+
 
             lv_image = (LinearLayout) view.findViewById(R.id.lv_image);
             lv_icon_title_subtitle = (LinearLayout) view.findViewById(R.id.lv_icon_title_subtitle);
@@ -73,7 +74,7 @@ public class NavigationDrawerCustomAdapter extends ArrayAdapter<AdapterInputType
                 drawerItemHolder.subtitle = (TextView) view.findViewById(R.id.subtitle);
 
                 // set values
-                drawerItemHolder.icon.setImageBitmap(itemList.get(position).icon);
+                drawerItemHolder.icon.setImageBitmap(itemList.get(position).image1);
 
                 PleaseOnlyShow(lv_image);
 
@@ -93,9 +94,9 @@ public class NavigationDrawerCustomAdapter extends ArrayAdapter<AdapterInputType
                 drawerItemHolder.subtitle = (TextView) view.findViewById(R.id.subtitle);
 
                 // set values
-                drawerItemHolder.icon_in_title_subtitle.setImageBitmap(itemList.get(position).icon);
-                drawerItemHolder.title.setText(itemList.get(position).title);
-                drawerItemHolder.subtitle.setText(itemList.get(position).subtitle);
+                drawerItemHolder.icon_in_title_subtitle.setImageBitmap(itemList.get(position).image1);
+                drawerItemHolder.title.setText(itemList.get(position).text1);
+                drawerItemHolder.subtitle.setText(itemList.get(position).text2);
 
 
                 PleaseOnlyShow(lv_icon_title_subtitle);
@@ -115,9 +116,9 @@ public class NavigationDrawerCustomAdapter extends ArrayAdapter<AdapterInputType
                     drawerItemHolder.subtitle = (TextView) view.findViewById(R.id.subtitle);
 
                     // set values
-                    drawerItemHolder.icon_in_title_subtitle.setImageBitmap(itemList.get(position).icon);
-                    drawerItemHolder.title.setText(itemList.get(position).title);
-                    drawerItemHolder.subtitle.setText(itemList.get(position).subtitle);
+                    drawerItemHolder.icon_in_title_subtitle.setImageBitmap(itemList.get(position).image1);
+                    drawerItemHolder.title.setText(itemList.get(position).text1);
+                    drawerItemHolder.subtitle.setText(itemList.get(position).text2);
 
 
                     PleaseOnlyShow(lv_icon_title_subtitle);
@@ -139,7 +140,7 @@ public class NavigationDrawerCustomAdapter extends ArrayAdapter<AdapterInputType
             // ITEM 1
             if(itemList.get(position).type.equals(IMAGE_DRAWER_ITEM)){
                 // set values
-                drawerItemHolder.icon.setImageBitmap(itemList.get(position).icon);
+                drawerItemHolder.icon.setImageBitmap(itemList.get(position).image1);
                 PleaseOnlyShow(lv_image);
 
             }
@@ -148,9 +149,9 @@ public class NavigationDrawerCustomAdapter extends ArrayAdapter<AdapterInputType
             // ITEM 2
             if (itemList.get(position).type.equals(ICON_TITLE_SUBTITLE)){
                 // set values
-                drawerItemHolder.icon_in_title_subtitle.setImageBitmap(itemList.get(position).icon);
-                drawerItemHolder.title.setText(itemList.get(position).title);
-                drawerItemHolder.subtitle.setText(itemList.get(position).subtitle);
+                drawerItemHolder.icon_in_title_subtitle.setImageBitmap(itemList.get(position).image1);
+                drawerItemHolder.title.setText(itemList.get(position).text1);
+                drawerItemHolder.subtitle.setText(itemList.get(position).text2);
                 PleaseOnlyShow(lv_icon_title_subtitle);
 
             }

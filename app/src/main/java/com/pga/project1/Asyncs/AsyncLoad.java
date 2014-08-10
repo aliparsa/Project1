@@ -9,6 +9,7 @@ import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
@@ -42,17 +43,17 @@ public class AsyncLoad extends AsyncTask<String, String, String> {
         try {
 
             HttpClient httpclient = new DefaultHttpClient();
-            HttpPost httppost = new HttpPost(strings[0]);
+           // HttpPost httppost = new HttpPost(strings[0]);
+            HttpGet httpGet = new HttpGet(strings[0]);
 
-            List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
+           // List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
 
-            nameValuePairs.add(new BasicNameValuePair("tag", ""));
+           // nameValuePairs.add(new BasicNameValuePair("tag", ""));
 
 
-            httppost.setEntity(new UrlEncodedFormEntity(
-                    nameValuePairs));
+            //httppost.setEntity(new UrlEncodedFormEntity( nameValuePairs));
 
-            HttpResponse response = httpclient.execute(httppost);
+            HttpResponse response = httpclient.execute(httpGet);
 
             if (response != null) {
                 //TODO

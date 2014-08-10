@@ -22,7 +22,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.pga.project1.Adapters.NavigationDrawerCustomAdapter;
+import com.pga.project1.Adapters.ListViewCustomAdapter;
 import com.pga.project1.R;
 import com.pga.project1.Structures.AdapterInputType;
 
@@ -80,22 +80,24 @@ public class NavigationDrawerFragment extends Fragment {
 
         AdapterInputType item = new AdapterInputType();
         item.type="image";
-        item.icon= BitmapFactory.decodeResource(getResources(),
+        item.image1= BitmapFactory.decodeResource(getResources(),
                 R.drawable.ic_launcher);
 
 
         AdapterInputType item2 = new AdapterInputType();
         item2.type="icon+title+subtitle";
-        item2.icon= BitmapFactory.decodeResource(getResources(),
+        item2.image1= BitmapFactory.decodeResource(getResources(),
                 R.drawable.ic_launcher);
-        item2.title="title here";
-        item2.subtitle="subtitle here";
+        item2.text1="title here";
+        item2.text2="subtitle here";
 
         AdapterInputType item3 = new AdapterInputType();
         item3.type="icon+title+subtitle";
-        item3.icon= BitmapFactory.decodeResource(getResources(),
+        item3.image1= BitmapFactory.decodeResource(getResources(),
                 R.drawable.ic_launcher);
-        item3.title="مدیریت پروژه";
+        item3.text1="مدیریت پروژه";
+
+
 
 
 
@@ -137,7 +139,7 @@ public class NavigationDrawerFragment extends Fragment {
                 selectItem(position);
             }
         });
-        mDrawerListView.setAdapter(new NavigationDrawerCustomAdapter(getActivity(),R.layout.drawer_item,datalist) );
+        mDrawerListView.setAdapter(new ListViewCustomAdapter(getActivity(),R.layout.drawer_item,datalist) );
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
         return mDrawerListView;
     }

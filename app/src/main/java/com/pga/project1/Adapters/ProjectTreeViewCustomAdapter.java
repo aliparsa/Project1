@@ -21,6 +21,7 @@ public class ProjectTreeViewCustomAdapter extends ArrayAdapter<AdapterInputType>
 
     Context context;
     public List<AdapterInputType> itemList;
+
     int layoutResID;
 
     String IMAGE_DRAWER_ITEM = "image";
@@ -73,7 +74,7 @@ public class ProjectTreeViewCustomAdapter extends ArrayAdapter<AdapterInputType>
                 drawerItemHolder.subtitle = (TextView) view.findViewById(R.id.subtitle);
 
                 // set values
-                drawerItemHolder.icon.setImageBitmap(itemList.get(position).icon);
+                drawerItemHolder.icon.setImageBitmap(itemList.get(position).image1);
 
                 PleaseOnlyShow(lv_image);
 
@@ -93,9 +94,9 @@ public class ProjectTreeViewCustomAdapter extends ArrayAdapter<AdapterInputType>
                 drawerItemHolder.subtitle = (TextView) view.findViewById(R.id.subtitle);
 
                 // set values
-                drawerItemHolder.icon_in_title_subtitle.setImageBitmap(itemList.get(position).icon);
-                drawerItemHolder.title.setText(itemList.get(position).title);
-                drawerItemHolder.subtitle.setText(itemList.get(position).subtitle);
+                drawerItemHolder.icon_in_title_subtitle.setImageBitmap(itemList.get(position).image1);
+                drawerItemHolder.title.setText(itemList.get(position).text1);
+                drawerItemHolder.subtitle.setText(itemList.get(position).text2);
 
 
                 PleaseOnlyShow(lv_icon_title_subtitle);
@@ -115,9 +116,9 @@ public class ProjectTreeViewCustomAdapter extends ArrayAdapter<AdapterInputType>
                     drawerItemHolder.subtitle = (TextView) view.findViewById(R.id.subtitle);
 
                     // set values
-                    drawerItemHolder.icon_in_title_subtitle.setImageBitmap(itemList.get(position).icon);
-                    drawerItemHolder.title.setText(itemList.get(position).title);
-                    drawerItemHolder.subtitle.setText(itemList.get(position).subtitle);
+                    drawerItemHolder.icon_in_title_subtitle.setImageBitmap(itemList.get(position).image1);
+                    drawerItemHolder.title.setText(itemList.get(position).text1);
+                    drawerItemHolder.subtitle.setText(itemList.get(position).text2);
 
 
                     PleaseOnlyShow(lv_icon_title_subtitle);
@@ -139,7 +140,7 @@ public class ProjectTreeViewCustomAdapter extends ArrayAdapter<AdapterInputType>
             // ITEM 1
             if(itemList.get(position).type.equals(IMAGE_DRAWER_ITEM)){
                 // set values
-                drawerItemHolder.icon.setImageBitmap(itemList.get(position).icon);
+                drawerItemHolder.icon.setImageBitmap(itemList.get(position).image1);
                 PleaseOnlyShow(lv_image);
 
             }
@@ -148,9 +149,9 @@ public class ProjectTreeViewCustomAdapter extends ArrayAdapter<AdapterInputType>
             // ITEM 2
             if (itemList.get(position).type.equals(ICON_TITLE_SUBTITLE)){
                 // set values
-                drawerItemHolder.icon_in_title_subtitle.setImageBitmap(itemList.get(position).icon);
-                drawerItemHolder.title.setText(itemList.get(position).title);
-                drawerItemHolder.subtitle.setText(itemList.get(position).subtitle);
+                drawerItemHolder.icon_in_title_subtitle.setImageBitmap(itemList.get(position).image1);
+                drawerItemHolder.title.setText(itemList.get(position).text1);
+                drawerItemHolder.subtitle.setText(itemList.get(position).text2);
                 PleaseOnlyShow(lv_icon_title_subtitle);
 
             }
