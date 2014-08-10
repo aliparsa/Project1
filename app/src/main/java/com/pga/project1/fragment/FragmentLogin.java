@@ -2,6 +2,7 @@ package com.pga.project1.fragment;
 
 
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.os.Bundle;
 import android.text.method.CharacterPickerDialog;
 import android.view.LayoutInflater;
@@ -9,9 +10,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import com.pga.project1.Intefaces.CallBackJSON;
+import com.pga.project1.Intefaces.CallBackLogin;
 import com.pga.project1.R;
 import com.pga.project1.Utilities.ValidationMessage;
+import com.pga.project1.Utilities.Webservice;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
  * Created by ashkan on 8/9/2014.
@@ -69,11 +77,10 @@ public class FragmentLogin extends Fragment {
             public void onClick(View view) {
 
                 String username = txtUsername.getText().toString();
-                String password = txtUsername.getText().toString();
+                String password = txtPassword.getText().toString();
 
-                LoginValidation(username, password, validationMessage);
-
-                loginClicked();
+                if (LoginValidation(username, password, validationMessage))
+                    loginClicked(username, password);
             }
         });
     }
@@ -87,7 +94,20 @@ public class FragmentLogin extends Fragment {
 
     //{Functions-----------------------------------------------------
 
-    private void loginClicked() {
+    private void loginClicked(String username, String password) {
+        Webservice.Login(username, password, new CallBackLogin() {
+            @Override
+            public void onSuccess(String token) {
+                Toast.makeText(getActivity(), token, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+
+                Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT).show();
+
+            }
+        });
 
     }
 

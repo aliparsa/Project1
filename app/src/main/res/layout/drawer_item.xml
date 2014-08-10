@@ -61,14 +61,16 @@
                         android:id="@+id/title"
                         android:layout_width="wrap_content"
                         android:textColor="@color/NaviDrawerItem_title"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:text="salam"
+                        android:layout_gravity="right" />
 
                     <TextView
                         android:id="@+id/subtitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/NaviDrawerItem_subtitle"
-                        android:text="" />
+                        android:text="salamsalamsalamsalam" />
 
                 </LinearLayout>
 
