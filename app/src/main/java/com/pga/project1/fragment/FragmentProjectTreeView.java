@@ -10,7 +10,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.pga.project1.Adapters.ListViewCustomAdapter;
-import com.pga.project1.Intefaces.CallBack;
+import com.pga.project1.Intefaces.CallBackArraylist;
 import com.pga.project1.R;
 import com.pga.project1.Structures.AdapterInputType;
 import com.pga.project1.Structures.Chart;
@@ -44,7 +44,7 @@ public class FragmentProjectTreeView extends Fragment {
 
 
         Webservice webservice = new Webservice();
-        webservice.getProjects(new CallBack<Chart>() {
+        webservice.getProjects(new CallBackArraylist<Chart>() {
             @Override
             public void onSuccess(ArrayList<Chart> result) {
                 //TODO Create Adapter

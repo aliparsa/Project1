@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * Created by aliparsa on 8/9/2014.
  */
-public interface CallBack<T> {
+public interface CallBackArraylist<T> {
 
     public void onSuccess(ArrayList<T> result);
 
