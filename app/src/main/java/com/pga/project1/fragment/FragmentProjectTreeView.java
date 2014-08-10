@@ -2,6 +2,7 @@ package com.pga.project1.fragment;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,6 +37,8 @@ public class FragmentProjectTreeView extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 
+        getActivity().getActionBar().show();
+
 		View view = inflater.inflate(R.layout.fragment_layout_project_tree_view, container,
 				false);
 
@@ -54,7 +57,8 @@ public class FragmentProjectTreeView extends Fragment {
 
                 for (Chart chart : result){
 
-                    itemList.add(new AdapterInputType("icon+title+subtitle",chart.getName(), chart.getStart_date(), null ));
+                    itemList.add(new AdapterInputType("icon+title+subtitle", chart.getName(), chart.getStart_date(), BitmapFactory.decodeResource(getResources(),
+                            R.drawable.ic_launcher)));
 
                 }
 

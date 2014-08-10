@@ -41,27 +41,21 @@ list of types that adapter can be handel
         this.image1 = icon;
     }
 
-    public AdapterInputType(String type, int layoutRes , Bitmap bitmap) {
-        this.type = type;
-        this.layoutRes = layoutRes;
-        this.image1 = bitmap;
-    }
-
     public AdapterInputType() {
 
     }
 
 
-    public View getView(Context context,View convertView){
+    public View getView(Context context, View convertView) {
 
         View view;
-        if(convertView == null){
+        if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService
                     (Context.LAYOUT_INFLATER_SERVICE);
             view = inflater.inflate(layoutRes, null);
 
-            return  view;
-        }else
+            return view;
+        } else
             return convertView;
 
     }
