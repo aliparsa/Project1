@@ -23,6 +23,22 @@ public class OnSwipeTouchListener implements OnTouchListener {
         return false;
     }
 
+    public void onSwipeRight() {
+        Toast.makeText(context, "right", Toast.LENGTH_SHORT).show();
+    }
+
+    public void onSwipeLeft() {
+        Toast.makeText(context, "left", Toast.LENGTH_SHORT).show();
+    }
+
+    public void onSwipeTop() {
+        Toast.makeText(context, "up", Toast.LENGTH_SHORT).show();
+    }
+
+    public void onSwipeBottom() {
+        Toast.makeText(context, "down", Toast.LENGTH_SHORT).show();
+    }
+
     private final class GestureListener extends SimpleOnGestureListener {
 
         private static final int SWIPE_THRESHOLD = 100;
@@ -62,21 +78,5 @@ public class OnSwipeTouchListener implements OnTouchListener {
             }
             return result;
         }
-    }
-
-    public void onSwipeRight() {
-        Toast.makeText(context, "right", Toast.LENGTH_SHORT).show();
-    }
-
-    public void onSwipeLeft() {
-        Toast.makeText(context, "left", Toast.LENGTH_SHORT).show();
-    }
-
-    public void onSwipeTop() {
-        Toast.makeText(context, "up", Toast.LENGTH_SHORT).show();
-    }
-
-    public void onSwipeBottom() {
-        Toast.makeText(context, "down", Toast.LENGTH_SHORT).show();
     }
 }

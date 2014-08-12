@@ -1,25 +1,11 @@
 package com.pga.project1.fragment;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.json.JSONArray;
-
-import android.app.ActionBar;
-import android.app.ActionBar.Tab;
-import android.app.ActionBar.TabListener;
 import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -28,10 +14,10 @@ import com.pga.project1.R;
 
 public class FragmentSplash extends Fragment {
 
-//	ImageView ivIcon;
-	TextView txt;
-	ProgressBar prgbar;
-	Button btn;
+    //	ImageView ivIcon;
+    TextView txt;
+    ProgressBar prgbar;
+    Button btn;
 //	CustomContentListViewAdapter adapter;
 //	boolean is_data_received = false;
 //	
@@ -42,32 +28,32 @@ public class FragmentSplash extends Fragment {
 //
 //	String father;
 
-	// array list to store items recived form activity
-	// ArrayList<TreeMenuItem> itemlist;
+    // array list to store items recived form activity
+    // ArrayList<TreeMenuItem> itemlist;
 
 //	public static final String IMAGE_RESOURCE_ID = "iconResourceID";
 //	public static final String ITEM_NAME = "itemName";
 
-	// ------------------------------------------------------------------------------------
-	public FragmentSplash() {
-		
-	}
+    // ------------------------------------------------------------------------------------
+    public FragmentSplash() {
 
-	// ------------------------------------------------------------------------------------
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
+    }
 
-		View view = inflater.inflate(R.layout.fragment_layout_splash, container,
-				false);
+    // ------------------------------------------------------------------------------------
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
 
-		txt = (TextView) view.findViewById(R.id.textView1);
-		prgbar = (ProgressBar) view.findViewById(R.id.progressBar1);
-		btn = (Button) view.findViewById(R.id.button1);
-		
-		getActivity().getActionBar().hide();
-		
-		//CheckIntenetConnection();
+        View view = inflater.inflate(R.layout.fragment_layout_splash, container,
+                false);
+
+        txt = (TextView) view.findViewById(R.id.textView1);
+        prgbar = (ProgressBar) view.findViewById(R.id.progressBar1);
+        btn = (Button) view.findViewById(R.id.button1);
+
+        getActivity().getActionBar().hide();
+
+        //CheckIntenetConnection();
 
 
         // Activate Action bar
@@ -75,9 +61,9 @@ public class FragmentSplash extends Fragment {
         // Call Login Fraqgment
         ((MainActivity) getActivity()).ShowLoginFragment("Splash Fargment");
 
-		return view;
-	}
-	// ------------------------------------------------------------------------------------
+        return view;
+    }
+    // ------------------------------------------------------------------------------------
 //	public void CheckIntenetConnection(){
 //		txt.setText("بارگذاری...");
 //		prgbar.setVisibility(ProgressBar.VISIBLE);
@@ -107,7 +93,7 @@ public class FragmentSplash extends Fragment {
 //		}).execute("");
 //
 //	}
-	// ------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------
 //	public void IsConnected(boolean status,CustomDrawerAdapter adapter){
 //		if (status==true){
 //			//TODO Set Adapter to Drawer list view
@@ -133,12 +119,12 @@ public class FragmentSplash extends Fragment {
 //
 //		}
 //	}
-	// ------------------------------------------------------------------------------------
-	// ------------------------------------------------------------------------------------
-	// ------------------------------------------------------------------------------------
-	// ------------------------------------------------------------------------------------
-	// ------------------------------------------------------------------------------------
-	// ------------------------------------------------------------------------------------
-	// ------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------
 
 }

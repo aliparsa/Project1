@@ -1,7 +1,5 @@
 package com.pga.project1.Structures;
 
-import android.graphics.Bitmap;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -48,15 +46,6 @@ public class Chart {
 
 
     // Method
-
-    public String getShamsiStartDate() {
-        return "";
-    }
-
-
-    public String getShamsiEndDate() {
-        return "";
-    }
 
     public static ArrayList<Chart> getArrayFromJson(JSONArray jsonArray) {
         ArrayList<Chart> itemlist = new ArrayList<Chart>();
@@ -109,6 +98,14 @@ public class Chart {
             e.printStackTrace();
         }
         return itemlist;
+    }
+
+    public String getShamsiStartDate() {
+        return "";
+    }
+
+    public String getShamsiEndDate() {
+        return "";
     }
 
     public int getId() {

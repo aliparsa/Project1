@@ -1,47 +1,33 @@
 package com.pga.project1.Utilities;
 
+import com.pga.project1.Structures.ErrorPlaceHolder;
+
 /**
  * Created by ashkan on 8/11/2014.
  */
-public class ErrorMessage implements Comparable<ErrorMessage> {
+public class ErrorMessage {
 
 
-    public static ErrorMessage NO_CONNECTION_ERROR = new ErrorMessage("No Connection", 0);
+//    public static String NO_CONNECTION_ERROR =  "No Connection";
+//    public static String UNSUPPORTED_ENCODING = "UnsupportedEncodingException";
 
+    //-------------------------------------------------UnsupportedEncodingException
+    ErrorPlaceHolder err;
+    private Exception e;
+    private Object errSender;
 
-    //-------------------------------------------------
+    public ErrorMessage(ErrorPlaceHolder err) {
 
-    private String error;
-    private int code;
+        this.err = err;
 
-    public ErrorMessage(String error, int code){
-
-        this.setError(error);
-        this.setCode(code);
     }
 
-    public String getError() {
-        return error;
+    public Object getErrSender() {
+        return errSender;
     }
 
-    public void setError(String error) {
-        this.error = error;
+    public void setErrSender(Object errSender) {
+        this.errSender = errSender;
     }
 
-    public int getCode() {
-        return code;
-    }
-
-    public void setCode(int code) {
-        this.code = code;
-    }
-
-    @Override
-    public int compareTo(ErrorMessage errorMessage) {
-        if(this.code == errorMessage.code){
-            return 0;
-        }else {
-            return 1;
-        }
-    }
 }

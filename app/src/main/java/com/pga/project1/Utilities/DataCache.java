@@ -1,7 +1,5 @@
 package com.pga.project1.Utilities;
 
-import com.pga.project1.Adapters.ListViewCustomAdapter;
-
 import org.json.JSONArray;
 
 import java.util.Map;

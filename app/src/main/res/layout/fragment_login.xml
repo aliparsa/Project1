@@ -20,21 +20,21 @@
         <EditText
             android:id="@+id/etxt_fragmentLogin_username"
             android:layout_width="200dp"
-            android:hint="Username"
-            android:layout_height="fill_parent" />
+            android:layout_height="fill_parent"
+            android:hint="Username" />
 
 
         <EditText
             android:id="@+id/etxt_fragmentLogin_password"
             android:layout_width="200dp"
-            android:hint="Password"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:hint="Password" />
 
         <Button
             android:id="@+id/btn_fragmentLogin_login"
             android:layout_width="100dp"
-            android:text="Login"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="Login" />
 
     </LinearLayout>
 

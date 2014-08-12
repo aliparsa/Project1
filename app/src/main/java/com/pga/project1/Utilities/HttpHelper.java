@@ -2,12 +2,12 @@ package com.pga.project1.Utilities;
 
 import android.content.AsyncTaskLoader;
 import android.content.Context;
-import android.graphics.Bitmap;
 
-import com.pga.project1.Intefaces.CallBackT;
+
+import com.pga.project1.Intefaces.ResponseHandler;
+import com.pga.project1.Structures.ErrorPlaceHolder;
 
 import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -15,24 +15,15 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.protocol.HTTP;
-import org.apache.http.protocol.HttpContext;
 import org.apache.http.util.EntityUtils;
-import org.json.JSONArray;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Deque;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
-import java.util.Queue;
-import java.util.Stack;
 
 /**
  * Created by ashkan on 8/11/2014.
@@ -40,7 +31,7 @@ import java.util.Stack;
 public class HttpHelper {
 
     private static PriorityQueue<HttpHelper> httpUrls = new PriorityQueue<HttpHelper>();
-    private static Map<String, HttpResponse> responseCache = new HashMap<String, HttpResponse>();
+    private static Map<String, String> responseCache = new HashMap<String, String>();
 
     private String url;
     private boolean cache;
@@ -66,42 +57,46 @@ public class HttpHelper {
 
             final HttpHelper self = this;
 
-            new AsyncTaskLoader<HttpResponse>(context) {
+            new AsyncTaskLoader<String>(context) {
 
                 @Override
-                public HttpResponse loadInBackground() {
+                public String loadInBackground() {
 
                     try {
                         HttpClient httpclient = new DefaultHttpClient();
                         HttpPost httppost = new HttpPost(self.url);
 
                         if(params != null) {
-                            List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(params.length);
+                            List<BasicNameValuePair> basicNameValuePairs = new ArrayList<BasicNameValuePair>(params.length);
                             for (int i = 0; i < params.length; i++) {
                                 BasicNameValuePair param = params[i];
+                                basicNameValuePairs.add(param);
                             }
 
-                            httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+                            httppost.setEntity(new UrlEncodedFormEntity(basicNameValuePairs));
                         }
 
                         HttpResponse response = httpclient.execute(httppost);
 
-                        if(cache)
-                            cacheResponse(url, response);
+//                        if(cache)
+//                            cacheResponse(url, response);
 
-                        return response;
+                        return EntityUtils.toString(response.getEntity());
 
                     } catch (UnsupportedEncodingException ue) {
                         ue.printStackTrace();
-                        handler.error(ErrorMessage.NO_CONNECTION_ERROR);
+                        // handler.error(ErrorMessage.NO_CONNECTION_ERROR);
+                        handler.error(new ErrorMessage(ErrorPlaceHolder.UnsupportedEncodingException));
 
                     } catch (ClientProtocolException e) {
                         e.printStackTrace();
-                        handler.error(ErrorMessage.NO_CONNECTION_ERROR);
+                        //handler.error(ErrorMessage.NO_CONNECTION_ERROR);
+                        handler.error(new ErrorMessage(ErrorPlaceHolder.UnsupportedEncodingException));
 
                     } catch (IOException e) {
                         e.printStackTrace();
-                        handler.error(ErrorMessage.NO_CONNECTION_ERROR);
+                        //handler.error(ErrorMessage.NO_CONNECTION_ERROR);
+                        handler.error(new ErrorMessage(ErrorPlaceHolder.UnsupportedEncodingException));
 
                     }
 
@@ -109,7 +104,7 @@ public class HttpHelper {
                 }
 
                 @Override
-                public void deliverResult(HttpResponse data) {
+                public void deliverResult(String data) {
 
                     if(data != null) {
 
@@ -119,7 +114,7 @@ public class HttpHelper {
 
                     }else{
 
-                        handler.error(ErrorMessage.NO_CONNECTION_ERROR);
+                        handler.error(new ErrorMessage(ErrorPlaceHolder.UnsupportedEncodingException));
                     }
                 }
             }.forceLoad();
@@ -127,7 +122,7 @@ public class HttpHelper {
         }catch(Exception e){
             e.printStackTrace();
 
-            handler.error(ErrorMessage.NO_CONNECTION_ERROR);
+            handler.error(new ErrorMessage(ErrorPlaceHolder.UnsupportedEncodingException));
         }
     }
 
@@ -141,10 +136,10 @@ public class HttpHelper {
                 return;
             }
 
-            new AsyncTaskLoader<HttpResponse>(context) {
+            new AsyncTaskLoader<String>(context) {
 
                 @Override
-                public HttpResponse loadInBackground() {
+                public String loadInBackground() {
 
                     try {
 
@@ -154,30 +149,27 @@ public class HttpHelper {
                         HttpResponse response = httpclient.execute(httpGet);
 
 
-                        if(cache)
-                            cacheResponse(url, response);
+//                        if(cache)
+//                            cacheResponse(url, response);
 
-                        return response;
+                        return EntityUtils.toString(response.getEntity());
 
                     } catch (UnsupportedEncodingException ue) {
                         ue.printStackTrace();
-                        handler.error(ErrorMessage.NO_CONNECTION_ERROR);
-
+                        handler.error(new ErrorMessage(ErrorPlaceHolder.UnsupportedEncodingException));
                     } catch (ClientProtocolException e) {
                         e.printStackTrace();
-                        handler.error(ErrorMessage.NO_CONNECTION_ERROR);
-
+                        handler.error(new ErrorMessage(ErrorPlaceHolder.UnsupportedEncodingException));
                     } catch (IOException e) {
                         e.printStackTrace();
-                        handler.error(ErrorMessage.NO_CONNECTION_ERROR);
-
+                        handler.error(new ErrorMessage(ErrorPlaceHolder.UnsupportedEncodingException));
                     }
 
                     return null;
                 }
 
                 @Override
-                public void deliverResult(HttpResponse data) {
+                public void deliverResult(String data) {
 
                     if(data != null) {
 
@@ -186,7 +178,7 @@ public class HttpHelper {
                         super.deliverResult(data);
                     }else{
 
-                        handler.error(ErrorMessage.NO_CONNECTION_ERROR);
+                        handler.error(new ErrorMessage(ErrorPlaceHolder.UnsupportedEncodingException));
                     }
                 }
             }.forceLoad();
@@ -194,7 +186,7 @@ public class HttpHelper {
         }catch(Exception e){
             e.printStackTrace();
 
-            handler.error(ErrorMessage.NO_CONNECTION_ERROR);
+            handler.error(new ErrorMessage(ErrorPlaceHolder.UnsupportedEncodingException));
         }
     }
 
@@ -239,7 +231,7 @@ public class HttpHelper {
         */
     }
 
-    private void cacheResponse(String url, HttpResponse response){
+    private void cacheResponse(String url, String response) {
 
         if(!responseCache.containsKey(url))
             responseCache.put(url, response);

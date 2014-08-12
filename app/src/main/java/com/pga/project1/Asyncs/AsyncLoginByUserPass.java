@@ -5,7 +5,6 @@ import android.util.Log;
 
 import com.pga.project1.Intefaces.CallBack;
 
-
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
@@ -28,15 +27,15 @@ import java.util.List;
  */
 public class AsyncLoginByUserPass extends AsyncTask<String, String, String> {
 
+    public static DefaultHttpClient httpClient;
     // Global variable
     String type;
     String url;
-
+    CallBack callBack;
+    JSONObject jsonObject;
     // variables for login
     private String password;
     private String username;
-    CallBack callBack;
-
 
     public AsyncLoginByUserPass(String url, String username, String password, CallBack callBack) {
         this.callBack = callBack;
@@ -45,9 +44,6 @@ public class AsyncLoginByUserPass extends AsyncTask<String, String, String> {
         this.url = url;
         this.type = "login";
     }
-
-    JSONObject jsonObject;
-    public static DefaultHttpClient httpClient;
 
     @Override
     protected String doInBackground(String... strings) {

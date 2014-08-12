@@ -4,6 +4,8 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.pga.project1.Intefaces.CallBack;
+import com.pga.project1.Structures.ErrorPlaceHolder;
+import com.pga.project1.Utilities.ErrorMessage;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -22,26 +24,21 @@ import java.io.UnsupportedEncodingException;
  */
 public class AsyncGetChildById extends AsyncTask<String, String, Integer> {
 
+    public static DefaultHttpClient httpClient;
     // Global variable
     int id;
     String url;
-
+    CallBack callBack;
+    JSONArray jsonArray;
     // variables for login
     private String password;
     private String username;
-    CallBack callBack;
-
 
     public AsyncGetChildById(String url, int id, CallBack callBack) {
         this.callBack = callBack;
         this.url = url;
         this.id = id;
     }
-
-    JSONArray jsonArray;
-
-    public static DefaultHttpClient httpClient;
-
 
     @Override
     protected Integer doInBackground(String... strings) {
@@ -100,19 +97,22 @@ public class AsyncGetChildById extends AsyncTask<String, String, Integer> {
                     break;
 
                 case 11:
-                    callBack.onError("AsyncGetChildById > UnsupportedEncodingException");
+                    callBack.onError(new ErrorMessage(ErrorPlaceHolder.UnsupportedEncodingException));
                     break;
 
                 case 12:
-                    callBack.onError("AsyncGetChildById > ClientProtocolException");
+                    // callBack.onError("AsyncGetChildById > ClientProtocolException");
+                    callBack.onError(new ErrorMessage(ErrorPlaceHolder.UnsupportedEncodingException));
                     break;
 
                 case 13:
-                    callBack.onError("AsyncGetChildById > IOException");
+                    // callBack.onError("AsyncGetChildById > IOException");
+                    callBack.onError(new ErrorMessage(ErrorPlaceHolder.UnsupportedEncodingException));
                     break;
 
                 case 14:
-                    callBack.onError("AsyncGetChildById > JSONException");
+                    //callBack.onError("AsyncGetChildById > JSONException");
+                    callBack.onError(new ErrorMessage(ErrorPlaceHolder.UnsupportedEncodingException));
                     break;
 
 

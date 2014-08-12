@@ -5,7 +5,6 @@ import android.util.Log;
 
 import com.pga.project1.Intefaces.CallBack;
 
-
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
@@ -29,25 +28,23 @@ import java.util.List;
  */
 public class AsyncLoad extends AsyncTask<String, String, String> {
 
+    public static DefaultHttpClient httpClient;
     // Global variable
     String type;
     String url;
-
+    JSONArray jsonArray;
     // variables for login
     private String password;
     private String username;
     private CallBack callBackLogin;
-
     // variables for get projects
     private CallBack callBackJson;
-
 
     public AsyncLoad(String url, CallBack callBackJson) {
         this.callBackJson = callBackJson;
         this.url = url;
         this.type = "get_projects";
     }
-
     public AsyncLoad(String url, String username, String password, CallBack callBack) {
         this.callBackJson = callBackJson;
         this.username = username;
@@ -55,9 +52,6 @@ public class AsyncLoad extends AsyncTask<String, String, String> {
         this.url = url;
         this.type = "login";
     }
-
-    JSONArray jsonArray;
-    public static DefaultHttpClient httpClient;
 
     @Override
     protected String doInBackground(String... strings) {
@@ -94,9 +88,6 @@ public class AsyncLoad extends AsyncTask<String, String, String> {
                     jsonArray = new JSONArray(json);
                 }
             }
-
-
-
 
 
         } catch (UnsupportedEncodingException e) {

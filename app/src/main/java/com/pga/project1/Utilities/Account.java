@@ -17,6 +17,10 @@ public class Account {
     Context context;
 
 
+    public Account() {
+
+    }
+
     public static Account getInstant(Context context) {
 
         if (instant == null && context != null) {
@@ -27,12 +31,6 @@ public class Account {
         return instant;
 
     }
-
-
-    public Account() {
-
-    }
-
 
     public void storeToken(String token) {
         SharedPreferences app_preferences =

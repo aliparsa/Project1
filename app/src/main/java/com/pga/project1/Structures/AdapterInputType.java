@@ -5,10 +5,6 @@ import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 
-import com.pga.project1.R;
-
-import java.util.zip.Inflater;
-
 /**
  * Created by aliparsa on 8/5/2014.
  */
@@ -35,6 +31,7 @@ list of types that adapter can be handel
     public Bitmap image3;
 
     private int id;
+    private int type_id;
 
     public AdapterInputType(String type, String title, String subtitle, Bitmap icon) {
         this.type = type;
@@ -76,5 +73,13 @@ list of types that adapter can be handel
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getType_id() {
+        return type_id;
+    }
+
+    public void setType_id(int type_id) {
+        this.type_id = type_id;
     }
 }

@@ -8,26 +8,26 @@
         android:id="@+id/lv_image"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_margin="5dp"
         android:background="#ffffff"
+        android:orientation="vertical"
         android:visibility="visible">
 
         <ImageView
             android:id="@+id/icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_launcher"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/ic_launcher" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/lv_icon_title_subtitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_margin="5dp"
         android:background="#ffffff"
+        android:orientation="vertical"
         android:visibility="visible">
 
 
@@ -45,32 +45,42 @@
                     android:id="@+id/icon2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_launcher"
-                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true" />
+                    android:layout_alignParentTop="true"
+                    android:src="@drawable/ic_launcher" />
 
                 <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:id="@+id/linearLayout"
-                    android:layout_toLeftOf="@+id/icon2">
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@+id/icon2"
+                    android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/title"
                         android:layout_width="wrap_content"
-                        android:textColor="@color/NaviDrawerItem_title"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="right"
                         android:text="salam"
-                        android:layout_gravity="right" />
+                        android:textColor="@color/NaviDrawerItem_title" />
 
                     <TextView
                         android:id="@+id/subtitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:text="salamsalamsalamsalam"
                         android:textColor="@color/NaviDrawerItem_subtitle"
-                        android:text="salamsalamsalamsalam" />
+                        android:layout_gravity="right" />
+
+                    <ProgressBar
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:id="@+id/progressBar2"
+                        android:layout_margin="5dp"
+                        android:indeterminate="false" />
+
 
                 </LinearLayout>
 

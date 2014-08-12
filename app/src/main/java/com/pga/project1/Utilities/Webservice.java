@@ -1,11 +1,13 @@
 package com.pga.project1.Utilities;
 
-import com.pga.project1.Asyncs.AsyncGetChildById;
-import com.pga.project1.Asyncs.AsyncLoad;
-import com.pga.project1.Asyncs.AsyncLoginByUserPass;
-import com.pga.project1.Intefaces.CallBack;
-import com.pga.project1.Structures.Chart;
+import android.content.Context;
 
+import com.pga.project1.Intefaces.CallBack;
+import com.pga.project1.Intefaces.ResponseHandler;
+import com.pga.project1.Structures.Chart;
+import com.pga.project1.Structures.ErrorPlaceHolder;
+
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,74 +22,122 @@ import java.util.ArrayList;
 public class Webservice {
     //this is sparta
 
-    final static public String SERVER_ADDRESS = "http://192.168.0.152:8099";
-    final static public String GET_PROJECTS_URL = SERVER_ADDRESS + "/get_projects.json";
-    final static public String LOGIN_URL = SERVER_ADDRESS + "/login";
+    final static public String SERVER_ADDRESS = "http://192.168.0.152:8099/pm";
 
-    public static void getProjects(final CallBack<ArrayList<Chart>> callBack) {
 
-        CallBack callback_json = new CallBack<JSONArray>() {
-            @Override
-            public void onSuccess(JSONArray result) {
-                ArrayList<Chart> chartList = Chart.getArrayFromJson(result);
-                callBack.onSuccess(chartList);
-            }
+    public static void getProjects(Context context, final CallBack<ArrayList<Chart>> callBack) {
 
-            @Override
-            public void onError(String errorMessage) {
+        HttpHelper helper = new HttpHelper(context, SERVER_ADDRESS, false, 0);
 
-                callBack.onError(errorMessage);
-            }
+        BasicNameValuePair[] arr = {
+                new BasicNameValuePair("tag", "get_projects")
         };
-        new AsyncLoad(GET_PROJECTS_URL, callback_json).execute();
+        helper.postHttp(arr, new ResponseHandler() {
+            @Override
+            public void handleResponse(String response) {
+
+                try {
+
+
+                    JSONArray jsonArray = new JSONArray(response);
+
+                    ArrayList<Chart> chartList = Chart.getArrayFromJson(jsonArray);
+                    callBack.onSuccess(chartList);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void error(ErrorMessage err) {
+
+            }
+        });
     }
 
     //-----------------------------------------------------------------------------
-    public static void GetChildOfID(final int id, final CallBack callBackGetChildOfId) {
+    public static void GetChildOfID(Context context, final int id, final CallBack callBack) {
 
-        if (DataCache.get(id + "") != null) {
+        HttpHelper helper = new HttpHelper(context, SERVER_ADDRESS, false, 0);
 
-            callBackGetChildOfId.onSuccess(Chart.getArrayFromJson(DataCache.get(id + "")));
-        } else {
-            new AsyncGetChildById(GET_PROJECTS_URL, id, new CallBack<JSONArray>() {
-                @Override
-                public void onSuccess(JSONArray json) {
+        BasicNameValuePair[] arr = {
+                new BasicNameValuePair("tag", "get_projects")
+        };
+        helper.postHttp(arr, new ResponseHandler() {
+            @Override
+            public void handleResponse(String response) {
 
-                    DataCache.set(id + "", json);
-                    callBackGetChildOfId.onSuccess(Chart.getArrayFromJson(json));
+                try {
+
+
+                    JSONArray jsonArray = new JSONArray(response);
+
+                    ArrayList<Chart> chartList = Chart.getArrayFromJson(jsonArray);
+                    callBack.onSuccess(chartList);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
 
-                @Override
-                public void onError(String json) {
+            }
 
-                }
-            }).execute();
-        }
+            @Override
+            public void error(ErrorMessage err) {
+
+            }
+        });
+
     }
 
     //------------------------------------------------------------------------
-    public static void Login(String username, String password, final CallBack callbackLogin) {
-        new AsyncLoginByUserPass(LOGIN_URL, username, password, new CallBack<JSONObject>() {
+    public static void Login(Context context, String username, String password, final CallBack callback) {
+
+
+        HttpHelper helper = new HttpHelper(context, SERVER_ADDRESS, false, 0);
+
+        BasicNameValuePair[] arr = {
+                new BasicNameValuePair("tag", "login"),
+                new BasicNameValuePair("username", username),
+                new BasicNameValuePair("password", password)
+        };
+
+        helper.postHttp(arr, new ResponseHandler() {
             @Override
-            public void onSuccess(JSONObject jsonObject) {
+            public void handleResponse(String response) {
+
                 try {
+
+
+                    JSONObject jsonObject = new JSONObject(response);
+
                     if (jsonObject.has("result"))
                         if (jsonObject.get("result").equals("ok")) {
-                            callbackLogin.onSuccess(jsonObject.get("token").toString());
+                            callback.onSuccess(jsonObject.get("token").toString());
                         } else if (jsonObject.get("result").equals("error")) {
-                            callbackLogin.onError(jsonObject.get("error_message").toString());
 
+                            callback.onError(new ErrorMessage(ErrorPlaceHolder.err2));
                         }
-                } catch (JSONException e) {
 
+
+//                    ArrayList<Chart> chartList = Chart.getArrayFromJson(jsonArray);
+//                    callback.onSuccess(chartList);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
+
+
             }
 
             @Override
-            public void onError(String jsonObject) {
+            public void error(ErrorMessage err) {
 
             }
-        }).execute();
+        });
 
     }
 

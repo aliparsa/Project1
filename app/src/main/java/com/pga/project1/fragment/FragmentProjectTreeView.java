@@ -16,6 +16,7 @@ import com.pga.project1.MainActivity;
 import com.pga.project1.R;
 import com.pga.project1.Structures.AdapterInputType;
 import com.pga.project1.Structures.Chart;
+import com.pga.project1.Utilities.ErrorMessage;
 import com.pga.project1.Utilities.Webservice;
 
 import java.util.ArrayList;
@@ -50,7 +51,7 @@ public class FragmentProjectTreeView extends Fragment {
         final FragmentProjectTreeView self = this;
 
         if (fatherId == -1) {
-            Webservice.getProjects(new CallBack<ArrayList<Chart>>() {
+            Webservice.getProjects(getActivity(), new CallBack<ArrayList<Chart>>() {
                 @Override
                 public void onSuccess(ArrayList<Chart> result) {
                     //TODO Create Adapter
@@ -74,17 +75,18 @@ public class FragmentProjectTreeView extends Fragment {
 
                 }
 
-
                 @Override
-                public void onError(String errorMessage) {
+                public void onError(ErrorMessage err) {
                     //TODO Show Error
 
-                    Toast toast = Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT);
-                    toast.show();
+                    //Toast toast = Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT);
+                    //toast.show();
                 }
+
+
             });
         } else {
-            Webservice.GetChildOfID(fatherId, new CallBack<ArrayList<Chart>>() {
+            Webservice.GetChildOfID(getActivity(), fatherId, new CallBack<ArrayList<Chart>>() {
                 @Override
                 public void onSuccess(ArrayList<Chart> result) {
                     // Child Returned
@@ -111,9 +113,11 @@ public class FragmentProjectTreeView extends Fragment {
                 }
 
                 @Override
-                public void onError(String errorMessage) {
-                    // Error Occurred
+                public void onError(ErrorMessage err) {
+
                 }
+
+
             });
         }
 
@@ -126,7 +130,7 @@ public class FragmentProjectTreeView extends Fragment {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-            //String type = ((ListViewCustomAdapter.DrawerItemHolder) view.getTag()).getType();
+            int type_id = ((ListViewCustomAdapter.DrawerItemHolder) view.getTag()).getType();
             final int object_id = ((ListViewCustomAdapter.DrawerItemHolder) view.getTag()).getObject_id();
             String item_name = ((ListViewCustomAdapter.DrawerItemHolder) view.getTag()).title.getText().toString();
 
@@ -137,19 +141,17 @@ public class FragmentProjectTreeView extends Fragment {
             ((MainActivity) getActivity()).ShowTreeFragmnet(object_id, "Project Tree View Fragment");
 
 
-
-
-            }
-
-
         }
+
+
     }
-    // ------------------------------------------------------------------------------------
-    // ------------------------------------------------------------------------------------
-    // ------------------------------------------------------------------------------------
-    // ------------------------------------------------------------------------------------
-    // ------------------------------------------------------------------------------------
-    // ------------------------------------------------------------------------------------
-    // ------------------------------------------------------------------------------------
+}
+// ------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------
 
 

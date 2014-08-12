@@ -1,4 +1,6 @@
-package com.pga.project1.Utilities;
+package com.pga.project1.Intefaces;
+
+import com.pga.project1.Utilities.ErrorMessage;
 
 import org.apache.http.HttpResponse;
 
@@ -7,6 +9,6 @@ import org.apache.http.HttpResponse;
  */
 public interface ResponseHandler {
 
-    public void handleResponse(HttpResponse response);
+    public void handleResponse(String response);
     public void error(ErrorMessage err);
 }

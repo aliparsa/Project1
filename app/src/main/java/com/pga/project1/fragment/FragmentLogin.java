@@ -2,11 +2,7 @@ package com.pga.project1.fragment;
 
 
 import android.app.Fragment;
-import android.app.FragmentManager;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.text.method.CharacterPickerDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,16 +10,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-
 import com.pga.project1.Intefaces.CallBack;
 import com.pga.project1.MainActivity;
 import com.pga.project1.R;
 import com.pga.project1.Utilities.Account;
+import com.pga.project1.Utilities.ErrorMessage;
 import com.pga.project1.Utilities.ValidationMessage;
 import com.pga.project1.Utilities.Webservice;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 /**
  * Created by ashkan on 8/9/2014.
@@ -50,7 +43,7 @@ public class FragmentLogin extends Fragment {
     //{Constructor-----------------------------------------------------
 
 
-    public FragmentLogin(){
+    public FragmentLogin() {
 
     }
     //-----------------------------------------------------Constructor}
@@ -101,16 +94,13 @@ public class FragmentLogin extends Fragment {
     }
 
 
-
-
     //-----------------------------------------------------override functions}
-
 
 
     //{Functions-----------------------------------------------------
 
     private void loginClicked(String username, String password) {
-        Webservice.Login(username, password, new CallBack<String>() {
+        Webservice.Login(getActivity(), username, password, new CallBack<String>() {
             @Override
             public void onSuccess(String token) {
 
@@ -122,11 +112,12 @@ public class FragmentLogin extends Fragment {
             }
 
             @Override
-            public void onError(String errorMessage) {
-
-                Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT).show();
+            public void onError(ErrorMessage err) {
+                //Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT).show();
 
             }
+
+
         });
 
     }
@@ -135,16 +126,14 @@ public class FragmentLogin extends Fragment {
     //-----------------------------------------------------Functions}
 
 
-
     //validations-----------------------------------------------------
 
     private boolean LoginValidation(String username, String password, ValidationMessage validationMessage) {
-        
+
         return true;
     }
 
     //-----------------------------------------------------validations}
-
 
 
     //{static Functions-----------------------------------------------------

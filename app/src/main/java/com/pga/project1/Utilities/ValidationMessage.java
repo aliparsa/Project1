@@ -11,5 +11,4 @@ public class ValidationMessage {
     List<String> messages;
 
 
-
 }

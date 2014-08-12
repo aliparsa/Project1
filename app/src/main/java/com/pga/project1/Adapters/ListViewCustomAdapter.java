@@ -21,12 +21,11 @@ import java.util.List;
  */
 public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
 
-    Context context;
-    public List<AdapterInputType> itemList;
-    int layoutResID;
-
-    String IMAGE_DRAWER_ITEM = "image";
     public static String ICON_TITLE_SUBTITLE = "icon+title+subtitle";
+    public List<AdapterInputType> itemList;
+    Context context;
+    int layoutResID;
+    String IMAGE_DRAWER_ITEM = "image";
     String FOOTER = "footer";
 
 
@@ -80,7 +79,7 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
 
                 PleaseOnlyShow(lv_image);
 
-                drawerItemHolder.setType(itemList.get(position).type);
+                drawerItemHolder.setType(itemList.get(position).getType_id());
 
                 // set item holder to view
                 view.setTag(drawerItemHolder);
@@ -105,7 +104,7 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
 
                 PleaseOnlyShow(lv_icon_title_subtitle);
 
-                drawerItemHolder.setType(itemList.get(position).type);
+                drawerItemHolder.setType(itemList.get(position).getType_id());
                 drawerItemHolder.setObject_id(itemList.get(position).getId());
 
                 // set item holder to view
@@ -130,7 +129,7 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
 
                 PleaseOnlyShow(lv_icon_title_subtitle);
 
-                drawerItemHolder.setType(itemList.get(position).type);
+                drawerItemHolder.setType(itemList.get(position).getType_id());
 
                 // set item holder to view
                 view.setTag(drawerItemHolder);
@@ -177,20 +176,28 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
         return view;
     }
 
+    public void PleaseOnlyShow(LinearLayout lv) {
+
+        lv_image.setVisibility(LinearLayout.GONE);
+        lv_icon_title_subtitle.setVisibility(LinearLayout.GONE);
+        lv.setVisibility(LinearLayout.VISIBLE);
+
+    }
+
     public static class DrawerItemHolder {
         public TextView title;
         TextView subtitle;
         ImageView icon;
         ImageView icon_in_title_subtitle;
-        private String type;
+        private int type_id;
         private int object_id;
 
-        public String getType() {
-            return type;
+        public int getType() {
+            return type_id;
         }
 
-        public void setType(String type) {
-            this.type = type;
+        public void setType(int type) {
+            this.type_id = type;
         }
 
         public int getObject_id() {
@@ -200,14 +207,6 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
         public void setObject_id(int object_id) {
             this.object_id = object_id;
         }
-    }
-
-    public void PleaseOnlyShow(LinearLayout lv) {
-
-        lv_image.setVisibility(LinearLayout.GONE);
-        lv_icon_title_subtitle.setVisibility(LinearLayout.GONE);
-        lv.setVisibility(LinearLayout.VISIBLE);
-
     }
 
 

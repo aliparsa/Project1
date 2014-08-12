@@ -2,7 +2,6 @@ package com.pga.project1.Structures;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,52 +16,46 @@ import com.pga.project1.R;
 public class ListViewItemRow {
 
 
+    TextView txt1;
+    TextView txt2;
+    TextView txt3;
+    ImageView img1;
+    //
+    ImageView img2;
+    ImageView img3;
     //
     private String text1;
     private boolean text1_flag = false;
-    private int text1_resId = R.id.txt_listViewRowItem_txt1;
-    TextView txt1;
     //
-
+    private int text1_resId = R.id.txt_listViewRowItem_txt1;
     //
     private String text2;
     private boolean text2_flag = false;
     private int text2_resId = R.id.txt_listViewRowItem_txt2;
-    TextView txt2;
     //
-
     //
     private String text3;
     private boolean text3_flag = false;
     private int text3_resId = R.id.txt_listViewRowItem_txt3;
-    TextView txt3;
-    //
-
     //
     private Bitmap image1;
+    //
     private boolean image1_flag = false;
     private int image1_resId = R.id.imgv_listViewRowItem_img1;
-    ImageView img1;
-    //
-
     //
     private Bitmap image2;
     private boolean image2_flag = false;
-    private int image2_resId = R.id.imgv_listViewRowItem_img2;
-    ImageView img2;
     //
-
+    private int image2_resId = R.id.imgv_listViewRowItem_img2;
     //
     private Bitmap image3;
     private boolean image3_flag = false;
     private int image3_resId = R.id.imgv_listViewRowItem_img3;
-    ImageView img3;
     //
-
     private int resId;
     private int type;
 
-    public ListViewItemRow(String text1){
+    public ListViewItemRow(String text1) {
         this.resId = resId;
 
         this.setText1(text1);
@@ -70,7 +63,7 @@ public class ListViewItemRow {
         this.type = 0;
     }
 
-    public ListViewItemRow(String text1, int text1_resId, int resId){
+    public ListViewItemRow(String text1, int text1_resId, int resId) {
         this.resId = resId;
 
         this.setText1(text1);
@@ -79,7 +72,7 @@ public class ListViewItemRow {
         this.type = 0;
     }
 
-    public ListViewItemRow(String text1, Bitmap image1){
+    public ListViewItemRow(String text1, Bitmap image1) {
         this.resId = resId;
 
         this.setText1(text1);
@@ -89,7 +82,7 @@ public class ListViewItemRow {
     }
 
 
-    public ListViewItemRow(String text1, int text1_resId, Bitmap image1, int image1_resId, int resId){
+    public ListViewItemRow(String text1, int text1_resId, Bitmap image1, int image1_resId, int resId) {
         this.resId = resId;
 
         this.setText1(text1);
@@ -101,7 +94,7 @@ public class ListViewItemRow {
         this.type = 1;
     }
 
-    public ListViewItemRow(String text1, String text2, Bitmap image1){
+    public ListViewItemRow(String text1, String text2, Bitmap image1) {
         this.resId = resId;
 
         this.setText1(text1);
@@ -111,7 +104,7 @@ public class ListViewItemRow {
         this.type = 3;
     }
 
-    public ListViewItemRow(String text1, int text1_resId, String text2, int text2_resId, Bitmap image1, int image1_resId, int resId){
+    public ListViewItemRow(String text1, int text1_resId, String text2, int text2_resId, Bitmap image1, int image1_resId, int resId) {
         this.resId = resId;
 
         this.setText1(text1);
@@ -121,11 +114,11 @@ public class ListViewItemRow {
         this.type = 3;
     }
 
-    public View getView(Context context, View convertView){
+    public View getView(Context context, View convertView) {
 
         View view = convertView;
 
-        if(convertView == null){
+        if (convertView == null) {
 
             LayoutInflater inflater = (LayoutInflater) context.getSystemService
                     (Context.LAYOUT_INFLATER_SERVICE);
@@ -134,17 +127,16 @@ public class ListViewItemRow {
             setContents(view);
             view.setTag(this);
 
-        }else{
+        } else {
 
             ListViewItemRow convertHolder = (ListViewItemRow) view.getTag();
 
-            if(convertHolder != null && convertHolder.resId == this.resId){
+            if (convertHolder != null && convertHolder.resId == this.resId) {
 
                 Log.i("ashkan", convertHolder.text1 + " - >" + this.text1);
                 setContents(convertHolder);
 
-            }
-            else{
+            } else {
                 LayoutInflater inflater = (LayoutInflater) context.getSystemService
                         (Context.LAYOUT_INFLATER_SERVICE);
                 view = inflater.inflate(this.resId, null);
@@ -161,58 +153,58 @@ public class ListViewItemRow {
 
     private void setContents(View view) {
 
-        if(text1_flag) {
+        if (text1_flag) {
             txt1 = (TextView) view.findViewById(text1_resId);
             txt1.setText(text1);
         }
-        if(text2_flag){
+        if (text2_flag) {
             txt2 = (TextView) view.findViewById(text2_resId);
             txt2.setText(text1);
         }
-        if(text3_flag){
+        if (text3_flag) {
             txt3 = (TextView) view.findViewById(text3_resId);
             txt3.setText(text1);
         }
 
-        if(image1_flag){
+        if (image1_flag) {
             img1 = (ImageView) view.findViewById(image1_resId);
-            if(image1 != null)
+            if (image1 != null)
                 img1.setImageBitmap(image1);
 
         }
-        if(image2_flag) {
+        if (image2_flag) {
             img2 = (ImageView) view.findViewById(image2_resId);
-            if(image2 != null)
+            if (image2 != null)
                 img2.setImageBitmap(image2);
 
         }
-        if(image3_flag){
+        if (image3_flag) {
             img3 = (ImageView) view.findViewById(image3_resId);
-            if(image3 != null)
+            if (image3 != null)
                 img3.setImageBitmap(image3);
 
         }
     }
 
-    public void setContents(ListViewItemRow holder){
+    public void setContents(ListViewItemRow holder) {
 
-        if(text1_flag) {
+        if (text1_flag) {
             holder.txt1.setText(text1);
         }
-        if(text2_flag){
+        if (text2_flag) {
             holder.txt2.setText(text1);
         }
-        if(text3_flag){
+        if (text3_flag) {
             holder.txt3.setText(text1);
         }
 
-        if(image1_flag){
+        if (image1_flag) {
             holder.img1.setImageBitmap(image1);
         }
-        if(image2_flag) {
+        if (image2_flag) {
             holder.img2.setImageBitmap(image2);
         }
-        if(image3_flag){
+        if (image3_flag) {
             holder.img3.setImageBitmap(image3);
         }
     }
