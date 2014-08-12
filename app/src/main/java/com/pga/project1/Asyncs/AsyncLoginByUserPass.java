@@ -3,21 +3,18 @@ package com.pga.project1.Asyncs;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.pga.project1.Intefaces.CallBackAsync;
-import com.pga.project1.Intefaces.CallBackJSON;
-import com.pga.project1.Intefaces.CallBackLogin;
+import com.pga.project1.Intefaces.CallBack;
+
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -38,11 +35,11 @@ public class AsyncLoginByUserPass extends AsyncTask<String, String, String> {
     // variables for login
     private String password;
     private String username;
-    CallBackAsync callBackAsync;
+    CallBack callBack;
 
 
-    public AsyncLoginByUserPass(String url, String username, String password, CallBackAsync callBackAsync) {
-        this.callBackAsync = callBackAsync;
+    public AsyncLoginByUserPass(String url, String username, String password, CallBack callBack) {
+        this.callBack = callBack;
         this.username = username;
         this.password = password;
         this.url = url;
@@ -97,7 +94,7 @@ public class AsyncLoginByUserPass extends AsyncTask<String, String, String> {
         super.onPostExecute(s);
         // TODO Handle error
         try {
-            callBackAsync.onSuccess(jsonObject);
+            callBack.onSuccess(jsonObject);
         } catch (Exception e) {
             Log.e("ali", " 3 >> " + e.getMessage());
         }

@@ -3,27 +3,19 @@ package com.pga.project1.Asyncs;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.pga.project1.Intefaces.CallBackAsync;
-import com.pga.project1.Utilities.Account;
+import com.pga.project1.Intefaces.CallBack;
 
 import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by aliparsa on 8/9/2014.
@@ -37,11 +29,11 @@ public class AsyncGetChildById extends AsyncTask<String, String, Integer> {
     // variables for login
     private String password;
     private String username;
-    CallBackAsync callBackAsync;
+    CallBack callBack;
 
 
-    public AsyncGetChildById(String url, int id, CallBackAsync callBackAsync) {
-        this.callBackAsync = callBackAsync;
+    public AsyncGetChildById(String url, int id, CallBack callBack) {
+        this.callBack = callBack;
         this.url = url;
         this.id = id;
     }
@@ -104,23 +96,23 @@ public class AsyncGetChildById extends AsyncTask<String, String, Integer> {
         try {
             switch (result) {
                 case 0:
-                    callBackAsync.onSuccess(jsonArray);
+                    callBack.onSuccess(jsonArray);
                     break;
 
                 case 11:
-                    callBackAsync.onError("AsyncGetChildById > UnsupportedEncodingException");
+                    callBack.onError("AsyncGetChildById > UnsupportedEncodingException");
                     break;
 
                 case 12:
-                    callBackAsync.onError("AsyncGetChildById > ClientProtocolException");
+                    callBack.onError("AsyncGetChildById > ClientProtocolException");
                     break;
 
                 case 13:
-                    callBackAsync.onError("AsyncGetChildById > IOException");
+                    callBack.onError("AsyncGetChildById > IOException");
                     break;
 
                 case 14:
-                    callBackAsync.onError("AsyncGetChildById > JSONException");
+                    callBack.onError("AsyncGetChildById > JSONException");
                     break;
 
 

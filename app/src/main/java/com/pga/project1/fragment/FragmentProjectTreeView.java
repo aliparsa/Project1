@@ -11,13 +11,11 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.pga.project1.Adapters.ListViewCustomAdapter;
-import com.pga.project1.Intefaces.CallBackArraylist;
-import com.pga.project1.Intefaces.CallBackGetChildOfId;
+import com.pga.project1.Intefaces.CallBack;
 import com.pga.project1.MainActivity;
 import com.pga.project1.R;
 import com.pga.project1.Structures.AdapterInputType;
 import com.pga.project1.Structures.Chart;
-import com.pga.project1.Utilities.DataCache;
 import com.pga.project1.Utilities.Webservice;
 
 import java.util.ArrayList;
@@ -52,7 +50,7 @@ public class FragmentProjectTreeView extends Fragment {
         final FragmentProjectTreeView self = this;
 
         if (fatherId == -1) {
-            Webservice.getProjects(new CallBackArraylist<Chart>() {
+            Webservice.getProjects(new CallBack<ArrayList<Chart>>() {
                 @Override
                 public void onSuccess(ArrayList<Chart> result) {
                     //TODO Create Adapter
@@ -86,7 +84,7 @@ public class FragmentProjectTreeView extends Fragment {
                 }
             });
         } else {
-            Webservice.GetChildOfID(fatherId, new CallBackGetChildOfId() {
+            Webservice.GetChildOfID(fatherId, new CallBack<ArrayList<Chart>>() {
                 @Override
                 public void onSuccess(ArrayList<Chart> result) {
                     // Child Returned

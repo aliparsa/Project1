@@ -3,11 +3,7 @@ package com.pga.project1.Utilities;
 import com.pga.project1.Asyncs.AsyncGetChildById;
 import com.pga.project1.Asyncs.AsyncLoad;
 import com.pga.project1.Asyncs.AsyncLoginByUserPass;
-import com.pga.project1.Intefaces.CallBackArraylist;
-import com.pga.project1.Intefaces.CallBackAsync;
-import com.pga.project1.Intefaces.CallBackGetChildOfId;
-import com.pga.project1.Intefaces.CallBackJSON;
-import com.pga.project1.Intefaces.CallBackLogin;
+import com.pga.project1.Intefaces.CallBack;
 import com.pga.project1.Structures.Chart;
 
 import org.json.JSONArray;
@@ -28,9 +24,9 @@ public class Webservice {
     final static public String GET_PROJECTS_URL = SERVER_ADDRESS + "/get_projects.json";
     final static public String LOGIN_URL = SERVER_ADDRESS + "/login";
 
-    public static void getProjects(final CallBackArraylist<Chart> callBack) {
+    public static void getProjects(final CallBack<ArrayList<Chart>> callBack) {
 
-        CallBackJSON callback_json = new CallBackJSON() {
+        CallBack callback_json = new CallBack<JSONArray>() {
             @Override
             public void onSuccess(JSONArray result) {
                 ArrayList<Chart> chartList = Chart.getArrayFromJson(result);
@@ -40,22 +36,20 @@ public class Webservice {
             @Override
             public void onError(String errorMessage) {
 
-                callBack.onError(errorMessage
-
-                );
+                callBack.onError(errorMessage);
             }
         };
         new AsyncLoad(GET_PROJECTS_URL, callback_json).execute();
     }
 
     //-----------------------------------------------------------------------------
-    public static void GetChildOfID(final int id, final CallBackGetChildOfId callBackGetChildOfId) {
+    public static void GetChildOfID(final int id, final CallBack callBackGetChildOfId) {
 
         if (DataCache.get(id + "") != null) {
 
             callBackGetChildOfId.onSuccess(Chart.getArrayFromJson(DataCache.get(id + "")));
         } else {
-            new AsyncGetChildById(GET_PROJECTS_URL, id, new CallBackAsync<JSONArray>() {
+            new AsyncGetChildById(GET_PROJECTS_URL, id, new CallBack<JSONArray>() {
                 @Override
                 public void onSuccess(JSONArray json) {
 
@@ -72,8 +66,8 @@ public class Webservice {
     }
 
     //------------------------------------------------------------------------
-    public static void Login(String username, String password, final CallBackLogin callbackLogin) {
-        new AsyncLoginByUserPass(LOGIN_URL, username, password, new CallBackAsync<JSONObject>() {
+    public static void Login(String username, String password, final CallBack callbackLogin) {
+        new AsyncLoginByUserPass(LOGIN_URL, username, password, new CallBack<JSONObject>() {
             @Override
             public void onSuccess(JSONObject jsonObject) {
                 try {

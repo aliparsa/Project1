@@ -8,7 +8,8 @@ import java.util.ArrayList;
 /**
  * Created by aliparsa on 8/10/2014.
  */
-public interface CallBackAsync<T> {
+
+public interface CallBack<T> {
 
     public void onSuccess(T json);
 

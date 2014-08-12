@@ -14,8 +14,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.pga.project1.Intefaces.CallBackJSON;
-import com.pga.project1.Intefaces.CallBackLogin;
+
+import com.pga.project1.Intefaces.CallBack;
 import com.pga.project1.MainActivity;
 import com.pga.project1.R;
 import com.pga.project1.Utilities.Account;
@@ -110,7 +110,7 @@ public class FragmentLogin extends Fragment {
     //{Functions-----------------------------------------------------
 
     private void loginClicked(String username, String password) {
-        Webservice.Login(username, password, new CallBackLogin() {
+        Webservice.Login(username, password, new CallBack<String>() {
             @Override
             public void onSuccess(String token) {
 

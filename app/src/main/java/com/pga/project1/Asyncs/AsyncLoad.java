@@ -2,11 +2,9 @@ package com.pga.project1.Asyncs;
 
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.Toast;
 
-import com.pga.project1.Intefaces.CallBackAsync;
-import com.pga.project1.Intefaces.CallBackJSON;
-import com.pga.project1.Intefaces.CallBackLogin;
+import com.pga.project1.Intefaces.CallBack;
+
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -23,7 +21,6 @@ import org.json.JSONException;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,19 +36,19 @@ public class AsyncLoad extends AsyncTask<String, String, String> {
     // variables for login
     private String password;
     private String username;
-    private CallBackLogin callBackLogin;
+    private CallBack callBackLogin;
 
     // variables for get projects
-    private CallBackJSON callBackJson;
+    private CallBack callBackJson;
 
 
-    public AsyncLoad(String url, CallBackJSON callBackJson) {
+    public AsyncLoad(String url, CallBack callBackJson) {
         this.callBackJson = callBackJson;
         this.url = url;
         this.type = "get_projects";
     }
 
-    public AsyncLoad(String url, String username, String password, CallBackAsync callBackAsync) {
+    public AsyncLoad(String url, String username, String password, CallBack callBack) {
         this.callBackJson = callBackJson;
         this.username = username;
         this.password = password;
