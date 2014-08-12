@@ -52,7 +52,7 @@ public class Webservice {
 
 
     public static void Login(String username, String password, final CallBackLogin callbackLogin) {
-        new AsyncLoginByUserPass(LOGIN_URL, username, password, new CallBackAsync() {
+        new AsyncLoginByUserPass(LOGIN_URL, username, password, new CallBackAsync<JSONObject>() {
             @Override
             public void onSuccess(JSONObject jsonObject) {
                 try {
@@ -69,9 +69,11 @@ public class Webservice {
             }
 
             @Override
-            public void onError(JSONObject jsonObject) {
+            public void onError(String error) {
 
             }
+
+
         }).execute();
 
     }
