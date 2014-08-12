@@ -1,6 +1,7 @@
 package com.pga.project1.Asyncs;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.pga.project1.Intefaces.CallBackAsync;
 import com.pga.project1.Intefaces.CallBackJSON;
@@ -95,6 +96,11 @@ public class AsyncLoginByUserPass extends AsyncTask<String, String, String> {
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
         // TODO Handle error
-        callBackAsync.onSuccess(jsonObject);
+        try {
+            callBackAsync.onSuccess(jsonObject);
+        } catch (Exception e) {
+            Log.e("ali", " 3 >> " + e.getMessage());
+        }
+
     }
 }

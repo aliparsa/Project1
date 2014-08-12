@@ -12,9 +12,12 @@ import android.widget.Toast;
 
 import com.pga.project1.Adapters.ListViewCustomAdapter;
 import com.pga.project1.Intefaces.CallBackArraylist;
+import com.pga.project1.Intefaces.CallBackGetChildOfId;
+import com.pga.project1.MainActivity;
 import com.pga.project1.R;
 import com.pga.project1.Structures.AdapterInputType;
 import com.pga.project1.Structures.Chart;
+import com.pga.project1.Utilities.DataCache;
 import com.pga.project1.Utilities.Webservice;
 
 import java.util.ArrayList;
@@ -24,10 +27,13 @@ public class FragmentProjectTreeView extends Fragment {
 
     ListView lv;
 
+    int fatherId;
+
     // ------------------------------------------------------------------------------------
     public FragmentProjectTreeView() {
 
     }
+
 
     // ------------------------------------------------------------------------------------
     @Override
@@ -36,6 +42,8 @@ public class FragmentProjectTreeView extends Fragment {
 
         getActivity().getActionBar().show();
 
+        fatherId = getArguments().getInt("fatherId");
+
         View view = inflater.inflate(R.layout.fragment_layout_project_tree_view, container,
                 false);
 
@@ -43,50 +51,96 @@ public class FragmentProjectTreeView extends Fragment {
 
         final FragmentProjectTreeView self = this;
 
-        Webservice.getProjects(new CallBackArraylist<Chart>() {
-            @Override
-            public void onSuccess(ArrayList<Chart> result) {
-                //TODO Create Adapter
+        if (fatherId == -1) {
+            Webservice.getProjects(new CallBackArraylist<Chart>() {
+                @Override
+                public void onSuccess(ArrayList<Chart> result) {
+                    //TODO Create Adapter
 
-                List<AdapterInputType> itemList = new ArrayList<AdapterInputType>();
+                    List<AdapterInputType> itemList = new ArrayList<AdapterInputType>();
 
-                for (Chart chart : result) {
+                    for (Chart chart : result) {
 
-                    itemList.add(new AdapterInputType("icon+title+subtitle", chart.getName(), chart.getStart_date(), BitmapFactory.decodeResource(getResources(),
-                            R.drawable.ic_launcher)));
+                        itemList.add(new AdapterInputType("icon+title+subtitle", chart.getName(), chart.getStart_date(), BitmapFactory.decodeResource(getResources(),
+                                R.drawable.ic_launcher), chart.getId()));
+
+                    }
+
+                    ListViewCustomAdapter adapter =
+                            new ListViewCustomAdapter(getActivity(), R.layout.fragment_layout_project_tree_view, itemList);
+
+                    lv.setAdapter(adapter);
+
+                    // set on click listener
+                    lv.setOnItemClickListener(new onTreeViewClickListener());
 
                 }
 
-                ListViewCustomAdapter adapter =
-                        new ListViewCustomAdapter(self.getActivity(), R.layout.fragment_layout_project_tree_view, itemList);
 
-                lv.setAdapter(adapter);
+                @Override
+                public void onError(String errorMessage) {
+                    //TODO Show Error
 
-                lv.setOnItemClickListener(new onTreeViewClickListener());
-            }
+                    Toast toast = Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+            });
+        } else {
+            Webservice.GetChildOfID(fatherId, new CallBackGetChildOfId() {
+                @Override
+                public void onSuccess(ArrayList<Chart> result) {
+                    // Child Returned
+                    List<AdapterInputType> itemList = new ArrayList<AdapterInputType>();
+
+                    for (Chart chart : result) {
+
+                        itemList.add(new AdapterInputType("icon+title+subtitle", chart.getName(), chart.getStart_date(), BitmapFactory.decodeResource(getResources(),
+                                R.drawable.ic_launcher), chart.getId()));
+
+                    }
+
+                    // create adapter from data
+                    ListViewCustomAdapter adapter =
+                            new ListViewCustomAdapter(getActivity(), R.layout.fragment_layout_project_tree_view, itemList);
+
+                    // set adapter to lv
+                    lv.setAdapter(adapter);
+
+                    // set on click listener
+                    lv.setOnItemClickListener(new onTreeViewClickListener());
 
 
-            @Override
-            public void onError(String errorMessage) {
-                //TODO Show Error
+                }
 
-                Toast toast = Toast.makeText(self.getActivity(), errorMessage, Toast.LENGTH_SHORT);
-                toast.show();
-            }
-        });
-
+                @Override
+                public void onError(String errorMessage) {
+                    // Error Occurred
+                }
+            });
+        }
 
         return view;
     }
+
     // ------------------------------------------------------------------------------------
     public class onTreeViewClickListener implements AdapterView.OnItemClickListener {
 
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-            String type = ((ListViewCustomAdapter.DrawerItemHolder) view.getTag()).getType();
 
-            if (type.equals(ListViewCustomAdapter.ICON_TITLE_SUBTITLE)) {
-                //TODO Call  Get Child from Webservice
+            //String type = ((ListViewCustomAdapter.DrawerItemHolder) view.getTag()).getType();
+            final int object_id = ((ListViewCustomAdapter.DrawerItemHolder) view.getTag()).getObject_id();
+            String item_name = ((ListViewCustomAdapter.DrawerItemHolder) view.getTag()).title.getText().toString();
+
+
+            //Toast.makeText(getActivity(),object_id+"",Toast.LENGTH_LONG).show();
+
+
+            ((MainActivity) getActivity()).ShowTreeFragmnet(object_id, "Project Tree View Fragment");
+
+
+
+
             }
 
 
@@ -100,4 +154,4 @@ public class FragmentProjectTreeView extends Fragment {
     // ------------------------------------------------------------------------------------
     // ------------------------------------------------------------------------------------
 
-}
+

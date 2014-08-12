@@ -34,11 +34,21 @@ list of types that adapter can be handel
     public Bitmap image2;
     public Bitmap image3;
 
+    private int id;
+
     public AdapterInputType(String type, String title, String subtitle, Bitmap icon) {
         this.type = type;
         this.text1 = title;
         this.text2 = subtitle;
         this.image1 = icon;
+    }
+
+    public AdapterInputType(String type, String title, String subtitle, Bitmap icon, int id) {
+        this.type = type;
+        this.text1 = title;
+        this.text2 = subtitle;
+        this.image1 = icon;
+        this.id = id;
     }
 
     public AdapterInputType() {
@@ -58,5 +68,13 @@ list of types that adapter can be handel
         } else
             return convertView;
 
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

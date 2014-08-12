@@ -1,6 +1,8 @@
 package com.pga.project1.Asyncs;
 
 import android.os.AsyncTask;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.pga.project1.Intefaces.CallBackAsync;
 import com.pga.project1.Intefaces.CallBackJSON;
@@ -121,7 +123,10 @@ public class AsyncLoad extends AsyncTask<String, String, String> {
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
         // TODO Handle error
-
-        callBackJson.onSuccess(jsonArray);
+        try {
+            callBackJson.onSuccess(jsonArray);
+        } catch (Exception e) {
+            Log.e("ali", " 2 >> " + e.getMessage());
+        }
     }
 }

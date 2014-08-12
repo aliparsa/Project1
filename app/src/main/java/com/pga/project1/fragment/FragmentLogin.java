@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.pga.project1.Intefaces.CallBackJSON;
 import com.pga.project1.Intefaces.CallBackLogin;
+import com.pga.project1.MainActivity;
 import com.pga.project1.R;
 import com.pga.project1.Utilities.Account;
 import com.pga.project1.Utilities.ValidationMessage;
@@ -74,12 +75,9 @@ public class FragmentLogin extends Fragment {
 
 
         if (Account.getInstant(getActivity()).alreadyHaveToken()) {
-            // Call Login Fraqgment
-            Fragment frag = new FragmentProjectTreeView();
-            FragmentManager fragmentManager = getFragmentManager();
-            fragmentManager.beginTransaction()
-                    .replace(R.id.container, frag)
-                    .commit();
+
+            ((MainActivity) getActivity()).ShowTreeFragmnet(-1, "Login Fragment");
+
         }
 
 
@@ -118,6 +116,7 @@ public class FragmentLogin extends Fragment {
 
                 Toast.makeText(getActivity(), token, Toast.LENGTH_SHORT).show();
                 Account.getInstant(getActivity()).storeToken(token);
+
 
             }
 

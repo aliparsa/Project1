@@ -73,32 +73,27 @@ public class NavigationDrawerFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
 
-
-
         // Create Fake Data List
         datalist = new ArrayList<AdapterInputType>();
 
         AdapterInputType item = new AdapterInputType();
-        item.type="image";
-        item.image1= BitmapFactory.decodeResource(getResources(),
+        item.type = "image";
+        item.image1 = BitmapFactory.decodeResource(getResources(),
                 R.drawable.ic_launcher);
 
 
         AdapterInputType item2 = new AdapterInputType();
-        item2.type="icon+title+subtitle";
-        item2.image1= BitmapFactory.decodeResource(getResources(),
+        item2.type = "icon+title+subtitle";
+        item2.image1 = BitmapFactory.decodeResource(getResources(),
                 R.drawable.ic_launcher);
-        item2.text1="title here";
-        item2.text2="subtitle here";
+        item2.text1 = "title here";
+        item2.text2 = "subtitle here";
 
         AdapterInputType item3 = new AdapterInputType();
-        item3.type="icon+title+subtitle";
-        item3.image1= BitmapFactory.decodeResource(getResources(),
+        item3.type = "icon+title+subtitle";
+        item3.image1 = BitmapFactory.decodeResource(getResources(),
                 R.drawable.ic_launcher);
-        item3.text1="مدیریت پروژه";
-
-
-
+        item3.text1 = "مدیریت پروژه";
 
 
         datalist.add(item);
@@ -110,7 +105,11 @@ public class NavigationDrawerFragment extends Fragment {
         // Read in the flag indicating whether or not the user has demonstrated awareness of the
         // drawer. See PREF_USER_LEARNED_DRAWER for details.
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
+
         mUserLearnedDrawer = sp.getBoolean(PREF_USER_LEARNED_DRAWER, false);
+
+        // prevent form open navigation drawer on first run
+        mUserLearnedDrawer = true;
 
         if (savedInstanceState != null) {
             mCurrentSelectedPosition = savedInstanceState.getInt(STATE_SELECTED_POSITION);
@@ -122,7 +121,7 @@ public class NavigationDrawerFragment extends Fragment {
     }
 
     @Override
-    public void onActivityCreated (Bundle savedInstanceState) {
+    public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         // Indicate that this fragment would like to influence the set of actions in the action bar.
         setHasOptionsMenu(true);
@@ -130,7 +129,7 @@ public class NavigationDrawerFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         mDrawerListView = (ListView) inflater.inflate(
                 R.layout.fragment_navigation_drawer, container, false);
         mDrawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -139,7 +138,7 @@ public class NavigationDrawerFragment extends Fragment {
                 selectItem(position);
             }
         });
-        mDrawerListView.setAdapter(new ListViewCustomAdapter(getActivity(),R.layout.drawer_item,datalist) );
+        mDrawerListView.setAdapter(new ListViewCustomAdapter(getActivity(), R.layout.drawer_item, datalist));
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
         return mDrawerListView;
     }
@@ -286,11 +285,9 @@ public class NavigationDrawerFragment extends Fragment {
             Toast.makeText(getActivity(), "OPEN / CLOSE Navi", Toast.LENGTH_SHORT).show();
 
             // Open and close navi bar
-            if (isDrawerOpen()){
+            if (isDrawerOpen()) {
                 mDrawerLayout.closeDrawer(Gravity.END);
-            }
-            else
-            {
+            } else {
                 mDrawerLayout.openDrawer(Gravity.END);
             }
 

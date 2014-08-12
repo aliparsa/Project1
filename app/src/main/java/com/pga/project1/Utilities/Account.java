@@ -11,6 +11,7 @@ public class Account {
 
 
     static Account instant;
+    String token;
 
 
     Context context;
@@ -18,7 +19,7 @@ public class Account {
 
     public static Account getInstant(Context context) {
 
-        if (instant == null) {
+        if (instant == null && context != null) {
             instant = new Account();
             instant.context = context;
         }
@@ -42,10 +43,13 @@ public class Account {
     }
 
 
-    public String readToken() {
+    public String getToken() {
+
+        if (token != null || token.length() > 1)
+            return token;
+
         SharedPreferences app_preferences =
                 PreferenceManager.getDefaultSharedPreferences(context);
-        String token;
         token = app_preferences.getString("token", "");
         return token;
 

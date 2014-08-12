@@ -67,11 +67,11 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
             lv_icon_title_subtitle = (LinearLayout) view.findViewById(R.id.lv_icon_title_subtitle);
 
             // ITEM 1
-            if(itemList.get(position).type.equals(IMAGE_DRAWER_ITEM)){
+            if (itemList.get(position).type.equals(IMAGE_DRAWER_ITEM)) {
 
                 // define item holder
-                drawerItemHolder.icon= (ImageView) view.findViewById(R.id.icon);
-                drawerItemHolder.icon_in_title_subtitle= (ImageView) view.findViewById(R.id.icon2);
+                drawerItemHolder.icon = (ImageView) view.findViewById(R.id.icon);
+                drawerItemHolder.icon_in_title_subtitle = (ImageView) view.findViewById(R.id.icon2);
                 drawerItemHolder.title = (TextView) view.findViewById(R.id.title);
                 drawerItemHolder.subtitle = (TextView) view.findViewById(R.id.subtitle);
 
@@ -106,35 +106,35 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
                 PleaseOnlyShow(lv_icon_title_subtitle);
 
                 drawerItemHolder.setType(itemList.get(position).type);
+                drawerItemHolder.setObject_id(itemList.get(position).getId());
 
                 // set item holder to view
                 view.setTag(drawerItemHolder);
             }
 
 
-                // ITEM 3
-                if (itemList.get(position).type.equals(FOOTER)) {
+            // ITEM 3
+            if (itemList.get(position).type.equals(FOOTER)) {
 
-                    // define item holder
-                    drawerItemHolder.icon = (ImageView) view.findViewById(R.id.icon);
-                    drawerItemHolder.icon_in_title_subtitle = (ImageView) view.findViewById(R.id.icon2);
-                    drawerItemHolder.title = (TextView) view.findViewById(R.id.title);
-                    drawerItemHolder.subtitle = (TextView) view.findViewById(R.id.subtitle);
+                // define item holder
+                drawerItemHolder.icon = (ImageView) view.findViewById(R.id.icon);
+                drawerItemHolder.icon_in_title_subtitle = (ImageView) view.findViewById(R.id.icon2);
+                drawerItemHolder.title = (TextView) view.findViewById(R.id.title);
+                drawerItemHolder.subtitle = (TextView) view.findViewById(R.id.subtitle);
 
-                    // set values
-                    drawerItemHolder.icon_in_title_subtitle.setImageBitmap(itemList.get(position).image1);
-                    drawerItemHolder.title.setText(itemList.get(position).text1);
-                    drawerItemHolder.subtitle.setText(itemList.get(position).text2);
+                // set values
+                drawerItemHolder.icon_in_title_subtitle.setImageBitmap(itemList.get(position).image1);
+                drawerItemHolder.title.setText(itemList.get(position).text1);
+                drawerItemHolder.subtitle.setText(itemList.get(position).text2);
 
 
-                    PleaseOnlyShow(lv_icon_title_subtitle);
+                PleaseOnlyShow(lv_icon_title_subtitle);
 
-                    drawerItemHolder.setType(itemList.get(position).type);
+                drawerItemHolder.setType(itemList.get(position).type);
 
-                    // set item holder to view
-                    view.setTag(drawerItemHolder);
-                }
-
+                // set item holder to view
+                view.setTag(drawerItemHolder);
+            }
 
 
         } else {
@@ -146,7 +146,7 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
 
 
             // ITEM 1
-            if(itemList.get(position).type.equals(IMAGE_DRAWER_ITEM)){
+            if (itemList.get(position).type.equals(IMAGE_DRAWER_ITEM)) {
                 // set values
                 drawerItemHolder.icon.setImageBitmap(itemList.get(position).image1);
                 PleaseOnlyShow(lv_image);
@@ -155,7 +155,7 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
 
 
             // ITEM 2
-            if (itemList.get(position).type.equals(ICON_TITLE_SUBTITLE)){
+            if (itemList.get(position).type.equals(ICON_TITLE_SUBTITLE)) {
                 // set values
                 drawerItemHolder.icon_in_title_subtitle.setImageBitmap(itemList.get(position).image1);
                 drawerItemHolder.title.setText(itemList.get(position).text1);
@@ -170,7 +170,7 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
 
         // set animation
         Animation anim = AnimationUtils.loadAnimation(context,
-                R.anim.slide_from_right);
+                R.anim.slide_from_left);
         view.setAnimation(anim);
 
 
@@ -178,11 +178,12 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
     }
 
     public static class DrawerItemHolder {
-        TextView title;
+        public TextView title;
         TextView subtitle;
         ImageView icon;
         ImageView icon_in_title_subtitle;
         private String type;
+        private int object_id;
 
         public String getType() {
             return type;
@@ -191,9 +192,17 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
         public void setType(String type) {
             this.type = type;
         }
+
+        public int getObject_id() {
+            return object_id;
+        }
+
+        public void setObject_id(int object_id) {
+            this.object_id = object_id;
+        }
     }
 
-    public void  PleaseOnlyShow(LinearLayout lv){
+    public void PleaseOnlyShow(LinearLayout lv) {
 
         lv_image.setVisibility(LinearLayout.GONE);
         lv_icon_title_subtitle.setVisibility(LinearLayout.GONE);

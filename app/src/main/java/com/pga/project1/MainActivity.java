@@ -5,11 +5,14 @@ import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.widget.DrawerLayout;
 
+import com.pga.project1.fragment.FragmentLogin;
+import com.pga.project1.fragment.FragmentProjectTreeView;
 import com.pga.project1.fragment.FragmentSplash;
 import com.pga.project1.fragment.NavigationDrawerFragment;
 
@@ -138,5 +141,28 @@ public class MainActivity extends Activity
 //                    getArguments().getInt(ARG_SECTION_NUMBER));
 //        }
 //    }
+    public void ShowTreeFragmnet(int id, String CallerFragment) {
 
+        // Call ProjectTree View Fraqgment
+
+        Bundle bundle = new Bundle();
+        bundle.putInt("fatherId", id);
+
+        Fragment frag = new FragmentProjectTreeView();
+        frag.setArguments(bundle);
+        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.container, frag)
+                .addToBackStack(null)
+                .commit();
+
+    }
+
+    public void ShowLoginFragment(String CallerFragment) {
+        Fragment frag = new FragmentLogin();
+        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.container, frag)
+                .commit();
+    }
 }
