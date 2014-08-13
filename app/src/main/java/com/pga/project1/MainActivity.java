@@ -9,7 +9,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.pga.project1.Structures.Chart;
+import com.pga.project1.DataModel.Chart;
 import com.pga.project1.fragment.FragmentLogin;
 import com.pga.project1.fragment.FragmentProjectTreeView;
 import com.pga.project1.fragment.FragmentSplash;
