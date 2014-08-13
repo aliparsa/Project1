@@ -9,10 +9,11 @@ import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.pga.project1.Structures.Chart;
 import com.pga.project1.fragment.FragmentLogin;
 import com.pga.project1.fragment.FragmentProjectTreeView;
 import com.pga.project1.fragment.FragmentSplash;
-import com.pga.project1.fragment.FragmentWork;
+import com.pga.project1.fragment.FragmentWorkInfo;
 import com.pga.project1.fragment.NavigationDrawerFragment;
 
 
@@ -157,8 +158,9 @@ public class MainActivity extends Activity
     }
 
     //---------------------------------------------------------------------------------------
-    public void ShowWorkFragment(int id, String CallerFragment) {
-        Fragment frag = new FragmentWork();
+    public void ShowWorkFragment(int id, Chart chart, String CallerFragment) {
+        Fragment frag = new FragmentWorkInfo();
+        ((FragmentWorkInfo) frag).setChart(chart);
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction()
                 .replace(R.id.container, frag)

@@ -1,27 +1,23 @@
 package com.pga.project1.fragment;
 
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
+import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.LinearLayout;
 
-import com.pga.project1.Intefaces.CallBack;
-import com.pga.project1.MainActivity;
 import com.pga.project1.R;
-import com.pga.project1.Utilities.Account;
-import com.pga.project1.Utilities.ErrorMessage;
-import com.pga.project1.Utilities.ValidationMessage;
-import com.pga.project1.Utilities.Webservice;
+import com.pga.project1.Structures.Chart;
+import com.pga.project1.Viewes.ViewNameValue;
 
 /**
  * Created by ashkan on 8/9/2014.
  */
-public class FragmentWork extends Fragment {
+public class FragmentWorkInfo extends Fragment {
 
 
     // Constants-----------------------------------------------------
@@ -34,13 +30,16 @@ public class FragmentWork extends Fragment {
 
     //{Fields-----------------------------------------------------
 
+    ViewNameValue workName;
+    private Chart chart;
+    LinearLayout MainLinearLayout;
 
     //-----------------------------------------------------Fields}
 
     //{Constructor-----------------------------------------------------
 
 
-    public FragmentWork() {
+    public FragmentWorkInfo() {
 
     }
     //-----------------------------------------------------Constructor}
@@ -51,8 +50,15 @@ public class FragmentWork extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_work,
+        View view = inflater.inflate(R.layout.fragment_work_info,
                 container, false);
+
+
+        workName = new ViewNameValue(getActivity());
+        MainLinearLayout = (LinearLayout) view.findViewById(R.id.main_ln);
+
+
+
 
 
         return view;
@@ -63,7 +69,25 @@ public class FragmentWork extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        MainLinearLayout.addView(new ViewNameValue(getActivity(), "نام", chart.getName()));
+        MainLinearLayout.addView(new ViewNameValue(getActivity(), "تاریخ شروع", chart.getStart_date()));
+        MainLinearLayout.addView(new ViewNameValue(getActivity(), "پایان شروع", chart.getEnd_date()));
+        MainLinearLayout.addView(new ViewNameValue(getActivity(), "وضعیت", chart.getStatus()));
+//        MainLinearLayout.addView(new ViewNameValue(getActivity(),,));
+//        MainLinearLayout.addView(new ViewNameValue(getActivity(),,));
+//        MainLinearLayout.addView(new ViewNameValue(getActivity(),,));
+//        MainLinearLayout.addView(new ViewNameValue(getActivity(),,));
+//        MainLinearLayout.addView(new ViewNameValue(getActivity(),,));
 
+
+    }
+
+    public Chart getChart() {
+        return chart;
+    }
+
+    public void setChart(Chart chart) {
+        this.chart = chart;
     }
 
 

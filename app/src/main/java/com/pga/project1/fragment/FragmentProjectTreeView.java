@@ -141,6 +141,7 @@ public class FragmentProjectTreeView extends Fragment {
             int type_id = chart.getType_id();
             final int object_id = chart.getId();
 
+
             //String item_name = ((ListViewCustomAdapter.DrawerItemHolder) view.getTag()).title.getText().toString();
 
 
@@ -151,7 +152,7 @@ public class FragmentProjectTreeView extends Fragment {
                     ((MainActivity) getActivity()).ShowTreeFragmnet(object_id, "Project Tree View Fragment");
                     break;
                 case 1:       // item is work
-                    ((MainActivity) getActivity()).ShowWorkFragment(object_id, "Project Tree View Fragment");
+                    ((MainActivity) getActivity()).ShowWorkFragment(object_id, chart, "Project Tree View Fragment");
 
             }
 
