@@ -3,7 +3,6 @@ package com.pga.project1.Utilities;
 import android.content.AsyncTaskLoader;
 import android.content.Context;
 
-
 import com.pga.project1.Intefaces.ResponseHandler;
 import com.pga.project1.Structures.ErrorPlaceHolder;
 
@@ -38,7 +37,7 @@ public class HttpHelper {
     private int priority;
     private Context context;
 
-    public HttpHelper(Context context, String url, boolean cache, int priority){
+    public HttpHelper(Context context, String url, boolean cache, int priority) {
 
         this.url = url;
         this.cache = cache;
@@ -46,11 +45,11 @@ public class HttpHelper {
         this.context = context;
     }
 
-    public void postHttp(final BasicNameValuePair[] params, final ResponseHandler handler)  {
+    public void postHttp(final BasicNameValuePair[] params, final ResponseHandler handler) {
 
         try {
 
-            if(cache && !responseCache.containsKey(url)) {
+            if (cache && !responseCache.containsKey(url)) {
                 handler.handleResponse(responseCache.get(url));
                 return;
             }
@@ -66,7 +65,7 @@ public class HttpHelper {
                         HttpClient httpclient = new DefaultHttpClient();
                         HttpPost httppost = new HttpPost(self.url);
 
-                        if(params != null) {
+                        if (params != null) {
                             List<BasicNameValuePair> basicNameValuePairs = new ArrayList<BasicNameValuePair>(params.length);
                             for (int i = 0; i < params.length; i++) {
                                 BasicNameValuePair param = params[i];
@@ -106,32 +105,32 @@ public class HttpHelper {
                 @Override
                 public void deliverResult(String data) {
 
-                    if(data != null) {
+                    if (data != null) {
 
                         handler.handleResponse(data);
 
                         super.deliverResult(data);
 
-                    }else{
+                    } else {
 
                         handler.error(new ErrorMessage(ErrorPlaceHolder.UnsupportedEncodingException));
                     }
                 }
             }.forceLoad();
 
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
 
             handler.error(new ErrorMessage(ErrorPlaceHolder.UnsupportedEncodingException));
         }
     }
 
-    public void getHttp(final ResponseHandler handler){
+    public void getHttp(final ResponseHandler handler) {
 
         try {
 
 
-            if(cache && !responseCache.containsKey(url)) {
+            if (cache && !responseCache.containsKey(url)) {
                 handler.handleResponse(responseCache.get(url));
                 return;
             }
@@ -171,50 +170,50 @@ public class HttpHelper {
                 @Override
                 public void deliverResult(String data) {
 
-                    if(data != null) {
+                    if (data != null) {
 
                         handler.handleResponse(data);
 
                         super.deliverResult(data);
-                    }else{
+                    } else {
 
                         handler.error(new ErrorMessage(ErrorPlaceHolder.UnsupportedEncodingException));
                     }
                 }
             }.forceLoad();
 
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
 
             handler.error(new ErrorMessage(ErrorPlaceHolder.UnsupportedEncodingException));
         }
     }
 
-    public void getPostSerial(final BasicNameValuePair[] params, final ResponseHandler handler){
+    public void getPostSerial(final BasicNameValuePair[] params, final ResponseHandler handler) {
 
-        try{
+        try {
 
-            if(cache && !responseCache.containsKey(url)) {
+            if (cache && !responseCache.containsKey(url)) {
                 handler.handleResponse(responseCache.get(url));
                 return;
             }
 
-           // httpUrls.
+            // httpUrls.
             //sortUrls();
 
-            if(httpUrls.size() > 0){
+            if (httpUrls.size() > 0) {
 
                 //HttpHelper helper = httpUrls.po
             }
 
 
-        }catch (Exception e){
+        } catch (Exception e) {
 
 
         }
     }
 
-    private void sortUrls(){
+    private void sortUrls() {
 /*
         Collections.sort(httpUrls, new Comparator<HttpHelper>() {
             @Override
@@ -233,7 +232,7 @@ public class HttpHelper {
 
     private void cacheResponse(String url, String response) {
 
-        if(!responseCache.containsKey(url))
+        if (!responseCache.containsKey(url))
             responseCache.put(url, response);
     }
 }

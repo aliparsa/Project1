@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import com.pga.project1.fragment.FragmentLogin;
 import com.pga.project1.fragment.FragmentProjectTreeView;
 import com.pga.project1.fragment.FragmentSplash;
+import com.pga.project1.fragment.FragmentWork;
 import com.pga.project1.fragment.NavigationDrawerFragment;
 
 
@@ -139,6 +140,7 @@ public class MainActivity extends Activity
 //                    getArguments().getInt(ARG_SECTION_NUMBER));
 //        }
 //    }
+//----------------------------------------------------------------------------------------
     public void ShowTreeFragmnet(int id, String CallerFragment) {
 
         // Call ProjectTree View Fraqgment
@@ -152,9 +154,19 @@ public class MainActivity extends Activity
         fragmentManager.beginTransaction()
                 .replace(R.id.container, frag)
                 .commit();
-
     }
 
+    //---------------------------------------------------------------------------------------
+    public void ShowWorkFragment(int id, String CallerFragment) {
+        Fragment frag = new FragmentWork();
+        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.container, frag)
+                .addToBackStack(null)
+                .commit();
+    }
+
+    //---------------------------------------------------------------------------------------
     public void ShowLoginFragment(String CallerFragment) {
         Fragment frag = new FragmentLogin();
         FragmentManager fragmentManager = getFragmentManager();

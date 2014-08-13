@@ -28,6 +28,8 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
     String IMAGE_DRAWER_ITEM = "image";
     String FOOTER = "footer";
 
+    Object tag;
+
 
     // main linear layout in view
     LinearLayout lv_image;
@@ -73,13 +75,14 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
                 drawerItemHolder.icon_in_title_subtitle = (ImageView) view.findViewById(R.id.icon2);
                 drawerItemHolder.title = (TextView) view.findViewById(R.id.title);
                 drawerItemHolder.subtitle = (TextView) view.findViewById(R.id.subtitle);
+                drawerItemHolder.tag = itemList.get(position).getTag();
 
                 // set values
                 drawerItemHolder.icon.setImageBitmap(itemList.get(position).image1);
 
                 PleaseOnlyShow(lv_image);
 
-                drawerItemHolder.setType(itemList.get(position).getType_id());
+                //drawerItemHolder.setType(itemList.get(position).getType_id());
 
                 // set item holder to view
                 view.setTag(drawerItemHolder);
@@ -95,6 +98,7 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
                 drawerItemHolder.icon_in_title_subtitle = (ImageView) view.findViewById(R.id.icon2);
                 drawerItemHolder.title = (TextView) view.findViewById(R.id.title);
                 drawerItemHolder.subtitle = (TextView) view.findViewById(R.id.subtitle);
+                drawerItemHolder.tag = itemList.get(position).getTag();
 
                 // set values
                 drawerItemHolder.icon_in_title_subtitle.setImageBitmap(itemList.get(position).image1);
@@ -104,8 +108,8 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
 
                 PleaseOnlyShow(lv_icon_title_subtitle);
 
-                drawerItemHolder.setType(itemList.get(position).getType_id());
-                drawerItemHolder.setObject_id(itemList.get(position).getId());
+                //drawerItemHolder.setType(itemList.get(position).getType_id());
+                //drawerItemHolder.setObject_id(itemList.get(position).getId());
 
                 // set item holder to view
                 view.setTag(drawerItemHolder);
@@ -120,6 +124,7 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
                 drawerItemHolder.icon_in_title_subtitle = (ImageView) view.findViewById(R.id.icon2);
                 drawerItemHolder.title = (TextView) view.findViewById(R.id.title);
                 drawerItemHolder.subtitle = (TextView) view.findViewById(R.id.subtitle);
+                drawerItemHolder.tag = itemList.get(position).getTag();
 
                 // set values
                 drawerItemHolder.icon_in_title_subtitle.setImageBitmap(itemList.get(position).image1);
@@ -129,7 +134,7 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
 
                 PleaseOnlyShow(lv_icon_title_subtitle);
 
-                drawerItemHolder.setType(itemList.get(position).getType_id());
+                //drawerItemHolder.setType(itemList.get(position).getType_id());
 
                 // set item holder to view
                 view.setTag(drawerItemHolder);
@@ -148,6 +153,7 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
             if (itemList.get(position).type.equals(IMAGE_DRAWER_ITEM)) {
                 // set values
                 drawerItemHolder.icon.setImageBitmap(itemList.get(position).image1);
+                drawerItemHolder.tag = itemList.get(position).getTag();
                 PleaseOnlyShow(lv_image);
 
             }
@@ -159,6 +165,7 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
                 drawerItemHolder.icon_in_title_subtitle.setImageBitmap(itemList.get(position).image1);
                 drawerItemHolder.title.setText(itemList.get(position).text1);
                 drawerItemHolder.subtitle.setText(itemList.get(position).text2);
+                drawerItemHolder.tag = itemList.get(position).getTag();
                 PleaseOnlyShow(lv_icon_title_subtitle);
 
             }
@@ -189,23 +196,15 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
         TextView subtitle;
         ImageView icon;
         ImageView icon_in_title_subtitle;
-        private int type_id;
-        private int object_id;
+        private Object tag;
 
-        public int getType() {
-            return type_id;
+
+        public Object getTag() {
+            return tag;
         }
 
-        public void setType(int type) {
-            this.type_id = type;
-        }
-
-        public int getObject_id() {
-            return object_id;
-        }
-
-        public void setObject_id(int object_id) {
-            this.object_id = object_id;
+        public void setTag(Object tag) {
+            this.tag = tag;
         }
     }
 

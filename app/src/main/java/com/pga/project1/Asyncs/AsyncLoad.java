@@ -45,6 +45,7 @@ public class AsyncLoad extends AsyncTask<String, String, String> {
         this.url = url;
         this.type = "get_projects";
     }
+
     public AsyncLoad(String url, String username, String password, CallBack callBack) {
         this.callBackJson = callBackJson;
         this.username = username;

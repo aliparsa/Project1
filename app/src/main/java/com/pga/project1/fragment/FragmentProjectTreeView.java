@@ -60,7 +60,7 @@ public class FragmentProjectTreeView extends Fragment {
 
                     for (Chart chart : result) {
 
-                        itemList.add(new AdapterInputType("icon+title+subtitle", chart.getName(), chart.getStart_date(), BitmapFactory.decodeResource(getResources(),
+                        itemList.add(new AdapterInputType(chart, "icon+title+subtitle", chart.getName(), chart.getStart_date(), BitmapFactory.decodeResource(getResources(),
                                 R.drawable.ic_launcher), chart.getId()));
 
                     }
@@ -94,7 +94,7 @@ public class FragmentProjectTreeView extends Fragment {
 
                     for (Chart chart : result) {
 
-                        itemList.add(new AdapterInputType("icon+title+subtitle", chart.getName(), chart.getStart_date(), BitmapFactory.decodeResource(getResources(),
+                        itemList.add(new AdapterInputType(chart, "icon+title+subtitle", chart.getName(), chart.getStart_date(), BitmapFactory.decodeResource(getResources(),
                                 R.drawable.ic_launcher), chart.getId()));
 
                     }
@@ -130,15 +130,30 @@ public class FragmentProjectTreeView extends Fragment {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-            int type_id = ((ListViewCustomAdapter.DrawerItemHolder) view.getTag()).getType();
-            final int object_id = ((ListViewCustomAdapter.DrawerItemHolder) view.getTag()).getObject_id();
-            String item_name = ((ListViewCustomAdapter.DrawerItemHolder) view.getTag()).title.getText().toString();
+            Object tag = ((ListViewCustomAdapter.DrawerItemHolder) view.getTag()).getTag();
+            Chart chart;
+
+            if (tag instanceof Chart)
+                chart = (Chart) tag;
+            else
+                return;
+
+            int type_id = chart.getType_id();
+            final int object_id = chart.getId();
+
+            //String item_name = ((ListViewCustomAdapter.DrawerItemHolder) view.getTag()).title.getText().toString();
 
 
-            //Toast.makeText(getActivity(),object_id+"",Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), type_id + "", Toast.LENGTH_LONG).show();
 
+            switch (type_id) {
+                case 0: // item is chart
+                    ((MainActivity) getActivity()).ShowTreeFragmnet(object_id, "Project Tree View Fragment");
+                    break;
+                case 1:       // item is work
+                    ((MainActivity) getActivity()).ShowWorkFragment(object_id, "Project Tree View Fragment");
 
-            ((MainActivity) getActivity()).ShowTreeFragmnet(object_id, "Project Tree View Fragment");
+            }
 
 
         }

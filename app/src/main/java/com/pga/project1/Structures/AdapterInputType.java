@@ -33,19 +33,22 @@ list of types that adapter can be handel
     private int id;
     private int type_id;
 
-    public AdapterInputType(String type, String title, String subtitle, Bitmap icon) {
+    public Object tag;
+
+    public AdapterInputType(Object tag, String type, String title, String subtitle, Bitmap icon) {
         this.type = type;
         this.text1 = title;
         this.text2 = subtitle;
         this.image1 = icon;
     }
 
-    public AdapterInputType(String type, String title, String subtitle, Bitmap icon, int id) {
+    public AdapterInputType(Object tag, String type, String title, String subtitle, Bitmap icon, int id) {
         this.type = type;
         this.text1 = title;
         this.text2 = subtitle;
         this.image1 = icon;
         this.id = id;
+        this.tag = tag;
     }
 
     public AdapterInputType() {
@@ -81,5 +84,13 @@ list of types that adapter can be handel
 
     public void setType_id(int type_id) {
         this.type_id = type_id;
+    }
+
+    public Object getTag() {
+        return tag;
+    }
+
+    public void setTag(Object tag) {
+        this.tag = tag;
     }
 }
