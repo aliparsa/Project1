@@ -10,15 +10,32 @@
   -->
 
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#eeeeee">
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
 
-    <ListView
-        android:id="@+id/lv_fragmentProjectTreeView_treeView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-</RelativeLayout>
+        <com.pga.project1.Viewes.PathMapManager
+            android:id="@+id/pmm_fragmentProjectTreeView_pathMap"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+
+            />
+
+        <ListView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/lv_fragmentProjectTreeView_treeView"
+            android:layout_below="@+id/pmm_fragmentProjectTreeView_pathMap"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="false"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true" />
+    </LinearLayout>
+
 
 

@@ -28,6 +28,8 @@ public class ViewNameValue extends RelativeLayout {
         String strname = a.getString(R.styleable.ViewNameValue_name);
         String strvalue = a.getString(R.styleable.ViewNameValue_value);
 
+        a.recycle();
+
         name = (TextView) findViewById(R.id.txt_view_name_value_name);
         value = (TextView) findViewById(R.id.txt_view_name_value_value);
 

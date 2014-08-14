@@ -9,7 +9,9 @@ import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.pga.project1.Intefaces.PathMapObject;
 import com.pga.project1.Structures.Chart;
+import com.pga.project1.Viewes.PathMapManager;
 import com.pga.project1.fragment.FragmentLogin;
 import com.pga.project1.fragment.FragmentProjectTreeView;
 import com.pga.project1.fragment.FragmentSplash;
@@ -164,6 +166,8 @@ public class MainActivity extends Activity
         fragmentManager.beginTransaction()
                 .replace(R.id.container, frag)
                 .commit();
+
+
     }
 
     //---------------------------------------------------------------------------------------
