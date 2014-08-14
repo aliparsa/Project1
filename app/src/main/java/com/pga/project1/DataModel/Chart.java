@@ -1,4 +1,4 @@
-package com.pga.project1.Structures;
+package com.pga.project1.DataModel;
 
 import com.pga.project1.Intefaces.PathMapObject;
 
@@ -27,6 +27,7 @@ public class Chart implements PathMapObject {
     private String is_pay;
     private String root_id;
     private String work_unit;
+    private ArrayList<Feature> featureList;
 
 
     public Chart(int id, int type_id, String name, String start_date, String end_date, String personnel_id, String allow_delay, String estimated_start, String estimated_end, String status, String price, String is_pay, String root_id, String work_unit) {
@@ -174,6 +175,14 @@ public class Chart implements PathMapObject {
 
     public String getWork_unit() {
         return work_unit;
+    }
+
+    public ArrayList<Feature> getFeatureList() {
+        return featureList;
+    }
+
+    public void setFeatureList(ArrayList<Feature> featureList) {
+        this.featureList = featureList;
     }
 }
 

@@ -15,7 +15,7 @@ import com.pga.project1.Intefaces.CallBack;
 import com.pga.project1.MainActivity;
 import com.pga.project1.R;
 import com.pga.project1.Structures.AdapterInputType;
-import com.pga.project1.Structures.Chart;
+import com.pga.project1.DataModel.Chart;
 import com.pga.project1.Utilities.ErrorMessage;
 import com.pga.project1.Utilities.Webservice;
 import com.pga.project1.Viewes.PathMapManager;
@@ -79,7 +79,7 @@ public class FragmentProjectTreeView extends Fragment {
                 @Override
                 public void onError(ErrorMessage err) {
                     //TODO Show Error
-
+                    Toast.makeText(getActivity(), "Error 101", Toast.LENGTH_SHORT).show();
                     //Toast toast = Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT);
                     //toast.show();
                 }
@@ -115,7 +115,7 @@ public class FragmentProjectTreeView extends Fragment {
 
                 @Override
                 public void onError(ErrorMessage err) {
-
+                    Toast.makeText(getActivity(), "Error 102", Toast.LENGTH_SHORT).show();
                 }
 
 

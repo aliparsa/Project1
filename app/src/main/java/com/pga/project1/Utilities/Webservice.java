@@ -2,9 +2,10 @@ package com.pga.project1.Utilities;
 
 import android.content.Context;
 
+import com.pga.project1.DataModel.Feature;
 import com.pga.project1.Intefaces.CallBack;
 import com.pga.project1.Intefaces.ResponseHandler;
-import com.pga.project1.Structures.Chart;
+import com.pga.project1.DataModel.Chart;
 import com.pga.project1.Structures.ErrorPlaceHolder;
 
 import org.apache.http.message.BasicNameValuePair;
@@ -141,8 +142,43 @@ public class Webservice {
 
     }
 
-    public ArrayList<Chart> getChildesById(int id) {
-        return null;
+    //-------------------------------------------------------------------------------
+    public static void getFeatureById(Context context, int id, final CallBack callback) {
+
+        HttpHelper helper = new HttpHelper(context, SERVER_ADDRESS, false, 0);
+
+        BasicNameValuePair[] arr = {
+                new BasicNameValuePair("tag", "get_feature"),
+                new BasicNameValuePair("id", id + "")
+        };
+
+        helper.postHttp(arr, new ResponseHandler() {
+            @Override
+            public void handleResponse(String response) {
+
+                try {
+
+
+                    JSONArray jsonArray = new JSONArray(response);
+
+                    ArrayList<Feature> featureList = Feature.getArrayFromJson(jsonArray);
+                    callback.onSuccess(featureList);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+
+            @Override
+            public void error(ErrorMessage err) {
+
+            }
+        });
     }
+
     //-------------------------------------------------------------------------------
 }
