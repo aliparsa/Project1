@@ -1,19 +1,17 @@
 package com.pga.project1.Viewes;
 
+import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.ScrollView;
-import android.widget.TableLayout;
 
 import com.pga.project1.Intefaces.PathMapObject;
+import com.pga.project1.MainActivity;
 import com.pga.project1.R;
 
 import java.util.Stack;
@@ -30,14 +28,16 @@ public class PathMapManager extends LinearLayout {
         stack.push(object);
     }
 
-    public static PathMapObject pop() {
-        if (!stack.empty())
+    public static PathMapObject pop(Activity activity) {
+        if (!stack.empty()) {
+
             return stack.pop();
+        }
 
         return null;
     }
 
-    public static PathMapObject popByObject(PathMapObject object) {
+    public static PathMapObject popByObject(PathMapObject object, Activity activity) {
 
 
         if (stack.contains(object)) {
@@ -87,42 +87,66 @@ public class PathMapManager extends LinearLayout {
 
     }
 
+    @Override
+    public void onScreenStateChanged(int screenState) {
+        super.onScreenStateChanged(screenState);
 
+        refresh();
+    }
 
     public void refresh(){
 
         mainLayout.removeAllViews();
 
+        boolean isFirst = true;
+       //if()
 
 
-        for (PathMapObject object : PathMapManager.stack){
+        Button btn = null;
+
+        for (int i = stack.size() - 1; i >= 0 ; i--) {
+
+            PathMapObject object = stack.get(i);
 
             String name = object.getName();
 
-            Button btn = new Button(this.getContext());
-            btn.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+
+            ImageView img = new ImageView(this.getContext());
+            img.setScaleType(ImageView.ScaleType.CENTER);
+            img.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT));
+            img.setImageResource(R.drawable.icon_pathmap_next);//TODO add path map divider
+
+            if(!isFirst) {
+                mainLayout.addView(img);
+            }
+
+
+
+
+
+            btn = new Button(this.getContext());
+            btn.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, 25));
+            btn.setPadding(5,5,5,5);
+            btn.setTextSize(10);
+            if(!isFirst)
+                btn.setBackgroundResource(R.drawable.selector_btn_pathmap);
+            else
+                btn.setBackgroundResource(R.drawable.selector_btn_pathmap_current);
             btn.setText(name);
             btn.setTag(object.getSelf());
 
             mainLayout.addView(btn);
 
-            ImageView img = new ImageView(this.getContext());
-            img.setScaleType(ImageView.ScaleType.MATRIX);
-            img.setImageResource(R.drawable.ic_drawer);//TODO add path map divider
 
-            mainLayout.addView(img);
+            isFirst = false;
+
         }
+
 
         invalidate();
         requestLayout();
     }
 
-    public static class BackStackChanged implements FragmentManager.OnBackStackChangedListener {
 
-        @Override
-        public void onBackStackChanged() {
-
-        }
-    }
 
 }

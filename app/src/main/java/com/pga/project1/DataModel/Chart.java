@@ -133,6 +133,7 @@ public class Chart implements PathMapObject {
         return this;
     }
 
+
     public String getStart_date() {
         return start_date;
     }

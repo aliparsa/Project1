@@ -9,4 +9,5 @@ public interface PathMapObject {
     public String getName();
     public int getType();
     public Object getSelf();
+
 }

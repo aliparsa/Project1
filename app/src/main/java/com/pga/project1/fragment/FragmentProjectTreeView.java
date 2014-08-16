@@ -40,7 +40,7 @@ public class FragmentProjectTreeView extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        getActivity().getActionBar().show();
+        //getActivity().getActionBar().show();
 
         fatherId = getArguments().getInt("fatherId");
 

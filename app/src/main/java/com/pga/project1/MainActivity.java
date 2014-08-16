@@ -9,8 +9,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.pga.project1.Intefaces.PathMapObject;
-import com.pga.project1.Structures.Chart;
+import com.pga.project1.DataModel.Chart;
 import com.pga.project1.Viewes.PathMapManager;
 import com.pga.project1.fragment.FragmentLogin;
 import com.pga.project1.fragment.FragmentProjectTreeView;
@@ -32,6 +31,8 @@ public class MainActivity extends Activity
      */
     private CharSequence mTitle;
 
+    private Menu menu;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,23 +48,23 @@ public class MainActivity extends Activity
                 (DrawerLayout) findViewById(R.id.drawer_layout));
 
 
-        this.getFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
-            @Override
-            public void onBackStackChanged() {
+        this.getFragmentManager().addOnBackStackChangedListener(new BackStackChanged(this));
 
-            }
 
-        });
-    }
+        //this.changeMenuIcons(true, false);
 
-    @Override
-    public void onNavigationDrawerItemSelected(int position) {
-        // update the main content by replacing fragments
         Fragment frag = new FragmentSplash();
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction()
                 .replace(R.id.container, frag)
                 .commit();
+
+    }
+
+    @Override
+    public void onNavigationDrawerItemSelected(int position) {
+        // update the main content by replacing fragments
+
     }
 
     public void onSectionAttached(int number) {
@@ -95,9 +96,12 @@ public class MainActivity extends Activity
             // if the drawer is not showing. Otherwise, let the drawer
             // decide what to show in the action bar.
             getMenuInflater().inflate(R.menu.main, menu);
+            this.menu = menu;
             restoreActionBar();
             return true;
         }
+
+
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -113,46 +117,22 @@ public class MainActivity extends Activity
         return super.onOptionsItemSelected(item);
     }
 
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-//    public static class PlaceholderFragment extends Fragment {
-//        /**
-//         * The fragment argument representing the section number for this
-//         * fragment.
-//         */
-//        private static final String ARG_SECTION_NUMBER = "section_number";
-//
-//        /**
-//         * Returns a new instance of this fragment for the given section
-//         * number.
-//         */
-//        public static PlaceholderFragment newInstance(int sectionNumber) {
-//            PlaceholderFragment fragment = new PlaceholderFragment();
-//            Bundle args = new Bundle();
-//            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-//            fragment.setArguments(args);
-//            return fragment;
-//        }
-//
-//        public PlaceholderFragment() {
-//        }
-//
-//        @Override
-//        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-//                Bundle savedInstanceState) {
-//            View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-//            return rootView;
-//        }
-//
-//        @Override
-//        public void onAttach(Activity activity) {
-//            super.onAttach(activity);
-//            ((MainActivity) activity).onSectionAttached(
-//                    getArguments().getInt(ARG_SECTION_NUMBER));
-//        }
-//    }
 //----------------------------------------------------------------------------------------
+    public void ShowTreeFragmnet(String CallerFragment) {
+
+        // Call ProjectTree View Fraqgment
+
+        Bundle bundle = new Bundle();
+        bundle.putInt("fatherId", -1);
+
+        Fragment frag = new FragmentProjectTreeView();
+        frag.setArguments(bundle);
+        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.container, frag)
+                .commit();
+    }
+
     public void ShowTreeFragmnet(int id, String CallerFragment) {
 
         // Call ProjectTree View Fraqgment
@@ -165,9 +145,8 @@ public class MainActivity extends Activity
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction()
                 .replace(R.id.container, frag)
+                .addToBackStack(null)
                 .commit();
-
-
     }
 
     //---------------------------------------------------------------------------------------
@@ -188,5 +167,54 @@ public class MainActivity extends Activity
         fragmentManager.beginTransaction()
                 .replace(R.id.container, frag)
                 .commit();
+    }
+    //-------------------------------------------------------------------------------------
+    public void changeMenuIcons(boolean navigation, boolean back){
+
+        menu.findItem(R.id.action_navi).setVisible(navigation); // getItem(R.id.action_navi).setVisible(navigation);
+        menu.findItem(R.id.action_back).setVisible(back);
+    }
+    //-------------------------------------------------------------------------------------
+
+    public void backPressed(){
+
+        PathMapManager.pop(this);
+
+        this.getFragmentManager().popBackStack();
+       // onBackPressed();
+    }
+    //-------------------------------------------------------------------------------------
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        backPressed();
+    }
+
+    //-------------------------------------------------------------------------------------
+    public static class BackStackChanged implements FragmentManager.OnBackStackChangedListener {
+
+        private Activity activity;
+
+        public BackStackChanged(Activity activity){
+
+            this.activity = activity;
+        }
+
+        @Override
+        public void onBackStackChanged() {
+
+            int currentStackSize = activity.getFragmentManager().getBackStackEntryCount();
+
+            if(currentStackSize > 0){
+                ((MainActivity) activity).changeMenuIcons(false, true);
+            }else{
+                ((MainActivity) activity).changeMenuIcons(true, false);
+            }
+        }
+    }
+    //-------------------------------------------------------------------------------------
+    public Menu getMenu() {
+        return menu;
     }
 }
