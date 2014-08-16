@@ -18,6 +18,7 @@ import com.pga.project1.Structures.AdapterInputType;
 import com.pga.project1.DataModel.Chart;
 import com.pga.project1.Utilities.ErrorMessage;
 import com.pga.project1.Utilities.Webservice;
+import com.pga.project1.Viewes.PathMapManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +40,7 @@ public class FragmentProjectTreeView extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        getActivity().getActionBar().show();
+        //getActivity().getActionBar().show();
 
         fatherId = getArguments().getInt("fatherId");
 
@@ -150,9 +151,15 @@ public class FragmentProjectTreeView extends Fragment {
             switch (type_id) {
                 case 0: // item is chart
                     ((MainActivity) getActivity()).ShowTreeFragmnet(object_id, "Project Tree View Fragment");
+
+                    //pushing to Path Map
+                    PathMapManager.push(chart);
+
                     break;
                 case 1:       // item is work
                     ((MainActivity) getActivity()).ShowWorkFragment(object_id, chart, "Project Tree View Fragment");
+
+                    PathMapManager.push(chart);
 
             }
 

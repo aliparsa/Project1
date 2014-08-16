@@ -58,6 +58,8 @@ public class FragmentLogin extends Fragment {
                 container, false);
 
 
+        this.getActivity().getActionBar().show();
+
         return view;
     }
 
@@ -69,7 +71,7 @@ public class FragmentLogin extends Fragment {
 
         if (Account.getInstant(getActivity()).alreadyHaveToken()) {
 
-            ((MainActivity) getActivity()).ShowTreeFragmnet(-1, "Login Fragment");
+            ((MainActivity) getActivity()).ShowTreeFragmnet("Login Fragment");
 
         }
 

@@ -14,6 +14,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
@@ -80,7 +81,7 @@ public class HttpHelper {
 //                        if(cache)
 //                            cacheResponse(url, response);
 
-                        return EntityUtils.toString(response.getEntity());
+                        return EntityUtils.toString(response.getEntity(), HTTP.UTF_8);
 
                     } catch (UnsupportedEncodingException ue) {
                         ue.printStackTrace();
@@ -151,7 +152,7 @@ public class HttpHelper {
 //                        if(cache)
 //                            cacheResponse(url, response);
 
-                        return EntityUtils.toString(response.getEntity());
+                        return EntityUtils.toString(response.getEntity(), HTTP.UTF_8);
 
                     } catch (UnsupportedEncodingException ue) {
                         ue.printStackTrace();

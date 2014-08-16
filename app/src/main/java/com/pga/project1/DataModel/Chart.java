@@ -1,5 +1,7 @@
 package com.pga.project1.DataModel;
 
+import com.pga.project1.Intefaces.PathMapObject;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -9,7 +11,7 @@ import java.util.ArrayList;
 /**
  * Created by aliparsa on 8/9/2014.
  */
-public class Chart {
+public class Chart implements PathMapObject {
 
     private int id;
     private int type_id;
@@ -120,6 +122,17 @@ public class Chart {
     public String getName() {
         return name;
     }
+
+    @Override
+    public int getType() {
+        return 0;
+    }
+
+    @Override
+    public Object getSelf() {
+        return this;
+    }
+
 
     public String getStart_date() {
         return start_date;
