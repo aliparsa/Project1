@@ -181,4 +181,38 @@ public class Webservice {
     }
 
     //-------------------------------------------------------------------------------
+    public static void getTaskListByWorkId(Context context, final int id, final CallBack callBack) {
+
+        HttpHelper helper = new HttpHelper(context, SERVER_ADDRESS, false, 0);
+
+        BasicNameValuePair[] arr = {
+                new BasicNameValuePair("tag", "get_task_list"),
+                new BasicNameValuePair("id", id + "")
+        };
+        helper.postHttp(arr, new ResponseHandler() {
+            @Override
+            public void handleResponse(String response) {
+
+                try {
+
+
+                    JSONArray jsonArray = new JSONArray(response);
+
+                    ArrayList<Chart> chartList = Chart.getArrayFromJson(jsonArray);
+                    callBack.onSuccess(chartList);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void error(ErrorMessage err) {
+
+            }
+        });
+
+    }
+
 }
