@@ -1,7 +1,6 @@
 package com.pga.project1.Viewes;
 
 import android.app.Activity;
-import android.app.FragmentManager;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
@@ -11,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.pga.project1.Intefaces.PathMapObject;
-import com.pga.project1.MainActivity;
 import com.pga.project1.R;
 
 import java.util.Stack;
@@ -59,11 +57,14 @@ public class PathMapManager extends LinearLayout {
 
 
     LinearLayout mainLayout;
+    private Context context;
+    LayoutInflater inflater;
 
     public PathMapManager(Context context) {
         super(context);
+        this.context = context;
 
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.view_pathmap, this, true);
 
         mainLayout = (LinearLayout) this.findViewById(R.id.ll_viewPathMap_main);
@@ -76,7 +77,7 @@ public class PathMapManager extends LinearLayout {
         super(context);
 
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.ViewNameValue);
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.view_pathmap, this, true);
 
         a.recycle();
@@ -123,11 +124,14 @@ public class PathMapManager extends LinearLayout {
 
 
 
-
-            btn = new Button(this.getContext());
+           // LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+           // LinearLayout view = (LinearLayout)LayoutInflater.from(this).inflate(R.layout.my_button, null);
+            btn = (Button) inflater.inflate(R.layout.path_map_button, null);
+            /*
+            btn =  new Button(this.getContext());
             btn.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, 25));
             btn.setPadding(5,5,5,5);
-            btn.setTextSize(10);
+            btn.setTextSize(10);*/
             if(!isFirst)
                 btn.setBackgroundResource(R.drawable.selector_btn_pathmap);
             else
