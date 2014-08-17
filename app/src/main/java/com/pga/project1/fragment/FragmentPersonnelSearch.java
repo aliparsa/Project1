@@ -11,6 +11,7 @@ import android.widget.SearchView;
 import com.pga.project1.Adapters.ListViewCustomAdapter;
 import com.pga.project1.DataModel.Personnel;
 import com.pga.project1.Intefaces.CallBack;
+import com.pga.project1.MainActivity;
 import com.pga.project1.R;
 import com.pga.project1.Structures.AdapterInputType;
 import com.pga.project1.Utilities.ErrorMessage;
@@ -42,9 +43,6 @@ public class FragmentPersonnelSearch extends Fragment {
     //{Constructor-----------------------------------------------------
     public FragmentPersonnelSearch(){
 
-        adapter = new ListViewCustomAdapter(this.getActivity(),
-                R.layout.drawer_item, new ArrayList<AdapterInputType>());
-
     }
     //-----------------------------------------------------Constructor}
 
@@ -65,9 +63,21 @@ public class FragmentPersonnelSearch extends Fragment {
         searchView = (SearchView) view.findViewById(R.id.srchv_searchPersonnel_searchName);
         listView = (ListView) view.findViewById(R.id.lv_searchPersonnel_results);
 
+        adapter = new ListViewCustomAdapter(this.getActivity(),
+                R.layout.drawer_item, new ArrayList<AdapterInputType>());
+
+        listView.setAdapter(adapter);
+
         searchView.setOnQueryTextListener(new onPersonnelSearchListener());
 
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        ((MainActivity) getActivity()).hideTabs();
     }
 
 
@@ -76,7 +86,7 @@ public class FragmentPersonnelSearch extends Fragment {
 
     //{Functions-----------------------------------------------------
 
-    private void loadPersonals(final String str){
+    protected void loadPersonals(final String str){
 
         Webservice.searchPersonnel(this.getActivity(), str , new CallBack<ArrayList<Personnel>>() {
             @Override
@@ -114,12 +124,14 @@ public class FragmentPersonnelSearch extends Fragment {
     //-----------------------------------------------------static Functions}
 
     //{static callback classes-----------------------------------------------------
-    private static class onPersonnelSearchListener implements SearchView.OnQueryTextListener {
+    private class onPersonnelSearchListener implements SearchView.OnQueryTextListener {
 
 
         @Override
         public boolean onQueryTextSubmit(String s) {
-            return false;
+            loadPersonals(s);
+
+            return true;
         }
 
         @Override

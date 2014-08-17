@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -106,6 +107,15 @@ public class FragmentWork extends Fragment {
     private void prepareTasks() {
 
         final ListView lv = (ListView) ll_work_tasks.findViewById(R.id.lv_fragmentWork_task_taskviewr);
+        final Button btnSearch = (Button) ll_work_tasks.findViewById(R.id.btn_fragmentWork_Taskslist_personelPicker);
+
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((MainActivity) getActivity()).ShowPersonelSearch();
+            }
+        });
+
         Webservice.getTaskListByWorkId(getActivity(), chart.getId(), new CallBack<ArrayList<Chart>>() {
             @Override
             public void onSuccess(ArrayList<Chart> taskList) {
@@ -313,7 +323,5 @@ public class FragmentWork extends Fragment {
 
     }
 
-    public void PersonelPickerClicked(View view) {
-        ((MainActivity) getActivity()).ShowPersonelSearch();
-    }
+
 }

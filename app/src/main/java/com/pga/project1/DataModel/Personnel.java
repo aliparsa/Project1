@@ -34,6 +34,8 @@ public class Personnel {
 
     public static ArrayList<Personnel> getArrayFromJson(JSONArray jsonArray) {
 
+        ArrayList<Personnel> array = new ArrayList<Personnel>();
+
         try {
 
             for (int i = 0; i < jsonArray.length(); i++) {
@@ -48,7 +50,7 @@ public class Personnel {
                 p.phone_number = json.getString("phone_number");
 
                 //String json
-
+                array.add(p);
             }
 
         } catch (JSONException e) {
@@ -56,7 +58,7 @@ public class Personnel {
         }
 
 
-        return null;
+        return array;
     }
 
 
