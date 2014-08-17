@@ -106,6 +106,7 @@ public class FragmentPersonnelSearch extends Fragment {
         });
     }
 
+
     //-----------------------------------------------------Functions}
 
     //{static Functions-----------------------------------------------------

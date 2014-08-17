@@ -61,8 +61,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Add Personel To Work"
-                android:id="@+id/button"
-                android:layout_gravity="center_vertical" />
+                android:id="@+id/btn_fragmentWork_Taskslist_personelPicker"
+                android:layout_gravity="center_vertical"
+                android:onClick="PersonelPickerClicked" />
 
             <ListView
                 android:layout_width="wrap_content"
