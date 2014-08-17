@@ -15,6 +15,7 @@ import com.pga.project1.fragment.FragmentLogin;
 import com.pga.project1.fragment.FragmentProjectTreeView;
 import com.pga.project1.fragment.FragmentSplash;
 import com.pga.project1.fragment.FragmentWorkInfo;
+import com.pga.project1.fragment.FragmentWorkPersonnel;
 import com.pga.project1.fragment.NavigationDrawerFragment;
 
 
@@ -133,15 +134,13 @@ public class MainActivity extends Activity
                 .commit();
     }
 
-    public void ShowTreeFragmnet(int id, String CallerFragment) {
+    public void ShowTreeFragmnet(Chart chart, String CallerFragment) {
 
         // Call ProjectTree View Fraqgment
 
-        Bundle bundle = new Bundle();
-        bundle.putInt("fatherId", id);
 
         Fragment frag = new FragmentProjectTreeView();
-        frag.setArguments(bundle);
+        ((FragmentProjectTreeView) frag).setChart(chart);
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction()
                 .replace(R.id.container, frag)
@@ -150,7 +149,7 @@ public class MainActivity extends Activity
     }
 
     //---------------------------------------------------------------------------------------
-    public void ShowWorkFragment(int id, Chart chart, String CallerFragment) {
+    public void ShowWorkFragment(Chart chart, String CallerFragment) {
         Fragment frag = new FragmentWorkInfo();
         ((FragmentWorkInfo) frag).setChart(chart);
         FragmentManager fragmentManager = getFragmentManager();
@@ -160,6 +159,16 @@ public class MainActivity extends Activity
                 .commit();
     }
 
+    //---------------------------------------------------------------------------------------
+    public void ShowWorkPersonelFragment(Chart chart, String CallerFragment) {
+        Fragment frag = new FragmentWorkPersonnel();
+        ((FragmentWorkPersonnel) frag).setChart(chart);
+        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.container, frag)
+                .addToBackStack(null)
+                .commit();
+    }
     //---------------------------------------------------------------------------------------
     public void ShowLoginFragment(String CallerFragment) {
         Fragment frag = new FragmentLogin();

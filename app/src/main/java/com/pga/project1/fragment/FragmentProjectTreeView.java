@@ -26,7 +26,7 @@ import java.util.List;
 public class FragmentProjectTreeView extends Fragment {
 
     ListView lv;
-
+    private Chart chart;
     int fatherId;
 
     // ------------------------------------------------------------------------------------
@@ -42,7 +42,7 @@ public class FragmentProjectTreeView extends Fragment {
 
         //getActivity().getActionBar().show();
 
-        fatherId = getArguments().getInt("fatherId");
+        fatherId = chart.getId();
 
         View view = inflater.inflate(R.layout.fragment_layout_project_tree_view, container,
                 false);
@@ -125,6 +125,10 @@ public class FragmentProjectTreeView extends Fragment {
         return view;
     }
 
+    public void setChart(Chart chart) {
+        this.chart = chart;
+    }
+
     // ------------------------------------------------------------------------------------
     public class onTreeViewClickListener implements AdapterView.OnItemClickListener {
 
@@ -140,7 +144,6 @@ public class FragmentProjectTreeView extends Fragment {
                 return;
 
             int type_id = chart.getType_id();
-            final int object_id = chart.getId();
 
 
             //String item_name = ((ListViewCustomAdapter.DrawerItemHolder) view.getTag()).title.getText().toString();
@@ -150,14 +153,14 @@ public class FragmentProjectTreeView extends Fragment {
 
             switch (type_id) {
                 case 0: // item is chart
-                    ((MainActivity) getActivity()).ShowTreeFragmnet(object_id, "Project Tree View Fragment");
+                    ((MainActivity) getActivity()).ShowTreeFragmnet(chart, "Project Tree View Fragment");
 
                     //pushing to Path Map
                     PathMapManager.push(chart);
 
                     break;
                 case 1:       // item is work
-                    ((MainActivity) getActivity()).ShowWorkFragment(object_id, chart, "Project Tree View Fragment");
+                    ((MainActivity) getActivity()).ShowWorkFragment(chart, "Project Tree View Fragment");
 
                     PathMapManager.push(chart);
 
