@@ -5,10 +5,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import com.pga.project1.Adapters.ListViewCustomAdapter;
+import com.pga.project1.DataModel.Chart;
 import com.pga.project1.DataModel.Personnel;
 import com.pga.project1.Intefaces.CallBack;
 import com.pga.project1.MainActivity;
@@ -66,7 +69,7 @@ public class FragmentPersonnelSearch extends Fragment {
         adapter = new ListViewCustomAdapter(this.getActivity(),
                 R.layout.drawer_item, new ArrayList<AdapterInputType>());
 
-        listView.setAdapter(adapter);
+        // listView.setAdapter(adapter);
 
         searchView.setOnQueryTextListener(new onPersonnelSearchListener());
 
@@ -105,8 +108,12 @@ public class FragmentPersonnelSearch extends Fragment {
                     listItem.add(adapterInputType);
                 }
 
-                adapter.itemList = listItem;
-                adapter.notifyDataSetChanged();
+                adapter = new ListViewCustomAdapter(getActivity(),
+                        R.layout.drawer_item, listItem);
+
+                listView.setAdapter(adapter);
+                listView.setOnItemClickListener(new onPersonnelClickListener());
+
             }
 
             @Override
@@ -130,7 +137,7 @@ public class FragmentPersonnelSearch extends Fragment {
         @Override
         public boolean onQueryTextSubmit(String s) {
             loadPersonals(s);
-
+            searchView.clearFocus();
             return true;
         }
 
@@ -149,4 +156,23 @@ public class FragmentPersonnelSearch extends Fragment {
     //{Factory function--------------------------------------------------
 
     //---------------------------------------------------Factory function}
+
+    public class onPersonnelClickListener implements AdapterView.OnItemClickListener {
+
+        @Override
+        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+            Object tag = ((ListViewCustomAdapter.DrawerItemHolder) view.getTag()).getTag();
+            Personnel personnel;
+
+            if (tag instanceof Personnel)
+                personnel = (Personnel) tag;
+            else
+                return;
+
+            Toast.makeText(getActivity(), personnel.getFirst_name() + " :) :)", Toast.LENGTH_LONG).show();
+        }
+
+
+    }
 }

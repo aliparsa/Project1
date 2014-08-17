@@ -54,7 +54,9 @@ public class FragmentWork extends Fragment {
     LinearLayout ll_work_tasks;
     LinearLayout ll_work_report;
 
-    private Personnel selectedPersonnelFromPicker;
+    // fill when we come back from personel picker
+    private boolean comeFromPicker = false;
+    private Personnel selectedPersonnel;
 
 
     //-----------------------------------------------------Fields}
@@ -92,6 +94,8 @@ public class FragmentWork extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
 
+        CheckComeFromPersonnel();
+                
         prepareInfo();
 
         prepareTasks();
@@ -99,6 +103,9 @@ public class FragmentWork extends Fragment {
         prepareReport();
 
 
+    }
+
+    private void CheckComeFromPersonnel() {
     }
 
     private void prepareReport() {
@@ -300,12 +307,21 @@ public class FragmentWork extends Fragment {
 
     }
 
-    public Personnel getSelectedPersonelFromPicker() {
-        return selectedPersonnelFromPicker;
+
+    public boolean isComeFromPicker() {
+        return comeFromPicker;
     }
 
-    public void setSelectedPersonelFromPicker(Personnel selectedPersonelFromPicker) {
-        this.selectedPersonnelFromPicker = selectedPersonelFromPicker;
+    public void setComeFromPicker(boolean comeFromPicker) {
+        this.comeFromPicker = comeFromPicker;
+    }
+
+    public Personnel getSelectedPersonnel() {
+        return selectedPersonnel;
+    }
+
+    public void setSelectedPersonnel(Personnel selectedPersonnel) {
+        this.selectedPersonnel = selectedPersonnel;
     }
 
     //-----------------------------------------------------Functions}
