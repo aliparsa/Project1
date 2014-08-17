@@ -108,7 +108,7 @@ public class FragmentLogin extends Fragment {
 
                 Toast.makeText(getActivity(), token, Toast.LENGTH_SHORT).show();
                 Account.getInstant(getActivity()).storeToken(token);
-                ((MainActivity) getActivity()).ShowTreeFragmnet(-1, "Login Fragment");
+                ((MainActivity) getActivity()).ShowTreeFragmnet("Login Fragment");
 
 
             }

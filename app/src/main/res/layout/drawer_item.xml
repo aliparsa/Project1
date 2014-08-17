@@ -79,7 +79,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="10dp"
                         android:layout_margin="5dp"
-                        android:indeterminate="false" />
+                        android:indeterminate="false"
+
+                        />
 
 
                 </LinearLayout>
@@ -89,6 +91,72 @@
         </LinearLayout>
 
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_people"
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:layout_margin="2dp"
+
+        >
+
+        <ImageView
+
+            android:id="@+id/imgv_people_imag"
+
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@drawable/personal"
+            android:layout_gravity="center_vertical|right"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="right"
+            android:layout_gravity="center_vertical"
+            >
+
+            <TextView
+                android:id="@+id/txt_people_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="Hello"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                android:padding="3dp"
+                />
+
+            <TextView
+                android:id="@+id/txt_people_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="09171380449"
+                android:textSize="15sp"
+                android:paddingStart="8dp"
+                android:padding="3dp"/>
+
+            <TextView
+                android:id="@+id/txt_people_groups"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="hello, how, are"
+                android:textSize="14sp"
+                android:textColor="#ff8d8d8d"
+                android:padding="3dp"
+                />
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
 
 </LinearLayout>
 

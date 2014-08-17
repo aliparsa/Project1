@@ -3,6 +3,7 @@ package com.pga.project1.Utilities;
 import android.content.Context;
 
 import com.pga.project1.DataModel.Feature;
+import com.pga.project1.DataModel.Personnel;
 import com.pga.project1.Intefaces.CallBack;
 import com.pga.project1.Intefaces.ResponseHandler;
 import com.pga.project1.DataModel.Chart;
@@ -215,4 +216,37 @@ public class Webservice {
 
     }
 
+    public static void searchPersonnel(Context context, String str, final CallBack<ArrayList<Personnel>> callBack) {
+
+        HttpHelper helper = new HttpHelper(context, SERVER_ADDRESS, false, 0);
+
+        BasicNameValuePair[] arr = {
+                new BasicNameValuePair("tag", "search_personnel"),
+                new BasicNameValuePair("query", str)
+        };
+        helper.postHttp(arr, new ResponseHandler() {
+            @Override
+            public void handleResponse(String response) {
+
+                try {
+
+
+                    JSONArray jsonArray = new JSONArray(response);
+                    ArrayList<Personnel> perList = Personnel.getArrayFromJson(jsonArray);
+
+
+                    callBack.onSuccess(perList);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void error(ErrorMessage err) {
+
+            }
+        });
+    }
 }
