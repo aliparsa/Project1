@@ -1,9 +1,11 @@
 package com.pga.project1.Utilities;
 
+import android.app.Activity;
 import android.content.Context;
 
 import com.pga.project1.DataModel.Feature;
 import com.pga.project1.DataModel.Personnel;
+import com.pga.project1.DataModel.Report;
 import com.pga.project1.Intefaces.CallBack;
 import com.pga.project1.Intefaces.ResponseHandler;
 import com.pga.project1.DataModel.Chart;
@@ -247,5 +249,39 @@ public class Webservice {
 
             }
         });
+    }
+
+
+    public static void getReportListByWorkId(Context context, int id, final CallBack callBack) {
+        HttpHelper helper = new HttpHelper(context, SERVER_ADDRESS, false, 0);
+
+        BasicNameValuePair[] arr = {
+                new BasicNameValuePair("tag", "get_report_list"),
+                new BasicNameValuePair("id", id + "")
+        };
+        helper.postHttp(arr, new ResponseHandler() {
+            @Override
+            public void handleResponse(String response) {
+
+                try {
+
+                    JSONArray jsonArray = new JSONArray(response);
+
+                    ArrayList<Report> reportList = Report.getArrayFromJson(jsonArray);
+
+                    callBack.onSuccess(reportList);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void error(ErrorMessage err) {
+
+            }
+        });
+
     }
 }
