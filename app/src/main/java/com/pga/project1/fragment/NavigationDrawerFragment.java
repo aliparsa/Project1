@@ -296,9 +296,10 @@ public class NavigationDrawerFragment extends Fragment {
             }
 
             return true;
-        } if (item.getItemId() == R.id.action_back) {
+        }
+        if (item.getItemId() == R.id.action_back) {
 
-            ((MainActivity) getActivity()).backPressed();
+            ((MainActivity) getActivity()).onBackPressed();
 
             return true;
         }

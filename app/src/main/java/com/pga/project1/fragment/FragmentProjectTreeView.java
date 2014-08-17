@@ -27,7 +27,6 @@ public class FragmentProjectTreeView extends Fragment {
 
     ListView lv;
     private Chart chart;
-    int fatherId;
 
     // ------------------------------------------------------------------------------------
     public FragmentProjectTreeView() {
@@ -42,7 +41,6 @@ public class FragmentProjectTreeView extends Fragment {
 
         //getActivity().getActionBar().show();
 
-        fatherId = chart.getId();
 
         View view = inflater.inflate(R.layout.fragment_layout_project_tree_view, container,
                 false);
@@ -51,7 +49,8 @@ public class FragmentProjectTreeView extends Fragment {
 
         final FragmentProjectTreeView self = this;
 
-        if (fatherId == -1) {
+        if (chart == null) {
+
             Webservice.getProjects(getActivity(), new CallBack<ArrayList<Chart>>() {
                 @Override
                 public void onSuccess(ArrayList<Chart> result) {
@@ -87,17 +86,15 @@ public class FragmentProjectTreeView extends Fragment {
 
             });
         } else {
-            Webservice.GetChildOfID(getActivity(), fatherId, new CallBack<ArrayList<Chart>>() {
+            Webservice.GetChildOfID(getActivity(), chart.getId(), new CallBack<ArrayList<Chart>>() {
                 @Override
                 public void onSuccess(ArrayList<Chart> result) {
                     // Child Returned
                     List<AdapterInputType> itemList = new ArrayList<AdapterInputType>();
 
                     for (Chart chart : result) {
-
                         itemList.add(new AdapterInputType(chart, "icon+title+subtitle", chart.getName(), chart.getStart_date(), BitmapFactory.decodeResource(getResources(),
                                 R.drawable.ic_launcher), chart.getId()));
-
                     }
 
                     // create adapter from data
@@ -143,15 +140,13 @@ public class FragmentProjectTreeView extends Fragment {
             else
                 return;
 
-            int type_id = chart.getType_id();
-
 
             //String item_name = ((ListViewCustomAdapter.DrawerItemHolder) view.getTag()).title.getText().toString();
 
 
-            Toast.makeText(getActivity(), type_id + "", Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), chart.getType_id() + "", Toast.LENGTH_LONG).show();
 
-            switch (type_id) {
+            switch (chart.getType_id()) {
                 case 0: // item is chart
                     ((MainActivity) getActivity()).ShowTreeFragmnet(chart, "Project Tree View Fragment");
 
@@ -160,8 +155,9 @@ public class FragmentProjectTreeView extends Fragment {
 
                     break;
                 case 1:       // item is work
-                    ((MainActivity) getActivity()).ShowWorkFragment(chart, "Project Tree View Fragment");
+                    ((MainActivity) getActivity()).ShowWorkFragment(chart, "Project Tree View Fragment", true);
 
+                    //pushing to Path Map
                     PathMapManager.push(chart);
 
             }
@@ -170,6 +166,14 @@ public class FragmentProjectTreeView extends Fragment {
         }
 
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        // hide Tabs If Tab Resumed After a Fragment With Tab
+        ((MainActivity) getActivity()).hideTabs();
     }
 }
 // ------------------------------------------------------------------------------------

@@ -195,7 +195,6 @@ public class Webservice {
 
                 try {
 
-
                     JSONArray jsonArray = new JSONArray(response);
 
                     ArrayList<Chart> chartList = Chart.getArrayFromJson(jsonArray);
