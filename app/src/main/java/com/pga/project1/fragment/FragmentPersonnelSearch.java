@@ -42,6 +42,9 @@ public class FragmentPersonnelSearch extends Fragment {
     //{Constructor-----------------------------------------------------
     public FragmentPersonnelSearch(){
 
+        adapter = new ListViewCustomAdapter(this.getActivity(),
+                R.layout.drawer_item, new ArrayList<AdapterInputType>());
+
     }
     //-----------------------------------------------------Constructor}
 
@@ -67,13 +70,6 @@ public class FragmentPersonnelSearch extends Fragment {
         return view;
     }
 
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-
-        adapter = new ListViewCustomAdapter(this.getActivity(),
-                R.layout.drawer_item, new ArrayList<AdapterInputType>());
-
-    }
 
     //-----------------------------------------------------override functions}
 
