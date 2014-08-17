@@ -8,15 +8,14 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
-import android.widget.Toast;
 
 import com.pga.project1.Adapters.ListViewCustomAdapter;
-import com.pga.project1.DataModel.Chart;
 import com.pga.project1.DataModel.Personnel;
 import com.pga.project1.Intefaces.CallBack;
 import com.pga.project1.MainActivity;
 import com.pga.project1.R;
 import com.pga.project1.Structures.AdapterInputType;
+import com.pga.project1.Structures.ErrorPlaceHolder;
 import com.pga.project1.Utilities.ErrorMessage;
 import com.pga.project1.Utilities.Webservice;
 
@@ -26,9 +25,7 @@ import java.util.ArrayList;
  * Created by ashkan on 8/17/2014.
  */
 public class FragmentPersonnelSearch extends Fragment {
-    private SearchView searchView;
-    private ListView listView;
-    private ListViewCustomAdapter adapter;
+
 
 
     //{Constants-----------------------------------------------------
@@ -40,7 +37,10 @@ public class FragmentPersonnelSearch extends Fragment {
     //-----------------------------------------------------static fields}
 
     //{Fields-----------------------------------------------------
-
+    private SearchView searchView;
+    private ListView listView;
+    private ListViewCustomAdapter adapter;
+    private CallBack<Personnel> callback;
     //-----------------------------------------------------Fields}
 
     //{Constructor-----------------------------------------------------
@@ -83,9 +83,14 @@ public class FragmentPersonnelSearch extends Fragment {
         ((MainActivity) getActivity()).hideTabs();
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        callback.onError(new ErrorMessage(ErrorPlaceHolder.err2));
+    }
 
     //-----------------------------------------------------override functions}
-
 
     //{Functions-----------------------------------------------------
 
@@ -123,7 +128,6 @@ public class FragmentPersonnelSearch extends Fragment {
         });
     }
 
-
     //-----------------------------------------------------Functions}
 
     //{static Functions-----------------------------------------------------
@@ -151,6 +155,10 @@ public class FragmentPersonnelSearch extends Fragment {
 
     //{Setter getters-----------------------------------------------------
 
+    public void setCallback(CallBack<Personnel> callback) {
+        this.callback = callback;
+    }
+
     //-----------------------------------------------------Setter getters}
 
     //{Factory function--------------------------------------------------
@@ -170,7 +178,8 @@ public class FragmentPersonnelSearch extends Fragment {
             else
                 return;
 
-            Toast.makeText(getActivity(), personnel.getFirst_name() + " :) :)", Toast.LENGTH_LONG).show();
+            //Toast.makeText(getActivity(), personnel.getFirst_name() + " :) :)", Toast.LENGTH_LONG).show();
+            callback.onSuccess(personnel);
         }
 
 
