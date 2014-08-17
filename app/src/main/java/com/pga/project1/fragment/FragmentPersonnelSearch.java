@@ -8,15 +8,14 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
-import android.widget.Toast;
 
 import com.pga.project1.Adapters.ListViewCustomAdapter;
-import com.pga.project1.DataModel.Chart;
 import com.pga.project1.DataModel.Personnel;
 import com.pga.project1.Intefaces.CallBack;
 import com.pga.project1.MainActivity;
 import com.pga.project1.R;
 import com.pga.project1.Structures.AdapterInputType;
+import com.pga.project1.Structures.ErrorPlaceHolder;
 import com.pga.project1.Utilities.ErrorMessage;
 import com.pga.project1.Utilities.Webservice;
 
@@ -84,6 +83,12 @@ public class FragmentPersonnelSearch extends Fragment {
         ((MainActivity) getActivity()).hideTabs();
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        callback.onError(new ErrorMessage(ErrorPlaceHolder.err2));
+    }
 
     //-----------------------------------------------------override functions}
 
@@ -173,7 +178,8 @@ public class FragmentPersonnelSearch extends Fragment {
             else
                 return;
 
-            Toast.makeText(getActivity(), personnel.getFirst_name() + " :) :)", Toast.LENGTH_LONG).show();
+            //Toast.makeText(getActivity(), personnel.getFirst_name() + " :) :)", Toast.LENGTH_LONG).show();
+            callback.onSuccess(personnel);
         }
 
 

@@ -4,12 +4,17 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.pga.project1.DataModel.Chart;
+import com.pga.project1.DataModel.Personnel;
+import com.pga.project1.Intefaces.CallBack;
+import com.pga.project1.Utilities.ErrorMessage;
 import com.pga.project1.Viewes.PathMapManager;
 import com.pga.project1.fragment.FragmentLogin;
 import com.pga.project1.fragment.FragmentPersonnelSearch;
@@ -271,7 +276,32 @@ public class MainActivity extends Activity
 
     public void ShowPersonelSearch() {
 
-        Fragment frag = new FragmentPersonnelSearch();
+        FragmentPersonnelSearch frag = new FragmentPersonnelSearch();
+
+        final Context self = this;
+
+        CallBack<Personnel> callback = new CallBack<Personnel>() {
+            @Override
+            public void onSuccess(Personnel result) {
+
+                FragmentWork frag = new FragmentWork();
+                frag.setSelectedPersonnel(result);
+
+                replaceFragment(frag, true);
+            }
+
+            @Override
+            public void onError(ErrorMessage err) {
+
+                FragmentWork frag = new FragmentWork();
+
+                replaceFragment(frag, true);
+
+                Toast.makeText(self, "no personnel selected", Toast.LENGTH_SHORT);
+            }
+        };
+
+        frag.setCallback(callback);
         replaceFragment(frag, false);
     }
 
