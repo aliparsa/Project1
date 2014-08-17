@@ -1,9 +1,6 @@
 package com.pga.project1.Structures;
 
-import android.content.Context;
 import android.graphics.Bitmap;
-import android.view.LayoutInflater;
-import android.view.View;
 
 /**
  * Created by aliparsa on 8/5/2014.
@@ -30,6 +27,25 @@ list of types that adapter can be handel
     public Bitmap image2;
     public Bitmap image3;
 
+
+    //people row item------------------
+    public String namePerson;
+    public String phonePerson;
+    public String groupPerson;
+    public String imagePerson;
+
+
+    public AdapterInputType(Object tag, String type, String namePerson, String phonePerson, String groupPerson, String imagePerson) {
+        this.type = type;
+        this.namePerson = namePerson;
+        this.phonePerson = phonePerson;
+        this.groupPerson = groupPerson;
+        this.imagePerson = imagePerson;
+        this.tag = tag;
+    }
+
+    //-----------------------------------
+
     private int id;
     private int type_id;
 
@@ -51,12 +67,14 @@ list of types that adapter can be handel
         this.tag = tag;
     }
 
+
+
     public AdapterInputType() {
 
     }
 
 
-    public View getView(Context context, View convertView) {
+    /*public View getView(Context context, View convertView) {
 
         View view;
         if (convertView == null) {
@@ -68,7 +86,7 @@ list of types that adapter can be handel
         } else
             return convertView;
 
-    }
+    }*/
 
     public int getId() {
         return id;

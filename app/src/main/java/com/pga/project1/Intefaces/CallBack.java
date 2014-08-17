@@ -8,7 +8,7 @@ import com.pga.project1.Utilities.ErrorMessage;
 
 public interface CallBack<T> {
 
-    public void onSuccess(T json);
+    public void onSuccess(T result);
 
     public void onError(ErrorMessage err);
 
