@@ -23,9 +23,7 @@ import java.util.ArrayList;
  * Created by ashkan on 8/17/2014.
  */
 public class FragmentPersonnelSearch extends Fragment {
-    private SearchView searchView;
-    private ListView listView;
-    private ListViewCustomAdapter adapter;
+
 
 
     //{Constants-----------------------------------------------------
@@ -37,7 +35,10 @@ public class FragmentPersonnelSearch extends Fragment {
     //-----------------------------------------------------static fields}
 
     //{Fields-----------------------------------------------------
-
+    private SearchView searchView;
+    private ListView listView;
+    private ListViewCustomAdapter adapter;
+    private CallBack<Personnel> callback;
     //-----------------------------------------------------Fields}
 
     //{Constructor-----------------------------------------------------
@@ -83,7 +84,6 @@ public class FragmentPersonnelSearch extends Fragment {
 
     //-----------------------------------------------------override functions}
 
-
     //{Functions-----------------------------------------------------
 
     protected void loadPersonals(final String str){
@@ -116,7 +116,6 @@ public class FragmentPersonnelSearch extends Fragment {
         });
     }
 
-
     //-----------------------------------------------------Functions}
 
     //{static Functions-----------------------------------------------------
@@ -143,6 +142,10 @@ public class FragmentPersonnelSearch extends Fragment {
     //-----------------------------------------------------static callback classes}
 
     //{Setter getters-----------------------------------------------------
+
+    public void setCallback(CallBack<Personnel> callback) {
+        this.callback = callback;
+    }
 
     //-----------------------------------------------------Setter getters}
 
