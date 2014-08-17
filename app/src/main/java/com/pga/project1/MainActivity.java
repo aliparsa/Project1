@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import com.pga.project1.DataModel.Chart;
 import com.pga.project1.Viewes.PathMapManager;
 import com.pga.project1.fragment.FragmentLogin;
+import com.pga.project1.fragment.FragmentPersonnelSearch;
 import com.pga.project1.fragment.FragmentProjectTreeView;
 import com.pga.project1.fragment.FragmentSplash;
 
@@ -243,6 +244,7 @@ public class MainActivity extends Activity
         currentFragment = frag;
     }
 
+
     //-------------------------------------------------------------------------------------
     public static class BackStackChanged implements FragmentManager.OnBackStackChangedListener {
 
@@ -265,4 +267,12 @@ public class MainActivity extends Activity
             }
         }
     }
+
+
+    public void ShowPersonelSearch() {
+
+        Fragment frag = new FragmentPersonnelSearch();
+        replaceFragment(frag, false);
+    }
+
 }

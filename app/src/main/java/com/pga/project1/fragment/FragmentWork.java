@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.pga.project1.Adapters.ListViewCustomAdapter;
 import com.pga.project1.DataModel.Chart;
 import com.pga.project1.DataModel.Feature;
+import com.pga.project1.DataModel.Personnel;
 import com.pga.project1.Intefaces.CallBack;
 import com.pga.project1.MainActivity;
 import com.pga.project1.R;
@@ -51,6 +52,7 @@ public class FragmentWork extends Fragment {
     LinearLayout ll_work_tasks;
     LinearLayout ll_work_report;
 
+    private Personnel selectedPersonnelFromPicker;
 
 
     //-----------------------------------------------------Fields}
@@ -98,6 +100,7 @@ public class FragmentWork extends Fragment {
     }
 
     private void prepareReport() {
+
     }
 
     private void prepareTasks() {
@@ -258,6 +261,14 @@ public class FragmentWork extends Fragment {
 
     }
 
+    public Personnel getSelectedPersonelFromPicker() {
+        return selectedPersonnelFromPicker;
+    }
+
+    public void setSelectedPersonelFromPicker(Personnel selectedPersonelFromPicker) {
+        this.selectedPersonnelFromPicker = selectedPersonelFromPicker;
+    }
+
     //-----------------------------------------------------Functions}
 
 
@@ -300,5 +311,9 @@ public class FragmentWork extends Fragment {
         ll_work_report.setVisibility(View.GONE);
         ll.setVisibility(View.VISIBLE);
 
+    }
+
+    public void PersonelPickerClicked(View view) {
+        ((MainActivity) getActivity()).ShowPersonelSearch();
     }
 }
