@@ -5,7 +5,15 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:gravity="right"
     xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <view
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        class="com.pga.project1.Viewes.PathMapManager"
+        android:id="@+id/view"
+        android:gravity="right" />
 
     <LinearLayout
         android:id="@+id/ll_fragmentWork_workInfo"
@@ -26,12 +34,6 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <com.pga.project1.Viewes.PathMapManager
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content">
-
-                </com.pga.project1.Viewes.PathMapManager>
-
             </LinearLayout>
         </ScrollView>
 
@@ -49,13 +51,6 @@
             android:layout_height="fill_parent"
             android:background="#ffffff"
             android:gravity="center|right|top">
-
-            <view
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                class="com.pga.project1.Viewes.PathMapManager"
-                android:id="@+id/view"
-                android:gravity="right" />
 
             <Button
                 android:layout_width="match_parent"
@@ -78,5 +73,30 @@
         android:id="@+id/ll_fragmentWork_workReport"
         android:orientation="vertical"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"></LinearLayout>
+        android:layout_height="fill_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:background="#ffffff"
+            android:gravity="center|right|top"
+            android:id="@+id/linearLayout">
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Add Report"
+                android:id="@+id/btn_fragmentWork_report_addReport"
+                android:layout_gravity="center_vertical">
+
+            </Button>
+
+
+            <ListView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/lv_fragmentWork_report_reportViewer" />
+        </LinearLayout>
+    </LinearLayout>
 </LinearLayout>

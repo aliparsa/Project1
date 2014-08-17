@@ -18,6 +18,7 @@ import com.pga.project1.Adapters.ListViewCustomAdapter;
 import com.pga.project1.DataModel.Chart;
 import com.pga.project1.DataModel.Feature;
 import com.pga.project1.DataModel.Personnel;
+import com.pga.project1.DataModel.Report;
 import com.pga.project1.Intefaces.CallBack;
 import com.pga.project1.MainActivity;
 import com.pga.project1.R;
@@ -100,7 +101,34 @@ public class FragmentWork extends Fragment {
     }
 
     private void prepareReport() {
+        final ListView lv = (ListView) ll_work_report.findViewById(R.id.lv_fragmentWork_report_reportViewer);
+        Webservice.getReportListByWorkId(getActivity(), chart.getId(), new CallBack<ArrayList<Report>>() {
+            @Override
+            public void onSuccess(ArrayList<Report> reportList) {
 
+                List<AdapterInputType> itemList = new ArrayList<AdapterInputType>();
+                for (Report report : reportList) {
+                    itemList.add(new AdapterInputType(chart, "icon+title+subtitle", report.getDate(), report.getPercent() + "", BitmapFactory.decodeResource(getResources(),
+                            R.drawable.ic_launcher)));
+                }
+
+                // create adapter from data
+                ListViewCustomAdapter adapter =
+                        new ListViewCustomAdapter(getActivity(), R.layout.fragment_layout_project_tree_view, itemList);
+
+                // set adapter to lv
+                lv.setAdapter(adapter);
+
+                // set on click listener
+                lv.setOnItemClickListener(new onTaskListClickListener());
+
+            }
+
+            @Override
+            public void onError(ErrorMessage err) {
+                Toast.makeText(getActivity(), "Error 109", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void prepareTasks() {
@@ -137,6 +165,7 @@ public class FragmentWork extends Fragment {
     }
 
     private void prepareInfo() {
+
         final LinearLayout MainLinearLayout = (LinearLayout) ll_work_info.findViewById(R.id.main_ln);
 
         MainLinearLayout.addView(new ViewNameValue(getActivity(), "نام", chart.getName()));
