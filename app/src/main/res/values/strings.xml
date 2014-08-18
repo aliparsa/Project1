@@ -12,5 +12,6 @@
     <string name="Type_icon_title_subtitle">icon+title+subtitle</string>
     <string name="MatnGozaresh">متن گزارش</string>
     <string name="DarsadPishraft">درصد پیشرفت</string>
+    <string name="TarikhVaSaat">تاریخ و ساعت</string>
 
 </resources>

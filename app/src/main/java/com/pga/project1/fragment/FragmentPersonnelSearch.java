@@ -183,7 +183,9 @@ public class FragmentPersonnelSearch extends Fragment {
                 return;
 
             //Toast.makeText(getActivity(), personnel.getFirst_name() + " :) :)", Toast.LENGTH_LONG).show();
+            searchView.clearFocus();
             callback.onSuccess(personnel);
+
         }
 
 

@@ -295,4 +295,9 @@ public class SolarCalendar {
         }
 
     }
+
+
+    public String getFullDate() {
+        return getYear() + "/" + getMonth() + "/" + getDay();
+    }
 }
