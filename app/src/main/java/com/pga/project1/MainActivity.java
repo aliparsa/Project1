@@ -274,7 +274,7 @@ public class MainActivity extends Activity
     }
 
 
-    public void ShowPersonelSearch() {
+    public void ShowPersonelSearch(final Chart chart) {
 
         FragmentPersonnelSearch frag = new FragmentPersonnelSearch();
 
@@ -285,8 +285,8 @@ public class MainActivity extends Activity
             public void onSuccess(Personnel result) {
 
                 FragmentWork frag = new FragmentWork();
-                frag.setSelectedPersonnel(result);
-
+                frag.setChart(chart);
+                frag.setPersonnel(result);
                 replaceFragment(frag, true);
             }
 

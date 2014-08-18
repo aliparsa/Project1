@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class Personnel {
 
 
-    private String id;
+    private int id;
     private String first_name;
     private String last_name;
     private String personnel_code;
@@ -24,7 +24,7 @@ public class Personnel {
 
     }
 
-    public Personnel(String id, String first_name, String last_name, String personnel_code, String phone_number) {
+    public Personnel(int id, String first_name, String last_name, String personnel_code, String phone_number) {
         this.id = id;
         this.first_name = first_name;
         this.last_name = last_name;
@@ -36,14 +36,15 @@ public class Personnel {
 
         ArrayList<Personnel> array = new ArrayList<Personnel>();
 
-        try {
 
-            for (int i = 0; i < jsonArray.length(); i++) {
+        for (int i = 0; i < jsonArray.length(); i++) {
+
+
+            try {
 
                 JSONObject json = (JSONObject) jsonArray.get(i);
-
                 Personnel p = new Personnel();
-                p.id = json.getString("id");
+                p.id = json.getInt("id");
                 p.first_name = json.getString("first_name");
                 p.last_name = json.getString("last_name");
                 p.personnel_code = json.getString("personnel_code");
@@ -51,11 +52,12 @@ public class Personnel {
 
                 //String json
                 array.add(p);
-            }
 
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+            } catch (JSONException e) {
+                e.printStackTrace();
+                continue;
+            }
+            }
 
 
         return array;
@@ -80,11 +82,11 @@ public class Personnel {
     }
 
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

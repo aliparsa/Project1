@@ -16,13 +16,20 @@
     android:background="#ffffff"
     android:layout_height="fill_parent">
 
-    <com.pga.project1.Viewes.PathMapManager
-        android:id="@+id/pmm_fragmentProjectTreeView_pathMap"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:background="#AED4FC"
+        android:layout_height="wrap_content">
 
-        />
+        <com.pga.project1.Viewes.PathMapManager
+            android:id="@+id/pmm_fragmentProjectTreeView_pathMap"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+
+            />
+    </LinearLayout>
 
     <ListView
 

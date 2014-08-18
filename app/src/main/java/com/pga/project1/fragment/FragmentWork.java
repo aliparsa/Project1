@@ -2,10 +2,16 @@ package com.pga.project1.fragment;
 
 
 import android.app.ActionBar;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.app.ProgressDialog;
+import android.app.TabActivity;
+import android.content.DialogInterface;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +19,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TabHost;
 import android.widget.Toast;
 
 import com.pga.project1.Adapters.ListViewCustomAdapter;
@@ -20,6 +27,7 @@ import com.pga.project1.DataModel.Chart;
 import com.pga.project1.DataModel.Feature;
 import com.pga.project1.DataModel.Personnel;
 import com.pga.project1.DataModel.Report;
+import com.pga.project1.DataModel.ServerResponse;
 import com.pga.project1.Intefaces.CallBack;
 import com.pga.project1.MainActivity;
 import com.pga.project1.R;
@@ -107,7 +115,51 @@ public class FragmentWork extends Fragment {
 
     private void CheckComeFromPersonnelPicker() {
         if (comeFromPicker) {
-            Toast.makeText(getActivity(), getSelectedPersonnel().getFirst_name(), Toast.LENGTH_SHORT).show();
+
+            //Toast.makeText(getActivity(),"Sending...", Toast.LENGTH_SHORT).show();
+
+            // show loading dialog
+            final ProgressDialog pg = new ProgressDialog(getActivity());
+            pg.setMessage("Sending Request... \n Add Personnel > " + selectedPersonnel.getFirst_name() + " \n to \n " + chart.getName());
+            pg.show();
+
+
+            Webservice.addPersonnelToWork(getActivity(), selectedPersonnel.getId(), chart.getId(), new CallBack<ServerResponse>() {
+                @Override
+                public void onSuccess(ServerResponse result) {
+                    pg.dismiss();
+
+                    new AlertDialog.Builder(getActivity())
+                            .setTitle("پرسنل افزوده شد")
+                            .setMessage("Personnel \n " + selectedPersonnel.getFirst_name() + " \n Added to \n " + chart.getName())
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .setPositiveButton("خب", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // continue with delete
+                                }
+                            })
+                            .show();
+
+                }
+
+                @Override
+                public void onError(ErrorMessage err) {
+                    pg.dismiss();
+
+                    new AlertDialog.Builder(getActivity())
+                            .setTitle("خطا")
+                            .setMessage("خطا ")
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .setPositiveButton("خب", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // continue with delete
+                                }
+                            })
+                            .show();
+                }
+            });
+
+
         }
     }
 
@@ -151,7 +203,7 @@ public class FragmentWork extends Fragment {
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((MainActivity) getActivity()).ShowPersonelSearch();
+                ((MainActivity) getActivity()).ShowPersonelSearch(chart);
             }
         });
 
@@ -304,11 +356,18 @@ public class FragmentWork extends Fragment {
         });
 
         // Cleanup And set Tabs
-        getActivity().getActionBar().removeAllTabs();
-        getActivity().getActionBar().addTab(tab_workReport, false);
-        getActivity().getActionBar().addTab(tab_workTask, false);
-        getActivity().getActionBar().addTab(tab_workInfo, true);
 
+        getActivity().getActionBar().removeAllTabs();
+
+        if (isComeFromPicker()) {
+            getActivity().getActionBar().addTab(tab_workReport, false);
+            getActivity().getActionBar().addTab(tab_workTask, true);
+            getActivity().getActionBar().addTab(tab_workInfo, false);
+        } else {
+            getActivity().getActionBar().addTab(tab_workReport, false);
+            getActivity().getActionBar().addTab(tab_workTask, false);
+            getActivity().getActionBar().addTab(tab_workInfo, true);
+        }
     }
 
 
@@ -372,5 +431,9 @@ public class FragmentWork extends Fragment {
 
     }
 
+    public void setPersonnel(Personnel personnel) {
+        this.selectedPersonnel = personnel;
+        this.comeFromPicker = true;
 
+    }
 }

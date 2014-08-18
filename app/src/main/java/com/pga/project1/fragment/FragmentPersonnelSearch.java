@@ -27,7 +27,6 @@ import java.util.ArrayList;
 public class FragmentPersonnelSearch extends Fragment {
 
 
-
     //{Constants-----------------------------------------------------
 
     //-----------------------------------------------------Constants}
@@ -44,7 +43,7 @@ public class FragmentPersonnelSearch extends Fragment {
     //-----------------------------------------------------Fields}
 
     //{Constructor-----------------------------------------------------
-    public FragmentPersonnelSearch(){
+    public FragmentPersonnelSearch() {
 
     }
     //-----------------------------------------------------Constructor}
@@ -94,20 +93,20 @@ public class FragmentPersonnelSearch extends Fragment {
 
     //{Functions-----------------------------------------------------
 
-    protected void loadPersonals(final String str){
+    protected void loadPersonals(final String str) {
 
-        Webservice.searchPersonnel(this.getActivity(), str , new CallBack<ArrayList<Personnel>>() {
+        Webservice.searchPersonnel(this.getActivity(), str, new CallBack<ArrayList<Personnel>>() {
             @Override
             public void onSuccess(ArrayList<Personnel> result) {
 
                 ArrayList<AdapterInputType> listItem = new ArrayList<AdapterInputType>();
 
-                for(Personnel person : result){
+                for (Personnel person : result) {
 
                     AdapterInputType adapterInputType = new AdapterInputType(
-                           person, ListViewCustomAdapter.PERSONNEL_ITEM,
-                           person.getFirst_name() + " " + person.getLast_name(),
-                            person.getPhone_number(), person.getGroupsString(),  ""
+                            person, ListViewCustomAdapter.PERSONNEL_ITEM,
+                            person.getFirst_name() + " " + person.getLast_name(),
+                            person.getPhone_number(), person.getGroupsString(), ""
                     );
 
                     listItem.add(adapterInputType);
@@ -184,4 +183,6 @@ public class FragmentPersonnelSearch extends Fragment {
 
 
     }
+
+
 }
