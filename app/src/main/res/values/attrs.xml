@@ -6,4 +6,14 @@
         <attr name="value" format="string" />
     </declare-styleable>
 
+    <declare-styleable name="ViewDateTimePickerPersian">
+        <attr name="year" format="integer" />
+        <attr name="month" format="integer" />
+        <attr name="day" format="integer" />
+
+        <attr name="hour" format="integer" />
+        <attr name="minute" format="integer" />
+    </declare-styleable>
+
+
 </resources>

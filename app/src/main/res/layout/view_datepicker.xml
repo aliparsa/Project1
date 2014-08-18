@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="wrap_content"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    >
+    android:orientation="vertical"
 
-    <TimePicker
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        ></TimePicker>
+    >
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -23,39 +19,63 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            ></NumberPicker>
+            android:id="@+id/numPic_datepicker_hour"></NumberPicker>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="/"
             android:gravity="center_vertical"
-            />
+            android:text=":" />
 
 
         <NumberPicker
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            ></NumberPicker>
+            android:id="@+id/numPic_datepicker_minute"></NumberPicker>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="/"
-            android:gravity="center_vertical"
-            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+
+        >
 
         <NumberPicker
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            ></NumberPicker>
+            android:id="@+id/numPic_datepicker_year"></NumberPicker>
 
-        </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="/" />
 
 
+        <NumberPicker
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
 
+            android:id="@+id/numPic_datepicker_month"></NumberPicker>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="/" />
+
+        <NumberPicker
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:id="@+id/numPic_datepicker_day"></NumberPicker>
+
+    </LinearLayout>
 
 
 </LinearLayout>
