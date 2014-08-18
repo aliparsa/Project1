@@ -12,9 +12,6 @@
         android:layout_height="wrap_content"></com.pga.project1.Viewes.PathMapManager>
 
 
-    <LinearLayout
-        android:layout_width=""
-        android:layout_height=""></LinearLayout>
 
 
 </LinearLayout>

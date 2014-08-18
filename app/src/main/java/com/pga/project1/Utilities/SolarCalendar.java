@@ -1,5 +1,6 @@
 package com.pga.project1.Utilities;
 
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -10,9 +11,38 @@ public class SolarCalendar {
     public String strWeekDay = "";
     public String strMonth = "";
 
-    int date;
+
+    public int getDay() {
+        return day;
+    }
+
+    public int getMonth() {
+        return month;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public int getHour() {
+        return hour;
+    }
+
+    public int getMinute() {
+        return minute;
+    }
+
+    public int getSecond() {
+        return second;
+    }
+
+    int day;
     int month;
     int year;
+
+    int hour;
+    int minute;
+    int second;
 
     public SolarCalendar()
     {
@@ -25,6 +55,18 @@ public class SolarCalendar {
         calcSolarCalendar(MiladiDate);
     }
 
+    public SolarCalendar(int year, int month, int day, int hour, int minute, int second){
+
+        this.year = year;
+        this.month = month;
+        this.day = day;
+        this.hour = hour;
+        this.minute = minute;
+        this.second = second;
+
+        setMonthName(month);
+    }
+
     private void calcSolarCalendar(Date MiladiDate) {
 
         int ld;
@@ -33,6 +75,13 @@ public class SolarCalendar {
         int miladiMonth = MiladiDate.getMonth() + 1;
         int miladiDate = MiladiDate.getDate();
         int WeekDay = MiladiDate.getDay();
+
+        Calendar c = Calendar.getInstance();
+        int seconds = c.get(Calendar.SECOND);
+
+        this.hour = c.get(Calendar.HOUR);
+        this.minute = c.get(Calendar.MINUTE);
+        this.second = c.get(Calendar.SECOND);
 
         int[] buf1 = new int[12];
         int[] buf2 = new int[12];
@@ -64,33 +113,33 @@ public class SolarCalendar {
         buf2[11] = 335;
 
         if ((miladiYear % 4) != 0) {
-            date = buf1[miladiMonth - 1] + miladiDate;
+            day = buf1[miladiMonth - 1] + miladiDate;
 
-            if (date > 79) {
-                date = date - 79;
-                if (date <= 186) {
-                    switch (date % 31) {
+            if (day > 79) {
+                day = day - 79;
+                if (day <= 186) {
+                    switch (day % 31) {
                         case 0:
-                            month = date / 31;
-                            date = 31;
+                            month = day / 31;
+                            day = 31;
                             break;
                         default:
-                            month = (date / 31) + 1;
-                            date = (date % 31);
+                            month = (day / 31) + 1;
+                            day = (day % 31);
                             break;
                     }
                     year = miladiYear - 621;
                 } else {
-                    date = date - 186;
+                    day = day - 186;
 
-                    switch (date % 30) {
+                    switch (day % 30) {
                         case 0:
-                            month = (date / 30) + 6;
-                            date = 30;
+                            month = (day / 30) + 6;
+                            day = 30;
                             break;
                         default:
-                            month = (date / 30) + 7;
-                            date = (date % 30);
+                            month = (day / 30) + 7;
+                            day = (day % 30);
                             break;
                     }
                     year = miladiYear - 621;
@@ -101,54 +150,54 @@ public class SolarCalendar {
                 } else {
                     ld = 10;
                 }
-                date = date + ld;
+                day = day + ld;
 
-                switch (date % 30) {
+                switch (day % 30) {
                     case 0:
-                        month = (date / 30) + 9;
-                        date = 30;
+                        month = (day / 30) + 9;
+                        day = 30;
                         break;
                     default:
-                        month = (date / 30) + 10;
-                        date = (date % 30);
+                        month = (day / 30) + 10;
+                        day = (day % 30);
                         break;
                 }
                 year = miladiYear - 622;
             }
         } else {
-            date = buf2[miladiMonth - 1] + miladiDate;
+            day = buf2[miladiMonth - 1] + miladiDate;
 
             if (miladiYear >= 1996) {
                 ld = 79;
             } else {
                 ld = 80;
             }
-            if (date > ld) {
-                date = date - ld;
+            if (day > ld) {
+                day = day - ld;
 
-                if (date <= 186) {
-                    switch (date % 31) {
+                if (day <= 186) {
+                    switch (day % 31) {
                         case 0:
-                            month = (date / 31);
-                            date = 31;
+                            month = (day / 31);
+                            day = 31;
                             break;
                         default:
-                            month = (date / 31) + 1;
-                            date = (date % 31);
+                            month = (day / 31) + 1;
+                            day = (day % 31);
                             break;
                     }
                     year = miladiYear - 621;
                 } else {
-                    date = date - 186;
+                    day = day - 186;
 
-                    switch (date % 30) {
+                    switch (day % 30) {
                         case 0:
-                            month = (date / 30) + 6;
-                            date = 30;
+                            month = (day / 30) + 6;
+                            day = 30;
                             break;
                         default:
-                            month = (date / 30) + 7;
-                            date = (date % 30);
+                            month = (day / 30) + 7;
+                            day = (day % 30);
                             break;
                     }
                     year = miladiYear - 621;
@@ -156,16 +205,16 @@ public class SolarCalendar {
             }
 
             else {
-                date = date + 10;
+                day = day + 10;
 
-                switch (date % 30) {
+                switch (day % 30) {
                     case 0:
-                        month = (date / 30) + 9;
-                        date = 30;
+                        month = (day / 30) + 9;
+                        day = 30;
                         break;
                     default:
-                        month = (date / 30) + 10;
-                        date = (date % 30);
+                        month = (day / 30) + 10;
+                        day = (day % 30);
                         break;
                 }
                 year = miladiYear - 622;
@@ -173,6 +222,12 @@ public class SolarCalendar {
 
         }
 
+        setMonthName(month);
+
+        setWeekName(WeekDay);
+    }
+
+    private void setMonthName(int month){
         switch (month) {
             case 1:
                 strMonth = "فروردين";
@@ -211,7 +266,9 @@ public class SolarCalendar {
                 strMonth = "اسفند";
                 break;
         }
+    }
 
+    private void setWeekName(int WeekDay){
         switch (WeekDay) {
 
             case 0:
@@ -238,5 +295,4 @@ public class SolarCalendar {
         }
 
     }
-
 }
