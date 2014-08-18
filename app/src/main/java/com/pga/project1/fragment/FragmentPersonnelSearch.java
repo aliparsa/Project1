@@ -68,6 +68,9 @@ public class FragmentPersonnelSearch extends Fragment {
         adapter = new ListViewCustomAdapter(this.getActivity(),
                 R.layout.drawer_item, new ArrayList<AdapterInputType>());
 
+
+        loadPersonals("");
+
         // listView.setAdapter(adapter);
 
         searchView.setOnQueryTextListener(new onPersonnelSearchListener());
@@ -78,6 +81,8 @@ public class FragmentPersonnelSearch extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+
+        searchView.onActionViewExpanded();
 
         ((MainActivity) getActivity()).hideTabs();
     }
