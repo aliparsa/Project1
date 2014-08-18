@@ -1,5 +1,7 @@
 package com.pga.project1.DataModel;
 
+import com.pga.project1.Utilities.JsonHelper;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -12,7 +14,7 @@ import java.util.ArrayList;
 public class Personnel {
 
 
-    private String id;
+    private int id;
     private String first_name;
     private String last_name;
     private String personnel_code;
@@ -24,7 +26,7 @@ public class Personnel {
 
     }
 
-    public Personnel(String id, String first_name, String last_name, String personnel_code, String phone_number) {
+    public Personnel(int id, String first_name, String last_name, String personnel_code, String phone_number) {
         this.id = id;
         this.first_name = first_name;
         this.last_name = last_name;
@@ -42,12 +44,30 @@ public class Personnel {
 
                 JSONObject json = (JSONObject) jsonArray.get(i);
 
+                JsonHelper jsonHelper = new JsonHelper();
+
                 Personnel p = new Personnel();
-                p.id = json.getString("id");
-                p.first_name = json.getString("first_name");
-                p.last_name = json.getString("last_name");
-                p.personnel_code = json.getString("personnel_code");
-                p.phone_number = json.getString("phone_number");
+
+                p.id =  jsonHelper.getInt(json, "id", 0);  //json.getString("id");
+
+                if(jsonHelper.error)
+                    continue;
+
+                p.first_name = jsonHelper.getString(json, "first_name", "؟؟"); //json.getString("first_name");
+                p.last_name = jsonHelper.getString(json, "last_name", ""); //json.getString("last_name");
+                p.personnel_code = jsonHelper.getString(json, "personnel_code", ""); //json.getString("personnel_code");
+
+                if(jsonHelper.error)
+                    continue;
+
+                p.phone_number = jsonHelper.getString(json, "phone_number", ""); //json.getString("phone_number");
+
+                JSONArray groupsJson = jsonHelper.getJsonArray(json, "groups", new JSONArray());
+
+                for (int j = 0; j < groupsJson.length(); j++) {
+                    p.groups.add(groupsJson.getString(j));
+
+                }
 
                 //String json
                 array.add(p);
@@ -69,9 +89,9 @@ public class Personnel {
 
         for (String group : groups){
             if(isFirst)
-                str += str;
+                str += group;
             else
-                str += " ," + str;
+                str += " ," + group;
 
             isFirst = false;
         }
@@ -80,11 +100,11 @@ public class Personnel {
     }
 
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
