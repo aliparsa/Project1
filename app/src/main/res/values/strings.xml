@@ -10,5 +10,7 @@
     <string name="action_example">Example action</string>
     <string name="action_settings">Settings</string>
     <string name="Type_icon_title_subtitle">icon+title+subtitle</string>
+    <string name="MatnGozaresh">متن گزارش</string>
+    <string name="DarsadPishraft">درصد پیشرفت</string>
 
 </resources>

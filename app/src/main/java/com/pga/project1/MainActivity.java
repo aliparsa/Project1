@@ -17,10 +17,10 @@ import com.pga.project1.Intefaces.CallBack;
 import com.pga.project1.Utilities.ErrorMessage;
 import com.pga.project1.Viewes.PathMapManager;
 import com.pga.project1.fragment.FragmentLogin;
+import com.pga.project1.fragment.FragmentNewReportWork;
 import com.pga.project1.fragment.FragmentPersonnelSearch;
 import com.pga.project1.fragment.FragmentProjectTreeView;
 import com.pga.project1.fragment.FragmentSplash;
-
 import com.pga.project1.fragment.FragmentWork;
 import com.pga.project1.fragment.NavigationDrawerFragment;
 
@@ -212,7 +212,7 @@ public class MainActivity extends Activity
                     ActionBar.NAVIGATION_MODE_STANDARD);
     }
 
-    //-----------------------------------------------------------
+    //-------------------------------------------------------------------------------------
     public void replaceFragment(Fragment frag, boolean addToBackStack) {
 
         if (addToBackStack) {  // add to back stack or not
@@ -249,31 +249,14 @@ public class MainActivity extends Activity
         currentFragment = frag;
     }
 
-
     //-------------------------------------------------------------------------------------
-    public static class BackStackChanged implements FragmentManager.OnBackStackChangedListener {
-
-        private Activity activity;
-
-        public BackStackChanged(Activity activity) {
-
-            this.activity = activity;
-        }
-
-        @Override
-        public void onBackStackChanged() {
-
-            int currentStackSize = activity.getFragmentManager().getBackStackEntryCount();
-
-            if (currentStackSize > 0) {
-                ((MainActivity) activity).changeMenuIcons(false, true);
-            } else {
-                ((MainActivity) activity).changeMenuIcons(true, false);
-            }
-        }
+    public void ShowNewReportFragment(Chart chart) {
+        Fragment frag = new FragmentNewReportWork();
+        ((FragmentNewReportWork) frag).setChart(chart);
+        replaceFragment(frag, true);
     }
 
-
+    //-------------------------------------------------------------------------------------
     public void ShowPersonelSearch(final Chart chart) {
 
         FragmentPersonnelSearch frag = new FragmentPersonnelSearch();
@@ -303,6 +286,29 @@ public class MainActivity extends Activity
 
         frag.setCallback(callback);
         replaceFragment(frag, false);
+    }
+
+    //-------------------------------------------------------------------------------------
+    public static class BackStackChanged implements FragmentManager.OnBackStackChangedListener {
+
+        private Activity activity;
+
+        public BackStackChanged(Activity activity) {
+
+            this.activity = activity;
+        }
+
+        @Override
+        public void onBackStackChanged() {
+
+            int currentStackSize = activity.getFragmentManager().getBackStackEntryCount();
+
+            if (currentStackSize > 0) {
+                ((MainActivity) activity).changeMenuIcons(false, true);
+            } else {
+                ((MainActivity) activity).changeMenuIcons(true, false);
+            }
+        }
     }
 
 }

@@ -5,16 +5,73 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffff"
-    >
-
-    <com.pga.project1.Viewes.PathMapManager
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"></com.pga.project1.Viewes.PathMapManager>
+    android:gravity="right">
 
 
     <LinearLayout
-        android:layout_width=""
-        android:layout_height=""></LinearLayout>
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
 
+        <view
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            class="com.pga.project1.Viewes.PathMapManager"
+            android:id="@+id/view" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/edittext_newReport_reportText"
+            android:layout_gravity="right"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/textView2" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/MatnGozaresh"
+            android:id="@+id/textView2"
+            android:layout_gravity="right"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/relativeLayout">
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="3"
+            android:id="@+id/edittext_newReport_percent"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/textView" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/DarsadPishraft"
+            android:id="@+id/textView"
+            android:layout_gravity="right"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+    </RelativeLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        android:id="@+id/btn_newReport_Save" />
 
 </LinearLayout>

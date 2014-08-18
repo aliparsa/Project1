@@ -107,7 +107,7 @@ public class FragmentWork extends Fragment {
 
 
         CheckComeFromPersonnelPicker();
-                
+
         prepareInfo();
 
         prepareTasks();
@@ -196,6 +196,15 @@ public class FragmentWork extends Fragment {
 
 
     private void prepareReport() {
+
+        final Button btnAddReportWork = (Button) ll_work_report.findViewById(R.id.btn_fragmentWork_report_addReport);
+        btnAddReportWork.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((MainActivity) getActivity()).ShowNewReportFragment(chart);
+            }
+        });
+
         final ListView lv = (ListView) ll_work_report.findViewById(R.id.lv_fragmentWork_report_reportViewer);
         Webservice.getReportListByWorkId(getActivity(), chart.getId(), new CallBack<ArrayList<Report>>() {
             @Override

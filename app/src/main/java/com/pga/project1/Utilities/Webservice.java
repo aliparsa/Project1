@@ -2,6 +2,7 @@ package com.pga.project1.Utilities;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 
 import com.pga.project1.DataModel.Feature;
 import com.pga.project1.DataModel.Personnel;
@@ -43,7 +44,6 @@ public class Webservice {
 
                 try {
 
-
                     JSONArray jsonArray = new JSONArray(response);
 
                     ArrayList<Chart> chartList = Chart.getArrayFromJson(jsonArray);
@@ -57,7 +57,7 @@ public class Webservice {
 
             @Override
             public void error(ErrorMessage err) {
-
+                Log.d("ali", "Error");
             }
         });
     }

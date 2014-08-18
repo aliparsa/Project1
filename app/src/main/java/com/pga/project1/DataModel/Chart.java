@@ -28,9 +28,10 @@ public class Chart implements PathMapObject {
     private String root_id;
     private String work_unit;
     private ArrayList<Feature> featureList;
+    private int percent;
 
 
-    public Chart(int id, int type_id, String name, String start_date, String end_date, String personnel_id, String allow_delay, String estimated_start, String estimated_end, String status, String price, String is_pay, String root_id, String work_unit) {
+    public Chart(int id, int type_id, String name, String start_date, String end_date, String personnel_id, String allow_delay, String estimated_start, String estimated_end, String status, String price, String is_pay, String root_id, String work_unit, int percent) {
         this.id = id;
         this.type_id = type_id;
         this.name = name;
@@ -45,6 +46,7 @@ public class Chart implements PathMapObject {
         this.is_pay = is_pay;
         this.root_id = root_id;
         this.work_unit = work_unit;
+        this.percent = percent;
     }
 
 
@@ -52,11 +54,11 @@ public class Chart implements PathMapObject {
 
     public static ArrayList<Chart> getArrayFromJson(JSONArray jsonArray) {
         ArrayList<Chart> itemlist = new ArrayList<Chart>();
-        try {
 
 
-            for (int i = 0; i < jsonArray.length(); i++) {
+        for (int i = 0; i < jsonArray.length(); i++) {
 
+            try {
                 //if ((JSONObject) jsonArray.get(i)==null) continue;
 
                 JSONObject jsonObject = (JSONObject) jsonArray.get(i);
@@ -75,6 +77,7 @@ public class Chart implements PathMapObject {
                 String is_pay = jsonObject.getString("is_pay");
                 String root_id = jsonObject.getString("root_id");
                 String work_unit = jsonObject.getString("work_unit");
+                int percent = jsonObject.getInt("percent");
 
                 Chart chartItem = new Chart(
                         id,
@@ -90,16 +93,18 @@ public class Chart implements PathMapObject {
                         price,
                         is_pay,
                         root_id,
-                        work_unit
+                        work_unit,
+                        percent
                 );
 
                 itemlist.add(chartItem);
-
+            } catch (Exception e) {
+                continue;
             }
 
-        } catch (JSONException e) {
-            e.printStackTrace();
         }
+
+
         return itemlist;
     }
 
@@ -184,6 +189,14 @@ public class Chart implements PathMapObject {
 
     public void setFeatureList(ArrayList<Feature> featureList) {
         this.featureList = featureList;
+    }
+
+    public int getPercent() {
+        return percent;
+    }
+
+    public void setPercent(int percent) {
+        this.percent = percent;
     }
 }
 

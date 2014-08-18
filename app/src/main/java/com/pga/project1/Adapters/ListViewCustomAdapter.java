@@ -1,5 +1,6 @@
 package com.pga.project1.Adapters;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,8 +8,10 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.pga.project1.DataModel.Chart;
 import com.pga.project1.R;
 import com.pga.project1.Structures.AdapterInputType;
 
@@ -235,10 +238,24 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
         if(holder.subtitle == null)
             holder.subtitle = (TextView) lv_icon_title_subtitle.findViewById(R.id.subtitle);
 
+        if (holder.progressBar == null)
+            holder.progressBar = (ProgressBar) lv_icon_title_subtitle.findViewById(R.id.progressBar2);
+
+        if (holder.percent == null)
+            holder.percent = (TextView) lv_icon_title_subtitle.findViewById(R.id.percent_textview);
+
 
         holder.icon_in_title_subtitle.setImageBitmap(item.image1);
         holder.title.setText(item.text1);
         holder.subtitle.setText(item.text2);
+
+        if (item.getTag() != null && item.getTag() instanceof Chart) {
+
+            holder.progressBar.setProgress((((Chart) item.getTag()).getPercent()));
+            holder.percent.setText((((Chart) item.getTag()).getPercent()) + " % ");
+        }
+        //
+//
 
         holder.setTag(item.getTag());
     }
@@ -275,17 +292,21 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
     }
 
     public static class DrawerItemHolder {
+
         public TextView title;
         TextView subtitle;
         ImageView icon;
         ImageView icon_in_title_subtitle;
         private Object tag;
+        ProgressBar progressBar;
+        TextView percent;
 
+        //---------------------
         ImageView peopleImage;
         TextView PeopleName;
         TextView PeoplePhone;
         TextView PeopleGroups;
-
+//---------------------
 
         public Object getTag() {
             return tag;

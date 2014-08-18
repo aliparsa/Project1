@@ -5,7 +5,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
+import com.pga.project1.DataModel.Chart;
 import com.pga.project1.MainActivity;
 import com.pga.project1.R;
 
@@ -13,6 +17,7 @@ import com.pga.project1.R;
  * Created by ashkan on 8/18/2014.
  */
 public class FragmentNewReportWork extends Fragment {
+
 
     //{Constants-----------------------------------------------------
 
@@ -24,6 +29,7 @@ public class FragmentNewReportWork extends Fragment {
 
     //{Fields-----------------------------------------------------
 
+    private Chart chart;
     //-----------------------------------------------------Fields}
 
     //{Constructor-----------------------------------------------------
@@ -48,8 +54,28 @@ public class FragmentNewReportWork extends Fragment {
                 container, false);
 
 
-
         return view;
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        EditText report = (EditText) view.findViewById(R.id.edittext_newReport_reportText);
+        EditText percent = (EditText) view.findViewById(R.id.edittext_newReport_percent);
+        Button btnSave = (Button) view.findViewById(R.id.btn_newReport_Save);
+
+        // set pre percent value to edit text
+        percent.setText(chart.getPercent() + "");
+
+
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getActivity(), "Saving", Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
     @Override
@@ -63,6 +89,14 @@ public class FragmentNewReportWork extends Fragment {
     public void onDestroy() {
         super.onDestroy();
 
+    }
+
+    public void setChart(Chart chart) {
+        this.chart = chart;
+    }
+
+    public Chart getChart() {
+        return chart;
     }
 
     //-----------------------------------------------------override functions}
