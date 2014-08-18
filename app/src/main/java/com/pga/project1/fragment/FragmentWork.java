@@ -94,7 +94,7 @@ public class FragmentWork extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
 
-        CheckComeFromPersonnel();
+        CheckComeFromPersonnelPicker();
                 
         prepareInfo();
 
@@ -105,8 +105,12 @@ public class FragmentWork extends Fragment {
 
     }
 
-    private void CheckComeFromPersonnel() {
+    private void CheckComeFromPersonnelPicker() {
+        if (comeFromPicker) {
+            Toast.makeText(getActivity(), getSelectedPersonnel().getFirst_name(), Toast.LENGTH_SHORT).show();
+        }
     }
+
 
     private void prepareReport() {
         final ListView lv = (ListView) ll_work_report.findViewById(R.id.lv_fragmentWork_report_reportViewer);
