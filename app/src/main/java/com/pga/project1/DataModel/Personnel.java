@@ -1,5 +1,7 @@
 package com.pga.project1.DataModel;
 
+import com.pga.project1.Utilities.JsonHelper;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -36,28 +38,44 @@ public class Personnel {
 
         ArrayList<Personnel> array = new ArrayList<Personnel>();
 
+        try {
 
-        for (int i = 0; i < jsonArray.length(); i++) {
-
-
-            try {
+            for (int i = 0; i < jsonArray.length(); i++) {
 
                 JSONObject json = (JSONObject) jsonArray.get(i);
+
+                JsonHelper jsonHelper = new JsonHelper();
+
                 Personnel p = new Personnel();
-                p.id = json.getInt("id");
-                p.first_name = json.getString("first_name");
-                p.last_name = json.getString("last_name");
-                p.personnel_code = json.getString("personnel_code");
-                p.phone_number = json.getString("phone_number");
+
+                p.id =  jsonHelper.getInt(json, "id", 0);  //json.getString("id");
+
+                if(jsonHelper.error)
+                    continue;
+
+                p.first_name = jsonHelper.getString(json, "first_name", "؟؟"); //json.getString("first_name");
+                p.last_name = jsonHelper.getString(json, "last_name", ""); //json.getString("last_name");
+                p.personnel_code = jsonHelper.getString(json, "personnel_code", ""); //json.getString("personnel_code");
+
+                if(jsonHelper.error)
+                    continue;
+
+                p.phone_number = jsonHelper.getString(json, "phone_number", ""); //json.getString("phone_number");
+
+                JSONArray groupsJson = jsonHelper.getJsonArray(json, "groups", new JSONArray());
+
+                for (int j = 0; j < groupsJson.length(); j++) {
+                    p.groups.add(groupsJson.getString(j));
+
+                }
 
                 //String json
                 array.add(p);
+            }
 
-            } catch (JSONException e) {
-                e.printStackTrace();
-                continue;
-            }
-            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
 
         return array;
@@ -71,9 +89,9 @@ public class Personnel {
 
         for (String group : groups){
             if(isFirst)
-                str += str;
+                str += group;
             else
-                str += " ," + str;
+                str += " ," + group;
 
             isFirst = false;
         }

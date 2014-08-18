@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -127,7 +126,7 @@ public class PathMapManager extends LinearLayout {
             ImageView img = new ImageView(this.getContext());
             img.setScaleType(ImageView.ScaleType.FIT_XY);
             img.setLayoutParams(new LayoutParams(30, LayoutParams.MATCH_PARENT));
-            img.setImageResource(R.drawable.previous);//TODO add path map divider
+            img.setImageResource(R.drawable.arrow);//TODO add path map divider
 
             if(!isFirst) {
                 mainLayout.addView(img);
