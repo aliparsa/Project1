@@ -12,7 +12,11 @@ import android.content.DialogInterface;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Message;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -110,8 +114,35 @@ public class FragmentWork extends Fragment {
 
         prepareReport();
 
+//        setHasOptionsMenu(true);
+
 
     }
+
+//    @Override
+//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+//        super.onCreateOptionsMenu(menu, inflater);
+//        MenuItem m =  menu.getItem(0);
+//        menu.clear();
+//        inflater.inflate(R.menu.menu_fragment_work,menu);
+//
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//
+//
+//        if (item.getItemId() == R.id.action_navi) {
+//
+//
+//
+//            return true;
+//        }
+//
+//
+//        return super.onOptionsItemSelected(item);
+//    }
+
 
     private void CheckComeFromPersonnelPicker() {
         if (comeFromPicker) {
