@@ -123,6 +123,13 @@ public class MainActivity extends Activity
         if (id == R.id.action_settings) {
             return true;
         }
+
+        if (item.getItemId() == R.id.action_back) {
+            onBackPressed();
+            return true;
+        }
+
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -177,27 +184,23 @@ public class MainActivity extends Activity
     //-------------------------------------------------------------------------------------
     public void changeMenuIcons(boolean navigation, boolean back) {
 
-        menu.findItem(R.id.action_navi).setVisible(navigation); // getItem(R.id.action_navi).setVisible(navigation);
-        menu.findItem(R.id.action_back).setVisible(back);
-    }
-    //-------------------------------------------------------------------------------------
+        if (menu.findItem(R.id.action_navi) != null)
+            menu.findItem(R.id.action_navi).setVisible(navigation); // getItem(R.id.action_navi).setVisible(navigation);
 
-    public void backPressed() {
-
-        PathMapManager.pop(this);
-
-        //this.getFragmentManager().popBackStack();
-
-        // onBackPressed();
+        if (menu.findItem(R.id.action_back) != null)
+            menu.findItem(R.id.action_back).setVisible(back);
     }
     //-------------------------------------------------------------------------------------
 
     @Override
     public void onBackPressed() {
 
-        int c = getFragmentManager().getBackStackEntryCount();
-        backPressed();
+        int befor = getFragmentManager().getBackStackEntryCount();
         super.onBackPressed();
+        int after = getFragmentManager().getBackStackEntryCount();
+
+        //  if(befor>after)
+        PathMapManager.pop(this);
 
     }
 
@@ -278,7 +281,7 @@ public class MainActivity extends Activity
 
                 FragmentWork frag = new FragmentWork();
 
-                replaceFragment(frag, true);
+                replaceFragment(frag, false);
 
                 Toast.makeText(self, "no personnel selected", Toast.LENGTH_SHORT);
             }

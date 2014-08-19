@@ -5,6 +5,9 @@ import android.app.Fragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -36,7 +39,6 @@ public class FragmentNewReportWork extends Fragment {
 
     EditText report;
     EditText percent;
-    Button btnSave;
     ImageButton timePicker;
     TextView pickedDate;
     private Chart chart;
@@ -55,6 +57,7 @@ public class FragmentNewReportWork extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -73,20 +76,13 @@ public class FragmentNewReportWork extends Fragment {
 
         report = (EditText) view.findViewById(R.id.edittext_newReport_reportText);
         percent = (EditText) view.findViewById(R.id.edittext_newReport_percent);
-        btnSave = (Button) view.findViewById(R.id.btn_newReport_Save);
+
         timePicker = (ImageButton) view.findViewById(R.id.btn_newReport_TimePicker);
         pickedDate = (TextView) view.findViewById(R.id.txt_newReport_PickedDate);
 
         // set pre percent value to edit text
         percent.setText(chart.getPercent() + "");
 
-
-        btnSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getActivity(), "Saving", Toast.LENGTH_SHORT).show();
-            }
-        });
 
         timePicker.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,6 +108,28 @@ public class FragmentNewReportWork extends Fragment {
             }
         });
 
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        //super.onCreateOptionsMenu(menu, inflater);
+        menu.clear();
+        inflater.inflate(R.menu.menu_fragment_work_report, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if (item.getItemId() == R.id.save) {
+            Toast.makeText(getActivity(), "Saving", Toast.LENGTH_SHORT).show();
+        }
+
+        if (item.getItemId() == R.id.action_back) {
+            Toast.makeText(getActivity(), "Back", Toast.LENGTH_SHORT).show();
+            getActivity().getFragmentManager().beginTransaction().remove(this).commit();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
