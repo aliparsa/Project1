@@ -77,7 +77,6 @@ public class SolarCalendar {
         int WeekDay = MiladiDate.getDay();
 
         Calendar c = Calendar.getInstance();
-        int seconds = c.get(Calendar.SECOND);
 
         this.hour = c.get(Calendar.HOUR);
         this.minute = c.get(Calendar.MINUTE);
