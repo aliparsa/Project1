@@ -5,6 +5,9 @@ import android.app.Fragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -46,6 +49,7 @@ public class FragmentNewReportWork extends Fragment {
     //filled information
     private PersianCalendar selectedDateTime;
     private int selectedPercent;
+    private Menu menu;
     //-----------------------------------------------------Fields}
 
     //{Constructor-----------------------------------------------------
@@ -70,6 +74,8 @@ public class FragmentNewReportWork extends Fragment {
                 container, false);
 
 
+        setHasOptionsMenu(true);
+
         return view;
     }
 
@@ -80,7 +86,6 @@ public class FragmentNewReportWork extends Fragment {
         report = (EditText) view.findViewById(R.id.edittext_fragmentNewReportWork_reportText);
         percent = (Button) view.findViewById(R.id.btn_fragmentNewReportWork_selectPercent);
         timePicker = (Button) view.findViewById(R.id.btn_fragmentNewReportWork_selectDate);
-        btnSave = (Button) view.findViewById(R.id.btn_newReport_Save);
 
 
         // set pre percent value to edit text
@@ -88,12 +93,6 @@ public class FragmentNewReportWork extends Fragment {
         percent.setText(selectedPercent + " %");
         timePicker.setText(new PersianCalendar().getIranianDateTime());
 
-        btnSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getActivity(), "Saving", Toast.LENGTH_SHORT).show();
-            }
-        });
 
         timePicker.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -143,6 +142,26 @@ public class FragmentNewReportWork extends Fragment {
             }
         });
 
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+
+        menu.clear();
+        inflater.inflate(R.menu.menu_fragment_work_report, menu);
+        this.menu = menu;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+
+        if (item.getItemId() == R.id.ac_work_report_save)
+            //saveReport();
+            Toast.makeText(getActivity(), "Sending...", Toast.LENGTH_SHORT).show();
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

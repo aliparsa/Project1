@@ -3,9 +3,9 @@
     tools:context=".MainActivity">
 
     <item
-        android:id="@+id/save"
+        android:id="@+id/ac_work_report_save"
         android:showAsAction="always"
-        android:title="ذخیره"
+        android:title="Save"
         android:orderInCategory="0" />
 
     <item
