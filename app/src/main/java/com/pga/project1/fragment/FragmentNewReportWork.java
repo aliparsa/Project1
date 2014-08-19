@@ -5,20 +5,18 @@ import android.app.Fragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
+import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pga.project1.DataModel.Chart;
 import com.pga.project1.MainActivity;
 import com.pga.project1.R;
+import com.pga.project1.Utilities.PersianCalendar;
 import com.pga.project1.Viewes.ViewDateTimePickerPersian;
 
 /**
@@ -38,10 +36,16 @@ public class FragmentNewReportWork extends Fragment {
     //{Fields-----------------------------------------------------
 
     EditText report;
-    EditText percent;
-    ImageButton timePicker;
+    Button percent;
+    Button btnSave;
+    Button timePicker;
     TextView pickedDate;
     private Chart chart;
+
+
+    //filled information
+    private PersianCalendar selectedDateTime;
+    private int selectedPercent;
     //-----------------------------------------------------Fields}
 
     //{Constructor-----------------------------------------------------
@@ -57,7 +61,6 @@ public class FragmentNewReportWork extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
     }
 
     @Override
@@ -74,62 +77,72 @@ public class FragmentNewReportWork extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        report = (EditText) view.findViewById(R.id.edittext_newReport_reportText);
-        percent = (EditText) view.findViewById(R.id.edittext_newReport_percent);
+        report = (EditText) view.findViewById(R.id.edittext_fragmentNewReportWork_reportText);
+        percent = (Button) view.findViewById(R.id.btn_fragmentNewReportWork_selectPercent);
+        timePicker = (Button) view.findViewById(R.id.btn_fragmentNewReportWork_selectDate);
+        btnSave = (Button) view.findViewById(R.id.btn_newReport_Save);
 
-        timePicker = (ImageButton) view.findViewById(R.id.btn_newReport_TimePicker);
-        pickedDate = (TextView) view.findViewById(R.id.txt_newReport_PickedDate);
 
         // set pre percent value to edit text
-        percent.setText(chart.getPercent() + "");
+        selectedPercent = chart.getPercent();
+        percent.setText(selectedPercent + " %");
+        timePicker.setText(new PersianCalendar().getIranianDateTime());
 
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getActivity(), "Saving", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         timePicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                final ViewDateTimePickerPersian dp = new ViewDateTimePickerPersian(getActivity());
+                final ViewDateTimePickerPersian dp;
+                if (selectedDateTime == null)
+                    dp = new ViewDateTimePickerPersian(getActivity());
+                else
+                    dp = new ViewDateTimePickerPersian(getActivity(), selectedDateTime);
 
                 new AlertDialog.Builder(getActivity())
                         .setTitle("انتخاب زمان و تاریخ")
                         .setView(dp)
                         .setPositiveButton("تایید", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
-                                        // continue with delet
-
-                                        pickedDate.setText(dp.getYear() + "/" + dp.getMonth() + "/" + dp.getDay());
-
-
+                                        selectedDateTime = dp.getDate();
+                                        timePicker.setText(selectedDateTime.getIranianDateTime());
                                     }
                                 }
                         )
                         .show();
-
             }
         });
 
-    }
+        percent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        //super.onCreateOptionsMenu(menu, inflater);
-        menu.clear();
-        inflater.inflate(R.menu.menu_fragment_work_report, menu);
-    }
+                final NumberPicker percentPicker = new NumberPicker(getActivity());
+                percentPicker.setMaxValue(100);
+                percentPicker.setMinValue(1);
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+                percentPicker.setValue(selectedPercent);
 
-        if (item.getItemId() == R.id.save) {
-            Toast.makeText(getActivity(), "Saving", Toast.LENGTH_SHORT).show();
-        }
+                new AlertDialog.Builder(getActivity())
+                        .setTitle("درصد پیشرفت")
+                        .setView(percentPicker)
+                        .setPositiveButton("تایید", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        selectedPercent = percentPicker.getValue();
+                                        percent.setText(selectedPercent + "%");
+                                    }
+                                }
+                        )
+                        .show();
+            }
+        });
 
-        if (item.getItemId() == R.id.action_back) {
-            Toast.makeText(getActivity(), "Back", Toast.LENGTH_SHORT).show();
-            getActivity().getFragmentManager().beginTransaction().remove(this).commit();
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     @Override

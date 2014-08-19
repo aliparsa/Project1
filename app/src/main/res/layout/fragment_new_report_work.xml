@@ -27,7 +27,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/edittext_newReport_reportText"
+            android:id="@+id/edittext_fragmentNewReportWork_reportText"
             android:layout_gravity="right"
             android:layout_alignParentTop="true"
             android:layout_toLeftOf="@+id/textView2" />
@@ -46,16 +46,9 @@
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/relativeLayout">
+        android:id="@+id/relativeLayout"
+        android:layout_gravity="right">
 
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            android:ems="3"
-            android:id="@+id/edittext_newReport_percent"
-            android:layout_alignParentTop="true"
-            android:layout_toLeftOf="@+id/textView" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -66,6 +59,15 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0%"
+            android:id="@+id/btn_fragmentNewReportWork_selectPercent"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/textView" />
+
     </RelativeLayout>
 
     <RelativeLayout
@@ -83,25 +85,14 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" />
 
-        <TextView
+        <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="sssssss"
-            android:id="@+id/txt_newReport_PickedDate"
-            android:layout_gravity="right"
+            android:text="1395/01/01 12:00"
+            android:id="@+id/btn_fragmentNewReportWork_selectDate"
             android:layout_alignParentTop="true"
-            android:layout_toLeftOf="@id/textView4" />
+            android:layout_toLeftOf="@+id/textView4" />
 
-        <ImageButton
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:scaleType="fitCenter"
-            android:background="@android:color/transparent"
-            android:src="@drawable/clock"
-            android:id="@+id/btn_newReport_TimePicker"
-            android:layout_alignBottom="@+id/textView4"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
     </RelativeLayout>
 
 </LinearLayout>
