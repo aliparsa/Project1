@@ -1,6 +1,5 @@
 package com.pga.project1.Adapters;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,119 +48,6 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
 
     }
 
-    /*@Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        // TODO Auto-generated method stub
-
-        View view = convertView;
-
-        DrawerItemHolder drawerItemHolder = new DrawerItemHolder();
-        //View view = convertView;
-
-
-        if (view == null) {
-            // TODO New View Created
-
-            //create view
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService
-                    (Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.drawer_item, null);
-
-
-            lv_image = (LinearLayout) view.findViewById(R.id.lv_image);
-            lv_icon_title_subtitle = (LinearLayout) view.findViewById(R.id.lv_icon_title_subtitle);
-            ll_people = (LinearLayout) view.findViewById(R.id.ll_people);
-
-            // define item holder
-            drawerItemHolder.icon = (ImageView) view.findViewById(R.id.icon);
-            drawerItemHolder.icon_in_title_subtitle = (ImageView) view.findViewById(R.id.icon2);
-            drawerItemHolder.title = (TextView) view.findViewById(R.id.title);
-            drawerItemHolder.subtitle = (TextView) view.findViewById(R.id.subtitle);
-            drawerItemHolder.tag = itemList.get(position).getTag();
-
-            // ITEM 1
-            if (itemList.get(position).type.equals(IMAGE_DRAWER_ITEM)) {
-
-                // set values
-                drawerItemHolder.icon.setImageBitmap(itemList.get(position).image1);
-
-                PleaseOnlyShow(lv_image);
-
-                // set item holder to view
-                view.setTag(drawerItemHolder);
-            }
-
-
-            // ITEM 2
-            if (itemList.get(position).type.equals(ICON_TITLE_SUBTITLE)) {
-
-                // set values
-                drawerItemHolder.icon_in_title_subtitle.setImageBitmap(itemList.get(position).image1);
-                drawerItemHolder.title.setText(itemList.get(position).text1);
-                drawerItemHolder.subtitle.setText(itemList.get(position).text2);
-
-                PleaseOnlyShow(lv_icon_title_subtitle);
-
-                // set item holder to view
-                view.setTag(drawerItemHolder);
-            }
-
-
-            // ITEM 3
-            if (itemList.get(position).type.equals(FOOTER)) {
-                // set values
-                drawerItemHolder.icon_in_title_subtitle.setImageBitmap(itemList.get(position).image1);
-                drawerItemHolder.title.setText(itemList.get(position).text1);
-                drawerItemHolder.subtitle.setText(itemList.get(position).text2);
-
-                PleaseOnlyShow(lv_icon_title_subtitle);
-
-                // set item holder to view
-                view.setTag(drawerItemHolder);
-            }
-
-
-        } else {
-            // TODO Recyle View To use;
-            drawerItemHolder = (DrawerItemHolder) view.getTag();
-
-            lv_image = (LinearLayout) view.findViewById(R.id.lv_image);
-            lv_icon_title_subtitle = (LinearLayout) view.findViewById(R.id.lv_icon_title_subtitle);
-
-
-            // ITEM 1
-            if (itemList.get(position).type.equals(IMAGE_DRAWER_ITEM)) {
-                // set values
-                drawerItemHolder.icon.setImageBitmap(itemList.get(position).image1);
-                drawerItemHolder.tag = itemList.get(position).getTag();
-                PleaseOnlyShow(lv_image);
-
-            }
-
-
-            // ITEM 2
-            if (itemList.get(position).type.equals(ICON_TITLE_SUBTITLE)) {
-                // set values
-                drawerItemHolder.icon_in_title_subtitle.setImageBitmap(itemList.get(position).image1);
-                drawerItemHolder.title.setText(itemList.get(position).text1);
-                drawerItemHolder.subtitle.setText(itemList.get(position).text2);
-                drawerItemHolder.tag = itemList.get(position).getTag();
-                PleaseOnlyShow(lv_icon_title_subtitle);
-
-            }
-
-
-        }
-
-
-        // set animation
-       // Animation anim = AnimationUtils.loadAnimation(context,
-        //        R.anim.slide_from_left);
-       // view.setAnimation(anim);
-
-
-        return view;
-    }*/
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {

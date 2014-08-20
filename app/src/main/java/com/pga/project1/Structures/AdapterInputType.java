@@ -52,6 +52,7 @@ list of types that adapter can be handel
     public Object tag;
 
     public AdapterInputType(Object tag, String type, String title, String subtitle, Bitmap icon) {
+        this.tag = tag;
         this.type = type;
         this.text1 = title;
         this.text2 = subtitle;

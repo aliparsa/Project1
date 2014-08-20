@@ -332,9 +332,11 @@ public class MainActivity extends Activity
 
     //-------------------------------------------------------------------------------------
     public void ShowTaskPageFragment(Chart chart) {
-        FragmentTaskPage frag = new FragmentTaskPage();
+        FragmentTaskPage frag = FragmentTaskPage.getInstanceInfo();
         ((FragmentTaskPage) frag).setChart(chart);
         replaceFragment(frag, true);
+
+        PathMapManager.push(chart);
     }
 
     //-------------------------------------------------------------------------------------
