@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <ImageView
+
+            android:id="@+id/imgv_fragmentTaskInfo_pic"
+            android:layout_width="100dp"
+            android:layout_height="100dp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.pga.project1.Viewes.ViewNameValue
+                android:id="@+id/txt_fragmentTaskInfo_personnelName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:name="نام"
+                app:value="name here"
+                ></com.pga.project1.Viewes.ViewNameValue>
+
+            <com.pga.project1.Viewes.ViewNameValue
+                android:id="@+id/txt_fragmentTaskInfo_personnelJob"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:name="سمت"
+            app:value="job type here"
+            ></com.pga.project1.Viewes.ViewNameValue>
+
+            <com.pga.project1.Viewes.ViewNameValue
+                android:id="@+id/txt_fragmentTaskInfo_personnelPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:name="شماره تماس"
+                app:value="0917138044 a"
+                ></com.pga.project1.Viewes.ViewNameValue>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+        <com.pga.project1.Viewes.ViewNameValue
+            android:id="@+id/txt_fragmentTaskInfo_taskStart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:name="شروع فعالیت"
+            app:value="1391/1/5"
+            >
+
+            </com.pga.project1.Viewes.ViewNameValue>
+
+        <com.pga.project1.Viewes.ViewNameValue
+            android:id="@+id/txt_fragmentTaskInfo_taskEnd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:name="پایان فعالیت"
+            app:value="1391/1/5">
+
+        </com.pga.project1.Viewes.ViewNameValue>
+
+        <com.pga.project1.Viewes.ViewNameValue
+            android:id="@+id/txt_fragmentTaskInfo_taskPercent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:name="درصد انجام"
+            app:value="1391/1/5">
+
+        </com.pga.project1.Viewes.ViewNameValue>
+
+        <com.pga.project1.Viewes.ViewNameValue
+            android:id="@+id/txt_fragmentTaskInfo_dayWorked"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:name="روز های کار کرد"
+            app:value="1391/1/5">
+
+        </com.pga.project1.Viewes.ViewNameValue>
+
+        </LinearLayout>
+
+</LinearLayout>

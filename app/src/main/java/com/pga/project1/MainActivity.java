@@ -21,6 +21,7 @@ import com.pga.project1.fragment.FragmentNewReportWork;
 import com.pga.project1.fragment.FragmentPersonnelSearch;
 import com.pga.project1.fragment.FragmentProjectTreeView;
 import com.pga.project1.fragment.FragmentSplash;
+import com.pga.project1.fragment.FragmentTaskPage;
 import com.pga.project1.fragment.FragmentWork;
 import com.pga.project1.fragment.NavigationDrawerFragment;
 
@@ -253,6 +254,20 @@ public class MainActivity extends Activity
     public void ShowNewReportFragment(Chart chart) {
         Fragment frag = new FragmentNewReportWork();
         ((FragmentNewReportWork) frag).setChart(chart);
+        replaceFragment(frag, true);
+    }
+
+    //-------------------------------------------------------------------------------------
+    public void ShowTaskInfoFragment(Chart chart) {
+        FragmentTaskPage frag = FragmentTaskPage.getInstanceInfo();
+        ((FragmentTaskPage) frag).setChart(chart);
+        replaceFragment(frag, true);
+    }
+
+    //-------------------------------------------------------------------------------------
+    public void ShowTaskReportsFragment(Chart chart) {
+        FragmentTaskPage frag = FragmentTaskPage.getInstanceReports();
+        ((FragmentTaskPage) frag).setChart(chart);
         replaceFragment(frag, true);
     }
 

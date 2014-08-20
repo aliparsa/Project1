@@ -3,27 +3,19 @@ package com.pga.project1.fragment;
 
 import android.app.ActionBar;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
-import android.app.TabActivity;
 import android.content.DialogInterface;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.os.Message;
-import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TabHost;
 import android.widget.Toast;
 
 import com.pga.project1.Adapters.ListViewCustomAdapter;
@@ -450,9 +442,12 @@ public class FragmentWork extends Fragment {
 
             Object tag = ((ListViewCustomAdapter.DrawerItemHolder) view.getTag()).getTag();
             Chart chart;
-
-            if (tag instanceof Chart)
+            ((MainActivity) getActivity()).ShowTaskInfoFragment(null);
+            if (tag instanceof Chart) {
                 chart = (Chart) tag;
+
+
+            }
             else
                 return;
 
