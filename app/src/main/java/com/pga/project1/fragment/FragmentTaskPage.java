@@ -55,7 +55,7 @@ public class FragmentTaskPage extends Fragment {
 
 
 
-
+        setHasOptionsMenu(true);
         return rootView;
     }
 
@@ -108,15 +108,15 @@ public class FragmentTaskPage extends Fragment {
             getActivity().getActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
         // Create Tabs
-        ActionBar.Tab tab_workInfo = getActivity().getActionBar().newTab();
-        ActionBar.Tab tab_workReport = getActivity().getActionBar().newTab();
+        ActionBar.Tab tab_taskInfo = getActivity().getActionBar().newTab();
+        ActionBar.Tab tab_taskReport = getActivity().getActionBar().newTab();
 
         // Set Tab Titles
-        tab_workInfo.setText("اطلاعات");
-        tab_workReport.setText("گزارشات");
+        tab_taskInfo.setText("اطلاعات");
+        tab_taskReport.setText("گزارشات");
 
         // Set Tab Listeners
-        tab_workInfo.setTabListener(new ActionBar.TabListener() {
+        tab_taskInfo.setTabListener(new ActionBar.TabListener() {
             @Override
             public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
                 ((MainActivity) getActivity()).ShowTaskInfoFragment(chart);
@@ -127,7 +127,7 @@ public class FragmentTaskPage extends Fragment {
             public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {}
         });
 
-        tab_workReport.setTabListener(new ActionBar.TabListener() {
+        tab_taskReport.setTabListener(new ActionBar.TabListener() {
             @Override
             public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
                 ((MainActivity) getActivity()).ShowTaskInfoFragment(chart);
@@ -143,13 +143,13 @@ public class FragmentTaskPage extends Fragment {
 
         switch (pageType){
             case Info:{
-                getActivity().getActionBar().addTab(tab_workInfo, true);
-                getActivity().getActionBar().addTab(tab_workReport, false);
+                getActivity().getActionBar().addTab(tab_taskInfo, true);
+                getActivity().getActionBar().addTab(tab_taskReport, false);
                 break;
             }
             case Reports:{
-                getActivity().getActionBar().addTab(tab_workReport, true);
-                getActivity().getActionBar().addTab(tab_workInfo, false);
+                getActivity().getActionBar().addTab(tab_taskInfo, true);
+                getActivity().getActionBar().addTab(tab_taskReport, false);
                 break;
             }
         }
