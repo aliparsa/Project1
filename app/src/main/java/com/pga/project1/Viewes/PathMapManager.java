@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -138,6 +140,9 @@ public class PathMapManager extends LinearLayout {
            // LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
            // LinearLayout view = (LinearLayout)LayoutInflater.from(this).inflate(R.layout.my_button, null);
             btn = (Button) inflater.inflate(R.layout.path_map_button, null);
+
+
+
             /*
             btn =  new Button(this.getContext());
             btn.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, 25));
@@ -145,8 +150,13 @@ public class PathMapManager extends LinearLayout {
             btn.setTextSize(10);*/
             if (!isFirst) {
                 //    btn.setBackgroundResource(R.drawable.selector_btn_pathmap);
+
+
+
             } else {
                 //    btn.setBackgroundResource(R.drawable.selector_btn_pathmap_current);
+                Animation animation = AnimationUtils.loadAnimation(context, R.anim.slide_from_left);
+                btn.setAnimation(animation);
             }
             btn.setText(name);
             btn.setTag(object.getSelf());

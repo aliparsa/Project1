@@ -15,7 +15,6 @@ import com.pga.project1.DataModel.Chart;
 import com.pga.project1.DataModel.PathObject;
 import com.pga.project1.DataModel.Personnel;
 import com.pga.project1.Intefaces.CallBack;
-import com.pga.project1.Intefaces.PathMapObject;
 import com.pga.project1.Utilities.ErrorMessage;
 import com.pga.project1.Viewes.PathMapManager;
 import com.pga.project1.fragment.FragmentLogin;
@@ -324,9 +323,11 @@ public class MainActivity extends Activity
 
     //-------------------------------------------------------------------------------------
     public void ShowTaskPageFragment(Chart chart) {
-        FragmentTaskPage frag = new FragmentTaskPage();
+        FragmentTaskPage frag = FragmentTaskPage.getInstanceInfo();
         ((FragmentTaskPage) frag).setChart(chart);
         replaceFragment(frag, true);
+
+        PathMapManager.push(chart);
     }
 
     //-------------------------------------------------------------------------------------
