@@ -15,7 +15,6 @@ import com.pga.project1.DataModel.Chart;
 import com.pga.project1.DataModel.PathObject;
 import com.pga.project1.DataModel.Personnel;
 import com.pga.project1.Intefaces.CallBack;
-import com.pga.project1.Intefaces.PathMapObject;
 import com.pga.project1.Utilities.ErrorMessage;
 import com.pga.project1.Viewes.PathMapManager;
 import com.pga.project1.fragment.FragmentLogin;
@@ -45,6 +44,7 @@ public class MainActivity extends Activity
 
     private Fragment currentFragment;
 
+    //----------------------------------------------------------------------------------------
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,12 +73,14 @@ public class MainActivity extends Activity
 
     }
 
+    //----------------------------------------------------------------------------------------
     @Override
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
 
     }
 
+    //----------------------------------------------------------------------------------------
     public void onSectionAttached(int number) {
         switch (number) {
             case 1:
@@ -93,6 +95,7 @@ public class MainActivity extends Activity
         }
     }
 
+    //----------------------------------------------------------------------------------------
     public void restoreActionBar() {
         ActionBar actionBar = getActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
@@ -100,7 +103,7 @@ public class MainActivity extends Activity
         //actionBar.setTitle(mTitle);
     }
 
-
+    //----------------------------------------------------------------------------------------
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         if (!mNavigationDrawerFragment.isDrawerOpen()) {
@@ -117,6 +120,7 @@ public class MainActivity extends Activity
         return super.onCreateOptionsMenu(menu);
     }
 
+    //----------------------------------------------------------------------------------------
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -213,8 +217,8 @@ public class MainActivity extends Activity
         if (menu.findItem(R.id.action_back) != null)
             menu.findItem(R.id.action_back).setVisible(back);
     }
-    //-------------------------------------------------------------------------------------
 
+    //-------------------------------------------------------------------------------------
     @Override
     public void onBackPressed() {
 
@@ -232,6 +236,7 @@ public class MainActivity extends Activity
         return menu;
     }
 
+    //-------------------------------------------------------------------------------------
     public void hideTabs() {
         if (getActionBar().getNavigationMode() == ActionBar.NAVIGATION_MODE_TABS)
             getActionBar().setNavigationMode(
@@ -277,6 +282,9 @@ public class MainActivity extends Activity
 
     //-------------------------------------------------------------------------------------
     public void ShowNewReportFragment(final Chart chart) {
+
+        // hide Tabs if Exist
+        hideTabs();
 
         final Context self = this;
 
@@ -332,6 +340,9 @@ public class MainActivity extends Activity
     //-------------------------------------------------------------------------------------
     public void ShowPersonelSearch(final Chart chart) {
 
+        // hide Tabs if Exist
+        hideTabs();
+
         FragmentPersonnelSearch frag = new FragmentPersonnelSearch();
 
         final Context self = this;
@@ -364,13 +375,11 @@ public class MainActivity extends Activity
 
     }
 
-
     //-------------------------------------------------------------------------------------
     public static class BackStackChanged implements FragmentManager.OnBackStackChangedListener {
 
-        private Activity activity;
-
         int lastSize = 0;
+        private Activity activity;
 
         public BackStackChanged(Activity activity) {
 
@@ -395,5 +404,10 @@ public class MainActivity extends Activity
             lastSize = currentStackSize;
         }
     }
+    //-------------------------------------------------------------------------------------
+    //-------------------------------------------------------------------------------------//-------------------------------------------------------------------------------------
+    //-------------------------------------------------------------------------------------
+    //-------------------------------------------------------------------------------------
+
 
 }
