@@ -1,5 +1,7 @@
 package com.pga.project1.DataModel;
 
+import com.pga.project1.Utilities.JsonHelper;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -10,6 +12,17 @@ import java.util.ArrayList;
  * Created by aliparsa on 8/17/2014.
  */
 public class Report {
+    public Report(int id, Chart chart, int personnel_id, String date, String report, int percent) {
+        this.id = id;
+        this.chart_id = chart.getId();
+        this.personnel_id = personnel_id;
+        this.date = date;
+        this.report = report;
+        this.percent = percent;
+        this.chart = chart;
+    }
+
+
     public Report(int id, int chart_id, int personnel_id, String date, String report, int percent) {
         this.id = id;
         this.chart_id = chart_id;
@@ -17,6 +30,7 @@ public class Report {
         this.date = date;
         this.report = report;
         this.percent = percent;
+        this.chart = chart;
     }
 
     private int id;
@@ -25,6 +39,7 @@ public class Report {
     private String date;
     private String report;
     private int percent;
+    private Chart chart;
 
 
     public static ArrayList<Report> getArrayFromJson(JSONArray jsonArray) {
@@ -35,7 +50,7 @@ public class Report {
             for (int i = 0; i < jsonArray.length(); i++) {
 
                 JSONObject jsonObject = (JSONObject) jsonArray.get(i);
-                int id = jsonObject.getInt("id");
+                int id = JsonHelper.getIntS(jsonObject, "id", -1);
                 int chart_id = jsonObject.getInt("chart_id");
                 int personnel_id = jsonObject.getInt("personnel_id");
                 String date = jsonObject.getString("date");
@@ -98,5 +113,13 @@ public class Report {
 
     public void setReport(String report) {
         this.report = report;
+    }
+
+    public Chart getChart() {
+        return chart;
+    }
+
+    public void setChart(Chart chart) {
+        this.chart = chart;
     }
 }

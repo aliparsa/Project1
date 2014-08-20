@@ -18,6 +18,7 @@ import com.pga.project1.Structures.AdapterInputType;
 import com.pga.project1.Structures.ErrorPlaceHolder;
 import com.pga.project1.Utilities.ErrorMessage;
 import com.pga.project1.Utilities.Webservice;
+import com.pga.project1.Viewes.PathMapManager;
 
 import java.util.ArrayList;
 
@@ -94,6 +95,12 @@ public class FragmentPersonnelSearch extends Fragment {
         callback.onError(new ErrorMessage(ErrorPlaceHolder.err2));
     }
 
+
+    // ------------------------------------------------------------------------------------
+    public void onDetach() {
+        super.onDetach();
+        PathMapManager.pop("Fragment Personel Search  onDetach");
+    }
     //-----------------------------------------------------override functions}
 
     //{Functions-----------------------------------------------------

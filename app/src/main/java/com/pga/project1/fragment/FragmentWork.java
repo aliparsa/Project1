@@ -32,6 +32,7 @@ import com.pga.project1.R;
 import com.pga.project1.Structures.AdapterInputType;
 import com.pga.project1.Utilities.ErrorMessage;
 import com.pga.project1.Utilities.Webservice;
+import com.pga.project1.Viewes.PathMapManager;
 import com.pga.project1.Viewes.ViewNameValue;
 
 import java.util.ArrayList;
@@ -129,13 +130,22 @@ public class FragmentWork extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
 
 
-        if (item.getItemId() == R.id.ac_pick_personnel)
+        if (item.getItemId() == R.id.ac_pick_personnel) {
             pickPersonnel();
-
-        if (item.getItemId() == R.id.ac_new_work_report)
+            return true;
+        }
+        if (item.getItemId() == R.id.ac_new_work_report) {
             newWorkReport();
-
+            return true;
+        }
         return super.onOptionsItemSelected(item);
+    }
+
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        PathMapManager.pop("Fragment Work onDetach");
     }
 
     //--------------------------------------------------------------------------------
@@ -185,8 +195,10 @@ public class FragmentWork extends Fragment {
                 }
             });
 
-
+            comeFromPicker = false;
         }
+
+
     }
 
     //--------------------------------------------------------------------------------
@@ -302,6 +314,12 @@ public class FragmentWork extends Fragment {
 
         // Set Tabs
         //setTabs();
+
+//        PathMapManager pmm = (PathMapManager) getView().findViewById(R.id.path_map_fragment_work);
+//        if ( pmm!=null )
+//            pmm.refresh();
+
+
     }
 
     public Chart getChart() {

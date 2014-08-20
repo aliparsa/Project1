@@ -12,8 +12,10 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.pga.project1.DataModel.Chart;
+import com.pga.project1.DataModel.PathObject;
 import com.pga.project1.DataModel.Personnel;
 import com.pga.project1.Intefaces.CallBack;
+import com.pga.project1.Intefaces.PathMapObject;
 import com.pga.project1.Utilities.ErrorMessage;
 import com.pga.project1.Viewes.PathMapManager;
 import com.pga.project1.fragment.FragmentLogin;
@@ -129,6 +131,18 @@ public class MainActivity extends Activity
             return true;
         }
 
+        if (id == R.id.ac_pick_personnel) {
+            return false;
+        }
+
+        if (id == R.id.ac_new_work_report) {
+            return false;
+        }
+
+        if (id == R.id.ac_work_report_save) {
+            return false;
+        }
+
 
         return super.onOptionsItemSelected(item);
     }
@@ -142,6 +156,8 @@ public class MainActivity extends Activity
         // Call ProjectTree View Fraqgment
         Fragment frag = new FragmentProjectTreeView();
         replaceFragment(frag, false);
+
+
     }
 
     //-----------------------------------------------------------------------------------
@@ -155,6 +171,8 @@ public class MainActivity extends Activity
         Fragment frag = new FragmentProjectTreeView();
         ((FragmentProjectTreeView) frag).setChart(chart);
         replaceFragment(frag, true);
+
+        PathMapManager.push(chart);
     }
 
     //---------------------------------------------------------------------------------------
@@ -162,6 +180,10 @@ public class MainActivity extends Activity
         Fragment frag = new FragmentWork();
         ((FragmentWork) frag).setChart(chart);
         replaceFragment(frag, addToBackStack);
+
+
+        PathMapManager.push(chart);
+
     }
 
     //---------------------------------------------------------------------------------------
@@ -196,11 +218,11 @@ public class MainActivity extends Activity
     public void onBackPressed() {
 
         int befor = getFragmentManager().getBackStackEntryCount();
+
         super.onBackPressed();
+
         int after = getFragmentManager().getBackStackEntryCount();
 
-        //  if(befor>after)
-        PathMapManager.pop(this);
 
     }
 
@@ -253,10 +275,36 @@ public class MainActivity extends Activity
     }
 
     //-------------------------------------------------------------------------------------
-    public void ShowNewReportFragment(Chart chart) {
+    public void ShowNewReportFragment(final Chart chart) {
+
+        final Context self = this;
+
+        CallBack callback = new CallBack() {
+
+            @Override
+            public void onSuccess(Object result) {
+                FragmentWork frag = new FragmentWork();
+                frag.setChart(chart);
+                replaceFragment(frag, true);
+                PathMapManager.pop("M A   O S   ShowNewReportFragment");
+            }
+
+            @Override
+            public void onError(ErrorMessage err) {
+                FragmentWork frag = new FragmentWork();
+                frag.setChart(chart);
+                replaceFragment(frag, false);
+                Toast.makeText(self, "no report added", Toast.LENGTH_SHORT).show();
+
+            }
+        };
+
+
         Fragment frag = new FragmentNewReportWork();
         ((FragmentNewReportWork) frag).setChart(chart);
+        ((FragmentNewReportWork) frag).setCallback(callback);
         replaceFragment(frag, true);
+        PathMapManager.push(new PathObject("ثبت پیشرفت کار"));
     }
 
     //-------------------------------------------------------------------------------------
@@ -274,27 +322,33 @@ public class MainActivity extends Activity
                 frag.setChart(chart);
                 frag.setPersonnel(result);
                 replaceFragment(frag, true);
+                PathMapManager.pop(" M A O S ShowPersonelSearch");
             }
 
             @Override
             public void onError(ErrorMessage err) {
 
                 FragmentWork frag = new FragmentWork();
-
+                frag.setChart(chart);
                 replaceFragment(frag, false);
+                Toast.makeText(self, "no personnel selected", Toast.LENGTH_SHORT).show();
 
-                Toast.makeText(self, "no personnel selected", Toast.LENGTH_SHORT);
             }
         };
 
         frag.setCallback(callback);
-        replaceFragment(frag, false);
+        replaceFragment(frag, true);
+        PathMapManager.push(new PathObject("انتخاب پرسنل"));
+
     }
+
 
     //-------------------------------------------------------------------------------------
     public static class BackStackChanged implements FragmentManager.OnBackStackChangedListener {
 
         private Activity activity;
+
+        int lastSize = 0;
 
         public BackStackChanged(Activity activity) {
 
@@ -306,11 +360,17 @@ public class MainActivity extends Activity
 
             int currentStackSize = activity.getFragmentManager().getBackStackEntryCount();
 
+//            if(currentStackSize < lastSize){
+//                PathMapManager.pop(" M A onBackStackChanged");
+//            }
+
             if (currentStackSize > 0) {
                 ((MainActivity) activity).changeMenuIcons(false, true);
             } else {
                 ((MainActivity) activity).changeMenuIcons(true, false);
             }
+
+            lastSize = currentStackSize;
         }
     }
 

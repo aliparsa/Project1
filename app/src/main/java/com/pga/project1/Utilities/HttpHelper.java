@@ -86,17 +86,18 @@ public class HttpHelper {
                     } catch (UnsupportedEncodingException ue) {
                         ue.printStackTrace();
                         // handler.error(ErrorMessage.NO_CONNECTION_ERROR);
-                        handler.error(new ErrorMessage(ErrorPlaceHolder.UnsupportedEncodingException));
+                        //   handler.error(new ErrorMessage(ErrorPlaceHolder.UnsupportedEncodingException));
 
                     } catch (ClientProtocolException e) {
                         e.printStackTrace();
                         //handler.error(ErrorMessage.NO_CONNECTION_ERROR);
-                        handler.error(new ErrorMessage(ErrorPlaceHolder.UnsupportedEncodingException));
+                        //  handler.error(new ErrorMessage(ErrorPlaceHolder.UnsupportedEncodingException));
 
                     } catch (IOException e) {
                         e.printStackTrace();
+
                         //handler.error(ErrorMessage.NO_CONNECTION_ERROR);
-                        handler.error(new ErrorMessage(ErrorPlaceHolder.UnsupportedEncodingException));
+                        // handler.error(new ErrorMessage(ErrorPlaceHolder.UnsupportedEncodingException));
 
                     }
 

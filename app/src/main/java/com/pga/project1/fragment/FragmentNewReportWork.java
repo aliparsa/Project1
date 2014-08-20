@@ -2,14 +2,18 @@ package com.pga.project1.fragment;
 
 import android.app.AlertDialog;
 import android.app.Fragment;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.NumberPicker;
@@ -17,9 +21,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pga.project1.DataModel.Chart;
+import com.pga.project1.DataModel.Personnel;
+import com.pga.project1.DataModel.Report;
+import com.pga.project1.Intefaces.CallBack;
 import com.pga.project1.MainActivity;
 import com.pga.project1.R;
+import com.pga.project1.Structures.ErrorPlaceHolder;
+import com.pga.project1.Utilities.ErrorMessage;
 import com.pga.project1.Utilities.PersianCalendar;
+import com.pga.project1.Utilities.Webservice;
+import com.pga.project1.Viewes.PathMapManager;
 import com.pga.project1.Viewes.ViewDateTimePickerPersian;
 
 /**
@@ -40,9 +51,7 @@ public class FragmentNewReportWork extends Fragment {
 
     EditText report;
     Button percent;
-    Button btnSave;
     Button timePicker;
-    TextView pickedDate;
     private Chart chart;
 
 
@@ -50,6 +59,7 @@ public class FragmentNewReportWork extends Fragment {
     private PersianCalendar selectedDateTime;
     private int selectedPercent;
     private Menu menu;
+    private CallBack callback;
     //-----------------------------------------------------Fields}
 
     //{Constructor-----------------------------------------------------
@@ -92,6 +102,8 @@ public class FragmentNewReportWork extends Fragment {
         selectedPercent = chart.getPercent();
         percent.setText(selectedPercent + " %");
         timePicker.setText(new PersianCalendar().getIranianDateTime());
+
+        selectedDateTime = new PersianCalendar();
 
 
         timePicker.setOnClickListener(new View.OnClickListener() {
@@ -157,12 +169,74 @@ public class FragmentNewReportWork extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
 
 
-        if (item.getItemId() == R.id.ac_work_report_save)
-            //saveReport();
-            Toast.makeText(getActivity(), "Sending...", Toast.LENGTH_SHORT).show();
+        if (item.getItemId() == R.id.ac_work_report_save) {
+            saveWorkReport();
+        }
+
+        // save Report();
+
+        //   Toast.makeText(getActivity(), "Sending...", Toast.LENGTH_SHORT).show();
+
+        // close key board
+
+        //   callback.onSuccess(null);
 
         return super.onOptionsItemSelected(item);
     }
+
+    private void saveWorkReport() {
+
+
+        Report obj_report = new Report(-1, chart, -1, selectedDateTime.getIranianDate(), report.getText().toString(), selectedPercent);
+
+        final ProgressDialog pg = new ProgressDialog(getActivity());
+        pg.setMessage("Sending Report...");
+        pg.show();
+
+        Webservice.saveWorkReport(getActivity(), obj_report, new CallBack() {
+            @Override
+            public void onSuccess(Object result) {
+                pg.dismiss();
+
+                new AlertDialog.Builder(getActivity())
+                        .setTitle("Report Saved")
+                        .setMessage("some text")
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setPositiveButton("خب", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // continue with delete
+                                callback.onSuccess(null);
+
+                            }
+                        })
+                        .show();
+
+                Log.d("ali", "Report Saved successfully");
+            }
+
+            @Override
+            public void onError(ErrorMessage err) {
+                pg.dismiss();
+
+                new AlertDialog.Builder(getActivity())
+                        .setTitle("Report save error")
+                        .setMessage("some text")
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setPositiveButton("خب", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // continue with delete
+                                // callback.onSuccess(null);
+
+                            }
+                        })
+                        .show();
+
+                Log.d("ali", "Report Save Error");
+
+            }
+        });
+    }
+
 
     @Override
     public void onResume() {
@@ -175,8 +249,18 @@ public class FragmentNewReportWork extends Fragment {
     public void onDestroy() {
         super.onDestroy();
 
+        callback.onError(null);
+
     }
 
+
+    // ------------------------------------------------------------------------------------
+    public void onDetach() {
+        super.onDetach();
+        PathMapManager.pop("Fragment New Report Work  onDetach");
+    }
+
+    // ------------------------------------------------------------------------------------
     public Chart getChart() {
         return chart;
     }
@@ -207,5 +291,7 @@ public class FragmentNewReportWork extends Fragment {
     //{Factory function--------------------------------------------------
 
     //---------------------------------------------------Factory function}
-
+    public void setCallback(CallBack callback) {
+        this.callback = callback;
+    }
 }
