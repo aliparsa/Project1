@@ -493,7 +493,7 @@ public class FragmentWork extends Fragment {
 
             Object tag = ((ListViewCustomAdapter.DrawerItemHolder) view.getTag()).getTag();
             Chart chart;
-            ((MainActivity) getActivity()).ShowTaskInfoFragment(null);
+            ((MainActivity) getActivity()).ShowTaskPageFragment(null);
             if (tag instanceof Chart) {
                 chart = (Chart) tag;
 

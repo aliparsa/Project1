@@ -65,26 +65,26 @@ public class FragmentTaskPage extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        switch (pageType){
-            case Info:{
-                FragmentTaskInfo info = new FragmentTaskInfo();
-
-                FragmentManager fm = getFragmentManager();
-                fm.beginTransaction().add(R.id.host_taskPage, info)
-                        .commit();
-
-                break;
-            }
-
-            case Reports:{
-                FragmentTaskReport reports = new FragmentTaskReport();
-
-                FragmentManager fm = getFragmentManager();
-                fm.beginTransaction().add(R.id.host_taskPage, reports)
-                        .commit();
-                break;
-            }
-        }
+//        switch (pageType){
+//            case Info:{
+//                FragmentTaskInfo info = new FragmentTaskInfo();
+//
+//                FragmentManager fm = getFragmentManager();
+//                fm.beginTransaction().add(R.id.host_taskPage, info)
+//                        .commit();
+//
+//                break;
+//            }
+//
+//            case Reports:{
+//                FragmentTaskReport reports = new FragmentTaskReport();
+//
+//                FragmentManager fm = getFragmentManager();
+//                fm.beginTransaction().add(R.id.host_taskPage, reports)
+//                        .commit();
+//                break;
+//            }
+//        }
 
     }
 
@@ -130,7 +130,7 @@ public class FragmentTaskPage extends Fragment {
         tab_taskReport.setTabListener(new ActionBar.TabListener() {
             @Override
             public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-                ((MainActivity) getActivity()).ShowTaskInfoFragment(chart);
+                ((MainActivity) getActivity()).ShowTaskReportsFragment(chart);
             }
             @Override
             public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {}
