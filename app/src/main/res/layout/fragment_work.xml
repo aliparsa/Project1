@@ -16,7 +16,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         class="com.pga.project1.Viewes.PathMapManager"
-        android:id="@+id/view"
+        android:id="@+id/path_map_fragment_work"
         android:gravity="right" />
 
     <LinearLayout
@@ -56,13 +56,6 @@
             android:background="#ffffff"
             android:gravity="center|right|top">
 
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Add Personel To Work"
-                android:id="@+id/btn_fragmentWork_Taskslist_personelPicker"
-                android:layout_gravity="center_vertical" />
-
             <ListView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -85,15 +78,6 @@
             android:background="#ffffff"
             android:gravity="center|right|top"
             android:id="@+id/linearLayout">
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Add Report"
-                android:id="@+id/btn_fragmentWork_report_addReport"
-                android:layout_gravity="center_vertical">
-
-            </Button>
 
 
             <ListView

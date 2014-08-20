@@ -13,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -30,6 +29,7 @@ import com.pga.project1.R;
 import com.pga.project1.Structures.AdapterInputType;
 import com.pga.project1.Utilities.ErrorMessage;
 import com.pga.project1.Utilities.Webservice;
+import com.pga.project1.Viewes.PathMapManager;
 import com.pga.project1.Viewes.ViewNameValue;
 
 import java.util.ArrayList;
@@ -52,12 +52,11 @@ public class FragmentWork extends Fragment {
     //{Fields-----------------------------------------------------
 
     ViewNameValue workName;
-    private Chart chart;
-
     LinearLayout ll_work_info;
     LinearLayout ll_work_tasks;
     LinearLayout ll_work_report;
-
+    Menu menu;
+    private Chart chart;
     // fill when we come back from personel picker
     private boolean comeFromPicker = false;
     private Personnel selectedPersonnel;
@@ -75,13 +74,14 @@ public class FragmentWork extends Fragment {
 
     //{override functions---------------------------------------------
 
-
+    //--------------------------------------------------------------------------------
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_work,
                 container, false);
 
+        setHasOptionsMenu(true);
 
         workName = new ViewNameValue(getActivity());
 
@@ -89,10 +89,11 @@ public class FragmentWork extends Fragment {
         ll_work_tasks = (LinearLayout) view.findViewById(R.id.ll_fragmentWork_workTasks);
         ll_work_report = (LinearLayout) view.findViewById(R.id.ll_fragmentWork_workReport);
 
+
         return view;
     }
 
-
+    //--------------------------------------------------------------------------------
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -106,36 +107,45 @@ public class FragmentWork extends Fragment {
 
         prepareReport();
 
-//        setHasOptionsMenu(true);
+    }
 
+    //--------------------------------------------------------------------------------
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+
+        menu.clear();
+        inflater.inflate(R.menu.menu_fragment_work, menu);
+        this.menu = menu;
+
+        setTabs();
 
     }
 
-//    @Override
-//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-//        super.onCreateOptionsMenu(menu, inflater);
-//        MenuItem m =  menu.getItem(0);
-//        menu.clear();
-//        inflater.inflate(R.menu.menu_fragment_work,menu);
-//
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//
-//
-//        if (item.getItemId() == R.id.action_navi) {
-//
-//
-//
-//            return true;
-//        }
-//
-//
-//        return super.onOptionsItemSelected(item);
-//    }
+    //--------------------------------------------------------------------------------
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
 
 
+        if (item.getItemId() == R.id.ac_pick_personnel) {
+            pickPersonnel();
+            return true;
+        }
+        if (item.getItemId() == R.id.ac_new_work_report) {
+            newWorkReport();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        PathMapManager.pop("Fragment Work onDetach");
+    }
+
+    //--------------------------------------------------------------------------------
     private void CheckComeFromPersonnelPicker() {
         if (comeFromPicker) {
 
@@ -182,20 +192,20 @@ public class FragmentWork extends Fragment {
                 }
             });
 
-
+            comeFromPicker = false;
         }
+
+
     }
 
+    //--------------------------------------------------------------------------------
+    public void newWorkReport() {
+        ((MainActivity) getActivity()).ShowNewReportFragment(chart);
+    }
 
+    //--------------------------------------------------------------------------------
     private void prepareReport() {
 
-        final Button btnAddReportWork = (Button) ll_work_report.findViewById(R.id.btn_fragmentWork_report_addReport);
-        btnAddReportWork.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ((MainActivity) getActivity()).ShowNewReportFragment(chart);
-            }
-        });
 
         final ListView lv = (ListView) ll_work_report.findViewById(R.id.lv_fragmentWork_report_reportViewer);
         Webservice.getReportListByWorkId(getActivity(), chart.getId(), new CallBack<ArrayList<Report>>() {
@@ -227,17 +237,15 @@ public class FragmentWork extends Fragment {
         });
     }
 
+    //-------------------------------------------------------------------------------
+    public void pickPersonnel() {
+        ((MainActivity) getActivity()).ShowPersonelSearch(chart);
+    }
+
+    //--------------------------------------------------------------------------------
     private void prepareTasks() {
 
         final ListView lv = (ListView) ll_work_tasks.findViewById(R.id.lv_fragmentWork_task_taskviewr);
-        final Button btnSearch = (Button) ll_work_tasks.findViewById(R.id.btn_fragmentWork_Taskslist_personelPicker);
-
-        btnSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ((MainActivity) getActivity()).ShowPersonelSearch(chart);
-            }
-        });
 
         Webservice.getTaskListByWorkId(getActivity(), chart.getId(), new CallBack<ArrayList<Chart>>() {
             @Override
@@ -302,7 +310,13 @@ public class FragmentWork extends Fragment {
         super.onResume();
 
         // Set Tabs
-        setTabs();
+        //setTabs();
+
+//        PathMapManager pmm = (PathMapManager) getView().findViewById(R.id.path_map_fragment_work);
+//        if ( pmm!=null )
+//            pmm.refresh();
+
+
     }
 
     public Chart getChart() {
@@ -434,6 +448,40 @@ public class FragmentWork extends Fragment {
 
     //{Setter getters-----------------------------------------------------
 
+    public void pleasOnlyShow(LinearLayout ll) {
+
+        // hide all linear layouts
+        ll_work_info.setVisibility(View.GONE);
+        ll_work_tasks.setVisibility(View.GONE);
+        ll_work_report.setVisibility(View.GONE);
+
+        // hide Pick Personnel Menu Item
+        if (menu != null) {
+            menu.getItem(0).setVisible(false);
+            menu.getItem(1).setVisible(false);
+        }
+
+        // make input visible
+        ll.setVisibility(View.VISIBLE);
+
+        // if input is Task Menu Pick Personnel is Show
+        if (ll == ll_work_tasks)
+            if (menu != null)
+                menu.getItem(0).setVisible(true);
+
+        if (ll == ll_work_report)
+            if (menu != null)
+                menu.getItem(1).setVisible(true);
+
+
+    }
+
+    public void setPersonnel(Personnel personnel) {
+        this.selectedPersonnel = personnel;
+        this.comeFromPicker = true;
+
+    }
+
     //-----------------------------------------------------Setter getters}
     public class onTaskListClickListener implements AdapterView.OnItemClickListener {
 
@@ -454,21 +502,6 @@ public class FragmentWork extends Fragment {
             Toast.makeText(getActivity(), chart.getType_id() + "", Toast.LENGTH_LONG).show();
         }
 
-
-    }
-
-
-    public void pleasOnlyShow(LinearLayout ll) {
-        ll_work_info.setVisibility(View.GONE);
-        ll_work_tasks.setVisibility(View.GONE);
-        ll_work_report.setVisibility(View.GONE);
-        ll.setVisibility(View.VISIBLE);
-
-    }
-
-    public void setPersonnel(Personnel personnel) {
-        this.selectedPersonnel = personnel;
-        this.comeFromPicker = true;
 
     }
 }

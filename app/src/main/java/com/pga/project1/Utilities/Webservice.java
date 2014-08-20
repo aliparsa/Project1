@@ -1,16 +1,15 @@
 package com.pga.project1.Utilities;
 
-import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 
+import com.pga.project1.DataModel.Chart;
 import com.pga.project1.DataModel.Feature;
 import com.pga.project1.DataModel.Personnel;
 import com.pga.project1.DataModel.Report;
 import com.pga.project1.DataModel.ServerResponse;
 import com.pga.project1.Intefaces.CallBack;
 import com.pga.project1.Intefaces.ResponseHandler;
-import com.pga.project1.DataModel.Chart;
 import com.pga.project1.Structures.ErrorPlaceHolder;
 
 import org.apache.http.message.BasicNameValuePair;
@@ -30,7 +29,7 @@ public class Webservice {
 
     final static public String SERVER_ADDRESS = "http://192.168.0.152:8099/pm";
 
-
+    //-----------------------------------------------------------------------------
     public static void getProjects(Context context, final CallBack<ArrayList<Chart>> callBack) {
 
         HttpHelper helper = new HttpHelper(context, SERVER_ADDRESS, false, 0);
@@ -218,6 +217,7 @@ public class Webservice {
 
     }
 
+    //-------------------------------------------------------------------------------
     public static void searchPersonnel(Context context, String str, final CallBack<ArrayList<Personnel>> callBack) {
 
         HttpHelper helper = new HttpHelper(context, SERVER_ADDRESS, false, 0);
@@ -252,7 +252,7 @@ public class Webservice {
         });
     }
 
-
+    //-------------------------------------------------------------------------------
     public static void getReportListByWorkId(Context context, int id, final CallBack callBack) {
         HttpHelper helper = new HttpHelper(context, SERVER_ADDRESS, false, 0);
 
@@ -280,13 +280,14 @@ public class Webservice {
 
             @Override
             public void error(ErrorMessage err) {
+                Log.e("ali", " webservice / getReportListByWorkId ");
 
             }
         });
 
     }
 
-
+    //-------------------------------------------------------------------------------
     public static void addPersonnelToWork(Context context, int personnelId, int workId, final CallBack callBack) {
         HttpHelper helper = new HttpHelper(context, SERVER_ADDRESS, false, 0);
 
@@ -315,9 +316,50 @@ public class Webservice {
 
             @Override
             public void error(ErrorMessage err) {
-
+                Log.e("ali", " webservice / addPersonnelToWork ");
             }
         });
 
     }
+
+    //-------------------------------------------------------------------------------
+    public static void saveWorkReport(Context context, Report report, final CallBack callBack) {
+        HttpHelper helper = new HttpHelper(context, SERVER_ADDRESS, false, 0);
+
+        BasicNameValuePair[] arr = {
+                new BasicNameValuePair("tag", "save_work_report"),
+                new BasicNameValuePair("chart_id", report.getChart().getId() + ""),
+                new BasicNameValuePair("report_text", report.getReport() + ""),
+                new BasicNameValuePair("report_percent", report.getPercent() + ""),
+                new BasicNameValuePair("report_date", report.getDate() + "")
+
+        };
+
+        helper.postHttp(arr, new ResponseHandler() {
+            @Override
+            public void handleResponse(String response) {
+
+                try {
+
+                    JSONObject jsonObject = new JSONObject(response);
+
+                    ServerResponse sr = ServerResponse.getServerResponse(jsonObject);
+
+                    callBack.onSuccess(sr);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void error(ErrorMessage err) {
+                Log.e("ali", " webservice / saveWorkReport ");
+                callBack.onError(new ErrorMessage(ErrorPlaceHolder.err2));
+            }
+        });
+
+    }
+
 }

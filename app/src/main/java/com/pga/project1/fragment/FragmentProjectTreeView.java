@@ -125,6 +125,11 @@ public class FragmentProjectTreeView extends Fragment {
     public void setChart(Chart chart) {
         this.chart = chart;
     }
+    // ------------------------------------------------------------------------------------
+    public void onDetach() {
+        super.onDetach();
+        PathMapManager.pop("Fragment Tree View  onDetach");
+    }
 
     // ------------------------------------------------------------------------------------
     public class onTreeViewClickListener implements AdapterView.OnItemClickListener {
@@ -150,15 +155,13 @@ public class FragmentProjectTreeView extends Fragment {
                 case 0: // item is chart
                     ((MainActivity) getActivity()).ShowTreeFragmnet(chart, "Project Tree View Fragment");
 
-                    //pushing to Path Map
-                    PathMapManager.push(chart);
 
                     break;
                 case 1:       // item is work
                     ((MainActivity) getActivity()).ShowWorkFragment(chart, "Project Tree View Fragment", true);
 
                     //pushing to Path Map
-                    PathMapManager.push(chart);
+                    // PathMapManager.push(chart);
 
             }
 

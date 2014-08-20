@@ -26,7 +26,7 @@ public class PathMapManager extends LinearLayout {
         stack.push(object);
     }
 
-    public static PathMapObject pop(Activity activity) {
+    public static PathMapObject pop(String caller) {
         if (!stack.empty()) {
 
             return stack.pop();
