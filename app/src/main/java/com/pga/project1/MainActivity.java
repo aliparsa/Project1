@@ -44,6 +44,7 @@ public class MainActivity extends Activity
 
     private Fragment currentFragment;
 
+    //----------------------------------------------------------------------------------------
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,12 +73,14 @@ public class MainActivity extends Activity
 
     }
 
+    //----------------------------------------------------------------------------------------
     @Override
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
 
     }
 
+    //----------------------------------------------------------------------------------------
     public void onSectionAttached(int number) {
         switch (number) {
             case 1:
@@ -92,6 +95,7 @@ public class MainActivity extends Activity
         }
     }
 
+    //----------------------------------------------------------------------------------------
     public void restoreActionBar() {
         ActionBar actionBar = getActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
@@ -99,7 +103,7 @@ public class MainActivity extends Activity
         //actionBar.setTitle(mTitle);
     }
 
-
+    //----------------------------------------------------------------------------------------
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         if (!mNavigationDrawerFragment.isDrawerOpen()) {
@@ -116,6 +120,7 @@ public class MainActivity extends Activity
         return super.onCreateOptionsMenu(menu);
     }
 
+    //----------------------------------------------------------------------------------------
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -212,8 +217,8 @@ public class MainActivity extends Activity
         if (menu.findItem(R.id.action_back) != null)
             menu.findItem(R.id.action_back).setVisible(back);
     }
-    //-------------------------------------------------------------------------------------
 
+    //-------------------------------------------------------------------------------------
     @Override
     public void onBackPressed() {
 
@@ -231,6 +236,7 @@ public class MainActivity extends Activity
         return menu;
     }
 
+    //-------------------------------------------------------------------------------------
     public void hideTabs() {
         if (getActionBar().getNavigationMode() == ActionBar.NAVIGATION_MODE_TABS)
             getActionBar().setNavigationMode(
@@ -277,22 +283,31 @@ public class MainActivity extends Activity
     //-------------------------------------------------------------------------------------
     public void ShowNewReportFragment(final Chart chart) {
 
+        // hide Tabs if Exist
+        hideTabs();
+
         final Context self = this;
 
         CallBack callback = new CallBack() {
 
             @Override
             public void onSuccess(Object result) {
+
                 FragmentWork frag = new FragmentWork();
                 frag.setChart(chart);
+                frag.setActiveTab(FragmentWork.TabReport);
+
                 replaceFragment(frag, true);
                 PathMapManager.pop("M A   O S   ShowNewReportFragment");
             }
 
             @Override
             public void onError(ErrorMessage err) {
+
                 FragmentWork frag = new FragmentWork();
                 frag.setChart(chart);
+                frag.setActiveTab(FragmentWork.TabReport);
+
                 replaceFragment(frag, false);
                 Toast.makeText(self, "no report added", Toast.LENGTH_SHORT).show();
 
@@ -331,7 +346,10 @@ public class MainActivity extends Activity
     }
 
     //-------------------------------------------------------------------------------------
-    public void ShowPersonelSearch(final Chart chart) {
+    public void ShowPersonnelSearch(final Chart chart) {
+
+        // hide Tabs if Exist
+        hideTabs();
 
         FragmentPersonnelSearch frag = new FragmentPersonnelSearch();
 
@@ -344,6 +362,8 @@ public class MainActivity extends Activity
                 FragmentWork frag = new FragmentWork();
                 frag.setChart(chart);
                 frag.setPersonnel(result);
+                frag.setActiveTab(FragmentWork.TabPersonnel);
+
                 replaceFragment(frag, true);
                 PathMapManager.pop(" M A O S ShowPersonelSearch");
             }
@@ -353,6 +373,8 @@ public class MainActivity extends Activity
 
                 FragmentWork frag = new FragmentWork();
                 frag.setChart(chart);
+                frag.setActiveTab(FragmentWork.TabPersonnel);
+
                 replaceFragment(frag, false);
                 Toast.makeText(self, "no personnel selected", Toast.LENGTH_SHORT).show();
 
@@ -365,13 +387,11 @@ public class MainActivity extends Activity
 
     }
 
-
     //-------------------------------------------------------------------------------------
     public static class BackStackChanged implements FragmentManager.OnBackStackChangedListener {
 
-        private Activity activity;
-
         int lastSize = 0;
+        private Activity activity;
 
         public BackStackChanged(Activity activity) {
 
@@ -396,5 +416,10 @@ public class MainActivity extends Activity
             lastSize = currentStackSize;
         }
     }
+    //-------------------------------------------------------------------------------------
+    //-------------------------------------------------------------------------------------//-------------------------------------------------------------------------------------
+    //-------------------------------------------------------------------------------------
+    //-------------------------------------------------------------------------------------
+
 
 }
