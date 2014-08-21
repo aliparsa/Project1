@@ -3,11 +3,19 @@
     tools:context=".MainActivity">
 
     <item
+        android:id="@+id/action_addReportTask"
+        android:orderInCategory="2"
+        android:showAsAction="always|withText"
+        android:title="add proceed" />
+
+
+    <item
         android:id="@+id/action_back"
         android:orderInCategory="2"
         android:icon="@drawable/ic_back_button"
         android:showAsAction="always"
         android:title="Back" />
+
 
 
 </menu>

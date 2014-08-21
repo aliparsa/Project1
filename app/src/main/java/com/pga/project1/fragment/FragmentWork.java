@@ -338,6 +338,10 @@ public class FragmentWork extends Fragment {
 
     private void setTabs() {
 
+        // Cleanup And set Tabs
+        getActivity().getActionBar().removeAllTabs();
+
+
         // Force Tab Support
         if (getActivity().getActionBar().getNavigationMode() == ActionBar.NAVIGATION_MODE_STANDARD)
             getActivity().getActionBar().setNavigationMode(
@@ -404,9 +408,7 @@ public class FragmentWork extends Fragment {
             }
         });
 
-        // Cleanup And set Tabs
 
-        getActivity().getActionBar().removeAllTabs();
 
         if (isComeFromPicker()) {
             getActivity().getActionBar().addTab(tab_workReport, false);

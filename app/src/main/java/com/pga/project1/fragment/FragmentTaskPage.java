@@ -83,6 +83,8 @@ public class FragmentTaskPage extends Fragment {
         inflater.inflate(R.menu.menu_fragment_task, menu);
         this.menu = menu;
 
+        MenuItem addNewReport = menu.findItem(R.id.action_addReportTask);
+        addNewReport.setVisible(false);
 
         setTabs();
     }
@@ -108,6 +110,9 @@ public class FragmentTaskPage extends Fragment {
     }
 
     private void setTabs() {
+
+        getActivity().getActionBar().removeAllTabs();
+
         // Force Tab Support
         if (getActivity().getActionBar().getNavigationMode() == ActionBar.NAVIGATION_MODE_STANDARD)
             getActivity().getActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
@@ -128,7 +133,8 @@ public class FragmentTaskPage extends Fragment {
                 info.setChart(chart);
                 pageType = PageType.Info;
                 FragmentManager fm = getFragmentManager();
-                fm.beginTransaction().add(R.id.host_taskPage, info)
+                fm.beginTransaction()
+                        .add(R.id.host_taskPage, info)
                         .commit();
             }
             @Override
@@ -145,7 +151,8 @@ public class FragmentTaskPage extends Fragment {
                 pageType = PageType.Reports;
                 reports.setChart(chart);
                 FragmentManager fm = getFragmentManager();
-                fm.beginTransaction().add(R.id.host_taskPage, reports)
+                fm.beginTransaction()
+                        .add(R.id.host_taskPage, reports)
                         .commit();
             }
             @Override
@@ -153,9 +160,9 @@ public class FragmentTaskPage extends Fragment {
             @Override
             public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {}
         });
-
         // Cleanup And set Tabs
-        getActivity().getActionBar().removeAllTabs();
+
+
 
         switch (pageType){
             case Info:{

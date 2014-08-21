@@ -132,6 +132,10 @@ public class PathMapManager extends LinearLayout {
 
             if(!isFirst) {
                 mainLayout.addView(img);
+            }else {
+                //    btn.setBackgroundResource(R.drawable.selector_btn_pathmap_current);
+                Animation animation = AnimationUtils.loadAnimation(context, R.anim.slide_from_left);
+                img.setAnimation(animation);
             }
 
 
