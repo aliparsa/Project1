@@ -292,16 +292,22 @@ public class MainActivity extends Activity
 
             @Override
             public void onSuccess(Object result) {
+
                 FragmentWork frag = new FragmentWork();
                 frag.setChart(chart);
+                frag.setActiveTab(FragmentWork.TabReport);
+
                 replaceFragment(frag, true);
                 PathMapManager.pop("M A   O S   ShowNewReportFragment");
             }
 
             @Override
             public void onError(ErrorMessage err) {
+
                 FragmentWork frag = new FragmentWork();
                 frag.setChart(chart);
+                frag.setActiveTab(FragmentWork.TabReport);
+
                 replaceFragment(frag, false);
                 Toast.makeText(self, "no report added", Toast.LENGTH_SHORT).show();
 
@@ -340,7 +346,7 @@ public class MainActivity extends Activity
     }
 
     //-------------------------------------------------------------------------------------
-    public void ShowPersonelSearch(final Chart chart) {
+    public void ShowPersonnelSearch(final Chart chart) {
 
         // hide Tabs if Exist
         hideTabs();
@@ -356,6 +362,8 @@ public class MainActivity extends Activity
                 FragmentWork frag = new FragmentWork();
                 frag.setChart(chart);
                 frag.setPersonnel(result);
+                frag.setActiveTab(FragmentWork.TabPersonnel);
+
                 replaceFragment(frag, true);
                 PathMapManager.pop(" M A O S ShowPersonelSearch");
             }
@@ -365,6 +373,8 @@ public class MainActivity extends Activity
 
                 FragmentWork frag = new FragmentWork();
                 frag.setChart(chart);
+                frag.setActiveTab(FragmentWork.TabPersonnel);
+
                 replaceFragment(frag, false);
                 Toast.makeText(self, "no personnel selected", Toast.LENGTH_SHORT).show();
 

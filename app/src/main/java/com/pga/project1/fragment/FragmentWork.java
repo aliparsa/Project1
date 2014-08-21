@@ -54,6 +54,9 @@ public class FragmentWork extends Fragment {
 
     //{Fields-----------------------------------------------------
 
+    public final static int TabInfo = 1;
+    public final static int TabPersonnel = 2;
+    public final static int TabReport = 3;
     ViewNameValue workName;
     LinearLayout ll_work_info;
     LinearLayout ll_work_tasks;
@@ -63,7 +66,10 @@ public class FragmentWork extends Fragment {
     // fill when we come back from personel picker
     private boolean comeFromPicker = false;
     private Personnel selectedPersonnel;
-
+    // handle active tab
+    private boolean blnTabInfo = false;
+    private boolean blnTabPersonnel = false;
+    private boolean blnTabReport = false;
 
     //-----------------------------------------------------Fields}
 
@@ -242,7 +248,7 @@ public class FragmentWork extends Fragment {
 
     //-------------------------------------------------------------------------------
     public void pickPersonnel() {
-        ((MainActivity) getActivity()).ShowPersonelSearch(chart);
+        ((MainActivity) getActivity()).ShowPersonnelSearch(chart);
     }
 
     //--------------------------------------------------------------------------------
@@ -408,15 +414,26 @@ public class FragmentWork extends Fragment {
 
         getActivity().getActionBar().removeAllTabs();
 
-        if (isComeFromPicker()) {
+
+        if (blnTabInfo) {
+            getActivity().getActionBar().addTab(tab_workReport, false);
+            getActivity().getActionBar().addTab(tab_workTask, false);
+            getActivity().getActionBar().addTab(tab_workInfo, true);
+        } else if (blnTabPersonnel) {
             getActivity().getActionBar().addTab(tab_workReport, false);
             getActivity().getActionBar().addTab(tab_workTask, true);
+            getActivity().getActionBar().addTab(tab_workInfo, false);
+        } else if (blnTabReport) {
+            getActivity().getActionBar().addTab(tab_workReport, true);
+            getActivity().getActionBar().addTab(tab_workTask, false);
             getActivity().getActionBar().addTab(tab_workInfo, false);
         } else {
             getActivity().getActionBar().addTab(tab_workReport, false);
             getActivity().getActionBar().addTab(tab_workTask, false);
             getActivity().getActionBar().addTab(tab_workInfo, true);
         }
+
+
     }
 
 
@@ -485,6 +502,25 @@ public class FragmentWork extends Fragment {
 
     }
 
+    public void setActiveTab(int activeTab) {
+
+        blnTabInfo = false;
+        blnTabPersonnel = false;
+        blnTabReport = false;
+
+        switch (activeTab) {
+            case TabInfo:
+                blnTabInfo = true;
+                break;
+            case TabPersonnel:
+                blnTabPersonnel = true;
+                break;
+            case TabReport:
+                blnTabReport = true;
+                break;
+        }
+    }
+
     //-----------------------------------------------------Setter getters}
     public class onTaskListClickListener implements AdapterView.OnItemClickListener {
 
@@ -498,8 +534,7 @@ public class FragmentWork extends Fragment {
                 chart = (Chart) tag;
 
                 ((MainActivity) getActivity()).ShowTaskPageFragment(chart);
-            }
-            else
+            } else
                 return;
 
             Toast.makeText(getActivity(), chart.getType_id() + "", Toast.LENGTH_LONG).show();
