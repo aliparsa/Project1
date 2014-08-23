@@ -9,6 +9,7 @@ import com.pga.project1.DataModel.Personnel;
 import com.pga.project1.DataModel.Report;
 import com.pga.project1.DataModel.ServerResponse;
 import com.pga.project1.Intefaces.CallBack;
+import com.pga.project1.Intefaces.ProgressCallBack;
 import com.pga.project1.Intefaces.ResponseHandler;
 import com.pga.project1.Structures.ErrorPlaceHolder;
 
@@ -324,7 +325,7 @@ public class Webservice {
     }
 
     //-------------------------------------------------------------------------------
-    public static void saveWorkReport(Context context, Report report, final CallBack callBack) {
+    public static void saveWorkReport(Context context, Report report, final ProgressCallBack callBack) {
         HttpHelper helper = new HttpHelper(context, SERVER_ADDRESS, false, 0);
 
         BasicNameValuePair[] arr = {

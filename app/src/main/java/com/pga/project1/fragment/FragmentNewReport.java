@@ -28,6 +28,7 @@ import android.widget.NumberPicker;
 import com.pga.project1.DataModel.Chart;
 import com.pga.project1.DataModel.Report;
 import com.pga.project1.Intefaces.CallBack;
+import com.pga.project1.Intefaces.ProgressCallBack;
 import com.pga.project1.MainActivity;
 import com.pga.project1.R;
 import com.pga.project1.Utilities.ErrorMessage;
@@ -186,7 +187,17 @@ public class FragmentNewReport extends Fragment {
 
 
         if (item.getItemId() == R.id.ac_work_report_save) {
-            saveWorkReport();
+            switch (reportType) {
+                case REPORT_TYPE_WORK:
+                    saveWorkReport();
+                    break;
+                case REPORT_TYPE_TASK:
+                    saveTaskReport();
+                    break;
+            }
+            
+            
+                
         }
 
         if (item.getItemId() == R.id.action_camera) {
@@ -205,6 +216,9 @@ public class FragmentNewReport extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
+    private void saveTaskReport() {
+    }
+
     private void saveWorkReport() {
 
 
@@ -214,7 +228,11 @@ public class FragmentNewReport extends Fragment {
         pg.setMessage("Sending Report...");
         pg.show();
 
-        Webservice.saveWorkReport(getActivity(), obj_report, new CallBack() {
+        String[] imagePathList;
+
+
+        Webservice.saveWorkReport(getActivity(), obj_report, new ProgressCallBack() {
+
             @Override
             public void onSuccess(Object result) {
                 pg.dismiss();
@@ -254,6 +272,11 @@ public class FragmentNewReport extends Fragment {
 
                 Log.d("ali", "Report Save Error");
 
+            }
+
+            @Override
+            public void onProgress(int done, int total, Object result) {
+                pg.setMessage(done + " of " + total + " image Uploaded");
             }
         });
     }
@@ -369,6 +392,7 @@ public class FragmentNewReport extends Fragment {
 
                 Bitmap ThumbImage = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(path1), 200, 200);
                 temp_img.setImageBitmap(ThumbImage);
+                temp_img.setTag(path1);
                 ll_image_list.addView(temp_img);
 
 
@@ -389,10 +413,9 @@ public class FragmentNewReport extends Fragment {
                 if (imgFile.exists()) {
 
                     // add image to linear layout
-//                    Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
-
                     Bitmap ThumbImage2 = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(path2), 200, 200);
                     temp_img.setImageBitmap(ThumbImage2);
+                    temp_img.setTag(path2);
                     ll_image_list.addView(temp_img);
 
                 }
