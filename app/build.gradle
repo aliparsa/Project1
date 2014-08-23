@@ -4,6 +4,16 @@ android {
     compileSdkVersion 19
     buildToolsVersion "20.0.0"
 
+
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+    }
+
+
     defaultConfig {
         applicationId "com.pga.project1"
         minSdkVersion 16
@@ -21,6 +31,7 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+
     // You must install or update the Support Repository through the SDK manager to use this dependency.
     compile 'com.android.support:support-v4:19.+'
 }

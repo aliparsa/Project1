@@ -32,7 +32,6 @@ import com.pga.project1.R;
 import com.pga.project1.Structures.AdapterInputType;
 import com.pga.project1.Utilities.ErrorMessage;
 import com.pga.project1.Utilities.Webservice;
-import com.pga.project1.Viewes.Graphview;
 import com.pga.project1.Viewes.PathMapManager;
 import com.pga.project1.Viewes.ViewNameValue;
 
@@ -542,6 +541,7 @@ public class FragmentWork extends Fragment {
             if (tag instanceof Chart) {
                 chart = (Chart) tag;
 
+                setActiveTab(FragmentWork.TabPersonnel);
                 ((MainActivity) getActivity()).ShowTaskPageFragment(chart);
             } else
                 return;
