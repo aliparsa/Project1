@@ -325,8 +325,27 @@ public class Webservice {
     }
 
     //-------------------------------------------------------------------------------
-    public static void saveWorkReport(Context context, Report report, final ProgressCallBack callBack) {
+    public static void saveWorkReport(Context context, Report report, String[] imagePaths, final ProgressCallBack callBack) {
         HttpHelper helper = new HttpHelper(context, SERVER_ADDRESS, false, 0);
+
+
+        int i = 0;
+        if(imagePaths!=null && imagePaths.length > 0){
+
+            String imgPath = imagePaths[i];
+
+            uploadFile(context, imgPath, new CallBack() {
+                @Override
+                public void onSuccess(Object result) {
+                    //i++;
+                }
+
+                @Override
+                public void onError(ErrorMessage err) {
+
+                }
+            });
+        }
 
         BasicNameValuePair[] arr = {
                 new BasicNameValuePair("tag", "save_work_report"),
