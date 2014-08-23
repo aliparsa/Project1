@@ -7,7 +7,6 @@ import android.app.FragmentManager;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -28,6 +27,8 @@ import com.pga.project1.fragment.FragmentSplash;
 import com.pga.project1.fragment.FragmentTaskPage;
 import com.pga.project1.fragment.FragmentWork;
 import com.pga.project1.fragment.NavigationDrawerFragment;
+
+import java.io.File;
 
 
 public class MainActivity extends Activity
@@ -77,7 +78,11 @@ public class MainActivity extends Activity
 
         Uri fileUri = Uri.parse("android.resource://com.pga.project1/" + R.drawable.ic_launcher);
 
-        Webservice.uploadFile(this, Environment.getExternalStorageDirectory() + fileUri.getPath() , new CallBack() {
+        File myFile = new File(fileUri.toString());
+
+
+
+        Webservice.uploadFile(this, myFile.getAbsolutePath() , new CallBack() {
             @Override
             public void onSuccess(Object result) {
 
