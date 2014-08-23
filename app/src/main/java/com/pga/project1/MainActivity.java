@@ -76,24 +76,6 @@ public class MainActivity extends Activity
                 .commit();
 
 
-        Uri fileUri = Uri.parse("android.resource://com.pga.project1/" + R.drawable.ic_launcher);
-
-        File myFile = new File(fileUri.toString());
-
-
-
-        Webservice.uploadFile(this, myFile.getAbsolutePath() , new CallBack() {
-            @Override
-            public void onSuccess(Object result) {
-
-            }
-
-            @Override
-            public void onError(ErrorMessage err) {
-
-            }
-        } );
-
     }
 
     //----------------------------------------------------------------------------------------
