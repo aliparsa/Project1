@@ -28,6 +28,7 @@ public class Webservice {
     //this is sparta
 
     final static public String SERVER_ADDRESS = "http://192.168.0.152:8099/pm";
+    final static public String SERVER_ADDRESS_UPLOAD = "http://192.168.0.152:8099/upload";
 
     //-----------------------------------------------------------------------------
     public static void getProjects(Context context, final CallBack<ArrayList<Chart>> callBack) {
@@ -336,6 +337,37 @@ public class Webservice {
         };
 
         helper.postHttp(arr, new ResponseHandler() {
+            @Override
+            public void handleResponse(String response) {
+
+                try {
+
+                    JSONObject jsonObject = new JSONObject(response);
+
+                    ServerResponse sr = ServerResponse.getServerResponse(jsonObject);
+
+                    callBack.onSuccess(sr);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void error(ErrorMessage err) {
+                Log.e("ali", " webservice / saveWorkReport ");
+                callBack.onError(new ErrorMessage(ErrorPlaceHolder.err2));
+            }
+        });
+
+    }
+
+    //-------------------------------------------------------------------------------
+    public static void uploadFile(Context context, String filePath, final CallBack callBack) {
+        HttpHelper helper = new HttpHelper(context, SERVER_ADDRESS_UPLOAD, false, 0);
+
+        helper.upload(filePath, new ResponseHandler() {
             @Override
             public void handleResponse(String response) {
 

@@ -6,17 +6,22 @@ import android.content.Context;
 import com.pga.project1.Intefaces.ResponseHandler;
 import com.pga.project1.Structures.ErrorPlaceHolder;
 
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.mime.HttpMultipartMode;
+import org.apache.http.entity.mime.MultipartEntityBuilder;
+import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -24,6 +29,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
+
 
 /**
  * Created by ashkan on 8/11/2014.
@@ -99,6 +105,77 @@ public class HttpHelper {
                         //handler.error(ErrorMessage.NO_CONNECTION_ERROR);
                         // handler.error(new ErrorMessage(ErrorPlaceHolder.UnsupportedEncodingException));
 
+                    }
+
+                    return null;
+                }
+
+                @Override
+                public void deliverResult(String data) {
+
+                    if (data != null) {
+
+                        handler.handleResponse(data);
+
+                        super.deliverResult(data);
+
+                    } else {
+
+                        handler.error(new ErrorMessage(ErrorPlaceHolder.UnsupportedEncodingException));
+                    }
+                }
+            }.forceLoad();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            handler.error(new ErrorMessage(ErrorPlaceHolder.UnsupportedEncodingException));
+        }
+    }
+
+
+    public void upload(final String filePath, final ResponseHandler handler) {
+
+        try {
+
+            final HttpHelper self = this;
+
+            new AsyncTaskLoader<String>(context) {
+
+                @Override
+                public String loadInBackground() {
+
+
+                    try {
+
+                        HttpClient client = new DefaultHttpClient();
+                        HttpPost post = new HttpPost(url);
+
+                        MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+
+                        builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
+
+                        FileBody fileBody = new FileBody(new File(filePath));
+
+                        builder.addPart("image", fileBody);
+
+                        HttpEntity entity = builder.build();
+
+                        post.setEntity(entity);
+
+                        HttpResponse response = client.execute(post);
+
+
+                        //Close the connection
+                        client.getConnectionManager().shutdown();
+
+                        return EntityUtils.toString(response.getEntity(), HTTP.UTF_8);
+
+
+                    } catch (ClientProtocolException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
 
                     return null;

@@ -5,7 +5,9 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,6 +18,7 @@ import com.pga.project1.DataModel.PathObject;
 import com.pga.project1.DataModel.Personnel;
 import com.pga.project1.Intefaces.CallBack;
 import com.pga.project1.Utilities.ErrorMessage;
+import com.pga.project1.Utilities.Webservice;
 import com.pga.project1.Viewes.PathMapManager;
 import com.pga.project1.fragment.FragmentLogin;
 import com.pga.project1.fragment.FragmentNewReportWork;
@@ -70,6 +73,21 @@ public class MainActivity extends Activity
         fragmentManager.beginTransaction()
                 .replace(R.id.container, frag)
                 .commit();
+
+
+        Uri fileUri = Uri.parse("android.resource://com.pga.project1/" + R.drawable.ic_launcher);
+
+        Webservice.uploadFile(this, Environment.getExternalStorageDirectory() + fileUri.getPath() , new CallBack() {
+            @Override
+            public void onSuccess(Object result) {
+
+            }
+
+            @Override
+            public void onError(ErrorMessage err) {
+
+            }
+        } );
 
     }
 
