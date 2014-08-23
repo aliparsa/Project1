@@ -36,8 +36,10 @@ import com.pga.project1.Utilities.Webservice;
 import com.pga.project1.Viewes.PathMapManager;
 import com.pga.project1.Viewes.ViewDateTimePickerPersian;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 
 /**
  * Created by ashkan on 8/18/2014.
@@ -354,7 +356,23 @@ public class FragmentNewReportWork extends Fragment {
             case CAMERA_REQUEST:
                 // TODO Handle Picked Image From Camera
                 Bitmap photo = (Bitmap) data.getExtras().get("data");
-                storeThisImage(photo);
+
+                String path = storeThisImage(photo);
+                if (path != null) {
+                    Webservice.uploadFile(getActivity(), path, new CallBack() {
+                        @Override
+                        public void onSuccess(Object result) {
+
+                        }
+
+                        @Override
+                        public void onError(ErrorMessage err) {
+
+                        }
+                    });
+                }
+
+
                 break;
             case GALLERY_REQUEST:
                 //TODO Handle Picked Image From Gallery
@@ -368,23 +386,21 @@ public class FragmentNewReportWork extends Fragment {
     public String storeThisImage(Bitmap bitmap) {
         FileOutputStream out = null;
         String filename = Environment.getExternalStorageDirectory() + "/" + Environment.DIRECTORY_DCIM + "/img.jpeg";
-
+        String path = Environment.getExternalStorageDirectory().toString();
         try {
-            out = new FileOutputStream(filename);
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);
+
+            OutputStream fOut = null;
+            File file = new File(path, "img.jpg");
+            fOut = new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fOut);
+            fOut.flush();
+            fOut.close();
+
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            try {
-                if (out != null) {
-                    out.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-                return null;
-            }
+            return null;
         }
 
-        return filename;
+        return path + "/" + "img.jpg";
     }
 }
