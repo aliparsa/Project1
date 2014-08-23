@@ -24,6 +24,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
+import android.widget.Toast;
 
 import com.pga.project1.DataModel.Chart;
 import com.pga.project1.DataModel.Report;
@@ -201,7 +202,10 @@ public class FragmentNewReport extends Fragment {
         }
 
         if (item.getItemId() == R.id.action_camera) {
-            attachMedia();
+            if (ll_image_list.getChildCount() < 5)
+                attachMedia();
+            else
+                Toast.makeText(getActivity(), "فقط 5 تصویر میتوان افزود", Toast.LENGTH_SHORT).show();
             return true;
         }
 
@@ -228,10 +232,14 @@ public class FragmentNewReport extends Fragment {
         pg.setMessage("Sending Report...");
         pg.show();
 
-        String[] imagePathList;
+
+        String[] imagePathList = new String[5];
+        for (int i = 0; i < ll_image_list.getChildCount(); i++) {
+            imagePathList[i] = ((String) (((ImageView) ll_image_list.getChildAt(i)).getTag()));
+        }
 
 
-        Webservice.saveWorkReport(getActivity(), obj_report, new ProgressCallBack() {
+        Webservice.saveWorkReport(getActivity(), obj_report, imagePathList, new ProgressCallBack() {
 
             @Override
             public void onSuccess(Object result) {
