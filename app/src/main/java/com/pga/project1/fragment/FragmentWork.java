@@ -141,14 +141,24 @@ public class FragmentWork extends Fragment {
             pickPersonnel();
             return true;
         }
+
         if (item.getItemId() == R.id.ac_new_work_report) {
             newWorkReport();
             return true;
         }
+
+
         return super.onOptionsItemSelected(item);
     }
 
+    //--------------------------------------------------------------------------------
+    private void callCamera() {
+        AlertDialog dialog = new AlertDialog.Builder(getActivity())
+                .setSingleChoiceItems(new String[]{"گالری", "دوربین"}, 0, null)
+                .show();
+    }
 
+    //--------------------------------------------------------------------------------
     @Override
     public void onDetach() {
         super.onDetach();
@@ -343,11 +353,7 @@ public class FragmentWork extends Fragment {
         this.chart = chart;
     }
 
-
     //-----------------------------------------------------override functions}
-
-
-    //{Functions-----------------------------------------------------
 
     private void setTabs() {
 
@@ -541,7 +547,7 @@ public class FragmentWork extends Fragment {
 
             if (tag instanceof Chart) {
                 chart = (Chart) tag;
-
+                setActiveTab(FragmentWork.TabPersonnel);
                 ((MainActivity) getActivity()).ShowTaskPageFragment(chart);
             } else
                 return;

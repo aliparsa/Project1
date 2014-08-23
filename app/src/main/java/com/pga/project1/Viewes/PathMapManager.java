@@ -57,7 +57,6 @@ public class PathMapManager extends LinearLayout {
     }
 
 
-
     LinearLayout mainLayout;
     private Context context;
     LayoutInflater inflater;
@@ -97,66 +96,39 @@ public class PathMapManager extends LinearLayout {
         refresh();
     }
 
-    public void refresh(){
+    public void refresh() {
 
         mainLayout.removeAllViews();
 
         boolean isFirst = true;
-       //if()
+        //if()
 
 
         Button btn = null;
 
-        for (int i = stack.size() - 1; i >= 0 ; i--) {
+        for (int i = stack.size() - 1; i >= 0; i--) {
 
             PathMapObject object = stack.get(i);
 
             String name = object.getName();
-
-
-
-
-           /* View view = new View(context);
-            view.setBackgroundResource(R.drawable.previous);
-            view.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT));
-*/
-
-     /*       btn = (Button) inflater.inflate(R.layout.path_map_button, null);
-            btn.setText("");
-            btn.setBackgroundResource(R.drawable.previous);*/
 
             ImageView img = new ImageView(this.getContext());
             img.setScaleType(ImageView.ScaleType.FIT_XY);
             img.setLayoutParams(new LayoutParams(30, LayoutParams.MATCH_PARENT));
             img.setImageResource(R.drawable.arrow);//TODO add path map divider
 
-            if(!isFirst) {
+            if (!isFirst) {
                 mainLayout.addView(img);
-            }else {
+            } else {
                 //    btn.setBackgroundResource(R.drawable.selector_btn_pathmap_current);
                 Animation animation = AnimationUtils.loadAnimation(context, R.anim.slide_from_left);
                 img.setAnimation(animation);
             }
 
-
-
-
-           // LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-           // LinearLayout view = (LinearLayout)LayoutInflater.from(this).inflate(R.layout.my_button, null);
             btn = (Button) inflater.inflate(R.layout.path_map_button, null);
 
-
-
-            /*
-            btn =  new Button(this.getContext());
-            btn.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, 25));
-            btn.setPadding(5,5,5,5);
-            btn.setTextSize(10);*/
             if (!isFirst) {
                 //    btn.setBackgroundResource(R.drawable.selector_btn_pathmap);
-
-
-
             } else {
                 //    btn.setBackgroundResource(R.drawable.selector_btn_pathmap_current);
                 Animation animation = AnimationUtils.loadAnimation(context, R.anim.slide_from_left);
@@ -167,7 +139,6 @@ public class PathMapManager extends LinearLayout {
 
             mainLayout.addView(btn);
 
-
             isFirst = false;
 
         }
@@ -176,7 +147,6 @@ public class PathMapManager extends LinearLayout {
         invalidate();
         requestLayout();
     }
-
 
 
 }

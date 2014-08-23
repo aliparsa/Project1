@@ -5,7 +5,10 @@ import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -32,6 +35,9 @@ import com.pga.project1.Utilities.PersianCalendar;
 import com.pga.project1.Utilities.Webservice;
 import com.pga.project1.Viewes.PathMapManager;
 import com.pga.project1.Viewes.ViewDateTimePickerPersian;
+
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 /**
  * Created by ashkan on 8/18/2014.
@@ -60,6 +66,10 @@ public class FragmentNewReportWork extends Fragment {
     private int selectedPercent;
     private Menu menu;
     private CallBack callback;
+
+    final int CAMERA_REQUEST = 111;
+    final int GALLERY_REQUEST = 222;
+
     //-----------------------------------------------------Fields}
 
     //{Constructor-----------------------------------------------------
@@ -171,6 +181,11 @@ public class FragmentNewReportWork extends Fragment {
 
         if (item.getItemId() == R.id.ac_work_report_save) {
             saveWorkReport();
+        }
+
+        if (item.getItemId() == R.id.action_camera) {
+            attachMedia();
+            return true;
         }
 
         // save Report();
@@ -293,5 +308,83 @@ public class FragmentNewReportWork extends Fragment {
     //---------------------------------------------------Factory function}
     public void setCallback(CallBack callback) {
         this.callback = callback;
+    }
+
+    //--------------------------------------------------------------------------------
+    private void attachMedia() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity())
+                .setTitle("افزودن تصویر")
+                .setItems(new String[]{"گالری", "دوربین"}, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int item) {
+                        switch (item) {
+                            case 0:
+                                callGallery();
+                                break;
+                            case 1:
+                                callCamera();
+                                break;
+                        }
+                    }
+                });
+        builder.show();
+
+
+    }
+
+    private void callCamera() {
+
+        Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(cameraIntent, CAMERA_REQUEST);
+    }
+
+    private void callGallery() {
+
+        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+        photoPickerIntent.setType("image/*");
+        startActivityForResult(photoPickerIntent, GALLERY_REQUEST);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (requestCode) {
+            case CAMERA_REQUEST:
+                // TODO Handle Picked Image From Camera
+                Bitmap photo = (Bitmap) data.getExtras().get("data");
+                storeThisImage(photo);
+                break;
+            case GALLERY_REQUEST:
+                //TODO Handle Picked Image From Gallery
+                break;
+
+        }
+
+    }
+
+    //-----------------------------------------------------------------------
+    public String storeThisImage(Bitmap bitmap) {
+        FileOutputStream out = null;
+        String filename = Environment.getExternalStorageDirectory() + "/" + Environment.DIRECTORY_DCIM + "/img.jpeg";
+
+        try {
+            out = new FileOutputStream(filename);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (out != null) {
+                    out.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
+
+        return filename;
     }
 }
