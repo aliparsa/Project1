@@ -100,7 +100,11 @@ public class FragmentTaskPage extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        //return super.onOptionsItemSelected(item);
+
+        if(item.getItemId() == R.id.action_addReportTask){
+
+            return true;
+        }
 
         return false;
     }
