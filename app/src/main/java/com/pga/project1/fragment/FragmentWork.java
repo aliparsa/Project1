@@ -32,6 +32,7 @@ import com.pga.project1.R;
 import com.pga.project1.Structures.AdapterInputType;
 import com.pga.project1.Utilities.ErrorMessage;
 import com.pga.project1.Utilities.Webservice;
+import com.pga.project1.Viewes.Graphview;
 import com.pga.project1.Viewes.PathMapManager;
 import com.pga.project1.Viewes.ViewNameValue;
 
@@ -295,6 +296,12 @@ public class FragmentWork extends Fragment {
         MainLinearLayout.addView(new ViewNameValue(getActivity(), "پایان شروع", chart.getEnd_date()));
         MainLinearLayout.addView(new ViewNameValue(getActivity(), "وضعیت", chart.getStatus()));
         MainLinearLayout.addView(new ViewNameValue(getActivity(), "واحد کار", chart.getWork_unit()));
+
+//        Graphview gr = new Graphview(getActivity(),new float[]{200,100,60});
+//        gr.setMinimumHeight(200);
+//        gr.setMinimumWidth(200);
+//        MainLinearLayout.addView(gr);
+
 
         Webservice.getFeatureById(getActivity(), chart.getId(), new CallBack<ArrayList<Feature>>() {
             @Override

@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.pga.project1.DataModel.Chart;
 import com.pga.project1.R;
 import com.pga.project1.Structures.AdapterInputType;
+import com.pga.project1.Viewes.Graphview;
 
 import java.util.List;
 
@@ -130,15 +131,23 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
         if (holder.percent == null)
             holder.percent = (TextView) lv_icon_title_subtitle.findViewById(R.id.percent_textview);
 
+        if (holder.graphview == null)
+            holder.graphview = (Graphview) lv_icon_title_subtitle.findViewById(R.id.graph_view);
+
 
         holder.icon_in_title_subtitle.setImageBitmap(item.image1);
-        holder.title.setText(item.text1);
-        holder.subtitle.setText(item.text2);
+        holder.title.setText(item.title);
+        holder.subtitle.setText(item.subTitle);
 
         if (item.getTag() != null && item.getTag() instanceof Chart) {
 
             holder.progressBar.setProgress((((Chart) item.getTag()).getPercent()));
             holder.percent.setText((((Chart) item.getTag()).getPercent()) + " % ");
+            holder.graphview.showAnimation = item.isFirstTimeItemShowed;
+            holder.graphview.setPercent(((Chart) item.getTag()).getPercent());
+            item.isFirstTimeItemShowed = false;
+
+
         }
         //
 //
@@ -186,13 +195,14 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
         private Object tag;
         ProgressBar progressBar;
         TextView percent;
+        Graphview graphview;
 
         //---------------------
         ImageView peopleImage;
         TextView PeopleName;
         TextView PeoplePhone;
         TextView PeopleGroups;
-//---------------------
+        //---------------------
 
         public Object getTag() {
             return tag;

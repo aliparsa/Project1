@@ -15,17 +15,22 @@ list of types that adapter can be handel
 
     public String type = "";
 
-    public String text1;
-    public String text2;
+
     public String text3;
     public String text4;
     public String text5;
 
     public int layoutRes;
 
-    public Bitmap image1;
+
     public Bitmap image2;
     public Bitmap image3;
+
+    //chart row item-------------------
+    public String title;
+    public String subTitle;
+    public Bitmap image1;
+    public boolean isFirstTimeItemShowed = true;
 
 
     //people row item------------------
@@ -54,15 +59,16 @@ list of types that adapter can be handel
     public AdapterInputType(Object tag, String type, String title, String subtitle, Bitmap icon) {
         this.tag = tag;
         this.type = type;
-        this.text1 = title;
-        this.text2 = subtitle;
+        this.title = title;
+        this.subTitle = subtitle;
         this.image1 = icon;
     }
 
+
     public AdapterInputType(Object tag, String type, String title, String subtitle, Bitmap icon, int id) {
         this.type = type;
-        this.text1 = title;
-        this.text2 = subtitle;
+        this.title = title;
+        this.subTitle = subtitle;
         this.image1 = icon;
         this.id = id;
         this.tag = tag;
