@@ -186,7 +186,17 @@ public class FragmentNewReport extends Fragment {
 
 
         if (item.getItemId() == R.id.ac_work_report_save) {
-            saveWorkReport();
+            switch (reportType) {
+                case REPORT_TYPE_WORK:
+                    saveWorkReport();
+                    break;
+                case REPORT_TYPE_TASK:
+                    saveTaskReport();
+                    break;
+            }
+            
+            
+                
         }
 
         if (item.getItemId() == R.id.action_camera) {
@@ -203,6 +213,9 @@ public class FragmentNewReport extends Fragment {
         //   callback.onSuccess(null);
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void saveTaskReport() {
     }
 
     private void saveWorkReport() {
