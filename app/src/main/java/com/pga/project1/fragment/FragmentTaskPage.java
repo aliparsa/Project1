@@ -39,6 +39,11 @@ public class FragmentTaskPage extends Fragment {
     private PageType pageType;
     private Chart chart;
     private Menu menu;
+
+    FragmentTaskInfo infoFrag;
+    FragmentTaskReport reportFrag;
+    Fragment currentFrag;
+
     //-----------------------------------------------------Fields}
 
     //{Constructor-----------------------------------------------------
@@ -79,19 +84,25 @@ public class FragmentTaskPage extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
 
-        menu.clear();
-        inflater.inflate(R.menu.menu_fragment_task, menu);
-        this.menu = menu;
+
+            menu.clear();
+            inflater.inflate(R.menu.menu_fragment_task, menu);
+            this.menu = menu;
+
 
         MenuItem addNewReport = menu.findItem(R.id.action_addReportTask);
-        addNewReport.setVisible(false);
+        if(addNewReport != null) addNewReport.setVisible(false);
 
         setTabs();
+
+
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        return super.onOptionsItemSelected(item);
+        //return super.onOptionsItemSelected(item);
+
+        return false;
     }
 
     @Override
@@ -129,13 +140,30 @@ public class FragmentTaskPage extends Fragment {
         tab_taskInfo.setTabListener(new ActionBar.TabListener() {
             @Override
             public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-                FragmentTaskInfo info = new FragmentTaskInfo();
-                info.setChart(chart);
-                pageType = PageType.Info;
-                FragmentManager fm = getFragmentManager();
-                fm.beginTransaction()
-                        .add(R.id.host_taskPage, info)
-                        .commit();
+
+                if(infoFrag == null) {
+
+                    currentFrag = infoFrag = new FragmentTaskInfo();
+                    infoFrag.setChart(chart);
+                    pageType = PageType.Info;
+                    FragmentManager fm = getFragmentManager();
+                    fm.beginTransaction()
+                            .add(R.id.host_taskPage, infoFrag)
+                            .commit();
+
+                }else if(currentFrag != infoFrag){
+                    pageType = PageType.Info;
+                    FragmentManager fm = getFragmentManager();
+                    fm.beginTransaction()
+                            .replace(R.id.host_taskPage, infoFrag)
+                            .commit();
+
+                    currentFrag = infoFrag;
+
+                }
+
+                MenuItem addNewReport = menu.findItem(R.id.action_addReportTask);
+                if(addNewReport != null) addNewReport.setVisible(false);
             }
             @Override
             public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {}
@@ -147,13 +175,28 @@ public class FragmentTaskPage extends Fragment {
             @Override
             public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
 
-                FragmentTaskReport reports = new FragmentTaskReport();
-                pageType = PageType.Reports;
-                reports.setChart(chart);
-                FragmentManager fm = getFragmentManager();
-                fm.beginTransaction()
-                        .add(R.id.host_taskPage, reports)
-                        .commit();
+                if(reportFrag == null) {
+
+                    currentFrag = reportFrag = new FragmentTaskReport();
+                    reportFrag.setChart(chart);
+                    pageType = PageType.Reports;
+                    FragmentManager fm = getFragmentManager();
+                    fm.beginTransaction()
+                            .add(R.id.host_taskPage, reportFrag)
+                            .commit();
+
+                }else if(currentFrag != reportFrag){
+                    pageType = PageType.Reports;
+                    FragmentManager fm = getFragmentManager();
+                    fm.beginTransaction()
+                            .replace(R.id.host_taskPage, reportFrag)
+                            .commit();
+
+                    currentFrag = reportFrag;
+                }
+
+                MenuItem addNewReport = menu.findItem(R.id.action_addReportTask);
+                if(addNewReport != null) addNewReport.setVisible(true);
             }
             @Override
             public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {}
@@ -163,19 +206,8 @@ public class FragmentTaskPage extends Fragment {
         // Cleanup And set Tabs
 
 
-
-        switch (pageType){
-            case Info:{
-                getActivity().getActionBar().addTab(tab_taskInfo, true);
-                getActivity().getActionBar().addTab(tab_taskReport, false);
-                break;
-            }
-            case Reports:{
-                getActivity().getActionBar().addTab(tab_taskInfo, true);
-                getActivity().getActionBar().addTab(tab_taskReport, false);
-                break;
-            }
-        }
+        getActivity().getActionBar().addTab(tab_taskReport, false);
+        getActivity().getActionBar().addTab(tab_taskInfo, true);
 
     }
     //-----------------------------------------------------Functions}
