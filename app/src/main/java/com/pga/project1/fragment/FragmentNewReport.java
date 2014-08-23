@@ -3,10 +3,13 @@ package com.pga.project1.fragment;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.ThumbnailUtils;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -16,20 +19,17 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.NumberPicker;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.pga.project1.DataModel.Chart;
-import com.pga.project1.DataModel.Personnel;
 import com.pga.project1.DataModel.Report;
 import com.pga.project1.Intefaces.CallBack;
 import com.pga.project1.MainActivity;
 import com.pga.project1.R;
-import com.pga.project1.Structures.ErrorPlaceHolder;
 import com.pga.project1.Utilities.ErrorMessage;
 import com.pga.project1.Utilities.PersianCalendar;
 import com.pga.project1.Utilities.Webservice;
@@ -38,13 +38,12 @@ import com.pga.project1.Viewes.ViewDateTimePickerPersian;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.OutputStream;
 
 /**
  * Created by ashkan on 8/18/2014.
  */
-public class FragmentNewReportWork extends Fragment {
+public class FragmentNewReport extends Fragment {
 
 
     //{Constants-----------------------------------------------------
@@ -57,25 +56,28 @@ public class FragmentNewReportWork extends Fragment {
 
     //{Fields-----------------------------------------------------
 
+    final int CAMERA_REQUEST = 111;
+    final int GALLERY_REQUEST = 222;
+
+    static final int REPORT_TYPE_WORK = 1;
+    static final int REPORT_TYPE_TASK = 2;
+    int reportType = 0;
+
     EditText report;
     Button percent;
     Button timePicker;
+    LinearLayout ll_image_list;
     private Chart chart;
-
-
     //filled information
     private PersianCalendar selectedDateTime;
     private int selectedPercent;
     private Menu menu;
     private CallBack callback;
 
-    final int CAMERA_REQUEST = 111;
-    final int GALLERY_REQUEST = 222;
-
     //-----------------------------------------------------Fields}
 
     //{Constructor-----------------------------------------------------
-    public FragmentNewReportWork() {
+    public FragmentNewReport() {
 
     }
     //-----------------------------------------------------Constructor}
@@ -92,7 +94,7 @@ public class FragmentNewReportWork extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_new_report_work,
+        View view = inflater.inflate(R.layout.fragment_new_report,
                 container, false);
 
 
@@ -104,6 +106,8 @@ public class FragmentNewReportWork extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        ll_image_list = (LinearLayout) view.findViewById(R.id.ll_fragmentWork_workReport_imageList);
 
         report = (EditText) view.findViewById(R.id.edittext_fragmentNewReportWork_reportText);
         percent = (Button) view.findViewById(R.id.btn_fragmentNewReportWork_selectPercent);
@@ -352,30 +356,47 @@ public class FragmentNewReportWork extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        ImageView temp_img = (ImageView) getActivity().getLayoutInflater().inflate(R.layout.inf_image_frame, null);
+
+
         switch (requestCode) {
             case CAMERA_REQUEST:
                 // TODO Handle Picked Image From Camera
-                Bitmap photo = (Bitmap) data.getExtras().get("data");
+                Bitmap photo_camera = (Bitmap) data.getExtras().get("data");
+                String path1 = storeThisImage(photo_camera);
 
-                String path = storeThisImage(photo);
-                if (path != null) {
-                    Webservice.uploadFile(getActivity(), path, new CallBack() {
-                        @Override
-                        public void onSuccess(Object result) {
+                // add image to linear layout
 
-                        }
-
-                        @Override
-                        public void onError(ErrorMessage err) {
-
-                        }
-                    });
-                }
+                Bitmap ThumbImage = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(path1), 200, 200);
+                temp_img.setImageBitmap(ThumbImage);
+                ll_image_list.addView(temp_img);
 
 
                 break;
             case GALLERY_REQUEST:
                 //TODO Handle Picked Image From Gallery
+                Uri _uri = data.getData();
+
+                //User had pick an image.
+                Cursor cursor = getActivity().getContentResolver().query(_uri, new String[]{android.provider.MediaStore.Images.ImageColumns.DATA}, null, null, null);
+                cursor.moveToFirst();
+                //Link to the image
+                String path2 = cursor.getString(0);
+                cursor.close();
+
+                // create bitmap from path
+                File imgFile = new File(path2);
+                if (imgFile.exists()) {
+
+                    // add image to linear layout
+//                    Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+
+                    Bitmap ThumbImage2 = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(path2), 200, 200);
+                    temp_img.setImageBitmap(ThumbImage2);
+                    ll_image_list.addView(temp_img);
+
+                }
+
                 break;
 
         }
@@ -402,5 +423,9 @@ public class FragmentNewReportWork extends Fragment {
         }
 
         return path + "/" + "img.jpg";
+    }
+
+    public void setReportType(int reportType) {
+        this.reportType = reportType;
     }
 }
