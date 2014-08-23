@@ -220,7 +220,7 @@ public class FragmentWork extends Fragment {
 
     //--------------------------------------------------------------------------------
     public void newWorkReport() {
-        ((MainActivity) getActivity()).ShowNewReportFragment(chart);
+        ((MainActivity) getActivity()).ShowNewReportFragment(chart, FragmentNewReport.REPORT_TYPE_WORK);
     }
 
     //--------------------------------------------------------------------------------

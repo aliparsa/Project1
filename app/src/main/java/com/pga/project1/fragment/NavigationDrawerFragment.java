@@ -83,13 +83,6 @@ public class NavigationDrawerFragment extends Fragment {
                 R.drawable.ic_launcher);
 
 
-        AdapterInputType item2 = new AdapterInputType();
-        item2.type = "icon+title+subtitle";
-        item2.image1 = BitmapFactory.decodeResource(getResources(),
-                R.drawable.ic_launcher);
-        item2.title = "title here";
-        item2.subTitle = "subtitle here";
-
         AdapterInputType item3 = new AdapterInputType();
         item3.type = "icon+title+subtitle";
         item3.image1 = BitmapFactory.decodeResource(getResources(),
@@ -98,7 +91,6 @@ public class NavigationDrawerFragment extends Fragment {
 
 
         datalist.add(item);
-        datalist.add(item2);
         datalist.add(item3);
         datalist.add(item);
 

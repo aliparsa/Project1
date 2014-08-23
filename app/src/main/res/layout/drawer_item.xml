@@ -64,9 +64,11 @@
                         android:layout_width="70dp"
                         android:layout_height="70dp"
                         class="com.pga.project1.Viewes.Graphview"
-                        app:background="#ffbcbcbc"
-                        app:color1="#ffa8d7ff"
-                        app:strokeColor="#ff95c0e7"
+                        app:background="#ffdbdbdb"
+                        app:color1="#ff9bccff"
+                        app:strokeColor="#ff759ac1"
+                        android:textColor="#ffae00ff"
+                        app:animationSpeed="2"
                         android:id="@+id/graph_view"
                         android:layout_alignParentTop="true"
                         android:layout_alignParentLeft="true"
@@ -94,7 +96,8 @@
                         android:layout_gravity="center_vertical"
 
                         android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true" />
+                        android:layout_centerVertical="true"
+                        android:visibility="gone" />
                 </RelativeLayout>
 
                 <LinearLayout

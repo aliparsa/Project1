@@ -9,6 +9,7 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.TextView;
 
 import com.pga.project1.R;
 
@@ -31,6 +32,7 @@ public class Graphview extends View {
     private int color2;
     private int color3;
     private int color4;
+    private int textColor;
     private int strokeColor;
     private float endAngle;
     private int animationSpeed;
@@ -45,7 +47,8 @@ public class Graphview extends View {
         //LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         // inflater.inflate(R.layout.view_name_value, this, true);
 
-        percent = a.getFloat(R.styleable.Graphview_percentValue, 0);
+
+        percent = a.getFloat(R.styleable.Graphview_percentValue, 25);
 
         background = a.getColor(R.styleable.Graphview_background, Color.DKGRAY);
         COLORS[0] = a.getColor(R.styleable.Graphview_color1, COLORS[0]);
@@ -56,6 +59,7 @@ public class Graphview extends View {
         strokeWidth = a.getInt(R.styleable.Graphview_strokeWidth, 1);
         animationSpeed = a.getInt(R.styleable.Graphview_animationSpeed, 5);
 
+        textColor = a.getColor(R.styleable.Graphview_textColor, Color.BLACK);
 
         strokeColor = a.getColor(R.styleable.Graphview_strokeColor, Color.BLACK);
         value_degree = new float[]{(percent * 360 / 100)};
@@ -116,6 +120,28 @@ public class Graphview extends View {
                 paint.setStyle(Paint.Style.STROKE);
                 paint.setStrokeWidth(strokeWidth);
                 canvas.drawArc(rectf, -90, value_degree[i], true, paint);
+
+                // Draw Inner Circle
+                paint.setColor(Color.WHITE);
+                paint.setStyle(Paint.Style.FILL);
+                float start_Point = this.getMeasuredWidth() * 1 / 4;
+                float end_Point = this.getMeasuredWidth() * 3 / 4;
+                RectF innerCircle = new RectF(rectf);
+                innerCircle.set(start_Point, start_Point, end_Point, end_Point);
+                canvas.drawArc(innerCircle, 0, 360, true, paint);
+
+
+                // Draw Text
+                paint.setColor(textColor);
+                paint.setStyle(Paint.Style.FILL);
+                paint.setTextSize(Math.min(this.getMeasuredWidth(), this.getMeasuredHeight()) / 5);
+
+                paint.measureText((Math.floor(value_degree[i] * 100 / 360)) + "%");
+                String percent_text = ((int) value_degree[i] * 100 / 360) + "%";
+                Rect rect = new Rect();
+                paint.getTextBounds(percent_text, 0, percent_text.length(), rect);
+                canvas.drawText(percent_text, this.getMeasuredWidth() / 2 - (rect.width() / 2), this.getMeasuredHeight() / 2 + (rect.height() / 2), paint);
+
 
             } else {
                 temp += (int) value_degree[i - 1];
