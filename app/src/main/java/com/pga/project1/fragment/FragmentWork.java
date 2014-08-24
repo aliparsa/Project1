@@ -2,11 +2,13 @@ package com.pga.project1.fragment;
 
 
 import android.app.ActionBar;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -127,8 +129,13 @@ public class FragmentWork extends Fragment {
         inflater.inflate(R.menu.menu_fragment_work, menu);
         this.menu = menu;
 
-        setTabs("FWork onCreateOptionsMenu");
 
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        setTabs("FWork onCreateOptionsMenu");
     }
 
     //--------------------------------------------------------------------------------
@@ -258,7 +265,9 @@ public class FragmentWork extends Fragment {
 
     //-------------------------------------------------------------------------------
     public void pickPersonnel() {
-        ((MainActivity) getActivity()).ShowPersonnelSearch(chart);
+//        ((MainActivity) getActivity()).ShowPersonnelSearch(chart);
+        Intent intent = new Intent(getActivity(), PersonelPickerActivity.class);
+        startActivityForResult(intent, 1212);
     }
 
     //--------------------------------------------------------------------------------
@@ -335,7 +344,7 @@ public class FragmentWork extends Fragment {
         super.onResume();
 
         // Set Tabs
-        //setTabs();
+
 
 //        PathMapManager pmm = (PathMapManager) getView().findViewById(R.id.path_map_fragment_work);
 //        if ( pmm!=null )
@@ -555,5 +564,18 @@ public class FragmentWork extends Fragment {
         }
 
 
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1212)
+            if (resultCode == Activity.RESULT_OK) {
+                Personnel personnel = (Personnel) data.getSerializableExtra("personnel");
+                Toast.makeText(getActivity(), "Personel id is > " + personnel.getFirst_name(), Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getActivity(), "No personel Selected", Toast.LENGTH_SHORT).show();
+
+            }
     }
 }

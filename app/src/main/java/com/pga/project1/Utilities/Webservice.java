@@ -28,7 +28,7 @@ import java.util.ArrayList;
 public class Webservice {
     //this is sparta
 
-    final static public String SERVER_ADDRESS = "http://192.168.0.152:8099/pm";
+    final static public String SERVER_ADDRESS = "http://192.168.1.66:8099/pm";
     final static public String SERVER_ADDRESS_UPLOAD = "http://192.168.0.79:3434/index.php/w-upload";
 
     //-----------------------------------------------------------------------------
@@ -330,7 +330,7 @@ public class Webservice {
 
 
         int i = 0;
-        if(imagePaths!=null && imagePaths.length > 0){
+        if (imagePaths != null && imagePaths.length > 0) {
 
             String imgPath = imagePaths[i];
 

@@ -6,12 +6,15 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by ashkan on 8/17/2014.
  */
-public class Personnel {
+
+@SuppressWarnings("serial")
+public class Personnel implements Serializable {
 
 
     private int id;

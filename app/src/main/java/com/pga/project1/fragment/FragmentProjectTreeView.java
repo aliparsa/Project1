@@ -4,6 +4,8 @@ import android.app.Fragment;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -41,6 +43,8 @@ public class FragmentProjectTreeView extends Fragment {
 
         //getActivity().getActionBar().show();
 
+
+        setHasOptionsMenu(true);
 
         View view = inflater.inflate(R.layout.fragment_layout_project_tree_view, container,
                 false);
@@ -125,6 +129,7 @@ public class FragmentProjectTreeView extends Fragment {
     public void setChart(Chart chart) {
         this.chart = chart;
     }
+
     // ------------------------------------------------------------------------------------
     public void onDetach() {
         super.onDetach();
@@ -178,8 +183,18 @@ public class FragmentProjectTreeView extends Fragment {
         // hide Tabs If Tab Resumed After a Fragment With Tab
         ((MainActivity) getActivity()).hideTabs();
     }
+
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        ((MainActivity) getActivity()).hideTabs();
+    }
+
 }
 // ------------------------------------------------------------------------------------
+
+
 // ------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------

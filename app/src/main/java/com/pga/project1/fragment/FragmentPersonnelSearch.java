@@ -3,6 +3,7 @@ package com.pga.project1.fragment;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -62,6 +63,8 @@ public class FragmentPersonnelSearch extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_search_personnel,
                 container, false);
+
+        setHasOptionsMenu(true);
 
         searchView = (SearchView) view.findViewById(R.id.srchv_searchPersonnel_searchName);
         listView = (ListView) view.findViewById(R.id.lv_searchPersonnel_results);
@@ -186,6 +189,7 @@ public class FragmentPersonnelSearch extends Fragment {
 
             if (tag instanceof Personnel)
                 personnel = (Personnel) tag;
+
             else
                 return;
 
@@ -198,5 +202,9 @@ public class FragmentPersonnelSearch extends Fragment {
 
     }
 
-
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        ((MainActivity) getActivity()).hideTabs();
+    }
 }

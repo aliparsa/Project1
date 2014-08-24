@@ -446,4 +446,10 @@ public class FragmentNewReport extends Fragment {
     public void setReportType(int reportType) {
         this.reportType = reportType;
     }
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        ((MainActivity) getActivity()).hideTabs();
+    }
 }
