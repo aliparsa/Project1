@@ -4,12 +4,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by aliparsa on 8/13/2014.
  */
-public class Feature {
+@SuppressWarnings("serial")
+public class Feature implements Serializable {
     private String name;
     private String value;
 

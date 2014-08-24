@@ -2,8 +2,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.pga.project1.fragment.NewReportActivity">
     <item
-        android:id="@+id/action_settings"
-        android:title="@string/action_settings"
-        android:orderInCategory="100"
-        android:showAsAction="never" />
+        android:id="@+id/ac_work_report_save"
+        android:showAsAction="always"
+        android:title="ذخیره"
+        android:orderInCategory="1" />
+
+    <item
+        android:id="@+id/action_back"
+        android:orderInCategory="2"
+        android:icon="@drawable/ic_action_next_item"
+        android:showAsAction="always"
+        android:title="Back" />
+
+    <item
+        android:id="@+id/action_camera"
+        android:orderInCategory="0"
+        android:icon="@drawable/ic_action_camera"
+        android:showAsAction="always"
+        android:title="Camera" />
 </menu>

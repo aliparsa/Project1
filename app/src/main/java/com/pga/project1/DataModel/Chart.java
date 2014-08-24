@@ -6,12 +6,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by aliparsa on 8/9/2014.
  */
-public class Chart implements PathMapObject {
+@SuppressWarnings("serial")
+public class Chart implements PathMapObject, Serializable {
 
     private int id;
     private int type_id;

@@ -226,7 +226,10 @@ public class FragmentWork extends Fragment {
 
     //--------------------------------------------------------------------------------
     public void newWorkReport() {
-        ((MainActivity) getActivity()).ShowNewReportFragment(chart, FragmentNewReport.REPORT_TYPE_WORK);
+        //((MainActivity) getActivity()).ShowNewReportFragment(chart, FragmentNewReport.REPORT_TYPE_WORK);
+        Intent intent = new Intent(getActivity(), NewReportActivity.class);
+        intent.putExtra("chart", chart);
+        startActivityForResult(intent, 1313);
     }
 
     //--------------------------------------------------------------------------------
