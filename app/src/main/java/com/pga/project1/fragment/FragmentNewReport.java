@@ -192,7 +192,7 @@ public class FragmentNewReport extends Fragment {
         if (item.getItemId() == R.id.ac_work_report_save) {
             switch (reportType) {
                 case REPORT_TYPE_WORK:
-                    saveWorkReport();
+                    //   saveWorkReport();
                     break;
                 case REPORT_TYPE_TASK:
                     saveTaskReport();
@@ -226,71 +226,6 @@ public class FragmentNewReport extends Fragment {
     }
 
     // ------------------------------------------------------------------------------------
-    private void saveWorkReport() {
-
-
-        Report obj_report = new Report(-1, chart, -1, selectedDateTime.getIranianDate(), report.getText().toString(), selectedPercent);
-
-        final ProgressDialog pg = new ProgressDialog(getActivity());
-        pg.setMessage("Sending Report...");
-        pg.show();
-
-
-        String[] imagePathList = new String[5];
-        for (int i = 0; i < ll_image_list.getChildCount(); i++) {
-            imagePathList[i] = ((String) (((ImageView) ll_image_list.getChildAt(i)).getTag()));
-        }
-
-
-        Webservice.saveWorkReport(getActivity(), obj_report, imagePathList, new ProgressCallBack() {
-
-            @Override
-            public void onSuccess(Object result) {
-                pg.dismiss();
-
-                new AlertDialog.Builder(getActivity())
-                        .setTitle("Report Saved")
-                        .setMessage("some text")
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .setPositiveButton("خب", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                // continue with delete
-                                callback.onSuccess(null);
-
-                            }
-                        })
-                        .show();
-
-                Log.d("ali", "Report Saved successfully");
-            }
-
-            @Override
-            public void onError(ErrorMessage err) {
-                pg.dismiss();
-
-                new AlertDialog.Builder(getActivity())
-                        .setTitle("Report save error")
-                        .setMessage("some text")
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .setPositiveButton("خب", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                // continue with delete
-                                // callback.onSuccess(null);
-
-                            }
-                        })
-                        .show();
-
-                Log.d("ali", "Report Save Error");
-
-            }
-
-            @Override
-            public void onProgress(int done, int total, Object result) {
-                pg.setMessage(done + " of " + total + " image Uploaded");
-            }
-        });
-    }
 
     // ------------------------------------------------------------------------------------
     @Override
