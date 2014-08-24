@@ -372,9 +372,9 @@ public class FragmentWork extends Fragment {
         ActionBar.Tab tab_workReport = getActivity().getActionBar().newTab();
 
         // Set Tab Titles
-        tab_workInfo.setText("اطلاعات");
-        tab_workTask.setText("پرسنل");
-        tab_workReport.setText("گزارشات");
+        tab_workInfo.setText("اطلاعات کار");
+        tab_workTask.setText("وظیفه ها");
+        tab_workReport.setText("گزارش عملکرد");
 
         // Set Tab Listeners
         tab_workInfo.setTabListener(new ActionBar.TabListener() {

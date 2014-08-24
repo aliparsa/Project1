@@ -5,7 +5,7 @@
     <item
         android:id="@+id/ac_pick_personnel"
         android:showAsAction="always"
-        android:title="Add Personnel"
+        android:title="افزودن پرسنل"
         android:orderInCategory="0" />
 
     <item

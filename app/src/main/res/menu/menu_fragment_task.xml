@@ -6,7 +6,7 @@
         android:id="@+id/action_addReportTask"
         android:orderInCategory="2"
         android:showAsAction="always|withText"
-        android:title="add proceed" />
+        android:title="ثبت عملکرد" />
 
 
     <item

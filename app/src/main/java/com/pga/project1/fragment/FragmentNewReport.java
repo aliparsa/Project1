@@ -58,11 +58,10 @@ public class FragmentNewReport extends Fragment {
 
     //{Fields-----------------------------------------------------
 
+    public static final int REPORT_TYPE_WORK = 1;
+    public static final int REPORT_TYPE_TASK = 2;
     final int CAMERA_REQUEST = 111;
     final int GALLERY_REQUEST = 222;
-
-    static final int REPORT_TYPE_WORK = 1;
-    static final int REPORT_TYPE_TASK = 2;
     int reportType = 0;
 
     EditText report;
@@ -82,17 +81,15 @@ public class FragmentNewReport extends Fragment {
     public FragmentNewReport() {
 
     }
-    //-----------------------------------------------------Constructor}
 
-
-    //{override functions---------------------------------------------
-
+    // ------------------------------------------------------------------------------------
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
     }
 
+    // ------------------------------------------------------------------------------------
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -105,6 +102,7 @@ public class FragmentNewReport extends Fragment {
         return view;
     }
 
+    // ------------------------------------------------------------------------------------
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -136,6 +134,7 @@ public class FragmentNewReport extends Fragment {
 
                 new AlertDialog.Builder(getActivity())
                         .setTitle("انتخاب زمان و تاریخ")
+                        .setCancelable(false)
                         .setView(dp)
                         .setPositiveButton("تایید", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
@@ -160,6 +159,7 @@ public class FragmentNewReport extends Fragment {
 
                 new AlertDialog.Builder(getActivity())
                         .setTitle("درصد پیشرفت")
+                        .setCancelable(false)
                         .setView(percentPicker)
                         .setPositiveButton("تایید", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
@@ -174,6 +174,7 @@ public class FragmentNewReport extends Fragment {
 
     }
 
+    // ------------------------------------------------------------------------------------
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
@@ -183,6 +184,7 @@ public class FragmentNewReport extends Fragment {
         this.menu = menu;
     }
 
+    // ------------------------------------------------------------------------------------
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -196,9 +198,8 @@ public class FragmentNewReport extends Fragment {
                     saveTaskReport();
                     break;
             }
-            
-            
-                
+
+
         }
 
         if (item.getItemId() == R.id.action_camera) {
@@ -220,9 +221,11 @@ public class FragmentNewReport extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
+    // ------------------------------------------------------------------------------------
     private void saveTaskReport() {
     }
 
+    // ------------------------------------------------------------------------------------
     private void saveWorkReport() {
 
 
@@ -289,7 +292,7 @@ public class FragmentNewReport extends Fragment {
         });
     }
 
-
+    // ------------------------------------------------------------------------------------
     @Override
     public void onResume() {
         super.onResume();
@@ -297,6 +300,7 @@ public class FragmentNewReport extends Fragment {
         ((MainActivity) getActivity()).hideTabs();
     }
 
+    // ------------------------------------------------------------------------------------
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -304,7 +308,6 @@ public class FragmentNewReport extends Fragment {
         callback.onError(null);
 
     }
-
 
     // ------------------------------------------------------------------------------------
     public void onDetach() {
@@ -317,32 +320,12 @@ public class FragmentNewReport extends Fragment {
         return chart;
     }
 
+    // ------------------------------------------------------------------------------------
     public void setChart(Chart chart) {
         this.chart = chart;
     }
 
-    //-----------------------------------------------------override functions}
-
-    //{Functions-----------------------------------------------------
-
-    //-----------------------------------------------------Functions}
-
-    //{static Functions-----------------------------------------------------
-
-    //-----------------------------------------------------static Functions}
-
-    //{static callback classes-----------------------------------------------------
-
-    //-----------------------------------------------------static callback classes}
-
-    //{Setter getters-----------------------------------------------------
-
-
-    //-----------------------------------------------------Setter getters}
-
-    //{Factory function--------------------------------------------------
-
-    //---------------------------------------------------Factory function}
+    // ------------------------------------------------------------------------------------
     public void setCallback(CallBack callback) {
         this.callback = callback;
     }
@@ -370,12 +353,14 @@ public class FragmentNewReport extends Fragment {
 
     }
 
+    //--------------------------------------------------------------------------------
     private void callCamera() {
 
         Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(cameraIntent, CAMERA_REQUEST);
     }
 
+    //--------------------------------------------------------------------------------
     private void callGallery() {
 
         Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
@@ -383,6 +368,7 @@ public class FragmentNewReport extends Fragment {
         startActivityForResult(photoPickerIntent, GALLERY_REQUEST);
     }
 
+    //--------------------------------------------------------------------------------
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -456,6 +442,7 @@ public class FragmentNewReport extends Fragment {
         return path + "/" + "img.jpg";
     }
 
+    //--------------------------------------------------------------------------------
     public void setReportType(int reportType) {
         this.reportType = reportType;
     }

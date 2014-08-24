@@ -110,7 +110,9 @@ public class Graphview extends View {
 
         for (int i = 0; i < value_degree.length; i++) {//values2.length; i++) {
             if (i == 0) {
+
                 // Draw Main
+
                 paint.setColor(COLORS[i]);
                 paint.setStyle(Paint.Style.FILL);
                 canvas.drawArc(rectf, -90, value_degree[i], true, paint);

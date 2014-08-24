@@ -315,6 +315,7 @@ public class MainActivity extends Activity
         Fragment frag = new FragmentNewReport();
         ((FragmentNewReport) frag).setChart(chart);
         ((FragmentNewReport) frag).setCallback(callback);
+        ((FragmentNewReport) frag).setReportType(reportType);
         replaceFragment(frag, true);
         PathMapManager.push(new PathObject("ثبت پیشرفت کار"));
     }
