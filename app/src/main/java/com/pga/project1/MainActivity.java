@@ -19,6 +19,7 @@ import com.pga.project1.Utilities.ErrorMessage;
 import com.pga.project1.Viewes.PathMapManager;
 import com.pga.project1.fragment.FragmentLogin;
 import com.pga.project1.fragment.FragmentNewReport;
+import com.pga.project1.fragment.FragmentNewTaskReport;
 import com.pga.project1.fragment.FragmentPersonnelSearch;
 import com.pga.project1.fragment.FragmentProjectTreeView;
 import com.pga.project1.fragment.FragmentSplash;
@@ -239,9 +240,15 @@ public class MainActivity extends Activity
 
     //-------------------------------------------------------------------------------------
     public void hideTabs() {
-        if (getActionBar().getNavigationMode() == ActionBar.NAVIGATION_MODE_TABS)
-            getActionBar().setNavigationMode(
-                    ActionBar.NAVIGATION_MODE_STANDARD);
+
+
+
+        if (getActionBar().getNavigationMode() == ActionBar.NAVIGATION_MODE_TABS) {
+            getActionBar().removeAllTabs();
+            getActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+        }
+
+
     }
 
     //-------------------------------------------------------------------------------------
@@ -320,6 +327,17 @@ public class MainActivity extends Activity
         PathMapManager.push(new PathObject("ثبت پیشرفت کار"));
     }
 
+    //-------------------------------------------------------------------------------------
+    public void ShowNewTaskReportFragment(final Chart chart) {
+
+        // hide Tabs if Exist
+        hideTabs();
+
+        FragmentNewTaskReport frag = new FragmentNewTaskReport();
+        frag.setChart(chart);
+        replaceFragment(frag, true);
+        PathMapManager.push(new PathObject("ثبت پیشرفت پرسنل"));
+    }
     //-------------------------------------------------------------------------------------
     public void ShowTaskInfoFragment(Chart chart) {
         FragmentTaskPage frag = FragmentTaskPage.getInstanceInfo();
