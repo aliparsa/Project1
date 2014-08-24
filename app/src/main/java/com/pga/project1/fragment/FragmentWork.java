@@ -29,7 +29,6 @@ import com.pga.project1.DataModel.Personnel;
 import com.pga.project1.DataModel.Report;
 import com.pga.project1.DataModel.ServerResponse;
 import com.pga.project1.Intefaces.CallBack;
-import com.pga.project1.MainActivity;
 import com.pga.project1.R;
 import com.pga.project1.Structures.AdapterInputType;
 import com.pga.project1.Utilities.ErrorMessage;
@@ -558,8 +557,14 @@ public class FragmentWork extends Fragment {
 
             if (tag instanceof Chart) {
                 chart = (Chart) tag;
-                setActiveTab(FragmentWork.TabPersonnel);
-                ((MainActivity) getActivity()).ShowTaskPageFragment(chart);
+                //setActiveTab(FragmentWork.TabPersonnel);
+                //((MainActivity) getActivity()).ShowTaskPageFragment(chart);
+
+
+                Intent intent = new Intent(getActivity(), ActivityTaskPage.class);
+                intent.putExtra("chart", chart);
+                startActivity(intent);
+
             } else
                 return;
 
@@ -572,13 +577,20 @@ public class FragmentWork extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1212)
-            if (resultCode == Activity.RESULT_OK) {
-                Personnel personnel = (Personnel) data.getSerializableExtra("personnel");
-                Toast.makeText(getActivity(), "Personel id is > " + personnel.getFirst_name(), Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(getActivity(), "No personel Selected", Toast.LENGTH_SHORT).show();
+        switch (requestCode){
+            case 1212: {
+                if (resultCode == Activity.RESULT_OK) {
+                    Personnel personnel = (Personnel) data.getSerializableExtra("personnel");
+                    Toast.makeText(getActivity(), "Personel id is > " + personnel.getFirst_name(), Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getActivity(), "No personel Selected", Toast.LENGTH_SHORT).show();
 
+                }
+                break;
             }
+            case 2000:{
+                //nothing
+            }
+        }
     }
 }

@@ -1,0 +1,23 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.pga.project1.fragment.ActivityTaskPage"
+    android:orientation="vertical"
+    >
+
+    <com.pga.project1.Viewes.PathMapManager
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/view">
+
+    </com.pga.project1.Viewes.PathMapManager>
+
+    <FrameLayout
+        android:id="@+id/host_taskPage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ffffff"></FrameLayout>
+
+
+</LinearLayout>
