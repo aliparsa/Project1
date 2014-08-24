@@ -32,7 +32,6 @@ import com.pga.project1.R;
 import com.pga.project1.Structures.AdapterInputType;
 import com.pga.project1.Utilities.ErrorMessage;
 import com.pga.project1.Utilities.Webservice;
-import com.pga.project1.Viewes.Graphview;
 import com.pga.project1.Viewes.PathMapManager;
 import com.pga.project1.Viewes.ViewNameValue;
 
@@ -128,7 +127,7 @@ public class FragmentWork extends Fragment {
         inflater.inflate(R.menu.menu_fragment_work, menu);
         this.menu = menu;
 
-        setTabs();
+        setTabs("FWork onCreateOptionsMenu");
 
     }
 
@@ -355,7 +354,7 @@ public class FragmentWork extends Fragment {
 
     //-----------------------------------------------------override functions}
 
-    private void setTabs() {
+    private void setTabs(String caller) {
 
         // Cleanup And set Tabs
         getActivity().getActionBar().removeAllTabs();

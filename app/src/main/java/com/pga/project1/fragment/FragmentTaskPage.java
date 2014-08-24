@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import com.pga.project1.DataModel.Chart;
+import com.pga.project1.MainActivity;
 import com.pga.project1.R;
 import com.pga.project1.Viewes.PathMapManager;
 
@@ -49,7 +50,7 @@ public class FragmentTaskPage extends Fragment {
     //{Constructor-----------------------------------------------------
     public FragmentTaskPage(){
 
-
+        this.pageType = PageType.Info;
     }
     //-----------------------------------------------------Constructor}
 
@@ -60,6 +61,8 @@ public class FragmentTaskPage extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
 
         setHasOptionsMenu(true);
     }
@@ -85,23 +88,28 @@ public class FragmentTaskPage extends Fragment {
         super.onCreateOptionsMenu(menu, inflater);
 
 
-            menu.clear();
-            inflater.inflate(R.menu.menu_fragment_task, menu);
-            this.menu = menu;
+        menu.clear();
+        inflater.inflate(R.menu.menu_fragment_task, menu);
+        this.menu = menu;
 
 
         MenuItem addNewReport = menu.findItem(R.id.action_addReportTask);
-        if(addNewReport != null) addNewReport.setVisible(false);
+        if (addNewReport != null) addNewReport.setVisible(false);
 
         setTabs();
+    }
 
-
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         if(item.getItemId() == R.id.action_addReportTask){
+
+            ((MainActivity) getActivity()).ShowNewTaskReportFragment(chart);
 
             return true;
         }
@@ -149,14 +157,13 @@ public class FragmentTaskPage extends Fragment {
 
                     currentFrag = infoFrag = new FragmentTaskInfo();
                     infoFrag.setChart(chart);
-                    pageType = PageType.Info;
+
                     FragmentManager fm = getFragmentManager();
                     fm.beginTransaction()
                             .add(R.id.host_taskPage, infoFrag)
                             .commit();
 
                 }else if(currentFrag != infoFrag){
-                    pageType = PageType.Info;
                     FragmentManager fm = getFragmentManager();
                     fm.beginTransaction()
                             .replace(R.id.host_taskPage, infoFrag)
@@ -166,6 +173,7 @@ public class FragmentTaskPage extends Fragment {
 
                 }
 
+                pageType = PageType.Info;
                 MenuItem addNewReport = menu.findItem(R.id.action_addReportTask);
                 if(addNewReport != null) addNewReport.setVisible(false);
             }
@@ -183,14 +191,13 @@ public class FragmentTaskPage extends Fragment {
 
                     currentFrag = reportFrag = new FragmentTaskReport();
                     reportFrag.setChart(chart);
-                    pageType = PageType.Reports;
                     FragmentManager fm = getFragmentManager();
                     fm.beginTransaction()
                             .add(R.id.host_taskPage, reportFrag)
                             .commit();
 
                 }else if(currentFrag != reportFrag){
-                    pageType = PageType.Reports;
+
                     FragmentManager fm = getFragmentManager();
                     fm.beginTransaction()
                             .replace(R.id.host_taskPage, reportFrag)
@@ -199,8 +206,10 @@ public class FragmentTaskPage extends Fragment {
                     currentFrag = reportFrag;
                 }
 
+                pageType = PageType.Reports;
                 MenuItem addNewReport = menu.findItem(R.id.action_addReportTask);
                 if(addNewReport != null) addNewReport.setVisible(true);
+
             }
             @Override
             public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {}
@@ -209,9 +218,14 @@ public class FragmentTaskPage extends Fragment {
         });
         // Cleanup And set Tabs
 
-
         getActivity().getActionBar().addTab(tab_taskReport, false);
-        getActivity().getActionBar().addTab(tab_taskInfo, true);
+        getActivity().getActionBar().addTab(tab_taskInfo, false);
+
+        if(this.pageType == PageType.Info) {
+            this.getActivity().getActionBar().selectTab(tab_taskInfo);
+        }else if(this.pageType == PageType.Reports){
+            this.getActivity().getActionBar().selectTab(tab_taskReport);
+        }
 
     }
     //-----------------------------------------------------Functions}

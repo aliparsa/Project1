@@ -44,7 +44,7 @@ import java.io.OutputStream;
 /**
  * Created by ashkan on 8/18/2014.
  */
-public class FragmentNewReport extends Fragment {
+public class FragmentNewTaskReport extends Fragment {
 
 
     //{Constants-----------------------------------------------------
@@ -60,10 +60,6 @@ public class FragmentNewReport extends Fragment {
     final int CAMERA_REQUEST = 111;
     final int GALLERY_REQUEST = 222;
 
-    static final int REPORT_TYPE_WORK = 1;
-    static final int REPORT_TYPE_TASK = 2;
-    int reportType = 0;
-
     EditText report;
     Button percent;
     Button timePicker;
@@ -78,7 +74,7 @@ public class FragmentNewReport extends Fragment {
     //-----------------------------------------------------Fields}
 
     //{Constructor-----------------------------------------------------
-    public FragmentNewReport() {
+    public FragmentNewTaskReport() {
 
     }
     //-----------------------------------------------------Constructor}
@@ -187,31 +183,14 @@ public class FragmentNewReport extends Fragment {
 
 
         if (item.getItemId() == R.id.ac_work_report_save) {
-            switch (reportType) {
-                case REPORT_TYPE_WORK:
-                    saveWorkReport();
-                    break;
-                case REPORT_TYPE_TASK:
-                    saveTaskReport();
-                    break;
-            }
-            
-            
-                
+             saveTaskReport();
+            return true;
         }
 
         if (item.getItemId() == R.id.action_camera) {
             attachMedia();
             return true;
         }
-
-        // save Report();
-
-        //   Toast.makeText(getActivity(), "Sending...", Toast.LENGTH_SHORT).show();
-
-        // close key board
-
-        //   callback.onSuccess(null);
 
         return super.onOptionsItemSelected(item);
     }
@@ -231,7 +210,7 @@ public class FragmentNewReport extends Fragment {
         String[] imagePathList;
 
 
-        Webservice.saveWorkReport(getActivity(), obj_report,  new String[]{}, new ProgressCallBack() {
+        Webservice.saveWorkReport(getActivity(), obj_report, new String[]{}, new ProgressCallBack() {
 
             @Override
             public void onSuccess(Object result) {
@@ -292,9 +271,6 @@ public class FragmentNewReport extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-
-        callback.onError(null);
-
     }
 
 
@@ -448,7 +424,4 @@ public class FragmentNewReport extends Fragment {
         return path + "/" + "img.jpg";
     }
 
-    public void setReportType(int reportType) {
-        this.reportType = reportType;
-    }
 }
