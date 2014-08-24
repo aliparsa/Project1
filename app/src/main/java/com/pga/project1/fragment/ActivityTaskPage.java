@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -52,10 +53,14 @@ public class ActivityTaskPage extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        this.chart = (Chart) getIntent().getSerializableExtra("chart");
+        PathMapManager.push(chart);
+
         setContentView(R.layout.activity_activity_task_page);
 
-        Chart chart = (Chart) getIntent().getSerializableExtra("chart");
-        PathMapManager.push(chart);
+        this.pageType = PageType.Info;
+
+
     }
 
     @Override
@@ -93,6 +98,10 @@ public class ActivityTaskPage extends Activity {
         if(item.getItemId() == R.id.action_addReportTask){
 
             //((MainActivity) getActivity()).ShowNewTaskReportFragment(chart);
+
+            Intent intent = new Intent(this, NewReportActivity.class);
+            intent.putExtra("chart", chart);
+            startActivity(intent);
 
             return true;
         }

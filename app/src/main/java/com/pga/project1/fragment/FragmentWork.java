@@ -29,7 +29,6 @@ import com.pga.project1.DataModel.Personnel;
 import com.pga.project1.DataModel.Report;
 import com.pga.project1.DataModel.ServerResponse;
 import com.pga.project1.Intefaces.CallBack;
-import com.pga.project1.MainActivity;
 import com.pga.project1.R;
 import com.pga.project1.Structures.AdapterInputType;
 import com.pga.project1.Utilities.ErrorMessage;
@@ -563,8 +562,8 @@ public class FragmentWork extends Fragment {
 
 
                 Intent intent = new Intent(getActivity(), ActivityTaskPage.class);
-               // intent.putExtra(chart, "chart");
-                startActivityForResult(intent, 2000);
+                intent.putExtra("chart", chart);
+                startActivity(intent);
 
             } else
                 return;

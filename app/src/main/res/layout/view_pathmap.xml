@@ -5,7 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="2dp">
+    android:padding="2dp"
+    android:background="#a8268bff"
+    >
 
     <HorizontalScrollView
         android:id="@+id/horizontalScrollView"
@@ -13,7 +15,7 @@
         android:layout_height="wrap_content"
         android:paddingBottom="3dp"
         android:scrollbarSize="1dp"
-        android:scrollbarFadeDuration="500"
+        android:scrollbars="none"
         >
 
 
