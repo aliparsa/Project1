@@ -3,6 +3,7 @@ package com.pga.project1.fragment;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Path;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,12 +13,14 @@ import android.widget.ListView;
 import android.widget.SearchView;
 
 import com.pga.project1.Adapters.ListViewCustomAdapter;
+import com.pga.project1.DataModel.PathObject;
 import com.pga.project1.DataModel.Personnel;
 import com.pga.project1.Intefaces.CallBack;
 import com.pga.project1.R;
 import com.pga.project1.Structures.AdapterInputType;
 import com.pga.project1.Utilities.ErrorMessage;
 import com.pga.project1.Utilities.Webservice;
+import com.pga.project1.Viewes.PathMapManager;
 
 import java.util.ArrayList;
 
@@ -33,6 +36,10 @@ public class PersonelPickerActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+        PathMapManager.push(new PathObject("انتخاب پرسنل"));
+
         setContentView(R.layout.activity_personel_picker);
 
 
@@ -153,8 +160,17 @@ public class PersonelPickerActivity extends Activity {
     }
 
     @Override
+    protected void onDestroy() {
+
+        PathMapManager.pop("personnel picker onBackPressed");
+
+        super.onDestroy();
+    }
+
+    @Override
     public void onBackPressed() {
         // super.onBackPressed();
+
         Intent returnIntent = new Intent();
         setResult(RESULT_CANCELED, returnIntent);
         finish();

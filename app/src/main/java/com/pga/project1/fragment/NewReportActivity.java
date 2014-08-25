@@ -27,12 +27,14 @@ import android.widget.NumberPicker;
 import android.widget.Toast;
 
 import com.pga.project1.DataModel.Chart;
+import com.pga.project1.DataModel.PathObject;
 import com.pga.project1.DataModel.Report;
 import com.pga.project1.Intefaces.ProgressCallBack;
 import com.pga.project1.R;
 import com.pga.project1.Utilities.ErrorMessage;
 import com.pga.project1.Utilities.PersianCalendar;
 import com.pga.project1.Utilities.Webservice;
+import com.pga.project1.Viewes.PathMapManager;
 import com.pga.project1.Viewes.ViewDateTimePickerPersian;
 
 import java.io.File;
@@ -59,6 +61,12 @@ public class NewReportActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+        chart = (Chart) getIntent().getSerializableExtra("chart");
+
+        PathMapManager.push(new PathObject("عملکرد جدید"));
+
         setContentView(R.layout.activity_new_report);
 
         //showCustomActionBar();
@@ -66,7 +74,6 @@ public class NewReportActivity extends Activity {
 
         context = this;
 
-        chart = (Chart) getIntent().getSerializableExtra("chart");
 
         ll_image_list = (LinearLayout) findViewById(R.id.ll_fragmentWork_workReport_imageList);
 
@@ -177,6 +184,14 @@ public class NewReportActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
     //--------------------------------------------------------------------------------
+
+    @Override
+    protected void onDestroy() {
+
+        PathMapManager.pop("new report act onBackPressed");
+
+        super.onDestroy();
+    }
 
     @Override
     public void onBackPressed() {
