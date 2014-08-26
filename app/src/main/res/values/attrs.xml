@@ -13,6 +13,10 @@
 
         <attr name="hour" format="integer" />
         <attr name="minute" format="integer" />
+
+        <attr name="hideTime" format="boolean" />
+        <attr name="hideDate" format="boolean" />
+
     </declare-styleable>
 
     <declare-styleable name="Graphview">

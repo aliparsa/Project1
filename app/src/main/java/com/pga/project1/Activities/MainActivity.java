@@ -4,7 +4,6 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.DrawerLayout;
@@ -14,19 +13,15 @@ import android.widget.Toast;
 
 import com.pga.project1.DataModel.Chart;
 import com.pga.project1.DataModel.PathObject;
-import com.pga.project1.DataModel.Personnel;
-import com.pga.project1.Intefaces.CallBack;
 import com.pga.project1.R;
-import com.pga.project1.Utilities.ErrorMessage;
 import com.pga.project1.Viewes.PathMapManager;
 import com.pga.project1.fragment.FragmentLogin;
-import com.pga.project1.fragment.FragmentNewReport;
+
 import com.pga.project1.fragment.FragmentNewTaskReport;
-import com.pga.project1.fragment.FragmentPersonnelSearch;
+
 import com.pga.project1.fragment.FragmentProjectTreeView;
 import com.pga.project1.fragment.FragmentSplash;
 import com.pga.project1.fragment.FragmentTaskPage;
-import com.pga.project1.fragment.FragmentWork;
 import com.pga.project1.fragment.NavigationDrawerFragment;
 
 
@@ -308,43 +303,43 @@ public class MainActivity extends Activity
     }
 
     //-------------------------------------------------------------------------------------
-    public void ShowNewReportFragment(final Chart chart, int reportType) {
-
-        // hide Tabs if Exist
-        hideTabs();
-
-        final Context self = this;
-
-        CallBack callback = new CallBack() {
-
-            @Override
-            public void onSuccess(Object result) {
-                FragmentWork frag = new FragmentWork();
-                frag.setChart(chart);
-                frag.setActiveTab(FragmentWork.TabReport);
-                replaceFragment(frag, true);
-                PathMapManager.pop("M A   O S   ShowNewReportFragment");
-            }
-
-            @Override
-            public void onError(ErrorMessage err) {
-                FragmentWork frag = new FragmentWork();
-                frag.setChart(chart);
-                frag.setActiveTab(FragmentWork.TabReport);
-                replaceFragment(frag, false);
-                Toast.makeText(self, "no report added", Toast.LENGTH_SHORT).show();
-
-            }
-        };
-
-
-        Fragment frag = new FragmentNewReport();
-        ((FragmentNewReport) frag).setChart(chart);
-        ((FragmentNewReport) frag).setCallback(callback);
-        ((FragmentNewReport) frag).setReportType(reportType);
-        replaceFragment(frag, true);
-        PathMapManager.push(new PathObject("ثبت پیشرفت کار"));
-    }
+//    public void ShowNewReportFragment(final Chart chart, int reportType) {
+//
+//        // hide Tabs if Exist
+//        hideTabs();
+//
+//        final Context self = this;
+//
+//        CallBack callback = new CallBack() {
+//
+//            @Override
+//            public void onSuccess(Object result) {
+//                FragmentWork frag = new FragmentWork();
+//                frag.setChart(chart);
+//                frag.setActiveTab(FragmentWork.TabReport);
+//                replaceFragment(frag, true);
+//                PathMapManager.pop("M A   O S   ShowNewReportFragment");
+//            }
+//
+//            @Override
+//            public void onError(ErrorMessage err) {
+//                FragmentWork frag = new FragmentWork();
+//                frag.setChart(chart);
+//                frag.setActiveTab(FragmentWork.TabReport);
+//                replaceFragment(frag, false);
+//                Toast.makeText(self, "no report added", Toast.LENGTH_SHORT).show();
+//
+//            }
+//        };
+//
+//
+//        Fragment frag = new FragmentNewReport();
+//        ((FragmentNewReport) frag).setChart(chart);
+//        ((FragmentNewReport) frag).setCallback(callback);
+//        ((FragmentNewReport) frag).setReportType(reportType);
+//        replaceFragment(frag, true);
+//        PathMapManager.push(new PathObject("ثبت پیشرفت کار"));
+//    }
 
     //-------------------------------------------------------------------------------------
     public void ShowNewTaskReportFragment(final Chart chart) {
@@ -382,46 +377,46 @@ public class MainActivity extends Activity
     }
 
     //-------------------------------------------------------------------------------------
-    public void ShowPersonnelSearch(final Chart chart) {
-
-        // hide Tabs if Exist
-        hideTabs();
-
-        FragmentPersonnelSearch frag = new FragmentPersonnelSearch();
-
-        final Context self = this;
-
-        CallBack<Personnel> callback = new CallBack<Personnel>() {
-            @Override
-            public void onSuccess(Personnel result) {
-
-                FragmentWork frag = new FragmentWork();
-                frag.setChart(chart);
-                frag.setPersonnel(result);
-                frag.setActiveTab(FragmentWork.TabPersonnel);
-
-                replaceFragment(frag, true);
-                PathMapManager.pop(" M A O S ShowPersonelSearch");
-            }
-
-            @Override
-            public void onError(ErrorMessage err) {
-
-                FragmentWork frag = new FragmentWork();
-                frag.setChart(chart);
-                frag.setActiveTab(FragmentWork.TabPersonnel);
-
-                replaceFragment(frag, false);
-                Toast.makeText(self, "no personnel selected", Toast.LENGTH_SHORT).show();
-
-            }
-        };
-
-        frag.setCallback(callback);
-        replaceFragment(frag, true);
-        PathMapManager.push(new PathObject("انتخاب پرسنل"));
-
-    }
+//    public void ShowPersonnelSearch(final Chart chart) {
+//
+//        // hide Tabs if Exist
+//        hideTabs();
+//
+//        FragmentPersonnelSearch frag = new FragmentPersonnelSearch();
+//
+//        final Context self = this;
+//
+//        CallBack<Personnel> callback = new CallBack<Personnel>() {
+//            @Override
+//            public void onSuccess(Personnel result) {
+//
+//                FragmentWork frag = new FragmentWork();
+//                frag.setChart(chart);
+//                frag.setPersonnel(result);
+//                frag.setActiveTab(FragmentWork.TabPersonnel);
+//
+//                replaceFragment(frag, true);
+//                PathMapManager.pop(" M A O S ShowPersonelSearch");
+//            }
+//
+//            @Override
+//            public void onError(ErrorMessage err) {
+//
+//                FragmentWork frag = new FragmentWork();
+//                frag.setChart(chart);
+//                frag.setActiveTab(FragmentWork.TabPersonnel);
+//
+//                replaceFragment(frag, false);
+//                Toast.makeText(self, "no personnel selected", Toast.LENGTH_SHORT).show();
+//
+//            }
+//        };
+//
+//        frag.setCallback(callback);
+//        replaceFragment(frag, true);
+//        PathMapManager.push(new PathObject("انتخاب پرسنل"));
+//
+//    }
 
     //-------------------------------------------------------------------------------------
     public static class BackStackChanged implements FragmentManager.OnBackStackChangedListener {

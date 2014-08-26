@@ -16,7 +16,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.pga.project1.Activities.ActivityTaskPage;
@@ -28,7 +31,9 @@ import com.pga.project1.Intefaces.CallBack;
 import com.pga.project1.R;
 import com.pga.project1.Structures.AdapterInputType;
 import com.pga.project1.Utilities.ErrorMessage;
+import com.pga.project1.Utilities.PersianCalendar;
 import com.pga.project1.Utilities.Webservice;
+import com.pga.project1.Viewes.ViewDateTimePickerPersian;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +45,8 @@ public class FragmentWorkTask extends Fragment {
 
 
     private Chart chart;
+    private PersianCalendar selectedStartDateTime;
+    private PersianCalendar selectedEndDateTime;
 
     public FragmentWorkTask() {
         // Required empty public constructor
@@ -111,17 +118,80 @@ public class FragmentWorkTask extends Fragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.dialog_add_personel_to_work, null);
 
+        EditText task_name = (EditText) dialogView.findViewById(R.id.editText_task_name);
+        EditText task_price = (EditText) dialogView.findViewById(R.id.editText_task_price);
+        final Button button_start_date = (Button) dialogView.findViewById(R.id.button_start_date);
+        final Button button_end_date = (Button) dialogView.findViewById(R.id.button_end_date);
+        EditText editText_kol_kar = (EditText) dialogView.findViewById(R.id.editText_kol_kar);
+        Spinner spinner_noe_kar = (Spinner) dialogView.findViewById(R.id.spinner_vahed_kar);
+
+        selectedStartDateTime = new PersianCalendar();
+        selectedEndDateTime = new PersianCalendar();
+
+        button_start_date.setText(selectedStartDateTime.getIranianDateTime());
+        button_end_date.setText(selectedEndDateTime.getIranianDateTime());
+
+        button_start_date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                final ViewDateTimePickerPersian dp;
+                if (selectedStartDateTime == null)
+                    dp = new ViewDateTimePickerPersian(getActivity());
+                else
+                    dp = new ViewDateTimePickerPersian(getActivity(), selectedStartDateTime);
+
+                new AlertDialog.Builder(getActivity())
+                        .setTitle("انتخاب زمان و تاریخ")
+                        .setCancelable(false)
+                        .setView(dp)
+                        .setPositiveButton("تایید", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        selectedStartDateTime = dp.getDate();
+                                        button_start_date.setText(selectedStartDateTime.getIranianDateTime());
+                                    }
+                                }
+                        )
+                        .show();
+            }
+        });
+//-------------------------------------------------------------
+        button_end_date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                final ViewDateTimePickerPersian dp;
+                if (selectedEndDateTime == null)
+                    dp = new ViewDateTimePickerPersian(getActivity());
+                else
+                    dp = new ViewDateTimePickerPersian(getActivity(), selectedEndDateTime);
+
+                new AlertDialog.Builder(getActivity())
+                        .setTitle("انتخاب زمان و تاریخ")
+                        .setCancelable(false)
+                        .setView(dp)
+                        .setPositiveButton("تایید", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        selectedEndDateTime = dp.getDate();
+                                        button_end_date.setText(selectedEndDateTime.getIranianDateTime());
+                                    }
+                                }
+                        )
+                        .show();
+            }
+        });
+
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage("This will end the activity");
+        builder.setTitle(personnel.getFirst_name() + " " + personnel.getLast_name() + "   >   " + chart.getName());
         builder.setCancelable(false);
         builder.setView(dialogView);
-        builder.setPositiveButton("I agree", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("تایید", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
             }
         });
-        builder.setNegativeButton("No, no", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("لغو", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 

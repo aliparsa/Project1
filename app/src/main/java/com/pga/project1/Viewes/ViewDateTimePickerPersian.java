@@ -22,6 +22,9 @@ public class ViewDateTimePickerPersian extends LinearLayout {
     NumberPicker monthPicker;
     NumberPicker dayPicker;
 
+    boolean hideTime = false;
+    boolean hideDate = false;
+
 
     public ViewDateTimePickerPersian(Context context, AttributeSet attrs) {
         super(context);
@@ -33,6 +36,10 @@ public class ViewDateTimePickerPersian extends LinearLayout {
         findAndSetViews();
 
         PersianCalendar pc = new PersianCalendar();
+
+        hideTime = a.getBoolean(R.styleable.ViewDateTimePickerPersian_hideTime, false);
+        hideDate = a.getBoolean(R.styleable.ViewDateTimePickerPersian_hideDate, false);
+
 
         int year = a.getInt(R.styleable.ViewDateTimePickerPersian_year, pc.getIranianYear());
         int month = a.getInt(R.styleable.ViewDateTimePickerPersian_month, pc.getIranianMonth());
