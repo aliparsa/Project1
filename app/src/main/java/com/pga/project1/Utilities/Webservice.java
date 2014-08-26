@@ -8,6 +8,7 @@ import com.pga.project1.DataModel.Feature;
 import com.pga.project1.DataModel.Personnel;
 import com.pga.project1.DataModel.Report;
 import com.pga.project1.DataModel.ServerResponse;
+import com.pga.project1.DataModel.WorkUnit;
 import com.pga.project1.Intefaces.CallBack;
 import com.pga.project1.Intefaces.ProgressCallBack;
 import com.pga.project1.Intefaces.ResponseHandler;
@@ -334,6 +335,7 @@ public class Webservice {
 
     }
 
+
     //-------------------------------------------------------------------------------
     public static void saveWorkReport(Context context, Report report, String[] imagePaths, final ProgressCallBack callBack) {
         HttpHelper helper = new HttpHelper(context, SERVER_ADDRESS, false, 0);
@@ -393,6 +395,40 @@ public class Webservice {
 
     }
 
+    //-------------------------------------------------------------------------------
+    public static void getWorkUnitList(Context context, final CallBack<ArrayList<WorkUnit>> callBack) {
+        HttpHelper helper = new HttpHelper(context, SERVER_ADDRESS, false, 0);
+
+        BasicNameValuePair[] arr = {
+                new BasicNameValuePair("tag", "work_unit")
+        };
+
+        helper.postHttp(arr, new ResponseHandler() {
+            @Override
+            public void handleResponse(String response) {
+
+                try {
+
+                    JSONArray jsonArray = new JSONArray(response);
+
+                    ArrayList<WorkUnit> reportList = WorkUnit.getArrayFromJson(jsonArray);
+
+                    callBack.onSuccess(reportList);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void error(ErrorMessage err) {
+                Log.e("ali", " webservice / getReportListByWorkId ");
+
+            }
+        });
+
+    }
     //-------------------------------------------------------------------------------
     public static void uploadFile(Context context, String filePath, final CallBack callBack) {
         HttpHelper helper = new HttpHelper(context, SERVER_ADDRESS_UPLOAD, false, 0);
