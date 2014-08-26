@@ -30,6 +30,10 @@
             android:name=".fragment.ActivityTaskPage"
             android:label="@string/title_activity_activity_task_page" >
         </activity>
+        <activity
+            android:name=".fragment.ActivitShowReportInfo"
+            android:label="@string/title_activity_activit_show_report_info" >
+        </activity>
     </application>
 
 </manifest>
