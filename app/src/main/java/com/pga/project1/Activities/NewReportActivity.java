@@ -329,6 +329,32 @@ public class NewReportActivity extends Activity {
 
         ImageView temp_img = (ImageView) this.getLayoutInflater().inflate(R.layout.inf_image_frame, null);
 
+        temp_img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                final ImageView selectedImageView = (ImageView) view;
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(context)
+                        .setTitle("افزودن تصویر")
+                        .setItems(new String[]{"نمایش", "حذف"},
+                                new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int item) {
+                                switch (item) {
+                                    case 0:
+                                        ShowImage(selectedImageView);
+                                        break;
+                                    case 1:
+                                        DeleteImage(selectedImageView);
+                                        break;
+                                }
+                            }
+                        });
+                builder.show();
+            }
+        });
+
         if (resultCode == Activity.RESULT_OK) {
 
             switch (requestCode) {
@@ -373,6 +399,21 @@ public class NewReportActivity extends Activity {
 
             }
         }
+    }
+
+    //-----------------------------------
+    private void DeleteImage(ImageView selectedImageView) {
+
+        ll_image_list.removeView(selectedImageView);
+    }
+
+    //------------------------------------
+    private void ShowImage(ImageView selectedImageView) {
+
+        Intent intent = new Intent(this, ActivityShowImage.class);
+        intent.putExtra("image", selectedImageView.getTag().toString());
+        startActivity(intent);
+
     }
 
     //-----------------------------------------------------------------------

@@ -33,6 +33,17 @@ public class Report {
         this.chart = chart;
     }
 
+    public Report(int id, int chart_id, int personnel_id, String date, String report, int percent, ArrayList<String> imageUrls) {
+
+        this.id = id;
+        this.chart_id = chart_id;
+        this.personnel_id = personnel_id;
+        this.date = date;
+        this.report = report;
+        this.percent = percent;
+        this.imageUrls = imageUrls;
+    }
+
     private int id;
     private int chart_id;
     private int personnel_id;
@@ -40,6 +51,9 @@ public class Report {
     private String report;
     private int percent;
     private Chart chart;
+    private ArrayList<String> imageUrls = new ArrayList<String>();
+
+
 
 
     public static ArrayList<Report> getArrayFromJson(JSONArray jsonArray) {
@@ -57,7 +71,16 @@ public class Report {
                 String report = jsonObject.getString("report");
                 int percent = jsonObject.getInt("percent");
 
-                Report reportItem = new Report(id, chart_id, personnel_id, date, report, percent);
+                JSONArray imageJson = jsonObject.getJSONArray("images");
+
+                ArrayList<String> imageUrls = new ArrayList<String>();
+
+                for (int j = 0; j < imageJson.length(); j++) {
+
+                    imageUrls.add(   imageJson.getString(i)  );
+                }
+
+                Report reportItem = new Report(id, chart_id, personnel_id, date, report, percent, imageUrls);
                 itemlist.add(reportItem);
             }
 
