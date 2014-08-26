@@ -77,7 +77,7 @@ public class Report {
 
                 for (int j = 0; j < imageJson.length(); j++) {
 
-                    imageUrls.add(   imageJson.getString(i)  );
+                    imageUrls.add(   imageJson.getString(j)  );
                 }
 
                 Report reportItem = new Report(id, chart_id, personnel_id, date, report, percent, imageUrls);

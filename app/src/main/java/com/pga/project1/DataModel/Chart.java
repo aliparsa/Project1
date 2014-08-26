@@ -3,7 +3,6 @@ package com.pga.project1.DataModel;
 import com.pga.project1.Intefaces.PathMapObject;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
@@ -20,7 +19,6 @@ public class Chart implements PathMapObject, Serializable {
     private String name;
     private String start_date;
     private String end_date;
-    private String personnel_id;
     private String allow_delay;
     private String estimated_start;
     private String estimated_end;
@@ -33,13 +31,17 @@ public class Chart implements PathMapObject, Serializable {
     private int percent;
 
 
-    public Chart(int id, int type_id, String name, String start_date, String end_date, String personnel_id, String allow_delay, String estimated_start, String estimated_end, String status, String price, String is_pay, String root_id, String work_unit, int percent) {
+
+    private Personnel personnel;
+
+
+    public Chart(int id, int type_id, String name, String start_date, String end_date, Personnel personnel, String allow_delay, String estimated_start, String estimated_end, String status, String price, String is_pay, String root_id, String work_unit, int percent) {
         this.id = id;
         this.type_id = type_id;
         this.name = name;
         this.start_date = start_date;
         this.end_date = end_date;
-        this.personnel_id = personnel_id;
+        this.personnel = personnel;
         this.allow_delay = allow_delay;
         this.estimated_start = estimated_start;
         this.estimated_end = estimated_end;
@@ -70,7 +72,9 @@ public class Chart implements PathMapObject, Serializable {
                 String name = jsonObject.getString("name");
                 String start_date = jsonObject.getString("start_date");
                 String end_date = jsonObject.getString("end_date");
-                String personnel_id = jsonObject.getString("personnel_id");
+
+                JSONObject personnelJson = jsonObject.getJSONObject("personnel");
+                Personnel personnel = Personnel.getPersonnelFromJson(personnelJson);
                 String allow_delay = jsonObject.getString("allow_delay");
                 String estimated_start = jsonObject.getString("estimated_start");
                 String estimated_end = jsonObject.getString("estimated_end");
@@ -87,7 +91,7 @@ public class Chart implements PathMapObject, Serializable {
                         name,
                         start_date,
                         end_date,
-                        personnel_id,
+                        personnel,
                         allow_delay,
                         estimated_start,
                         estimated_end,
@@ -149,8 +153,8 @@ public class Chart implements PathMapObject, Serializable {
         return end_date;
     }
 
-    public String getPersonnel_id() {
-        return personnel_id;
+    public int getPersonnel_id() {
+        return personnel.getId();
     }
 
     public String getAllow_delay() {
@@ -199,6 +203,14 @@ public class Chart implements PathMapObject, Serializable {
 
     public void setPercent(int percent) {
         this.percent = percent;
+    }
+
+    public Personnel getPersonnel() {
+        return personnel;
+    }
+
+    public void setPersonnel(Personnel personnel) {
+        this.personnel = personnel;
     }
 }
 

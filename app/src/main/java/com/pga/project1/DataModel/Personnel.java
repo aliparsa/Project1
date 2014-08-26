@@ -47,30 +47,10 @@ public class Personnel implements Serializable {
 
                 JSONObject json = (JSONObject) jsonArray.get(i);
 
-                JsonHelper jsonHelper = new JsonHelper();
+                Personnel p = getPersonnelFromJson(json);
 
-                Personnel p = new Personnel();
-
-                p.id =  jsonHelper.getInt(json, "id", 0);  //json.getString("id");
-
-                if(jsonHelper.error)
+                if(p == null)
                     continue;
-
-                p.first_name = jsonHelper.getString(json, "first_name", "؟؟"); //json.getString("first_name");
-                p.last_name = jsonHelper.getString(json, "last_name", ""); //json.getString("last_name");
-                p.personnel_code = jsonHelper.getString(json, "personnel_code", ""); //json.getString("personnel_code");
-
-                if(jsonHelper.error)
-                    continue;
-
-                p.phone_number = jsonHelper.getString(json, "phone_number", ""); //json.getString("phone_number");
-
-                JSONArray groupsJson = jsonHelper.getJsonArray(json, "groups", new JSONArray());
-
-                for (int j = 0; j < groupsJson.length(); j++) {
-                    p.groups.add(groupsJson.getString(j));
-
-                }
 
                 //String json
                 array.add(p);
@@ -84,6 +64,42 @@ public class Personnel implements Serializable {
         return array;
     }
 
+
+    public static Personnel getPersonnelFromJson(JSONObject json){
+
+        Personnel p = null;
+
+        try {
+            JsonHelper jsonHelper = new JsonHelper();
+
+            p = new Personnel();
+
+            p.id = jsonHelper.getInt(json, "id", 0);  //json.getString("id");
+
+            if (jsonHelper.error)
+                return null;
+
+            p.first_name = jsonHelper.getString(json, "first_name", ""); //json.getString("first_name");
+            p.last_name = jsonHelper.getString(json, "last_name", ""); //json.getString("last_name");
+            p.personnel_code = jsonHelper.getString(json, "personnel_code", ""); //json.getString("personnel_code");
+
+            if (jsonHelper.error)
+                return null;
+
+            p.phone_number = jsonHelper.getString(json, "phone_number", ""); //json.getString("phone_number");
+
+            JSONArray groupsJson = jsonHelper.getJsonArray(json, "groups", new JSONArray());
+
+            for (int j = 0; j < groupsJson.length(); j++) {
+                p.groups.add(groupsJson.getString(j));
+
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }finally {
+            return p;
+        }
+    }
 
     public String getGroupsString() {
 
@@ -144,4 +160,7 @@ public class Personnel implements Serializable {
     }
 
 
+    public String getFullName() {
+        return this.getFirst_name() + " " +this.getLast_name();
+    }
 }
