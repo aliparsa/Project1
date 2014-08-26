@@ -1,17 +1,36 @@
 package com.pga.project1.Activities;
 
 import android.app.Activity;
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.Image;
 import android.os.Bundle;
+import android.util.AttributeSet;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+
 import com.pga.project1.R;
 
-public class ActivityShowImage extends Activity {
+import java.io.File;
 
+public class ActivityShowImage extends Activity {
+    String imagePath;
+    ImageView imv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_activity_show_image);
+        imagePath = getIntent().getStringExtra("image");
+        imv = (ImageView) findViewById(R.id.ImageView_show_Image);
+
+        File imgFile = new File(imagePath);
+        if (imgFile.exists()) {
+            Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+            imv.setImageBitmap(myBitmap);
+        }
     }
 
 
@@ -33,4 +52,5 @@ public class ActivityShowImage extends Activity {
         }
         return super.onOptionsItemSelected(item);
     }
+
 }
