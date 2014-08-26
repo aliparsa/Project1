@@ -1,4 +1,4 @@
-package com.pga.project1.fragment;
+package com.pga.project1.Activities;
 
 import android.app.Activity;
 import android.content.Context;
@@ -141,6 +141,7 @@ public class PersonelPickerActivity extends Activity {
 
             if (tag instanceof Personnel) {
                 personnel = (Personnel) tag;
+
 
                 Intent returnIntent = new Intent();
                 returnIntent.putExtra("personnel", personnel);

@@ -1,4 +1,4 @@
-package com.pga.project1.fragment;
+package com.pga.project1.Activities;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -14,12 +14,14 @@ import android.widget.FrameLayout;
 import com.pga.project1.DataModel.Chart;
 import com.pga.project1.R;
 import com.pga.project1.Viewes.PathMapManager;
+import com.pga.project1.fragment.FragmentTaskInfo;
+import com.pga.project1.fragment.FragmentTaskReport;
 
 public class ActivityTaskPage extends Activity {
 
 
     //{Constants-----------------------------------------------------
-    public String[] TABS = {"اطلاعات","گزارشات"};
+    public String[] TABS = {"اطلاعات", "گزارشات"};
     //-----------------------------------------------------Constants}
 
     //{static fields-----------------------------------------------------
@@ -87,15 +89,14 @@ public class ActivityTaskPage extends Activity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        if(item.getItemId() == R.id.action_back){
-
+        if (item.getItemId() == R.id.action_back) {
 
 
             onBackPressed();
 
             return true;
         }
-        if(item.getItemId() == R.id.action_addReportTask){
+        if (item.getItemId() == R.id.action_addReportTask) {
 
             //((MainActivity) getActivity()).ShowNewTaskReportFragment(chart);
 
@@ -138,14 +139,14 @@ public class ActivityTaskPage extends Activity {
 
         // Set Tab Titles
         tab_taskInfo.setText("اطلاعات");
-        tab_taskReport.setText("گزارشات");
+        tab_taskReport.setText("گزارش عملکرد");
 
         // Set Tab Listeners
         tab_taskInfo.setTabListener(new ActionBar.TabListener() {
             @Override
             public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
 
-                if(infoFrag == null) {
+                if (infoFrag == null) {
 
                     currentFrag = infoFrag = new FragmentTaskInfo();
                     infoFrag.setChart(chart);
@@ -155,7 +156,7 @@ public class ActivityTaskPage extends Activity {
                             .add(R.id.host_taskPage, infoFrag)
                             .commit();
 
-                }else if(currentFrag != infoFrag){
+                } else if (currentFrag != infoFrag) {
                     FragmentManager fm = getFragmentManager();
                     fm.beginTransaction()
                             .replace(R.id.host_taskPage, infoFrag)
@@ -167,19 +168,23 @@ public class ActivityTaskPage extends Activity {
 
                 pageType = PageType.Info;
                 MenuItem addNewReport = menu.findItem(R.id.action_addReportTask);
-                if(addNewReport != null) addNewReport.setVisible(false);
+                if (addNewReport != null) addNewReport.setVisible(false);
             }
+
             @Override
-            public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {}
+            public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+            }
+
             @Override
-            public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {}
+            public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+            }
         });
 
         tab_taskReport.setTabListener(new ActionBar.TabListener() {
             @Override
             public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
 
-                if(reportFrag == null) {
+                if (reportFrag == null) {
 
                     currentFrag = reportFrag = new FragmentTaskReport();
                     reportFrag.setChart(chart);
@@ -188,7 +193,7 @@ public class ActivityTaskPage extends Activity {
                             .add(R.id.host_taskPage, reportFrag)
                             .commit();
 
-                }else if(currentFrag != reportFrag){
+                } else if (currentFrag != reportFrag) {
 
                     FragmentManager fm = getFragmentManager();
                     fm.beginTransaction()
@@ -200,22 +205,26 @@ public class ActivityTaskPage extends Activity {
 
                 pageType = PageType.Reports;
                 MenuItem addNewReport = menu.findItem(R.id.action_addReportTask);
-                if(addNewReport != null) addNewReport.setVisible(true);
+                if (addNewReport != null) addNewReport.setVisible(true);
 
             }
+
             @Override
-            public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {}
+            public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+            }
+
             @Override
-            public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {}
+            public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+            }
         });
         // Cleanup And set Tabs
 
         getActionBar().addTab(tab_taskReport, false);
         getActionBar().addTab(tab_taskInfo, false);
 
-        if(this.pageType == PageType.Info) {
+        if (this.pageType == PageType.Info) {
             this.getActionBar().selectTab(tab_taskInfo);
-        }else if(this.pageType == PageType.Reports){
+        } else if (this.pageType == PageType.Reports) {
             this.getActionBar().selectTab(tab_taskReport);
         }
 
@@ -233,11 +242,10 @@ public class ActivityTaskPage extends Activity {
     //{Factory function--------------------------------------------------
 
 
-
     //---------------------------------------------------Factory function}
 
 
-    private static enum PageType{
+    private static enum PageType {
         Info,
         Reports
     }

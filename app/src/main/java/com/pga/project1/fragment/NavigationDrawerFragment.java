@@ -23,7 +23,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.pga.project1.Adapters.ListViewCustomAdapter;
-import com.pga.project1.MainActivity;
+import com.pga.project1.Activities.MainActivity;
 import com.pga.project1.R;
 import com.pga.project1.Structures.AdapterInputType;
 

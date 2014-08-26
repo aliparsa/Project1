@@ -1,4 +1,4 @@
-package com.pga.project1.fragment;
+package com.pga.project1.Activities;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -19,6 +19,9 @@ import android.widget.Toast;
 import com.pga.project1.DataModel.Chart;
 import com.pga.project1.R;
 import com.pga.project1.Viewes.PathMapManager;
+import com.pga.project1.fragment.FragmentWorkInfo;
+import com.pga.project1.fragment.FragmentWorkReport;
+import com.pga.project1.fragment.FragmentWorkTask;
 
 public class ActivityWork extends Activity {
 

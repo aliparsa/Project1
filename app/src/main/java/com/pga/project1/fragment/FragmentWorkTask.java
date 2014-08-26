@@ -2,6 +2,9 @@ package com.pga.project1.fragment;
 
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -16,6 +19,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.pga.project1.Activities.ActivityTaskPage;
+import com.pga.project1.Activities.PersonelPickerActivity;
 import com.pga.project1.Adapters.ListViewCustomAdapter;
 import com.pga.project1.DataModel.Chart;
 import com.pga.project1.DataModel.Personnel;
@@ -91,7 +96,8 @@ public class FragmentWorkTask extends Fragment {
             case 1212: {
                 if (resultCode == Activity.RESULT_OK) {
                     Personnel personnel = (Personnel) data.getSerializableExtra("personnel");
-                    Toast.makeText(getActivity(), "Personel id is > " + personnel.getFirst_name(), Toast.LENGTH_SHORT).show();
+                    addPersonnelToWork(personnel);
+//                    Toast.makeText(getActivity(), "Personel id is > " + personnel.getFirst_name(), Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(getActivity(), "No personel Selected", Toast.LENGTH_SHORT).show();
 
@@ -99,6 +105,31 @@ public class FragmentWorkTask extends Fragment {
                 break;
             }
         }
+    }
+
+    private void addPersonnelToWork(Personnel personnel) {
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.dialog_add_personel_to_work, null);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setMessage("This will end the activity");
+        builder.setCancelable(false);
+        builder.setView(dialogView);
+        builder.setPositiveButton("I agree", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+        builder.setNegativeButton("No, no", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
     }
 
 
