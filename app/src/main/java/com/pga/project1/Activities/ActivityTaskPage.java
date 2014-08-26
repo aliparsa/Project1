@@ -2,9 +2,11 @@ package com.pga.project1.Activities;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -75,6 +77,9 @@ public class ActivityTaskPage extends Activity {
         MenuItem addNewReport = menu.findItem(R.id.action_addReportTask);
         if (addNewReport != null) addNewReport.setVisible(false);
 
+        MenuItem RemoveTask = menu.findItem(R.id.action_removeTask);
+        if (RemoveTask != null) RemoveTask.setVisible(false);
+
         setTabs();
 
         return true;
@@ -106,8 +111,28 @@ public class ActivityTaskPage extends Activity {
 
             return true;
         }
+        if(item.getItemId() == R.id.action_removeTask){
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this)
+                    .setTitle("آیا " + chart.getPersonnel().getFullName() + " از "+this.chart.getName() + " حذف شود؟")
+                    .setPositiveButton("بله", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            deleteChart();
+                        }
+                    }).setNegativeButton("خیر", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                        }
+                    });
+            builder.show();
+        }
 
         return false;
+    }
+
+    private void deleteChart() {
     }
 
     @Override
@@ -169,6 +194,9 @@ public class ActivityTaskPage extends Activity {
                 pageType = PageType.Info;
                 MenuItem addNewReport = menu.findItem(R.id.action_addReportTask);
                 if (addNewReport != null) addNewReport.setVisible(false);
+
+                MenuItem RemoveTask = menu.findItem(R.id.action_removeTask);
+                if (RemoveTask != null) RemoveTask.setVisible(true);
             }
 
             @Override
@@ -207,6 +235,8 @@ public class ActivityTaskPage extends Activity {
                 MenuItem addNewReport = menu.findItem(R.id.action_addReportTask);
                 if (addNewReport != null) addNewReport.setVisible(true);
 
+                MenuItem RemoveTask = menu.findItem(R.id.action_removeTask);
+                if (RemoveTask != null) RemoveTask.setVisible(false);
             }
 
             @Override
