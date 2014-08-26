@@ -38,6 +38,8 @@ public class WorkUnit {
                     continue;
 
                 wu.setName(helper.getString(json, "name", ""));
+
+                itemlist.add(wu);
             }
         } catch (JSONException e) {
             e.printStackTrace();

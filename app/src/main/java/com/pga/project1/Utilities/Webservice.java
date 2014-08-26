@@ -8,6 +8,7 @@ import com.pga.project1.DataModel.Feature;
 import com.pga.project1.DataModel.Personnel;
 import com.pga.project1.DataModel.Report;
 import com.pga.project1.DataModel.ServerResponse;
+import com.pga.project1.DataModel.Task;
 import com.pga.project1.DataModel.WorkUnit;
 import com.pga.project1.Intefaces.CallBack;
 import com.pga.project1.Intefaces.ProgressCallBack;
@@ -301,13 +302,22 @@ public class Webservice {
     }
 
     //-------------------------------------------------------------------------------
-    public static void addPersonnelToWork(Context context, int personnelId, int workId, final CallBack callBack) {
+    public static void addPersonnelToWork(Context context, int personnelId, int workId, Task task, final CallBack<ServerResponse> callBack) {
         HttpHelper helper = new HttpHelper(context, SERVER_ADDRESS, false, 0);
 
         BasicNameValuePair[] arr = {
                 new BasicNameValuePair("tag", "add_personnel_to_work"),
                 new BasicNameValuePair("personnel_id", personnelId + ""),
-                new BasicNameValuePair("work_id", workId + "")
+                new BasicNameValuePair("work_id", workId + ""),
+                new BasicNameValuePair("name", task.getName()),
+                new BasicNameValuePair("price", task.getPrice()),
+                new BasicNameValuePair("start_date", task.getStart_date()),
+                new BasicNameValuePair("end_date", task.getEnd_date()),
+                new BasicNameValuePair("kol_kar", task.getKolKar()),
+                new BasicNameValuePair("vahed_kar", task.getVahedKar()),
+                new BasicNameValuePair("tozihat", task.getTozihat())
+
+
         };
         helper.postHttp(arr, new ResponseHandler() {
             @Override

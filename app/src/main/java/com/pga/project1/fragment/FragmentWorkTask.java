@@ -4,6 +4,7 @@ package com.pga.project1.fragment;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
@@ -16,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -27,6 +29,9 @@ import com.pga.project1.Activities.PersonelPickerActivity;
 import com.pga.project1.Adapters.ListViewCustomAdapter;
 import com.pga.project1.DataModel.Chart;
 import com.pga.project1.DataModel.Personnel;
+import com.pga.project1.DataModel.ServerResponse;
+import com.pga.project1.DataModel.Task;
+import com.pga.project1.DataModel.WorkUnit;
 import com.pga.project1.Intefaces.CallBack;
 import com.pga.project1.R;
 import com.pga.project1.Structures.AdapterInputType;
@@ -47,6 +52,7 @@ public class FragmentWorkTask extends Fragment {
     private Chart chart;
     private PersianCalendar selectedStartDateTime;
     private PersianCalendar selectedEndDateTime;
+    Spinner spinner_noe_kar;
 
     public FragmentWorkTask() {
         // Required empty public constructor
@@ -114,16 +120,41 @@ public class FragmentWorkTask extends Fragment {
         }
     }
 
-    private void addPersonnelToWork(Personnel personnel) {
+    private void addPersonnelToWork(final Personnel personnel) {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.dialog_add_personel_to_work, null);
 
-        EditText task_name = (EditText) dialogView.findViewById(R.id.editText_task_name);
-        EditText task_price = (EditText) dialogView.findViewById(R.id.editText_task_price);
+        final EditText task_name = (EditText) dialogView.findViewById(R.id.editText_task_name);
+        final EditText task_price = (EditText) dialogView.findViewById(R.id.editText_task_price);
         final Button button_start_date = (Button) dialogView.findViewById(R.id.button_start_date);
         final Button button_end_date = (Button) dialogView.findViewById(R.id.button_end_date);
-        EditText editText_kol_kar = (EditText) dialogView.findViewById(R.id.editText_kol_kar);
-        Spinner spinner_noe_kar = (Spinner) dialogView.findViewById(R.id.spinner_vahed_kar);
+
+        final EditText editText_kol_kar = (EditText) dialogView.findViewById(R.id.editText_kol_kar);
+        final EditText editText_tozihat = (EditText) dialogView.findViewById(R.id.editText_tozihat);
+
+
+        spinner_noe_kar = (Spinner) dialogView.findViewById(R.id.spinner_vahed_kar);
+
+
+        Webservice.getWorkUnitList(getActivity(), new CallBack<ArrayList<WorkUnit>>() {
+            @Override
+            public void onSuccess(ArrayList<WorkUnit> result) {
+
+                String[] workunit = new String[result.size()];
+                for (int i = 0; i < result.size(); i++) {
+                    workunit[i] = result.get(i).toString();
+                }
+
+                spinner_noe_kar.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, workunit));
+
+            }
+
+            @Override
+            public void onError(ErrorMessage err) {
+                //TODO KHATA DAR ERTEBAT INTERNETI
+            }
+        });
+
 
         selectedStartDateTime = new PersianCalendar();
         selectedEndDateTime = new PersianCalendar();
@@ -188,6 +219,36 @@ public class FragmentWorkTask extends Fragment {
         builder.setPositiveButton("تایید", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+                //TODO Store Report
+
+                Task task = new Task(task_name.getText().toString(),
+                        task_price.getText().toString(),
+                        selectedStartDateTime.getIranianDate(),
+                        selectedEndDateTime.getIranianDate(),
+                        editText_kol_kar.getText().toString(),
+                        spinner_noe_kar.getSelectedItemId() + "",
+                        editText_tozihat.getText().toString()
+                );
+
+                final ProgressDialog pg = new ProgressDialog(getActivity());
+                pg.setMessage("در حال ارسال");
+                pg.show();
+
+                Webservice.addPersonnelToWork(getActivity(), personnel.getId(), chart.getId(), task, new CallBack<ServerResponse>() {
+                    @Override
+                    public void onSuccess(ServerResponse result) {
+                        pg.setMessage("در حال بروزرسانی اطلاعات");
+                        Toast.makeText(getActivity(), result.getResult(), Toast.LENGTH_SHORT).show();
+                        prepareTasks();
+                        pg.dismiss();
+                    }
+
+                    @Override
+                    public void onError(ErrorMessage err) {
+                        pg.dismiss();
+                        Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
+                    }
+                });
 
             }
         });
