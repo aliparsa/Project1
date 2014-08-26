@@ -329,31 +329,7 @@ public class NewReportActivity extends Activity {
 
         ImageView temp_img = (ImageView) this.getLayoutInflater().inflate(R.layout.inf_image_frame, null);
 
-        temp_img.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-                final ImageView selectedImageView = (ImageView) view;
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(context)
-                        .setTitle("افزودن تصویر")
-                        .setItems(new String[]{"نمایش", "حذف"},
-                                new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int item) {
-                                switch (item) {
-                                    case 0:
-                                        ShowImage(selectedImageView);
-                                        break;
-                                    case 1:
-                                        DeleteImage(selectedImageView);
-                                        break;
-                                }
-                            }
-                        });
-                builder.show();
-            }
-        });
 
         if (resultCode == Activity.RESULT_OK) {
 
@@ -399,6 +375,33 @@ public class NewReportActivity extends Activity {
 
             }
         }
+
+        temp_img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                final ImageView selectedImageView = (ImageView) view;
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(context)
+                        .setTitle("افزودن تصویر")
+                        .setItems(new String[]{"نمایش", "حذف"},
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int item) {
+                                        switch (item) {
+                                            case 0:
+                                                ShowImage(selectedImageView);
+                                                break;
+                                            case 1:
+                                                DeleteImage(selectedImageView);
+                                                break;
+                                        }
+                                    }
+                                }
+                        );
+                builder.show();
+            }
+        });
     }
 
     //-----------------------------------
@@ -410,8 +413,13 @@ public class NewReportActivity extends Activity {
     //------------------------------------
     private void ShowImage(ImageView selectedImageView) {
 
+//        String[]  imagesPath = new String[ ll_image_list.getChildCount()];
+//
+//        for (int i = 0; i < ll_image_list.getChildCount(); i++) {
+//            imagesPath[i]= (String)(ll_image_list.getChildAt(i).getTag());
+//        }
         Intent intent = new Intent(this, ActivityShowImage.class);
-        intent.putExtra("image", selectedImageView.getTag().toString());
+        intent.putExtra("image", (String) selectedImageView.getTag());
         startActivity(intent);
 
     }

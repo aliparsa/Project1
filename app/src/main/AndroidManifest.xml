@@ -41,6 +41,7 @@
         </activity>
         <activity
             android:name=".Activities.ActivityShowImage"
+            android:hardwareAccelerated="false"
             android:label="@string/title_activity_activity_show_image"
             android:theme="@android:style/Theme.Holo.Dialog.NoActionBar"
             >

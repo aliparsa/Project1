@@ -238,8 +238,12 @@ public class FragmentWorkTask extends Fragment {
                     @Override
                     public void onSuccess(ServerResponse result) {
                         pg.setMessage("در حال بروزرسانی اطلاعات");
-                        Toast.makeText(getActivity(), result.getResult(), Toast.LENGTH_SHORT).show();
-                        prepareTasks();
+                        if (result.getResult().equals("ok")) {
+                            Toast.makeText(getActivity(), "عملیات انجام شد", Toast.LENGTH_SHORT).show();
+                            prepareTasks();
+                        } else {
+                            Toast.makeText(getActivity(), "عملیات انجام نشد", Toast.LENGTH_SHORT).show();
+                        }
                         pg.dismiss();
                     }
 
