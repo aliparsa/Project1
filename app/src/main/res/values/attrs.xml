@@ -5,12 +5,10 @@
         <attr name="name" format="string" />
         <attr name="value" format="string" />
     </declare-styleable>
-
     <declare-styleable name="ViewDateTimePickerPersian">
         <attr name="year" format="integer" />
         <attr name="month" format="integer" />
         <attr name="day" format="integer" />
-
         <attr name="hour" format="integer" />
         <attr name="minute" format="integer" />
 
@@ -18,21 +16,22 @@
         <attr name="hideDate" format="boolean" />
 
     </declare-styleable>
-
     <declare-styleable name="Graphview">
         <attr name="percentValue" format="float" />
         <attr name="customWidth" format="integer" />
-        <attr name="background" format="color"></attr>
-        <attr name="color1" format="color"></attr>
-        <attr name="color2" format="color"></attr>
-        <attr name="color3" format="color"></attr>
-        <attr name="color4" format="color"></attr>
-        <attr name="strokeColor" format="color"></attr>
-        <attr name="textColor" format="color"></attr>
-
+        <attr name="background" format="color" />
+        <attr name="color1" format="color" />
+        <attr name="color2" format="color" />
+        <attr name="color3" format="color" />
+        <attr name="color4" format="color" />
+        <attr name="strokeColor" format="color" />
+        <attr name="textColor" format="color" />
         <attr name="strokeWidth" format="integer" />
         <attr name="animationSpeed" format="integer" />
     </declare-styleable>
-
+    <declare-styleable name="ButtonBarContainerTheme">
+        <attr name="metaButtonBarStyle" format="reference" />
+        <attr name="metaButtonBarButtonStyle" format="reference" />
+    </declare-styleable>
 
 </resources>
