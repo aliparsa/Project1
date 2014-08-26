@@ -170,6 +170,9 @@ public class FragmentProjectTreeView extends Fragment {
                     intent.putExtra("chart", chart);
                     startActivity(intent);
 
+                    getActivity().overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
+
+
                     //pushing to Path Map
                     // PathMapManager.push(chart);
 

@@ -18,6 +18,7 @@ import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.message.BasicStatusLine;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 
@@ -38,6 +39,7 @@ public class HttpHelper {
 
     private static PriorityQueue<HttpHelper> httpUrls = new PriorityQueue<HttpHelper>();
     private static Map<String, String> responseCache = new HashMap<String, String>();
+    private final String token;
 
     private String url;
     private boolean cache;
@@ -50,6 +52,9 @@ public class HttpHelper {
         this.cache = cache;
         this.priority = priority;
         this.context = context;
+
+
+        token = Account.getInstant(context).getToken();
     }
 
     public void postHttp(final BasicNameValuePair[] params, final ResponseHandler handler) {
@@ -72,8 +77,17 @@ public class HttpHelper {
                         HttpClient httpclient = new DefaultHttpClient();
                         HttpPost httppost = new HttpPost(self.url);
 
+                        List<BasicNameValuePair> basicNameValuePairs = new ArrayList<BasicNameValuePair>(params.length);
+
+                        //setting token value
+                        if (token != null) {
+                            BasicNameValuePair tocketNV = new BasicNameValuePair("token", token);
+                            basicNameValuePairs.add(tocketNV);
+                        }
+                        //-----------------------------
+
                         if (params != null) {
-                            List<BasicNameValuePair> basicNameValuePairs = new ArrayList<BasicNameValuePair>(params.length);
+
                             for (int i = 0; i < params.length; i++) {
                                 BasicNameValuePair param = params[i];
                                 basicNameValuePairs.add(param);
@@ -84,10 +98,14 @@ public class HttpHelper {
 
                         HttpResponse response = httpclient.execute(httppost);
 
-//                        if(cache)
-//                            cacheResponse(url, response);
+                        if (response.getStatusLine().getStatusCode() == HttpStatusCode.SC_OK) {
+                            return EntityUtils.toString(response.getEntity(), HTTP.UTF_8);
 
-                        return EntityUtils.toString(response.getEntity(), HTTP.UTF_8);
+                        } else if (response.getStatusLine().getStatusCode() == HttpStatusCode.SC_FORBIDDEN) {
+                            return null;
+                        }
+
+
 
                     } catch (UnsupportedEncodingException ue) {
                         ue.printStackTrace();

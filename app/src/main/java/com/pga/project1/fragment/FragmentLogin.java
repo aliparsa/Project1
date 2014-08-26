@@ -6,8 +6,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.pga.project1.Intefaces.CallBack;
@@ -37,6 +41,8 @@ public class FragmentLogin extends Fragment {
     EditText txtUsername;
     EditText txtPassword;
     Button btnLogin;
+    ProgressBar loaderBar;
+    LinearLayout panel;
 
     //-----------------------------------------------------Fields}
 
@@ -79,6 +85,10 @@ public class FragmentLogin extends Fragment {
         txtUsername = (EditText) getView().findViewById(R.id.etxt_fragmentLogin_username);
         txtPassword = (EditText) getView().findViewById(R.id.etxt_fragmentLogin_password);
 
+        loaderBar = (ProgressBar) getView().findViewById(R.id.pgb_fragmentLogin_loader);
+
+        panel = (LinearLayout) getView().findViewById(R.id.ll_fragmentLogin_panel);
+
         btnLogin = (Button) getView().findViewById(R.id.btn_fragmentLogin_login);
         btnLogin.setOnClickListener(new View.OnClickListener() {
             public ValidationMessage validationMessage;
@@ -102,6 +112,10 @@ public class FragmentLogin extends Fragment {
     //{Functions-----------------------------------------------------
 
     private void loginClicked(String username, String password) {
+
+        btnLogin.setVisibility(View.GONE);
+        loaderBar.setVisibility(View.VISIBLE);
+
         Webservice.Login(getActivity(), username, password, new CallBack<String>() {
             @Override
             public void onSuccess(String token) {
@@ -117,6 +131,11 @@ public class FragmentLogin extends Fragment {
             public void onError(ErrorMessage err) {
                 //Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT).show();
 
+                Animation animation = AnimationUtils.loadAnimation(getActivity(), R.anim.view_not_valid);
+                panel.startAnimation(animation);
+
+                btnLogin.setVisibility(View.VISIBLE);
+                loaderBar.setVisibility(View.GONE);
             }
 
 

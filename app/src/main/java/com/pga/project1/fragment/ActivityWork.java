@@ -7,8 +7,14 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v4.view.GestureDetectorCompat;
+import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.pga.project1.DataModel.Chart;
 import com.pga.project1.R;
@@ -26,16 +32,6 @@ public class ActivityWork extends Activity {
     private boolean isTabsSet = false;
 
     PageType pageType;
-
-
-    //----swipe test----------------------
-
-
-    private GestureDetectorCompat mDetector;
-
-
-    //-------------------------
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,17 +72,6 @@ public class ActivityWork extends Activity {
 
             return true;
         }
-
-        /*if (item.getItemId() == R.id.ac_pick_personnel) {
-            pickPersonnel();
-            return true;
-        }
-
-        if (item.getItemId() == R.id.ac_new_work_report) {
-            newWorkReport();
-            return true;
-        }*/
-
 
         return super.onOptionsItemSelected(item);
     }
@@ -263,8 +248,12 @@ public class ActivityWork extends Activity {
     public void onBackPressed() {
 
         PathMapManager.pop("ActivityTaskPage");
-        super.onBackPressed();
+        //super.onBackPressed();
+        finish();
+        overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
+
     }
+
 
     public enum PageType {
         Info,
