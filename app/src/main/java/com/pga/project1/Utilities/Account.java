@@ -43,12 +43,12 @@ public class Account {
 
     public String getToken() {
 
-        if (token != null || token.length() > 1)
+        if (token != null && token.length() > 1)
             return token;
 
         SharedPreferences app_preferences =
                 PreferenceManager.getDefaultSharedPreferences(context);
-        token = app_preferences.getString("token", "");
+        token = app_preferences.getString("token", null);
         return token;
 
     }
@@ -58,6 +58,7 @@ public class Account {
                 PreferenceManager.getDefaultSharedPreferences(context);
         String token;
         token = app_preferences.getString("token", null);
+
 
         if (token == null)
             return false;

@@ -6,6 +6,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -44,6 +45,7 @@ public class MainActivity extends Activity
     private Menu menu;
 
     private Fragment currentFragment;
+    private boolean TwiceBackPressed = false;
 
     //----------------------------------------------------------------------------------------
     @Override
@@ -63,8 +65,6 @@ public class MainActivity extends Activity
 
         this.getFragmentManager().addOnBackStackChangedListener(new BackStackChanged(this));
 
-
-        //this.changeMenuIcons(true, false);
 
         Fragment frag = new FragmentSplash();
         FragmentManager fragmentManager = getFragmentManager();
@@ -119,7 +119,10 @@ public class MainActivity extends Activity
         }
 
 
-        return super.onCreateOptionsMenu(menu);
+        changeMenuIcons(true, false, "main act onCreateOptionsMenu");
+
+
+        return false;
     }
 
     //----------------------------------------------------------------------------------------
@@ -184,12 +187,14 @@ public class MainActivity extends Activity
 
     //---------------------------------------------------------------------------------------
     public void ShowWorkFragment(Chart chart, String CallerFragment, boolean addToBackStack) {
-        Fragment frag = new FragmentWork();
+
+       /* Fragment frag = new FragmentWork();
         ((FragmentWork) frag).setChart(chart);
         replaceFragment(frag, addToBackStack);
 
 
-        PathMapManager.push(chart);
+        PathMapManager.push(chart);*/
+
 
     }
 
@@ -211,7 +216,7 @@ public class MainActivity extends Activity
     }
 
     //-------------------------------------------------------------------------------------
-    public void changeMenuIcons(boolean navigation, boolean back) {
+    public void changeMenuIcons(boolean navigation, boolean back, String caller) {
 
         if (menu.findItem(R.id.action_navi) != null)
             menu.findItem(R.id.action_navi).setVisible(navigation); // getItem(R.id.action_navi).setVisible(navigation);
@@ -223,6 +228,20 @@ public class MainActivity extends Activity
     //-------------------------------------------------------------------------------------
     @Override
     public void onBackPressed() {
+
+        if (TwiceBackPressed)
+            finish();
+        else {
+            Toast.makeText(this, "جهت خروج دوبار بزنید", Toast.LENGTH_SHORT).show();
+            TwiceBackPressed = true;
+            new Handler().postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+                    TwiceBackPressed = false;
+                }
+            }, 700);
+        }
 
         int befor = getFragmentManager().getBackStackEntryCount();
 
@@ -242,7 +261,6 @@ public class MainActivity extends Activity
     public void hideTabs() {
 
 
-
         if (getActionBar().getNavigationMode() == ActionBar.NAVIGATION_MODE_TABS) {
             getActionBar().removeAllTabs();
             getActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
@@ -258,7 +276,7 @@ public class MainActivity extends Activity
 
             if (currentFragment != null) {
                 getFragmentManager().beginTransaction()
-                        .remove(currentFragment)
+                        .detach(currentFragment)
                         .add(R.id.container, frag)
                         .addToBackStack(null)
                         .commit();
@@ -274,7 +292,7 @@ public class MainActivity extends Activity
         } else {
             if (currentFragment != null) {
                 getFragmentManager().beginTransaction()
-                        .remove(currentFragment)
+                        .detach(currentFragment)
                         .add(R.id.container, frag)
                         .commit();
             }
@@ -338,6 +356,7 @@ public class MainActivity extends Activity
         replaceFragment(frag, true);
         PathMapManager.push(new PathObject("ثبت پیشرفت پرسنل"));
     }
+
     //-------------------------------------------------------------------------------------
     public void ShowTaskInfoFragment(Chart chart) {
         FragmentTaskPage frag = FragmentTaskPage.getInstanceInfo();
@@ -424,15 +443,16 @@ public class MainActivity extends Activity
 //            }
 
             if (currentStackSize > 0) {
-                ((MainActivity) activity).changeMenuIcons(false, true);
+                ((MainActivity) activity).changeMenuIcons(false, true, "backstack > 0");
             } else {
-                ((MainActivity) activity).changeMenuIcons(true, false);
+                ((MainActivity) activity).changeMenuIcons(true, false, "backstack <= 0");
             }
 
             lastSize = currentStackSize;
         }
     }
     //-------------------------------------------------------------------------------------
+
     //-------------------------------------------------------------------------------------//-------------------------------------------------------------------------------------
     //-------------------------------------------------------------------------------------
     //-------------------------------------------------------------------------------------

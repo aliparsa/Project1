@@ -1,6 +1,7 @@
 package com.pga.project1.fragment;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -44,7 +45,7 @@ public class FragmentProjectTreeView extends Fragment {
         //getActivity().getActionBar().show();
 
 
-        setHasOptionsMenu(true);
+        //setHasOptionsMenu(true);
 
         View view = inflater.inflate(R.layout.fragment_layout_project_tree_view, container,
                 false);
@@ -163,7 +164,14 @@ public class FragmentProjectTreeView extends Fragment {
 
                     break;
                 case 1:       // item is work
-                    ((MainActivity) getActivity()).ShowWorkFragment(chart, "Project Tree View Fragment", true);
+                    //((MainActivity) getActivity()).ShowWorkFragment(chart, "Project Tree View Fragment", true);
+
+                    Intent intent = new Intent(getActivity(), ActivityWork.class);
+                    intent.putExtra("chart", chart);
+                    startActivity(intent);
+
+                    getActivity().overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
+
 
                     //pushing to Path Map
                     // PathMapManager.push(chart);
@@ -188,7 +196,7 @@ public class FragmentProjectTreeView extends Fragment {
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
-        ((MainActivity) getActivity()).hideTabs();
+        // ((MainActivity) getActivity()).hideTabs();
     }
 
 }

@@ -15,7 +15,7 @@
 
         android:orientation="vertical"
 
-        >
+        android:id="@+id/ll_fragmentLogin_panel">
 
         <EditText
             android:id="@+id/etxt_fragmentLogin_username"
@@ -35,6 +35,12 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:text="Login" />
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/pgb_fragmentLogin_loader"
+            android:visibility="gone" />
 
     </LinearLayout>
 

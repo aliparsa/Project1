@@ -228,7 +228,7 @@ public class FragmentWork extends Fragment {
         //((MainActivity) getActivity()).ShowNewReportFragment(chart, FragmentNewReport.REPORT_TYPE_WORK);
         Intent intent = new Intent(getActivity(), NewReportActivity.class);
         intent.putExtra("chart", chart);
-        startActivityForResult(intent, 1313);
+        startActivity(intent);
     }
 
     //--------------------------------------------------------------------------------
@@ -254,7 +254,7 @@ public class FragmentWork extends Fragment {
                 lv.setAdapter(adapter);
 
                 // set on click listener
-                lv.setOnItemClickListener(new onTaskListClickListener());
+                //lv.setOnItemClickListener(new onTaskListClickListener());
 
             }
 

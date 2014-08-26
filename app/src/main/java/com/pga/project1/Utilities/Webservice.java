@@ -29,7 +29,9 @@ public class Webservice {
     //this is sparta
 
     final static public String SERVER_ADDRESS = "http://192.168.1.66:8099/pm";
+    final static public String SHAYAN_SERVER_ADDRESS = "http://192.168.0.79:3434/index.php/webservice?";
     final static public String SERVER_ADDRESS_UPLOAD = "http://192.168.0.79:3434/index.php/w-upload";
+
 
     //-----------------------------------------------------------------------------
     public static void getProjects(Context context, final CallBack<ArrayList<Chart>> callBack) {
@@ -105,8 +107,8 @@ public class Webservice {
 
         BasicNameValuePair[] arr = {
                 new BasicNameValuePair("tag", "login"),
-                new BasicNameValuePair("username", username),
-                new BasicNameValuePair("password", password)
+                new BasicNameValuePair("username", "admin"),
+                new BasicNameValuePair("password", "admin1")
         };
 
         helper.postHttp(arr, new ResponseHandler() {
@@ -118,13 +120,16 @@ public class Webservice {
 
                     JSONObject jsonObject = new JSONObject(response);
 
-                    if (jsonObject.has("result"))
+                    if (jsonObject.has("result")) {
                         if (jsonObject.get("result").equals("ok")) {
                             callback.onSuccess(jsonObject.get("token").toString());
                         } else if (jsonObject.get("result").equals("error")) {
 
                             callback.onError(new ErrorMessage(ErrorPlaceHolder.err2));
                         }
+                    } else {
+                        callback.onError(new ErrorMessage(ErrorPlaceHolder.err2));
+                    }
 
 
 //                    ArrayList<Chart> chartList = Chart.getArrayFromJson(jsonArray);
@@ -132,8 +137,13 @@ public class Webservice {
 
                 } catch (JSONException e) {
                     e.printStackTrace();
+
+                    callback.onError(new ErrorMessage(ErrorPlaceHolder.err2));
+
                 } catch (Exception e) {
                     e.printStackTrace();
+
+                    callback.onError(new ErrorMessage(ErrorPlaceHolder.err2));
                 }
 
 
@@ -141,7 +151,7 @@ public class Webservice {
 
             @Override
             public void error(ErrorMessage err) {
-
+                callback.onError(new ErrorMessage(ErrorPlaceHolder.err2));
             }
         });
 

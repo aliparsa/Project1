@@ -13,6 +13,7 @@
         android:id="@+id/action_back"
         android:icon="@drawable/ic_action_next_item"
         android:showAsAction="always"
+        android:visible="false"
         android:title="Back" />
 
 

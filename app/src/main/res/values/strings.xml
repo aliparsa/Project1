@@ -17,6 +17,8 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_new_report">NewReportActivity</string>
     <string name="title_activity_activity_task_page">ActivityTaskPage</string>
-    <string name="title_activity_activit_show_report_info">ActivitShowReportInfo</string>
+    <string name="title_activity_work">WorkActivity</string>
+    <string name="title_activity_activity_work">ActivityWork</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
