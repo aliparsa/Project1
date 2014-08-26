@@ -1,4 +1,4 @@
-package com.pga.project1.fragment;
+package com.pga.project1.Activities;
 
 import android.app.ActionBar;
 import android.app.Activity;

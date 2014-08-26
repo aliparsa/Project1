@@ -15,7 +15,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.pga.project1.Intefaces.CallBack;
-import com.pga.project1.MainActivity;
+import com.pga.project1.Activities.MainActivity;
 import com.pga.project1.R;
 import com.pga.project1.Utilities.Account;
 import com.pga.project1.Utilities.ErrorMessage;

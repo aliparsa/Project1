@@ -22,6 +22,9 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.pga.project1.Activities.ActivityTaskPage;
+import com.pga.project1.Activities.NewReportActivity;
+import com.pga.project1.Activities.PersonelPickerActivity;
 import com.pga.project1.Adapters.ListViewCustomAdapter;
 import com.pga.project1.DataModel.Chart;
 import com.pga.project1.DataModel.Feature;
@@ -438,8 +441,6 @@ public class FragmentWork extends Fragment {
         });
 
 
-
-
         if (blnTabInfo) {
             getActivity().getActionBar().addTab(tab_workReport, false);
             getActivity().getActionBar().addTab(tab_workTask, false);
@@ -577,7 +578,7 @@ public class FragmentWork extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode){
+        switch (requestCode) {
             case 1212: {
                 if (resultCode == Activity.RESULT_OK) {
                     Personnel personnel = (Personnel) data.getSerializableExtra("personnel");
@@ -588,7 +589,7 @@ public class FragmentWork extends Fragment {
                 }
                 break;
             }
-            case 2000:{
+            case 2000: {
                 //nothing
             }
         }

@@ -13,7 +13,7 @@ import android.widget.SearchView;
 import com.pga.project1.Adapters.ListViewCustomAdapter;
 import com.pga.project1.DataModel.Personnel;
 import com.pga.project1.Intefaces.CallBack;
-import com.pga.project1.MainActivity;
+import com.pga.project1.Activities.MainActivity;
 import com.pga.project1.R;
 import com.pga.project1.Structures.AdapterInputType;
 import com.pga.project1.Structures.ErrorPlaceHolder;

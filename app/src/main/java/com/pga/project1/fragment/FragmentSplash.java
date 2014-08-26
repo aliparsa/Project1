@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.pga.project1.MainActivity;
+import com.pga.project1.Activities.MainActivity;
 import com.pga.project1.R;
 
 public class FragmentSplash extends Fragment {

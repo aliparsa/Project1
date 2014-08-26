@@ -1,4 +1,4 @@
-package com.pga.project1;
+package com.pga.project1.Activities;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -16,6 +16,7 @@ import com.pga.project1.DataModel.Chart;
 import com.pga.project1.DataModel.PathObject;
 import com.pga.project1.DataModel.Personnel;
 import com.pga.project1.Intefaces.CallBack;
+import com.pga.project1.R;
 import com.pga.project1.Utilities.ErrorMessage;
 import com.pga.project1.Viewes.PathMapManager;
 import com.pga.project1.fragment.FragmentLogin;

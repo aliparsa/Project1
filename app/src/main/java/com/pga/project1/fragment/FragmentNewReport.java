@@ -2,7 +2,6 @@ package com.pga.project1.fragment;
 
 import android.app.AlertDialog;
 import android.app.Fragment;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -12,7 +11,6 @@ import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -27,14 +25,10 @@ import android.widget.NumberPicker;
 import android.widget.Toast;
 
 import com.pga.project1.DataModel.Chart;
-import com.pga.project1.DataModel.Report;
 import com.pga.project1.Intefaces.CallBack;
-import com.pga.project1.Intefaces.ProgressCallBack;
-import com.pga.project1.MainActivity;
+import com.pga.project1.Activities.MainActivity;
 import com.pga.project1.R;
-import com.pga.project1.Utilities.ErrorMessage;
 import com.pga.project1.Utilities.PersianCalendar;
-import com.pga.project1.Utilities.Webservice;
 import com.pga.project1.Viewes.PathMapManager;
 import com.pga.project1.Viewes.ViewDateTimePickerPersian;
 

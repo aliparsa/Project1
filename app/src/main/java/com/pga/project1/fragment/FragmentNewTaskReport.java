@@ -29,7 +29,7 @@ import com.pga.project1.DataModel.Chart;
 import com.pga.project1.DataModel.Report;
 import com.pga.project1.Intefaces.CallBack;
 import com.pga.project1.Intefaces.ProgressCallBack;
-import com.pga.project1.MainActivity;
+import com.pga.project1.Activities.MainActivity;
 import com.pga.project1.R;
 import com.pga.project1.Utilities.ErrorMessage;
 import com.pga.project1.Utilities.PersianCalendar;
@@ -183,7 +183,7 @@ public class FragmentNewTaskReport extends Fragment {
 
 
         if (item.getItemId() == R.id.ac_work_report_save) {
-             saveTaskReport();
+            saveTaskReport();
             return true;
         }
 
