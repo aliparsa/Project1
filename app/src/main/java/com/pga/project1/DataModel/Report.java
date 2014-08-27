@@ -6,12 +6,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by aliparsa on 8/17/2014.
  */
-public class Report {
+@SuppressWarnings("serial")
+public class Report implements Serializable {
     public Report(int id, Chart chart, int personnel_id, String date, String report, int percent) {
         this.id = id;
         this.chart_id = chart.getId();

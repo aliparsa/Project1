@@ -3,6 +3,7 @@ package com.pga.project1.Utilities;
 import android.content.AsyncTaskLoader;
 import android.content.Context;
 
+import com.pga.project1.DataModel.ServerResponse;
 import com.pga.project1.Intefaces.ResponseHandler;
 import com.pga.project1.Structures.ErrorPlaceHolder;
 
@@ -11,14 +12,12 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.message.BasicStatusLine;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 
@@ -38,7 +37,7 @@ import java.util.PriorityQueue;
 public class HttpHelper {
 
     private static PriorityQueue<HttpHelper> httpUrls = new PriorityQueue<HttpHelper>();
-    private static Map<String, String> responseCache = new HashMap<String, String>();
+    private static Map<String, ServerResponse> responseCache = new HashMap<String, ServerResponse>();
     private final String token;
 
     private String url;
@@ -68,10 +67,10 @@ public class HttpHelper {
 
             final HttpHelper self = this;
 
-            new AsyncTaskLoader<String>(context) {
+            new AsyncTaskLoader<ServerResponse>(context) {
 
                 @Override
-                public String loadInBackground() {
+                public ServerResponse loadInBackground() {
 
                     try {
                         HttpClient httpclient = new DefaultHttpClient();
@@ -98,13 +97,21 @@ public class HttpHelper {
 
                         HttpResponse response = httpclient.execute(httppost);
 
-                        if (response.getStatusLine().getStatusCode() == HttpStatusCode.SC_OK) {
-                            return EntityUtils.toString(response.getEntity(), HTTP.UTF_8);
+                        if (response.getStatusLine().getStatusCode() == HttpStatusCode.SC_OK.getCode()) {
 
-                        } else if (response.getStatusLine().getStatusCode() == HttpStatusCode.SC_FORBIDDEN) {
-                            return null;
+                            ServerResponse result = new ServerResponse("",
+                                    EntityUtils.toString(response.getEntity(), HTTP.UTF_8),
+                                    HttpStatusCode.get(response.getStatusLine().getStatusCode()));
+
+                                    return result;
+
+                        } else if (response.getStatusLine().getStatusCode() == HttpStatusCode.SC_FORBIDDEN.getCode()) {
+
+                            ServerResponse result = new ServerResponse("", EntityUtils.toString(response.getEntity(), HTTP.UTF_8),
+                                    HttpStatusCode.get(response.getStatusLine().getStatusCode()));
+
+                            return result;
                         }
-
 
 
                     } catch (UnsupportedEncodingException ue) {
@@ -129,7 +136,7 @@ public class HttpHelper {
                 }
 
                 @Override
-                public void deliverResult(String data) {
+                public void deliverResult(ServerResponse data) {
 
                     if (data != null) {
 
@@ -158,10 +165,10 @@ public class HttpHelper {
 
             final HttpHelper self = this;
 
-            new AsyncTaskLoader<String>(context) {
+            new AsyncTaskLoader<ServerResponse>(context) {
 
                 @Override
-                public String loadInBackground() {
+                public ServerResponse loadInBackground() {
 
 
                     try {
@@ -187,7 +194,10 @@ public class HttpHelper {
                         //Close the connection
                         client.getConnectionManager().shutdown();
 
-                        return EntityUtils.toString(response.getEntity(), HTTP.UTF_8);
+                        ServerResponse result = new ServerResponse("", EntityUtils.toString(response.getEntity(), HTTP.UTF_8),
+                                HttpStatusCode.get(response.getStatusLine().getStatusCode()));
+
+                        return result;
 
 
                     } catch (ClientProtocolException e) {
@@ -200,9 +210,10 @@ public class HttpHelper {
                 }
 
                 @Override
-                public void deliverResult(String data) {
+                public void deliverResult(ServerResponse data) {
 
                     if (data != null) {
+
 
                         handler.handleResponse(data);
 
@@ -222,7 +233,7 @@ public class HttpHelper {
         }
     }
 
-    public void getHttp(final ResponseHandler handler) {
+    /*public void getHttp(final ResponseHandler handler) {
 
         try {
 
@@ -285,7 +296,7 @@ public class HttpHelper {
             handler.error(new ErrorMessage(ErrorPlaceHolder.UnsupportedEncodingException));
         }
     }
-
+*/
     public void getPostSerial(final BasicNameValuePair[] params, final ResponseHandler handler) {
 
         try {
@@ -327,7 +338,7 @@ public class HttpHelper {
         */
     }
 
-    private void cacheResponse(String url, String response) {
+    private void cacheResponse(String url, ServerResponse response) {
 
         if (!responseCache.containsKey(url))
             responseCache.put(url, response);

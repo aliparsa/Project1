@@ -45,11 +45,11 @@ public class Webservice {
         };
         helper.postHttp(arr, new ResponseHandler() {
             @Override
-            public void handleResponse(String response) {
+            public void handleResponse(ServerResponse response) {
 
                 try {
 
-                    JSONArray jsonArray = new JSONArray(response);
+                    JSONArray jsonArray = new JSONArray(response.getResult());
 
                     ArrayList<Chart> chartList = Chart.getArrayFromJson(jsonArray);
                     callBack.onSuccess(chartList);
@@ -77,12 +77,12 @@ public class Webservice {
         };
         helper.postHttp(arr, new ResponseHandler() {
             @Override
-            public void handleResponse(String response) {
+            public void handleResponse(ServerResponse response) {
 
                 try {
 
 
-                    JSONArray jsonArray = new JSONArray(response);
+                    JSONArray jsonArray = new JSONArray(response.getResult());
 
                     ArrayList<Chart> chartList = Chart.getArrayFromJson(jsonArray);
                     callBack.onSuccess(chartList);
@@ -105,7 +105,7 @@ public class Webservice {
     public static void Login(Context context, String username, String password, final CallBack callback) {
 
 
-        HttpHelper helper = new HttpHelper(context, SERVER_ADDRESS, false, 0);
+        HttpHelper helper = new HttpHelper(context, SHAYAN_SERVER_ADDRESS, false, 0);
 
         BasicNameValuePair[] arr = {
                 new BasicNameValuePair("tag", "login"),
@@ -115,12 +115,12 @@ public class Webservice {
 
         helper.postHttp(arr, new ResponseHandler() {
             @Override
-            public void handleResponse(String response) {
+            public void handleResponse(ServerResponse response) {
 
                 try {
 
 
-                    JSONObject jsonObject = new JSONObject(response);
+                    JSONObject jsonObject = new JSONObject(response.getResult());
 
                     if (jsonObject.has("result")) {
                         if (jsonObject.get("result").equals("ok")) {
@@ -171,12 +171,12 @@ public class Webservice {
 
         helper.postHttp(arr, new ResponseHandler() {
             @Override
-            public void handleResponse(String response) {
+            public void handleResponse(ServerResponse response) {
 
                 try {
 
 
-                    JSONArray jsonArray = new JSONArray(response);
+                    JSONArray jsonArray = new JSONArray(response.getResult());
 
                     ArrayList<Feature> featureList = Feature.getArrayFromJson(jsonArray);
                     callback.onSuccess(featureList);
@@ -208,11 +208,11 @@ public class Webservice {
         };
         helper.postHttp(arr, new ResponseHandler() {
             @Override
-            public void handleResponse(String response) {
+            public void handleResponse(ServerResponse response) {
 
                 try {
 
-                    JSONArray jsonArray = new JSONArray(response);
+                    JSONArray jsonArray = new JSONArray(response.getResult());
 
                     ArrayList<Chart> chartList = Chart.getArrayFromJson(jsonArray);
                     callBack.onSuccess(chartList);
@@ -242,12 +242,12 @@ public class Webservice {
         };
         helper.postHttp(arr, new ResponseHandler() {
             @Override
-            public void handleResponse(String response) {
+            public void handleResponse(ServerResponse response) {
 
                 try {
 
 
-                    JSONArray jsonArray = new JSONArray(response);
+                    JSONArray jsonArray = new JSONArray(response.getResult());
                     ArrayList<Personnel> perList = Personnel.getArrayFromJson(jsonArray);
 
 
@@ -276,11 +276,11 @@ public class Webservice {
         };
         helper.postHttp(arr, new ResponseHandler() {
             @Override
-            public void handleResponse(String response) {
+            public void handleResponse(ServerResponse response) {
 
                 try {
 
-                    JSONArray jsonArray = new JSONArray(response);
+                    JSONArray jsonArray = new JSONArray(response.getResult());
 
                     ArrayList<Report> reportList = Report.getArrayFromJson(jsonArray);
 
@@ -321,15 +321,13 @@ public class Webservice {
         };
         helper.postHttp(arr, new ResponseHandler() {
             @Override
-            public void handleResponse(String response) {
+            public void handleResponse(ServerResponse response) {
 
                 try {
 
-                    JSONObject jsonObject = new JSONObject(response);
+                    JSONObject jsonObject = new JSONObject(response.getResult());
 
-                    ServerResponse sr = ServerResponse.getServerResponse(jsonObject);
-
-                    callBack.onSuccess(sr);
+                    callBack.onSuccess(response);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -380,15 +378,13 @@ public class Webservice {
 
         helper.postHttp(arr, new ResponseHandler() {
             @Override
-            public void handleResponse(String response) {
+            public void handleResponse(ServerResponse response) {
 
                 try {
 
-                    JSONObject jsonObject = new JSONObject(response);
+                    JSONObject jsonObject = new JSONObject(response.getResult());
 
-                    ServerResponse sr = ServerResponse.getServerResponse(jsonObject);
-
-                    callBack.onSuccess(sr);
+                    callBack.onSuccess(response);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -415,11 +411,11 @@ public class Webservice {
 
         helper.postHttp(arr, new ResponseHandler() {
             @Override
-            public void handleResponse(String response) {
+            public void handleResponse(ServerResponse response) {
 
                 try {
 
-                    JSONArray jsonArray = new JSONArray(response);
+                    JSONArray jsonArray = new JSONArray(response.getResult());
 
                     ArrayList<WorkUnit> reportList = WorkUnit.getArrayFromJson(jsonArray);
 
@@ -440,21 +436,51 @@ public class Webservice {
 
     }
 
+    //------------------------------------------------------------------------------
+    public static void removeTask(Context context, int task_id, final CallBack<ServerResponse> callBack) {
+        HttpHelper helper = new HttpHelper(context, SERVER_ADDRESS, false, 0);
+
+        BasicNameValuePair[] arr = {
+                new BasicNameValuePair("tag", "remove_task"),
+                new BasicNameValuePair("task_id", task_id + ""),
+        };
+        helper.postHttp(arr, new ResponseHandler() {
+            @Override
+            public void handleResponse(ServerResponse response) {
+
+                try {
+
+                    JSONObject jsonObject = new JSONObject(response.getResult());
+
+                    callBack.onSuccess(response);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void error(ErrorMessage err) {
+                Log.e("ali", " webservice / addPersonnelToWork ");
+            }
+        });
+
+    }
+
     //-------------------------------------------------------------------------------
     public static void uploadFile(Context context, String filePath, final CallBack callBack) {
         HttpHelper helper = new HttpHelper(context, SERVER_ADDRESS_UPLOAD, false, 0);
 
         helper.upload(filePath, new ResponseHandler() {
             @Override
-            public void handleResponse(String response) {
+            public void handleResponse(ServerResponse response) {
 
                 try {
 
-                    JSONObject jsonObject = new JSONObject(response);
+                    JSONObject jsonObject = new JSONObject(response.getResult());
 
-                    ServerResponse sr = ServerResponse.getServerResponse(jsonObject);
-
-                    callBack.onSuccess(sr);
+                    callBack.onSuccess(response);
 
                 } catch (JSONException e) {
                     e.printStackTrace();

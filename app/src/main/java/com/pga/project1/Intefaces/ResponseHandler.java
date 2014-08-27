@@ -1,5 +1,6 @@
 package com.pga.project1.Intefaces;
 
+import com.pga.project1.DataModel.ServerResponse;
 import com.pga.project1.Utilities.ErrorMessage;
 
 /**
@@ -7,7 +8,7 @@ import com.pga.project1.Utilities.ErrorMessage;
  */
 public interface ResponseHandler {
 
-    public void handleResponse(String response);
+    public void handleResponse(ServerResponse response);
 
     public void error(ErrorMessage err);
 }

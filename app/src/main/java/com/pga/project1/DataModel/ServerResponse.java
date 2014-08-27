@@ -1,25 +1,24 @@
 package com.pga.project1.DataModel;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
+import com.pga.project1.Utilities.HttpStatusCode;
 
 /**
  * Created by aliparsa on 8/18/2014.
  */
 public class ServerResponse {
 
-    public ServerResponse(String header, String result, int result_code) {
+    public ServerResponse(String header, String result, HttpStatusCode statusCode) {
         this.header = header;
         this.result = result;
-        this.result_code = result_code;
+        this.statusCode = statusCode;
     }
 
     private String header;
     private String result;
-    private int result_code;
+    private HttpStatusCode statusCode;
 
 
-    public static ServerResponse getServerResponse(JSONObject jsonObject) {
+    /*public static ServerResponse getServerResponse(JSONObject jsonObject) {
         ServerResponse sr = null;
         try {
             sr = new ServerResponse("", jsonObject.getString("result"), jsonObject.getInt("result_code"));
@@ -28,7 +27,7 @@ public class ServerResponse {
         }
         return sr;
 
-    }
+    }*/
 
     public String getHeader() {
         return header;
@@ -47,10 +46,7 @@ public class ServerResponse {
     }
 
     public int getResult_code() {
-        return result_code;
+        return statusCode.getCode();
     }
 
-    public void setResult_code(int result_code) {
-        this.result_code = result_code;
-    }
 }

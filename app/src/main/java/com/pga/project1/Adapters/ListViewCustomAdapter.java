@@ -1,12 +1,10 @@
 package com.pga.project1.Adapters;
 
 import android.content.Context;
-import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
-import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
@@ -36,8 +34,6 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
 
     Object tag;
 
-    Typeface typeFace;
-
 
     // main linear layout in view
     LinearLayout lv_image;
@@ -60,9 +56,6 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
     public View getView(int position, View convertView, ViewGroup parent) {
         // TODO Auto-generated method stub
 
-        typeFace = Typeface.createFromAsset(context.getAssets(), "fonts/BKOODB.TTF");
-
-
         View view = convertView;
 
         DrawerItemHolder holder;
@@ -75,8 +68,8 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = inflater.inflate(R.layout.drawer_item, null);
 
-            Animation animation = AnimationUtils.loadAnimation(context, R.anim.activity_fade_in_animation);
-            animation.setStartOffset(50 * (position + 1));
+            Animation animation = AnimationUtils.loadAnimation(context, R.anim.pop_up);
+            animation.setStartOffset(20 * (position + 1));
             view.setAnimation(animation);
 
             lv_image = (LinearLayout) view.findViewById(R.id.lv_image);
@@ -146,20 +139,13 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
         if (holder.percent == null)
             holder.percent = (TextView) lv_icon_title_subtitle.findViewById(R.id.percent_textview);
 
-
         if (holder.graphview == null)
             holder.graphview = (Graphview) lv_icon_title_subtitle.findViewById(R.id.graph_view);
 
 
-        // set Value
         holder.icon_in_title_subtitle.setImageBitmap(item.image1);
         holder.title.setText(item.title);
         holder.subtitle.setText(item.subTitle);
-
-//        // set Font
-//        holder.title.setTypeface(typeFace);
-//        holder.subtitle.setTypeface(typeFace);
-//        holder.percent.setTypeface(typeFace);
 
         if (item.getTag() != null && item.getTag() instanceof Chart) {
 
@@ -201,15 +187,9 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
         if (holder.PeopleGroups == null)
             holder.PeopleGroups = (TextView) ll_people.findViewById(R.id.txt_people_groups);
 
-        // set value
         holder.PeopleName.setText(item.namePerson);
         holder.PeoplePhone.setText(item.phonePerson);
         holder.PeopleGroups.setText(item.groupPerson);
-
-//        //set font
-//        holder.PeopleName.setTypeface(typeFace);
-//        holder.PeoplePhone.setTypeface(typeFace);
-//        holder.PeopleGroups.setTypeface(typeFace);
 
         holder.setTag(item.getTag());
     }
