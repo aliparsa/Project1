@@ -23,8 +23,8 @@
         android:layout_alignParentStart="true" />
 
     <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:id="@+id/lv_searchPersonnel_results"
         android:layout_below="@+id/srchv_searchPersonnel_searchName"
         android:layout_centerHorizontal="true" />

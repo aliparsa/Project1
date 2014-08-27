@@ -34,4 +34,9 @@
         <attr name="metaButtonBarButtonStyle" format="reference" />
     </declare-styleable>
 
+    <declare-styleable name="ImageLoaderView">
+        <attr name="URL" format="string" />
+        <attr name="default_src" format="integer" />
+    </declare-styleable>
+
 </resources>

@@ -3,7 +3,6 @@ package com.pga.project1.Activities;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Path;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -94,7 +93,7 @@ public class PersonelPickerActivity extends Activity {
                     AdapterInputType adapterInputType = new AdapterInputType(
                             person, ListViewCustomAdapter.PERSONNEL_ITEM,
                             person.getFirst_name() + " " + person.getLast_name(),
-                            person.getPhone_number(), person.getGroupsString(), ""
+                            person.getPhone_number(), person.getGroupsString(), person.getPersonnel_image()
                     );
 
                     listItem.add(adapterInputType);

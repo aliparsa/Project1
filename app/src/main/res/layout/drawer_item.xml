@@ -144,7 +144,7 @@
         >
 
         <ImageView
-
+            android:visibility="gone"
             android:id="@+id/imgv_people_imag"
 
             android:layout_width="60dp"
@@ -152,6 +152,13 @@
             android:src="@drawable/personal"
             android:layout_gravity="center_vertical|right"
             />
+
+        <com.pga.project1.Viewes.ImageLoaderView
+            android:id="@+id/imgl_people_imag"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+
+            ></com.pga.project1.Viewes.ImageLoaderView>
 
         <RelativeLayout
             android:layout_width="match_parent"
