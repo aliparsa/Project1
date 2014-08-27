@@ -12,9 +12,14 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.pga.project1.DataModel.Chart;
+import com.pga.project1.DataModel.ServerResponse;
+import com.pga.project1.Intefaces.CallBack;
 import com.pga.project1.R;
+import com.pga.project1.Utilities.ErrorMessage;
+import com.pga.project1.Utilities.Webservice;
 import com.pga.project1.Viewes.PathMapManager;
 import com.pga.project1.fragment.FragmentTaskInfo;
 import com.pga.project1.fragment.FragmentTaskReport;
@@ -133,6 +138,22 @@ public class ActivityTaskPage extends Activity {
     }
 
     private void deleteChart() {
+
+        final Activity self = this;
+
+        Webservice.removeTask(this, getTaskId(), new CallBack<ServerResponse>() {
+            @Override
+            public void onSuccess(ServerResponse result) {
+
+                Toast.makeText(self, "حذف انجام شد", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+
+            @Override
+            public void onError(ErrorMessage err) {
+
+            }
+        });
     }
 
     @Override

@@ -439,6 +439,41 @@ public class Webservice {
         });
 
     }
+
+    //------------------------------------------------------------------------------
+    public static void removeTask(Context context, int task_id, final CallBack<ServerResponse> callBack) {
+        HttpHelper helper = new HttpHelper(context, SERVER_ADDRESS, false, 0);
+
+        BasicNameValuePair[] arr = {
+                new BasicNameValuePair("tag", "remove_task"),
+                new BasicNameValuePair("task_id", task_id + ""),
+        };
+        helper.postHttp(arr, new ResponseHandler() {
+            @Override
+            public void handleResponse(String response) {
+
+                try {
+
+                    JSONObject jsonObject = new JSONObject(response);
+
+                    ServerResponse sr = ServerResponse.getServerResponse(jsonObject);
+
+                    callBack.onSuccess(sr);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void error(ErrorMessage err) {
+                Log.e("ali", " webservice / addPersonnelToWork ");
+            }
+        });
+
+    }
+
     //-------------------------------------------------------------------------------
     public static void uploadFile(Context context, String filePath, final CallBack callBack) {
         HttpHelper helper = new HttpHelper(context, SERVER_ADDRESS_UPLOAD, false, 0);

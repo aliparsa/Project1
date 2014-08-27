@@ -7,7 +7,7 @@
         android:id="@+id/action_removeTask"
         android:orderInCategory="2"
         android:showAsAction="always|withText"
-        android:title="حذف عملکرد" />
+        android:title="حذف وظیفه" />
 
     <item
         android:id="@+id/action_addReportTask"

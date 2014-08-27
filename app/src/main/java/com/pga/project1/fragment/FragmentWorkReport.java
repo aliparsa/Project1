@@ -11,9 +11,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.pga.project1.Activities.EditReportActivity;
 import com.pga.project1.Activities.NewReportActivity;
 import com.pga.project1.Adapters.ListViewCustomAdapter;
 import com.pga.project1.DataModel.Chart;
@@ -100,7 +102,7 @@ public class FragmentWorkReport extends Fragment {
 
                 List<AdapterInputType> itemList = new ArrayList<AdapterInputType>();
                 for (Report report : reportList) {
-                    itemList.add(new AdapterInputType(chart, "icon+title+subtitle", report.getDate(), report.getPercent() + "", BitmapFactory.decodeResource(getResources(),
+                    itemList.add(new AdapterInputType(report, "icon+title+subtitle", report.getDate(), report.getPercent() + "", BitmapFactory.decodeResource(getResources(),
                             R.drawable.ic_launcher)));
                 }
 
@@ -112,7 +114,17 @@ public class FragmentWorkReport extends Fragment {
                 lv.setAdapter(adapter);
 
                 // set on click listener
-                //lv.setOnItemClickListener(new onTaskListClickListener());
+                lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                        Object tag = ((ListViewCustomAdapter.DrawerItemHolder) view.getTag()).getTag();
+
+                        Intent intent = new Intent(getActivity(), EditReportActivity.class);
+                        intent.putExtra("report", (Report) tag);
+                        startActivity(intent);
+                    }
+                });
 
             }
 
