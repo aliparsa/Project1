@@ -36,6 +36,9 @@ public class FragmentWorkInfo extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        if (savedInstanceState != null) {
+            chart = (Chart) savedInstanceState.getSerializable("chart");
+        }
         return inflater.inflate(R.layout.fragment_work_info, container, false);
     }
 
@@ -76,5 +79,12 @@ public class FragmentWorkInfo extends Fragment {
 
     public void setChart(Chart chart) {
         this.chart = chart;
+    }
+
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable("chart", chart);
     }
 }

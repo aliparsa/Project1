@@ -117,7 +117,7 @@ public class NavigationDrawerFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         // Indicate that this fragment would like to influence the set of actions in the action bar.
-        setHasOptionsMenu(true);
+        //setHasOptionsMenu(true);
     }
 
     @Override
@@ -264,7 +264,7 @@ public class NavigationDrawerFragment extends Fragment {
             inflater.inflate(R.menu.main, menu);
             showGlobalContextActionBar();
 
-            ((MainActivity) getActivity()).changeMenuIcons(true, false, "Navigation Menu");
+            //  ((MainActivity) getActivity()).changeMenuIcons(true, false, "Navigation Menu");
         }
 
 
@@ -301,7 +301,7 @@ public class NavigationDrawerFragment extends Fragment {
      */
     private void showGlobalContextActionBar() {
         ActionBar actionBar = getActionBar();
-        actionBar.setDisplayShowTitleEnabled(true);
+        //    actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
         actionBar.setTitle(R.string.app_name);
     }
@@ -318,5 +318,14 @@ public class NavigationDrawerFragment extends Fragment {
          * Called when an item in the navigation drawer is selected.
          */
         void onNavigationDrawerItemSelected(int position);
+    }
+
+
+    public void toggleNavigationDrawer() {
+        if (isDrawerOpen()) {
+            mDrawerLayout.closeDrawer(Gravity.END);
+        } else {
+            mDrawerLayout.openDrawer(Gravity.END);
+        }
     }
 }

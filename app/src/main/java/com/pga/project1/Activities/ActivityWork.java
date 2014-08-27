@@ -45,6 +45,8 @@ public class ActivityWork extends Activity {
 
         pageType = PageType.Info;
 
+        isTabsSet = false;
+
         setContentView(R.layout.activity_activity_work);
 
     }
@@ -151,6 +153,7 @@ public class ActivityWork extends Activity {
 
             @Override
             public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+
 
             }
         });

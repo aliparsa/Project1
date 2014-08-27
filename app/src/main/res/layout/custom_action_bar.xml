@@ -5,33 +5,55 @@
     android:layout_gravity="fill_horizontal">
 
     <ImageButton
-        android:id="@+id/btn1"
+        android:id="@+id/l1"
         android:layout_width="wrap_content"
+        android:minWidth="10dp"
+        android:minHeight="10dp"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:src="@drawable/ic_action_camera" />
+        android:background="#14f1f1f1" />
 
     <ImageButton
-        android:id="@+id/btn2"
+        android:id="@+id/l2"
+        android:minWidth="30dp"
+        android:minHeight="30dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_action_camera"
         android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/btn1" />
+        android:background="#05ffffff"
+
+        android:layout_toRightOf="@+id/l1" />
 
     <ImageButton
-        android:id="@+id/btn3"
+        android:id="@+id/l3"
+        android:minWidth="10dp"
+        android:minHeight="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="#05ffffff"
+
+        android:layout_toRightOf="@+id/l2" />
+
+    <ImageButton
+        android:id="@+id/r1"
+        android:minWidth="30dp"
+        android:minHeight="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
-        android:src="@drawable/ic_action_camera" />
+        android:background="#05ffffff"
+        android:layout_alignParentEnd="true" />
 
-    <ImageButton
-        android:id="@+id/btn4"
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_action_camera"
+        android:text="New Button"
+        android:id="@+id/button"
         android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/btn2" />
+        android:background="#05ffffff"
+        android:layout_toLeftOf="@+id/r1" />
+
 
 </RelativeLayout>

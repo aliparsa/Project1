@@ -22,6 +22,7 @@ public class Personnel implements Serializable {
     private String last_name;
     private String personnel_code;
     private String phone_number;
+    private String personnel_image;
     private ArrayList<String> groups = new ArrayList<String>();
 
 
@@ -82,6 +83,7 @@ public class Personnel implements Serializable {
             p.first_name = jsonHelper.getString(json, "first_name", ""); //json.getString("first_name");
             p.last_name = jsonHelper.getString(json, "last_name", ""); //json.getString("last_name");
             p.personnel_code = jsonHelper.getString(json, "personnel_code", ""); //json.getString("personnel_code");
+            p.personnel_image = jsonHelper.getString(json, "personnel_image", "");
 
             if (jsonHelper.error)
                 return null;
@@ -162,5 +164,13 @@ public class Personnel implements Serializable {
 
     public String getFullName() {
         return this.getFirst_name() + " " +this.getLast_name();
+    }
+
+    public String getPersonnel_image() {
+        return personnel_image;
+    }
+
+    public void setPersonnel_image(String personnel_image) {
+        this.personnel_image = personnel_image;
     }
 }

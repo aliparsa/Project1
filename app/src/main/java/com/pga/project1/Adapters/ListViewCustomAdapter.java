@@ -4,6 +4,9 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -62,8 +65,13 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
         } else {
             holder = new DrawerItemHolder();
 
+
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = inflater.inflate(R.layout.drawer_item, null);
+
+            Animation animation = AnimationUtils.loadAnimation(context, R.anim.slide_from_left);
+            animation.setStartOffset(20 * (position + 1));
+            view.setAnimation(animation);
 
             lv_image = (LinearLayout) view.findViewById(R.id.lv_image);
             lv_icon_title_subtitle = (LinearLayout) view.findViewById(R.id.lv_icon_title_subtitle);
@@ -98,6 +106,7 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
 
         }
 
+
         return view;
     }
 
@@ -111,18 +120,18 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
     }
 
 
-    public void getIconTitleSubtitle(DrawerItemHolder holder, AdapterInputType item){
+    public void getIconTitleSubtitle(DrawerItemHolder holder, AdapterInputType item) {
 
-        if(holder.icon == null)
+        if (holder.icon == null)
             holder.icon = (ImageView) lv_icon_title_subtitle.findViewById(R.id.icon);
 
-        if(holder.icon_in_title_subtitle == null)
+        if (holder.icon_in_title_subtitle == null)
             holder.icon_in_title_subtitle = (ImageView) lv_icon_title_subtitle.findViewById(R.id.icon2);
 
-        if(holder.title == null)
+        if (holder.title == null)
             holder.title = (TextView) lv_icon_title_subtitle.findViewById(R.id.title);
 
-        if(holder.subtitle == null)
+        if (holder.subtitle == null)
             holder.subtitle = (TextView) lv_icon_title_subtitle.findViewById(R.id.subtitle);
 
         if (holder.progressBar == null)
@@ -155,9 +164,9 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
         holder.setTag(item.getTag());
     }
 
-    public void getImageOnlyItem(DrawerItemHolder holder, AdapterInputType item){
+    public void getImageOnlyItem(DrawerItemHolder holder, AdapterInputType item) {
 
-        if(holder.icon == null)
+        if (holder.icon == null)
             holder.icon = (ImageView) lv_image.findViewById(R.id.icon);
 
         holder.icon.setImageBitmap(item.image1);
@@ -165,18 +174,18 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
         holder.setTag(item.getTag());
     }
 
-    public void getPeopleItem(DrawerItemHolder holder, AdapterInputType item){
+    public void getPeopleItem(DrawerItemHolder holder, AdapterInputType item) {
 
-        if(holder.peopleImage == null)
+        if (holder.peopleImage == null)
             holder.peopleImage = (ImageView) ll_people.findViewById(R.id.imgv_people_imag);
 
-        if(holder.PeopleName == null)
+        if (holder.PeopleName == null)
             holder.PeopleName = (TextView) ll_people.findViewById(R.id.txt_people_name);
 
-        if(holder.PeoplePhone == null)
+        if (holder.PeoplePhone == null)
             holder.PeoplePhone = (TextView) ll_people.findViewById(R.id.txt_people_phone);
 
-        if(holder.PeopleGroups == null)
+        if (holder.PeopleGroups == null)
             holder.PeopleGroups = (TextView) ll_people.findViewById(R.id.txt_people_groups);
 
         holder.PeopleName.setText(item.namePerson);

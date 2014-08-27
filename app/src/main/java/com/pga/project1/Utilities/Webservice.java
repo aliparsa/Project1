@@ -38,7 +38,7 @@ public class Webservice {
     //-----------------------------------------------------------------------------
     public static void getProjects(Context context, final CallBack<ArrayList<Chart>> callBack) {
 
-        HttpHelper helper = new HttpHelper(context, SERVER_ADDRESS, false, 0);
+        HttpHelper helper = new HttpHelper(context, SHAYAN_SERVER_ADDRESS, false, 0);
 
         BasicNameValuePair[] arr = {
                 new BasicNameValuePair("tag", "get_projects")
@@ -105,12 +105,12 @@ public class Webservice {
     public static void Login(Context context, String username, String password, final CallBack callback) {
 
 
-        HttpHelper helper = new HttpHelper(context, SERVER_ADDRESS, false, 0);
+        HttpHelper helper = new HttpHelper(context, SHAYAN_SERVER_ADDRESS, false, 0);
 
         BasicNameValuePair[] arr = {
                 new BasicNameValuePair("tag", "login"),
                 new BasicNameValuePair("username", "admin"),
-                new BasicNameValuePair("password", "admin1")
+                new BasicNameValuePair("password", "admin")
         };
 
         helper.postHttp(arr, new ResponseHandler() {

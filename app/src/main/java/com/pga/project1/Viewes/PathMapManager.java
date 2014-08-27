@@ -56,6 +56,11 @@ public class PathMapManager extends LinearLayout {
         }
     }
 
+    public static void clear() {
+
+        stack.clear();
+    }
+
 
     LinearLayout mainLayout;
     private Context context;
@@ -75,7 +80,7 @@ public class PathMapManager extends LinearLayout {
     }
 
     public PathMapManager(Context context, AttributeSet attrs) {
-        super(context);
+        super(context, attrs);
         this.context = context;
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.ViewNameValue);
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

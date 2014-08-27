@@ -75,6 +75,7 @@ public class Chart implements PathMapObject, Serializable {
 
                 JSONObject personnelJson = jsonObject.getJSONObject("personnel");
                 Personnel personnel = Personnel.getPersonnelFromJson(personnelJson);
+
                 String allow_delay = jsonObject.getString("allow_delay");
                 String estimated_start = jsonObject.getString("estimated_start");
                 String estimated_end = jsonObject.getString("estimated_end");
