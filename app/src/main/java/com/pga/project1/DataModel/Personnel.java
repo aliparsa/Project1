@@ -22,6 +22,16 @@ public class Personnel implements Serializable {
     private String last_name;
     private String personnel_code;
     private String phone_number;
+
+    public Personnel(int id, String first_name, String last_name, String personnel_code, String phone_number, String personnel_image) {
+        this.id = id;
+        this.first_name = first_name;
+        this.last_name = last_name;
+        this.personnel_code = personnel_code;
+        this.phone_number = phone_number;
+        this.personnel_image = personnel_image;
+    }
+
     private String personnel_image;
     private ArrayList<String> groups = new ArrayList<String>();
 

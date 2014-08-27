@@ -16,15 +16,10 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.pga.project1.DataModel.Chart;
-import com.pga.project1.DataModel.PathObject;
 import com.pga.project1.R;
 import com.pga.project1.Viewes.PathMapManager;
-
-
 import com.pga.project1.fragment.FragmentProjectTreeView;
 import com.pga.project1.fragment.NavigationDrawerFragment;
-
-import java.util.zip.Inflater;
 
 
 public class MainActivity extends Activity

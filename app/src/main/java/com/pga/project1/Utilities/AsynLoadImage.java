@@ -1,80 +1,109 @@
 package com.pga.project1.Utilities;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable.Callback;
 import android.os.AsyncTask;
-import android.util.Log;
-import android.widget.ImageView;
+import android.os.Environment;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
+import com.pga.project1.Intefaces.ProgressCallBack;
+import com.pga.project1.Structures.ErrorPlaceHolder;
+
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URL;
+import java.net.URLConnection;
 
-public class AsynLoadImage extends AsyncTask<String, String, Bitmap> {
-	
-	ImageView imv;
-	String path;
-	Bitmap bmp;
-	
-	Callback finishFunc;
-	
-	public AsynLoadImage(ImageView imv, String path){
-		this.imv=imv;
-		this.path=path;
-	}
+public class AsynLoadImage extends AsyncTask<String, String, String> {
+
+    private String imageUrl;
+    private ProgressCallBack<String> callback;
+
+    public AsynLoadImage(String imageUrl, ProgressCallBack<String> callback){
+
+        this.imageUrl = imageUrl;
+        this.callback = callback;
+    }
+
+        /**
+         * Before starting background thread Show Progress Bar Dialog
+         * */
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        /**
+         * Downloading file in background thread
+         * */
+        @Override
+        protected String doInBackground(String... f_url) {
+            int count;
+            try {
+                URL url = new URL(imageUrl);
+                URLConnection connection = url.openConnection();
+                connection.connect();
+                // this will be useful so that you can show a tipical 0-100% progress
+                // bar
+                int lengthOfFile = connection.getContentLength();
+
+                // download the file
+                InputStream input = new BufferedInputStream(url.openStream(), 8192);
+
+                // Output stream
+                String path = Environment.getExternalStorageDirectory().toString();
+                File file = new File(path, "download.jpg");
+                OutputStream output = new FileOutputStream(file);
 
 
-	
-	@Override
-	protected void onPreExecute() {
-		// TODO Auto-generated method stub
-		super.onPreExecute();
-		
-		Log.i("tag", "Asy load image called");
-	}
-	
-	@Override
-	protected Bitmap doInBackground(String... arg0) {
-		// TODO Auto-generated method stub
-		
-		try {
+                byte data[] = new byte[1024];
 
-			
-			URL url = new URL(path);
-			bmp = BitmapFactory.decodeStream(url.openConnection()
-					.getInputStream());
-					
+                long total = 0;
 
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			Log.e("Image Loader",e.getMessage());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			Log.e("Image Loader",e.getMessage());
-		}
-		return bmp;
-		 
-		
-		
-	}
+                while ((count = input.read(data)) != -1) {
+                    total += count;
+                    // publishing the progress....
+                    // After this onProgressUpdate will be called
+                    publishProgress("" + (int) ((total * 100) / lengthOfFile));
 
-	@Override
-	protected void onPostExecute(Bitmap result) {
-		// TODO Auto-generated method stub
-		super.onPostExecute(result);
-		
-	//	Log.i("tag", "Asy load image ended");
-		
-		
-		if(imv != null)
-			imv.setImageBitmap(result);
 
-		LoadManager.loadFinished(path, result);
-		
-		
-		
-	}
+                    // writing data to file
+                    output.write(data, 0, count);
+                }
+
+                // flushing output
+                output.flush();
+
+                // closing streams
+                output.close();
+                input.close();
+
+                return file.getPath();
+
+            } catch (Exception e) {
+
+            }
+
+            return null;
+        }
+
+    @Override
+    protected void onProgressUpdate(String... values) {
+
+        callback.onProgress( Integer.parseInt(values[0]), 0, null);
+    }
+
+    /**
+         * After completing background task Dismiss the progress dialog
+         * **/
+        @Override
+        protected void onPostExecute(String file_url) {
+
+            if(file_url == null){
+                callback.onError(new ErrorMessage(ErrorPlaceHolder.err2));
+            }else{
+                callback.onSuccess(file_url);
+            }
+
+        }
 }

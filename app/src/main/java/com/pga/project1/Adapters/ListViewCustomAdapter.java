@@ -16,6 +16,7 @@ import com.pga.project1.DataModel.Chart;
 import com.pga.project1.R;
 import com.pga.project1.Structures.AdapterInputType;
 import com.pga.project1.Viewes.Graphview;
+import com.pga.project1.Viewes.ImageLoaderView;
 
 import java.util.List;
 
@@ -68,7 +69,7 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = inflater.inflate(R.layout.drawer_item, null);
 
-            Animation animation = AnimationUtils.loadAnimation(context, R.anim.pop_up);
+            Animation animation = AnimationUtils.loadAnimation(context, R.anim.slide_from_left);
             animation.setStartOffset(20 * (position + 1));
             view.setAnimation(animation);
 
@@ -178,6 +179,9 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
         if (holder.peopleImage == null)
             holder.peopleImage = (ImageView) ll_people.findViewById(R.id.imgv_people_imag);
 
+        if (holder.peopleImageLoader == null)
+            holder.peopleImageLoader = (ImageLoaderView) ll_people.findViewById(R.id.imgl_people_imag);
+
         if (holder.PeopleName == null)
             holder.PeopleName = (TextView) ll_people.findViewById(R.id.txt_people_name);
 
@@ -186,6 +190,10 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
 
         if (holder.PeopleGroups == null)
             holder.PeopleGroups = (TextView) ll_people.findViewById(R.id.txt_people_groups);
+
+
+        holder.peopleImageLoader.setUrl(item.imagePerson);
+        holder.peopleImageLoader.startLoading();
 
         holder.PeopleName.setText(item.namePerson);
         holder.PeoplePhone.setText(item.phonePerson);
@@ -207,6 +215,7 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
 
         //---------------------
         ImageView peopleImage;
+        ImageLoaderView peopleImageLoader;
         TextView PeopleName;
         TextView PeoplePhone;
         TextView PeopleGroups;
