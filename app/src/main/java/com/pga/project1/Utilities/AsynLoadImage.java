@@ -16,6 +16,9 @@ import java.net.URLConnection;
 
 public class AsynLoadImage extends AsyncTask<String, String, String> {
 
+
+    private static int imageNumber = 0;
+
     private String imageUrl;
     private ProgressCallBack<String> callback;
 
@@ -52,7 +55,7 @@ public class AsynLoadImage extends AsyncTask<String, String, String> {
 
                 // Output stream
                 String path = Environment.getExternalStorageDirectory().toString();
-                File file = new File(path, "download.jpg");
+                File file = new File(path, "download" + (imageNumber++) + ".jpg");
                 OutputStream output = new FileOutputStream(file);
 
 

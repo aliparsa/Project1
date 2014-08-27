@@ -1,6 +1,7 @@
 package com.pga.project1.DataModel;
 
 import com.pga.project1.Intefaces.PathMapObject;
+import com.pga.project1.Utilities.JsonHelper;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -92,8 +93,8 @@ public class Chart implements PathMapObject, Serializable {
                 String root_id = jsonObject.getString("root_id");
                 String work_unit = jsonObject.getString("work_unit");
 
-                int auto_percent = jsonObject.getInt("auto_percent");
-                int hand_percent = jsonObject.getInt("hand_percent");
+                int auto_percent = JsonHelper.getIntS(jsonObject, "auto_percent", 0);
+                int hand_percent = JsonHelper.getIntS(jsonObject, "hand_percent", 0);
 
 
                 Chart chartItem = new Chart(

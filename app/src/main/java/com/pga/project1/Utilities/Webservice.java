@@ -39,6 +39,8 @@ public class Webservice {
     public static void getProjects(Context context, final CallBack<ArrayList<Chart>> callBack) {
 
         HttpHelper helper = new HttpHelper(context, SHAYAN_SERVER_ADDRESS, false, 0);
+        //HttpHelper helper = new HttpHelper(context, SERVER_ADDRESS, false, 0);
+
 
         BasicNameValuePair[] arr = {
                 new BasicNameValuePair("tag", "get_projects")
@@ -83,6 +85,7 @@ public class Webservice {
     public static void GetChildOfID(Context context, final int id, final CallBack callBack) {
 
         HttpHelper helper = new HttpHelper(context, SHAYAN_SERVER_ADDRESS, false, 0);
+        //HttpHelper helper = new HttpHelper(context, SERVER_ADDRESS, false, 0);
 
         BasicNameValuePair[] arr = {
                 new BasicNameValuePair("tag", "get_child_of_id"),
@@ -129,6 +132,7 @@ public class Webservice {
 
 
         HttpHelper helper = new HttpHelper(context, SHAYAN_SERVER_ADDRESS, false, 0);
+        //HttpHelper helper = new HttpHelper(context, SERVER_ADDRESS, false, 0);
 
         BasicNameValuePair[] arr = {
                 new BasicNameValuePair("tag", "login"),
@@ -183,42 +187,43 @@ public class Webservice {
     }
 
     //-------------------------------------------------------------------------------
-    public static void getFeatureById(Context context, int id, final CallBack callback) {
-
-        HttpHelper helper = new HttpHelper(context, SHAYAN_SERVER_ADDRESS, false, 0);
-
-        BasicNameValuePair[] arr = {
-                new BasicNameValuePair("tag", "get_chart_feature"),
-                new BasicNameValuePair("id", id + "")
-        };
-
-        helper.postHttp(arr, new ResponseHandler() {
-            @Override
-            public void handleResponse(ServerResponse response) {
-
-                try {
-
-
-                    JSONArray jsonArray = new JSONArray(response.getResult());
-
-                    ArrayList<Feature> featureList = Feature.getArrayFromJson(jsonArray);
-                    callback.onSuccess(featureList);
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-
-            }
-
-            @Override
-            public void error(ErrorMessage err) {
-
-            }
-        });
-    }
+//    public static void getFeatureById(Context context, int id, final CallBack callback) {
+//
+//// HttpHelper helper = new HttpHelper(context, SHAYAN_SERVER_ADDRESS, false, 0);
+//        HttpHelper helper = new HttpHelper(context, SERVER_ADDRESS, false, 0);
+//
+//        BasicNameValuePair[] arr = {
+//                new BasicNameValuePair("tag", "get_chart_feature"),
+//                new BasicNameValuePair("id", id + "")
+//        };
+//
+//        helper.postHttp(arr, new ResponseHandler() {
+//            @Override
+//            public void handleResponse(ServerResponse response) {
+//
+//                try {
+//
+//
+//                    JSONArray jsonArray = new JSONArray(response.getResult());
+//
+//                    ArrayList<Feature> featureList = Feature.getArrayFromJson(jsonArray);
+//                    callback.onSuccess(featureList);
+//
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//
+//
+//            }
+//
+//            @Override
+//            public void error(ErrorMessage err) {
+//
+//            }
+//        });
+//    }
 
     //-------------------------------------------------------------------------------
     public static void getTaskListByWorkId(Context context, final int id, final CallBack callBack) {

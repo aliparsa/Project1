@@ -59,21 +59,22 @@ public class FragmentWorkInfo extends Fragment {
         MainLinearLayout.addView(new ViewNameValue(getActivity(), "وضعیت", chart.getStatus()));
         MainLinearLayout.addView(new ViewNameValue(getActivity(), "واحد کار", chart.getWork_unit()));
 
-        Webservice.getFeatureById(getActivity(), chart.getId(), new CallBack<ArrayList<Feature>>() {
-            @Override
-            public void onSuccess(ArrayList<Feature> featureList) {
-                chart.setFeatureList(featureList);
 
+//        Webservice.getFeatureById(getActivity(), chart.getId(), new CallBack<ArrayList<Feature>>() {
+//            @Override
+//            public void onSuccess(ArrayList<Feature> featureList) {
+//                chart.setFeatureList(featureList);
+//
                 for (Feature fe : chart.getFeatureList()) {
                     MainLinearLayout.addView(new ViewNameValue(getActivity(), fe.getName(), fe.getValue()));
                 }
-            }
-
-            @Override
-            public void onError(String err) {
-                Toast.makeText(getActivity(), "Error 100", Toast.LENGTH_SHORT).show();
-            }
-        });
+//            }
+//
+//            @Override
+//            public void onError(String err) {
+//                Toast.makeText(getActivity(), "Error 100", Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
     }
 
