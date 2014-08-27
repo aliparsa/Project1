@@ -147,8 +147,8 @@
             android:visibility="gone"
             android:id="@+id/imgv_people_imag"
 
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:src="@drawable/personal"
             android:layout_gravity="center_vertical|right"
             />
@@ -180,8 +180,7 @@
                     android:layout_height="wrap_content"
 
                     android:text="Hello"
-                    android:textSize="25sp"
-                    android:textStyle="bold"
+                    android:textSize="20sp"
                     android:padding="3dp" />
 
                 <TextView
@@ -190,7 +189,7 @@
                     android:layout_height="wrap_content"
 
                     android:text="09171380449"
-                    android:textSize="15sp"
+                    android:textSize="10sp"
                     android:paddingStart="8dp"
                     android:padding="3dp" />
 
@@ -200,7 +199,7 @@
                     android:layout_height="wrap_content"
 
                     android:text="hello, how, are"
-                    android:textSize="14sp"
+                    android:textSize="9sp"
                     android:textColor="#ff8d8d8d"
                     android:padding="3dp" />
 
