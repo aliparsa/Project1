@@ -4,25 +4,27 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.pga.project1.DataModel.Chart;
 import com.pga.project1.DataModel.PathObject;
 import com.pga.project1.R;
 import com.pga.project1.Viewes.PathMapManager;
-import com.pga.project1.fragment.FragmentLogin;
 
-import com.pga.project1.fragment.FragmentNewTaskReport;
 
 import com.pga.project1.fragment.FragmentProjectTreeView;
-import com.pga.project1.fragment.FragmentSplash;
-import com.pga.project1.fragment.FragmentTaskPage;
 import com.pga.project1.fragment.NavigationDrawerFragment;
+
+import java.util.zip.Inflater;
 
 
 public class MainActivity extends Activity
@@ -43,6 +45,7 @@ public class MainActivity extends Activity
     private Fragment currentFragment;
     private boolean TwiceBackPressed = false;
 
+
     //----------------------------------------------------------------------------------------
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,14 +62,47 @@ public class MainActivity extends Activity
                 (DrawerLayout) findViewById(R.id.drawer_layout));
 
 
-        this.getFragmentManager().addOnBackStackChangedListener(new BackStackChanged(this));
+        //  this.getFragmentManager().addOnBackStackChangedListener(new BackStackChanged(this));
 
 
-        Fragment frag = new FragmentSplash();
-        FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.container, frag)
-                .commit();
+//        Fragment frag = new FragmentSplash();
+//        FragmentManager fragmentManager = getFragmentManager();
+//        fragmentManager.beginTransaction()
+//                .replace(R.id.container, frag)
+//                .commit();
+        //ShowLoginFragment("Main Activity");
+//
+//        if (savedInstanceState==null)
+//            ShowTreeFragmnet("");
+
+        View customActionBar = getLayoutInflater().inflate(R.layout.custom_action_bar, null);
+        final ActionBar actionBar = getActionBar();
+        actionBar.setDisplayShowHomeEnabled(false);
+        actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setDisplayShowCustomEnabled(true);
+        getActionBar().setCustomView(customActionBar);
+
+        prepareActionbar(customActionBar);
+
+        Intent intent = new Intent(this, TreeViewActivity.class);
+        startActivity(intent);
+
+
+
+    }
+
+    private void prepareActionbar(View customActionBar) {
+        ImageButton r1 = (ImageButton) customActionBar.findViewById(R.id.r1);
+        Button btn = (Button) customActionBar.findViewById(R.id.button);
+
+        r1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mNavigationDrawerFragment.toggleNavigationDrawer();
+            }
+        });
+
+        btn.setText("مدیریت پروژه");
 
 
     }
@@ -101,25 +137,25 @@ public class MainActivity extends Activity
         //actionBar.setTitle(mTitle);
     }
 
-    //----------------------------------------------------------------------------------------
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        if (!mNavigationDrawerFragment.isDrawerOpen()) {
-            // Only show items in the action bar relevant to this screen
-            // if the drawer is not showing. Otherwise, let the drawer
-            // decide what to show in the action bar.
-            getMenuInflater().inflate(R.menu.main, menu);
-            this.menu = menu;
-            restoreActionBar();
-            return true;
-        }
-
-
-        changeMenuIcons(true, false, "main act onCreateOptionsMenu");
-
-
-        return false;
-    }
+//    //----------------------------------------------------------------------------------------
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        if (!mNavigationDrawerFragment.isDrawerOpen()) {
+//            // Only show items in the action bar relevant to this screen
+//            // if the drawer is not showing. Otherwise, let the drawer
+//            // decide what to show in the action bar.
+//            getMenuInflater().inflate(R.menu.main, menu);
+//            this.menu = menu;
+//            restoreActionBar();
+//            return true;
+////        }
+//
+//
+//        changeMenuIcons(true, false, "main act onCreateOptionsMenu");
+//
+//
+//        return false;
+//    }
 
     //----------------------------------------------------------------------------------------
     @Override
@@ -161,7 +197,7 @@ public class MainActivity extends Activity
 
         // Call ProjectTree View Fraqgment
         Fragment frag = new FragmentProjectTreeView();
-        replaceFragment(frag, false);
+        replaceFragment(frag, "FragmentProjectTreeView", false);
 
 
     }
@@ -176,7 +212,7 @@ public class MainActivity extends Activity
         // Call ProjectTree View Fraqgment
         Fragment frag = new FragmentProjectTreeView();
         ((FragmentProjectTreeView) frag).setChart(chart);
-        replaceFragment(frag, true);
+        replaceFragment(frag, "FragmentProjectTreeView", true);
 
         PathMapManager.push(chart);
     }
@@ -202,24 +238,24 @@ public class MainActivity extends Activity
 //    }
 
     //---------------------------------------------------------------------------------------
-    public void ShowLoginFragment(String CallerFragment) {
-
-        // hide Tabs if Exist
-        hideTabs();
-
-        Fragment frag = new FragmentLogin();
-        replaceFragment(frag, false);
-    }
+//    public void ShowLoginFragment(String CallerFragment) {
+//
+//        // hide Tabs if Exist
+//        hideTabs();
+//
+//        Fragment frag = new FragmentLogin();
+//        replaceFragment(frag, false);
+//    }
 
     //-------------------------------------------------------------------------------------
-    public void changeMenuIcons(boolean navigation, boolean back, String caller) {
-
-        if (menu.findItem(R.id.action_navi) != null)
-            menu.findItem(R.id.action_navi).setVisible(navigation); // getItem(R.id.action_navi).setVisible(navigation);
-
-        if (menu.findItem(R.id.action_back) != null)
-            menu.findItem(R.id.action_back).setVisible(back);
-    }
+//    public void changeMenuIcons(boolean navigation, boolean back, String caller) {
+//
+//        if (menu.findItem(R.id.action_navi) != null)
+//            menu.findItem(R.id.action_navi).setVisible(navigation); // getItem(R.id.action_navi).setVisible(navigation);
+//
+//        if (menu.findItem(R.id.action_back) != null)
+//            menu.findItem(R.id.action_back).setVisible(back);
+//    }
 
     //-------------------------------------------------------------------------------------
     @Override
@@ -266,21 +302,21 @@ public class MainActivity extends Activity
     }
 
     //-------------------------------------------------------------------------------------
-    public void replaceFragment(Fragment frag, boolean addToBackStack) {
+    public void replaceFragment(Fragment frag, String tag, boolean addToBackStack) {
 
         if (addToBackStack) {  // add to back stack or not
 
             if (currentFragment != null) {
                 getFragmentManager().beginTransaction()
-                        .detach(currentFragment)
-                        .add(R.id.container, frag)
+                        //  .detach(currentFragment)
+                        .replace(R.id.container, frag, tag)
                         .addToBackStack(null)
                         .commit();
             }
 
             if (currentFragment == null) {
                 getFragmentManager().beginTransaction()
-                        .add(R.id.container, frag)
+                        .add(R.id.container, frag, tag)
                         .addToBackStack(null)
                         .commit();
             }
@@ -288,135 +324,19 @@ public class MainActivity extends Activity
         } else {
             if (currentFragment != null) {
                 getFragmentManager().beginTransaction()
-                        .detach(currentFragment)
-                        .add(R.id.container, frag)
+                        // .detach(currentFragment)
+                        .replace(R.id.container, frag, tag)
                         .commit();
             }
 
             if (currentFragment == null) {
                 getFragmentManager().beginTransaction()
-                        .add(R.id.container, frag)
+                        .add(R.id.container, frag, tag)
                         .commit();
             }
         }
         currentFragment = frag;
     }
-
-    //-------------------------------------------------------------------------------------
-//    public void ShowNewReportFragment(final Chart chart, int reportType) {
-//
-//        // hide Tabs if Exist
-//        hideTabs();
-//
-//        final Context self = this;
-//
-//        CallBack callback = new CallBack() {
-//
-//            @Override
-//            public void onSuccess(Object result) {
-//                FragmentWork frag = new FragmentWork();
-//                frag.setChart(chart);
-//                frag.setActiveTab(FragmentWork.TabReport);
-//                replaceFragment(frag, true);
-//                PathMapManager.pop("M A   O S   ShowNewReportFragment");
-//            }
-//
-//            @Override
-//            public void onError(ErrorMessage err) {
-//                FragmentWork frag = new FragmentWork();
-//                frag.setChart(chart);
-//                frag.setActiveTab(FragmentWork.TabReport);
-//                replaceFragment(frag, false);
-//                Toast.makeText(self, "no report added", Toast.LENGTH_SHORT).show();
-//
-//            }
-//        };
-//
-//
-//        Fragment frag = new FragmentNewReport();
-//        ((FragmentNewReport) frag).setChart(chart);
-//        ((FragmentNewReport) frag).setCallback(callback);
-//        ((FragmentNewReport) frag).setReportType(reportType);
-//        replaceFragment(frag, true);
-//        PathMapManager.push(new PathObject("ثبت پیشرفت کار"));
-//    }
-
-    //-------------------------------------------------------------------------------------
-    public void ShowNewTaskReportFragment(final Chart chart) {
-
-        // hide Tabs if Exist
-        hideTabs();
-
-        FragmentNewTaskReport frag = new FragmentNewTaskReport();
-        frag.setChart(chart);
-        replaceFragment(frag, true);
-        PathMapManager.push(new PathObject("ثبت پیشرفت پرسنل"));
-    }
-
-    //-------------------------------------------------------------------------------------
-    public void ShowTaskInfoFragment(Chart chart) {
-        FragmentTaskPage frag = FragmentTaskPage.getInstanceInfo();
-        ((FragmentTaskPage) frag).setChart(chart);
-        replaceFragment(frag, true);
-    }
-
-    //-------------------------------------------------------------------------------------
-    public void ShowTaskReportsFragment(Chart chart) {
-        FragmentTaskPage frag = FragmentTaskPage.getInstanceReports();
-        ((FragmentTaskPage) frag).setChart(chart);
-        replaceFragment(frag, true);
-    }
-
-    //-------------------------------------------------------------------------------------
-    public void ShowTaskPageFragment(Chart chart) {
-        FragmentTaskPage frag = FragmentTaskPage.getInstanceInfo();
-        ((FragmentTaskPage) frag).setChart(chart);
-        replaceFragment(frag, true);
-
-        PathMapManager.push(chart);
-    }
-
-    //-------------------------------------------------------------------------------------
-//    public void ShowPersonnelSearch(final Chart chart) {
-//
-//        // hide Tabs if Exist
-//        hideTabs();
-//
-//        FragmentPersonnelSearch frag = new FragmentPersonnelSearch();
-//
-//        final Context self = this;
-//
-//        CallBack<Personnel> callback = new CallBack<Personnel>() {
-//            @Override
-//            public void onSuccess(Personnel result) {
-//
-//                FragmentWork frag = new FragmentWork();
-//                frag.setChart(chart);
-//                frag.setPersonnel(result);
-//                frag.setActiveTab(FragmentWork.TabPersonnel);
-//
-//                replaceFragment(frag, true);
-//                PathMapManager.pop(" M A O S ShowPersonelSearch");
-//            }
-//
-//            @Override
-//            public void onError(ErrorMessage err) {
-//
-//                FragmentWork frag = new FragmentWork();
-//                frag.setChart(chart);
-//                frag.setActiveTab(FragmentWork.TabPersonnel);
-//
-//                replaceFragment(frag, false);
-//                Toast.makeText(self, "no personnel selected", Toast.LENGTH_SHORT).show();
-//
-//            }
-//        };
-//
-//        frag.setCallback(callback);
-//        replaceFragment(frag, true);
-//        PathMapManager.push(new PathObject("انتخاب پرسنل"));
-//
-//    }
 
     //-------------------------------------------------------------------------------------
     public static class BackStackChanged implements FragmentManager.OnBackStackChangedListener {
@@ -439,16 +359,15 @@ public class MainActivity extends Activity
 //            }
 
             if (currentStackSize > 0) {
-                ((MainActivity) activity).changeMenuIcons(false, true, "backstack > 0");
+                //((MainActivity) activity).changeMenuIcons(false, true, "backstack > 0");
             } else {
-                ((MainActivity) activity).changeMenuIcons(true, false, "backstack <= 0");
+                //((MainActivity) activity).changeMenuIcons(true, false, "backstack <= 0");
             }
 
             lastSize = currentStackSize;
         }
     }
     //-------------------------------------------------------------------------------------
-
     //-------------------------------------------------------------------------------------//-------------------------------------------------------------------------------------
     //-------------------------------------------------------------------------------------
     //-------------------------------------------------------------------------------------

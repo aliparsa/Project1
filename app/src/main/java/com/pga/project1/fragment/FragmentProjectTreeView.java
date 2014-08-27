@@ -50,6 +50,7 @@ public class FragmentProjectTreeView extends Fragment {
         View view = inflater.inflate(R.layout.fragment_layout_project_tree_view, container,
                 false);
 
+
         lv = (ListView) view.findViewById(R.id.lv_fragmentProjectTreeView_treeView);
 
         final FragmentProjectTreeView self = this;

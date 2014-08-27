@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.ThumbnailUtils;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,24 +30,32 @@ public class ActivityShowImage extends Activity {
         setContentView(R.layout.activity_activity_show_image);
 
 
-        String[] imagePaths = getIntent().getStringArrayExtra("images");
-        images = new Bitmap[imagePaths.length];
-        for (int i = 0; i < imagePaths.length; i++) {
+//        String[] imagePaths = getIntent().getStringArrayExtra("images");
+//        images = new Bitmap[imagePaths.length];
+//        for (int i = 0; i < imagePaths.length; i++) {
+//
+//            File imgFile = new File(imagePaths[i]);
+//            if (imgFile.exists()) {
+//                Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+//                images[i] = myBitmap;
+//            }
+//        }
 
-            File imgFile = new File(imagePaths[i]);
-            if (imgFile.exists()) {
-                Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
-                images[i] = myBitmap;
-            }
-        }
+//        imagePath = getIntent().getStringExtra("image");
 
-        imagePath = getIntent().getStringExtra("image");
+        String imagePath = getIntent().getStringExtra("image");
         imv = (ImageView) findViewById(R.id.ImageView_show_Image);
+        File imgFile = new File(imagePath);
+        if (imgFile.exists()) {
+                Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+//               Bitmap ThumbImage = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(imagePath),300,300 );
+            imv.setImageBitmap(myBitmap);
+            }
 
-        Gallery gallery = (Gallery) findViewById(R.id.gallery_show);
+        //Gallery gallery = (Gallery) findViewById(R.id.gallery_show);
 
-        gallery.setSpacing(1);
-        gallery.setAdapter(new GalleryImageAdapter(this, imv, images));
+//        gallery.setSpacing(1);
+//        gallery.setAdapter(new GalleryImageAdapter(this, imv, images));
 
     }
 
@@ -70,39 +79,40 @@ public class ActivityShowImage extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    private class GalleryImageAdapter extends BaseAdapter {
-
-        private final ImageView imv;
-        private final Bitmap[] images;
-        private Integer[] mImageIds;
-
-        public GalleryImageAdapter(Context context, ImageView imv, Bitmap[] images)
-        {
-            Context mContext = context;
-            this.imv = imv;
-            this.images = images;
-        }
-
-        public int getCount() {
-            return mImageIds.length;
-        }
-
-        public Object getItem(int position) {
-            return position;
-        }
-
-        public long getItemId(int position) {
-            return position;
-        }
-
-
-        // Override this method according to your need
-        public View getView(int index, View view, ViewGroup viewGroup)
-        {
-            // TODO Auto-generated method stub
-            imv.setImageBitmap(images[index]);
-
-            return imv;
-        }
-    }
+//    private class GalleryImageAdapter extends BaseAdapter {
+//
+//        private final ImageView imv;
+//        private final Bitmap[] images;
+//
+//
+//
+//        public GalleryImageAdapter(Context context, ImageView imv, Bitmap[] images)
+//        {
+//            Context mContext = context;
+//            this.imv = imv;
+//            this.images = images;
+//        }
+//
+//        public int getCount() {
+//            return images.length;
+//        }
+//
+//        public Object getItem(int position) {
+//            return position;
+//        }
+//
+//        public long getItemId(int position) {
+//            return position;
+//        }
+//
+//
+//        // Override this method according to your need
+//        public View getView(int index, View view, ViewGroup viewGroup)
+//        {
+//            // TODO Auto-generated method stub
+//            imv.setImageBitmap(images[index]);
+//
+//            return imv;
+//        }
+//    }
 }
