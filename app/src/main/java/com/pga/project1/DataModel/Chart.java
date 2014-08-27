@@ -20,22 +20,24 @@ public class Chart implements PathMapObject, Serializable {
     private String start_date;
     private String end_date;
     private String allow_delay;
-    private String estimated_start;
-    private String estimated_end;
+    //    private String estimated_start;
+//    private String estimated_end;
     private String status;
     private String price;
     private String is_pay;
     private String root_id;
     private String work_unit;
+    private int auto_percent;
+    private int hand_percent;
     private ArrayList<Feature> featureList;
-    private int percent;
+    // private int percent;
 
 
 
     private Personnel personnel;
 
 
-    public Chart(int id, int type_id, String name, String start_date, String end_date, Personnel personnel, String allow_delay, String estimated_start, String estimated_end, String status, String price, String is_pay, String root_id, String work_unit, int percent) {
+    public Chart(int id, int type_id, String name, String start_date, String end_date, Personnel personnel, String allow_delay, String status, String price, String is_pay, String root_id, String work_unit, int auto_percent, int hand_percent, ArrayList<Feature> featureList) {
         this.id = id;
         this.type_id = type_id;
         this.name = name;
@@ -43,14 +45,16 @@ public class Chart implements PathMapObject, Serializable {
         this.end_date = end_date;
         this.personnel = personnel;
         this.allow_delay = allow_delay;
-        this.estimated_start = estimated_start;
-        this.estimated_end = estimated_end;
+//        this.estimated_start = estimated_start;
+//        this.estimated_end = estimated_end;
         this.status = status;
         this.price = price;
         this.is_pay = is_pay;
         this.root_id = root_id;
         this.work_unit = work_unit;
-        this.percent = percent;
+        this.auto_percent = auto_percent;
+        this.hand_percent = hand_percent;
+        this.featureList = featureList;
     }
 
 
@@ -76,15 +80,21 @@ public class Chart implements PathMapObject, Serializable {
                 JSONObject personnelJson = jsonObject.getJSONObject("personnel");
                 Personnel personnel = Personnel.getPersonnelFromJson(personnelJson);
 
+                JSONArray featureJson = jsonObject.getJSONArray("features");
+                ArrayList<Feature> featureList = Feature.getArrayFromJson(featureJson);
+
                 String allow_delay = jsonObject.getString("allow_delay");
-                String estimated_start = jsonObject.getString("estimated_start");
-                String estimated_end = jsonObject.getString("estimated_end");
+//                String estimated_start = jsonObject.getString("estimated_start");
+//                String estimated_end = jsonObject.getString("estimated_end");
                 String status = jsonObject.getString("status");
                 String price = jsonObject.getString("price");
                 String is_pay = jsonObject.getString("is_pay");
                 String root_id = jsonObject.getString("root_id");
                 String work_unit = jsonObject.getString("work_unit");
-                int percent = jsonObject.getInt("percent");
+
+                int auto_percent = jsonObject.getInt("auto_percent");
+                int hand_percent = jsonObject.getInt("hand_percent");
+
 
                 Chart chartItem = new Chart(
                         id,
@@ -94,14 +104,14 @@ public class Chart implements PathMapObject, Serializable {
                         end_date,
                         personnel,
                         allow_delay,
-                        estimated_start,
-                        estimated_end,
                         status,
                         price,
                         is_pay,
                         root_id,
                         work_unit,
-                        percent
+                        auto_percent,
+                        hand_percent,
+                        featureList
                 );
 
                 itemlist.add(chartItem);
@@ -162,13 +172,13 @@ public class Chart implements PathMapObject, Serializable {
         return allow_delay;
     }
 
-    public String getEstimated_start() {
-        return estimated_start;
-    }
+//    public String getEstimated_start() {
+//        return estimated_start;
+//    }
 
-    public String getEstimated_end() {
-        return estimated_end;
-    }
+//    public String getEstimated_end() {
+//        return estimated_end;
+//    }
 
     public String getStatus() {
         return status;
@@ -198,13 +208,13 @@ public class Chart implements PathMapObject, Serializable {
         this.featureList = featureList;
     }
 
-    public int getPercent() {
-        return percent;
-    }
-
-    public void setPercent(int percent) {
-        this.percent = percent;
-    }
+//    public int getPercent() {
+//        return percent;
+//    }
+//
+//    public void setPercent(int percent) {
+//        this.percent = percent;
+//    }
 
     public Personnel getPersonnel() {
         return personnel;
@@ -212,6 +222,22 @@ public class Chart implements PathMapObject, Serializable {
 
     public void setPersonnel(Personnel personnel) {
         this.personnel = personnel;
+    }
+
+    public int getAuto_percent() {
+        return auto_percent;
+    }
+
+    public void setAuto_percent(int auto_percent) {
+        this.auto_percent = auto_percent;
+    }
+
+    public int getHand_percent() {
+        return hand_percent;
+    }
+
+    public void setHand_percent(int hand_percent) {
+        this.hand_percent = hand_percent;
     }
 }
 

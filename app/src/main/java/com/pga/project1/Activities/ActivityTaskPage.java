@@ -116,10 +116,10 @@ public class ActivityTaskPage extends Activity {
 
             return true;
         }
-        if(item.getItemId() == R.id.action_removeTask){
+        if (item.getItemId() == R.id.action_removeTask) {
 
             AlertDialog.Builder builder = new AlertDialog.Builder(this)
-                    .setTitle("آیا " + chart.getPersonnel().getFullName() + " از "+this.chart.getName() + " حذف شود؟")
+                    .setTitle("آیا " + chart.getPersonnel().getFullName() + " از " + this.chart.getName() + " حذف شود؟")
                     .setPositiveButton("بله", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
@@ -150,7 +150,7 @@ public class ActivityTaskPage extends Activity {
             }
 
             @Override
-            public void onError(ErrorMessage err) {
+            public void onError(String err) {
 
             }
         });

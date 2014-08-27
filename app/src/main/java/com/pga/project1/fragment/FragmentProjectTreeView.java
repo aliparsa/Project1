@@ -82,7 +82,7 @@ public class FragmentProjectTreeView extends Fragment {
                 }
 
                 @Override
-                public void onError(ErrorMessage err) {
+                public void onError(String err) {
                     //TODO Show Error
                     Toast.makeText(getActivity(), "Error 101", Toast.LENGTH_SHORT).show();
                     //Toast toast = Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT);
@@ -117,7 +117,7 @@ public class FragmentProjectTreeView extends Fragment {
                 }
 
                 @Override
-                public void onError(ErrorMessage err) {
+                public void onError(String err) {
                     Toast.makeText(getActivity(), "Error 102", Toast.LENGTH_SHORT).show();
                 }
 

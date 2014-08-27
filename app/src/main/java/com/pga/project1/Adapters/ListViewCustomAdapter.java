@@ -118,7 +118,6 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
         lv.setVisibility(LinearLayout.VISIBLE);
     }
 
-
     public void getIconTitleSubtitle(DrawerItemHolder holder, AdapterInputType item) {
 
         if (holder.icon == null)
@@ -149,10 +148,10 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
 
         if (item.getTag() != null && item.getTag() instanceof Chart) {
 
-            holder.progressBar.setProgress((((Chart) item.getTag()).getPercent()));
-            holder.percent.setText((((Chart) item.getTag()).getPercent()) + " % ");
+            holder.progressBar.setProgress((((Chart) item.getTag()).getHand_percent()));
+            holder.percent.setText((((Chart) item.getTag()).getHand_percent()) + " % ");
             holder.graphview.showAnimation = item.isFirstTimeItemShowed;
-            holder.graphview.setPercent(((Chart) item.getTag()).getPercent());
+            holder.graphview.setPercent(((Chart) item.getTag()).getHand_percent());
             item.isFirstTimeItemShowed = false;
 
 

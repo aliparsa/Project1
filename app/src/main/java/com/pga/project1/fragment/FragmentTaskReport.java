@@ -99,7 +99,7 @@ public class FragmentTaskReport extends Fragment {
             }
 
             @Override
-            public void onError(ErrorMessage err) {
+            public void onError(String err) {
                 Toast.makeText(getActivity(), "Error 109", Toast.LENGTH_SHORT).show();
             }
         });

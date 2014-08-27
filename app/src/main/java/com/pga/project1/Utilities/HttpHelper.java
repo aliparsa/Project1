@@ -111,6 +111,12 @@ public class HttpHelper {
                                     HttpStatusCode.get(response.getStatusLine().getStatusCode()));
 
                             return result;
+                        } else if (response.getStatusLine().getStatusCode() == HttpStatusCode.SC_UNAUTHORIZED.getCode()) {
+
+                            ServerResponse result = new ServerResponse("", EntityUtils.toString(response.getEntity(), HTTP.UTF_8),
+                                    HttpStatusCode.get(response.getStatusLine().getStatusCode()));
+
+                            return result;
                         }
 
 

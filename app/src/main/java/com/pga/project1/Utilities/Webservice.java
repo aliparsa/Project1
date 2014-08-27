@@ -38,7 +38,7 @@ public class Webservice {
     //-----------------------------------------------------------------------------
     public static void getProjects(Context context, final CallBack<ArrayList<Chart>> callBack) {
 
-        HttpHelper helper = new HttpHelper(context, SERVER_ADDRESS, false, 0);
+        HttpHelper helper = new HttpHelper(context, SHAYAN_SERVER_ADDRESS, false, 0);
 
         BasicNameValuePair[] arr = {
                 new BasicNameValuePair("tag", "get_projects")
@@ -49,10 +49,22 @@ public class Webservice {
 
                 try {
 
-                    JSONArray jsonArray = new JSONArray(response.getResult());
 
-                    ArrayList<Chart> chartList = Chart.getArrayFromJson(jsonArray);
-                    callBack.onSuccess(chartList);
+                    switch (response.getStatusCode()) {
+                        case SC_UNAUTHORIZED: {
+                            callBack.onError("UNAUTHORIZED");
+                            break;
+                        }
+                        case SC_OK: {
+                            JSONArray jsonArray = new JSONArray(response.getResult());
+                            ArrayList<Chart> chartList = Chart.getArrayFromJson(jsonArray);
+                            callBack.onSuccess(chartList);
+                            break;
+                        }
+
+
+                    }
+
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -70,10 +82,11 @@ public class Webservice {
     //-----------------------------------------------------------------------------
     public static void GetChildOfID(Context context, final int id, final CallBack callBack) {
 
-        HttpHelper helper = new HttpHelper(context, SERVER_ADDRESS, false, 0);
+        HttpHelper helper = new HttpHelper(context, SHAYAN_SERVER_ADDRESS, false, 0);
 
         BasicNameValuePair[] arr = {
-                new BasicNameValuePair("tag", "get_projects")
+                new BasicNameValuePair("tag", "get_child_of_id"),
+                new BasicNameValuePair("id", id + "")
         };
         helper.postHttp(arr, new ResponseHandler() {
             @Override
@@ -82,10 +95,20 @@ public class Webservice {
                 try {
 
 
-                    JSONArray jsonArray = new JSONArray(response.getResult());
+                    switch (response.getStatusCode()) {
+                        case SC_UNAUTHORIZED: {
+                            callBack.onError("UNAUTHORIZED");
+                            break;
+                        }
+                        case SC_OK: {
+                            JSONArray jsonArray = new JSONArray(response.getResult());
+                            ArrayList<Chart> chartList = Chart.getArrayFromJson(jsonArray);
+                            callBack.onSuccess(chartList);
+                            break;
+                        }
 
-                    ArrayList<Chart> chartList = Chart.getArrayFromJson(jsonArray);
-                    callBack.onSuccess(chartList);
+
+                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -127,10 +150,10 @@ public class Webservice {
                             callback.onSuccess(jsonObject.get("token").toString());
                         } else if (jsonObject.get("result").equals("error")) {
 
-                            callback.onError(new ErrorMessage(ErrorPlaceHolder.err2));
+                            callback.onError("err7");
                         }
                     } else {
-                        callback.onError(new ErrorMessage(ErrorPlaceHolder.err2));
+                        callback.onError("err8");
                     }
 
 
@@ -140,12 +163,12 @@ public class Webservice {
                 } catch (JSONException e) {
                     e.printStackTrace();
 
-                    callback.onError(new ErrorMessage(ErrorPlaceHolder.err2));
+                    callback.onError("err9");
 
                 } catch (Exception e) {
                     e.printStackTrace();
 
-                    callback.onError(new ErrorMessage(ErrorPlaceHolder.err2));
+                    callback.onError("err10");
                 }
 
 
@@ -153,7 +176,7 @@ public class Webservice {
 
             @Override
             public void error(ErrorMessage err) {
-                callback.onError(new ErrorMessage(ErrorPlaceHolder.err2));
+                callback.onError("err11");
             }
         });
 
@@ -162,10 +185,10 @@ public class Webservice {
     //-------------------------------------------------------------------------------
     public static void getFeatureById(Context context, int id, final CallBack callback) {
 
-        HttpHelper helper = new HttpHelper(context, SERVER_ADDRESS, false, 0);
+        HttpHelper helper = new HttpHelper(context, SHAYAN_SERVER_ADDRESS, false, 0);
 
         BasicNameValuePair[] arr = {
-                new BasicNameValuePair("tag", "get_feature"),
+                new BasicNameValuePair("tag", "get_chart_feature"),
                 new BasicNameValuePair("id", id + "")
         };
 
@@ -361,7 +384,7 @@ public class Webservice {
                 }
 
                 @Override
-                public void onError(ErrorMessage err) {
+                public void onError(String err) {
 
                 }
             });
@@ -491,7 +514,7 @@ public class Webservice {
             @Override
             public void error(ErrorMessage err) {
                 Log.e("ali", " webservice / saveWorkReport ");
-                callBack.onError(new ErrorMessage(ErrorPlaceHolder.err2));
+                callBack.onError("err12");
             }
         });
 

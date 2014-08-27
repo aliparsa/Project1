@@ -10,7 +10,7 @@ public interface CallBack<T> {
 
     public void onSuccess(T result);
 
-    public void onError(ErrorMessage err);
+    public void onError(String errorMessage);
 
 
 }

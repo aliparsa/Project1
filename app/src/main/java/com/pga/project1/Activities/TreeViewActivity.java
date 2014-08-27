@@ -18,6 +18,7 @@ import com.pga.project1.DataModel.Chart;
 import com.pga.project1.Intefaces.CallBack;
 import com.pga.project1.R;
 import com.pga.project1.Structures.AdapterInputType;
+import com.pga.project1.Utilities.Account;
 import com.pga.project1.Utilities.ErrorMessage;
 import com.pga.project1.Utilities.Webservice;
 import com.pga.project1.Viewes.PathMapManager;
@@ -89,9 +90,20 @@ public class TreeViewActivity extends Activity {
             }
 
             @Override
-            public void onError(ErrorMessage err) {
+            public void onError(String err) {
                 //TODO Show Error
-                Toast.makeText(context, "Error 101", Toast.LENGTH_SHORT).show();
+                if (err.equals("UNAUTHORIZED")) {
+
+                    // clear token
+                    Account.getInstant(context).clearToken();
+
+                    // pass user to login page
+                    Intent intent = new Intent(context, LoginActivity.class);
+                    intent.putExtra("reason", "UNAUTHORIZED");
+                    startActivity(intent);
+                }
+
+                Toast.makeText(context, "Error 101 " + err, Toast.LENGTH_SHORT).show();
                 //Toast toast = Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT);
                 //toast.show();
             }
@@ -130,7 +142,7 @@ public class TreeViewActivity extends Activity {
             }
 
             @Override
-            public void onError(ErrorMessage err) {
+            public void onError(String err) {
                 Toast.makeText(context, "Error 102", Toast.LENGTH_SHORT).show();
             }
 
@@ -220,12 +232,17 @@ public class TreeViewActivity extends Activity {
             Toast.makeText(context, chart.getType_id() + "", Toast.LENGTH_LONG).show();
 
             switch (chart.getType_id()) {
-                case 0: // item is chart
+                case 3: // item is chart
                     // ((MainActivity) getActivity()).ShowTreeFragmnet(chart, "Project Tree View Fragment");
                     ((TreeViewActivity) context).loadTree(chart);
-
                     break;
-                case 1:       // item is work
+
+                case 5: // item is chart
+                    // ((MainActivity) getActivity()).ShowTreeFragmnet(chart, "Project Tree View Fragment");
+                    ((TreeViewActivity) context).loadTree(chart);
+                    break;
+
+                case 6:       // item is work
                     //((MainActivity) getActivity()).ShowWorkFragment(chart, "Project Tree View Fragment", true);
 
                     Intent intent = new Intent(context, ActivityWork.class);

@@ -108,7 +108,7 @@ public class LoginActivity extends Activity {
             }
 
             @Override
-            public void onError(ErrorMessage err) {
+            public void onError(String err) {
                 //Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT).show();
 
                 Animation animation = AnimationUtils.loadAnimation(context, R.anim.view_not_valid);

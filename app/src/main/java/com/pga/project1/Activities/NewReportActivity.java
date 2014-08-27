@@ -83,7 +83,7 @@ public class NewReportActivity extends Activity {
 
 
         // set pre percent value to edit text
-        selectedPercent = chart.getPercent();
+        selectedPercent = chart.getHand_percent();
         percent.setText(selectedPercent + " %");
         timePicker.setText(new PersianCalendar().getIranianDateTime());
 
@@ -328,7 +328,6 @@ public class NewReportActivity extends Activity {
         super.onActivityResult(requestCode, resultCode, data);
 
         ImageView temp_img = (ImageView) this.getLayoutInflater().inflate(R.layout.inf_image_frame, null);
-
 
 
         if (resultCode == Activity.RESULT_OK) {

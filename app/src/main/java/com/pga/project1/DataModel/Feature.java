@@ -1,5 +1,7 @@
 package com.pga.project1.DataModel;
 
+import com.pga.project1.Utilities.JsonHelper;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,6 +22,10 @@ public class Feature implements Serializable {
 
         this.name = name;
         this.value = value;
+
+    }
+
+    public Feature() {
 
     }
 
@@ -59,4 +65,6 @@ public class Feature implements Serializable {
     public void setValue(String value) {
         this.value = value;
     }
+
+
 }

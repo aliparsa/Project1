@@ -15,6 +15,8 @@ public class ServerResponse {
 
     private String header;
     private String result;
+
+
     private HttpStatusCode statusCode;
 
 
@@ -41,11 +43,15 @@ public class ServerResponse {
         return result;
     }
 
-    public void setResult(String result) {
+    public void setStatusCode(String result) {
         this.result = result;
     }
 
-    public int getResult_code() {
+    public HttpStatusCode getStatusCode() {
+        return statusCode;
+    }
+
+    public int getStatusCode_code() {
         return statusCode.getCode();
     }
 

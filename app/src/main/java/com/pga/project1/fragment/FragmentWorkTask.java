@@ -150,7 +150,7 @@ public class FragmentWorkTask extends Fragment {
             }
 
             @Override
-            public void onError(ErrorMessage err) {
+            public void onError(String err) {
                 //TODO KHATA DAR ERTEBAT INTERNETI
             }
         });
@@ -248,7 +248,7 @@ public class FragmentWorkTask extends Fragment {
                     }
 
                     @Override
-                    public void onError(ErrorMessage err) {
+                    public void onError(String err) {
                         pg.dismiss();
                         Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
                     }
@@ -302,7 +302,7 @@ public class FragmentWorkTask extends Fragment {
             }
 
             @Override
-            public void onError(ErrorMessage err) {
+            public void onError(String err) {
                 Toast.makeText(getActivity(), "Error 102", Toast.LENGTH_SHORT).show();
             }
         });

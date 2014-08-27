@@ -33,6 +33,7 @@ public class Account {
     }
 
     public void storeToken(String token) {
+        this.token = token;
         SharedPreferences app_preferences =
                 PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = app_preferences.edit();
@@ -60,10 +61,18 @@ public class Account {
         token = app_preferences.getString("token", null);
 
 
-        if (token == null)
+        if (token.length() < 1)
             return false;
         else
             return true;
 
+    }
+
+    public void clearToken() {
+        SharedPreferences app_preferences =
+                PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = app_preferences.edit();
+        editor.putString("token", "");
+        editor.commit();
     }
 }

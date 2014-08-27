@@ -97,22 +97,22 @@ public class AsyncGetChildById extends AsyncTask<String, String, Integer> {
                     break;
 
                 case 11:
-                    callBack.onError(new ErrorMessage(ErrorPlaceHolder.UnsupportedEncodingException));
+                    callBack.onError("err 1");
                     break;
 
                 case 12:
                     // callBack.onError("AsyncGetChildById > ClientProtocolException");
-                    callBack.onError(new ErrorMessage(ErrorPlaceHolder.UnsupportedEncodingException));
+                    callBack.onError("err 2");
                     break;
 
                 case 13:
                     // callBack.onError("AsyncGetChildById > IOException");
-                    callBack.onError(new ErrorMessage(ErrorPlaceHolder.UnsupportedEncodingException));
+                    callBack.onError("err 3");
                     break;
 
                 case 14:
                     //callBack.onError("AsyncGetChildById > JSONException");
-                    callBack.onError(new ErrorMessage(ErrorPlaceHolder.UnsupportedEncodingException));
+                    callBack.onError("err 4");
                     break;
 
 

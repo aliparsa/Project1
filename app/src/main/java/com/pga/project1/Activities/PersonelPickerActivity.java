@@ -109,7 +109,7 @@ public class PersonelPickerActivity extends Activity {
             }
 
             @Override
-            public void onError(ErrorMessage err) {
+            public void onError(String err) {
 
             }
         });
