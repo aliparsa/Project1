@@ -10,6 +10,7 @@ import com.pga.project1.DataModel.ServerResponse;
 import com.pga.project1.DataModel.Task;
 import com.pga.project1.DataModel.WorkUnit;
 import com.pga.project1.Intefaces.CallBack;
+import com.pga.project1.Intefaces.CallBackUpload;
 import com.pga.project1.Intefaces.ProgressCallBack;
 import com.pga.project1.Intefaces.ResponseHandler;
 import com.pga.project1.Structures.ErrorPlaceHolder;
@@ -20,6 +21,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by aliparsa on 8/9/2014.
@@ -372,60 +376,89 @@ public class Webservice {
     }
 
     //-------------------------------------------------------------------------------
-    public static void saveWorkReport(Context context, Report report, String[] imagePaths, final ProgressCallBack callBack) {
-        HttpHelper helper = new HttpHelper(context, SERVER_ADDRESS, false, 0);
+    public static void saveWorkReport(Context context, final Report report, final String[] imagePaths, final ProgressCallBack callBack) {
+        final HttpHelper helper = new HttpHelper(context, SERVER_ADDRESS, false, 0);
 
 
-        int i = 0;
-        if (imagePaths != null && imagePaths.length > 0) {
+        final String now = new Date().toString();
+        for (int i = 0; i < imagePaths.length; i++) {
 
-            String imgPath = imagePaths[i];
+            final String imagePath = imagePaths[i];
 
-            uploadFile(context, imgPath, new CallBack() {
+            uploadFile(context, imagePath, new CallBackUpload() {
+
                 @Override
-                public void onSuccess(Object result) {
-                    //i++;
+                public void onSuccess(Object result, String tag) {
+
+                    int uploaded = uploadHelper(tag);
+
+                    if(uploaded == imagePath.length())
+                    {
+                        sendMainRequest();
+                    }
+                }
+
+                void sendMainRequest(){
+                    BasicNameValuePair[] arr = {
+                            new BasicNameValuePair("tag", "save_work_report"),
+                            new BasicNameValuePair("chart_id", report.getChart().getId() + ""),
+                            new BasicNameValuePair("report_text", report.getReport() + ""),
+                            new BasicNameValuePair("report_percent", report.getPercent() + ""),
+                            new BasicNameValuePair("report_date", report.getDate() + "")
+
+                    };
+
+                    helper.postHttp(arr, new ResponseHandler() {
+                        @Override
+                        public void handleResponse(ServerResponse response) {
+
+                            try {
+
+                                JSONObject jsonObject = new JSONObject(response.getResult());
+
+                                callBack.onSuccess(response);
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+
+                        @Override
+                        public void error(String err) {
+                            Log.e("ali", " webservice / saveWorkReport ");
+                            callBack.onError(new ErrorMessage(ErrorPlaceHolder.err2));
+                        }
+                    });
                 }
 
                 @Override
-                public void onError(String err) {
-
+                public void onError(String errorMessage) {
+                    Log.e("ali", " webservice / saveWorkReport ");
+                    callBack.onError(new ErrorMessage(ErrorPlaceHolder.err2));
                 }
-            });
+
+            }, now);
         }
 
-        BasicNameValuePair[] arr = {
-                new BasicNameValuePair("tag", "save_work_report"),
-                new BasicNameValuePair("chart_id", report.getChart().getId() + ""),
-                new BasicNameValuePair("report_text", report.getReport() + ""),
-                new BasicNameValuePair("report_percent", report.getPercent() + ""),
-                new BasicNameValuePair("report_date", report.getDate() + "")
+    }
 
-        };
+    static Map<String, Integer> uploadCountMap = new HashMap<String, Integer>();
 
-        helper.postHttp(arr, new ResponseHandler() {
-            @Override
-            public void handleResponse(ServerResponse response) {
+    private static int uploadHelper(String tag) {
 
-                try {
+        int count = 1;
 
-                    JSONObject jsonObject = new JSONObject(response.getResult());
+        if(uploadCountMap.containsKey(tag)){
+            count = uploadCountMap.get(tag);
+            uploadCountMap.remove(tag);
+            count++;
+            uploadCountMap.put(tag, count);
+        }else{
+            uploadCountMap.put(tag, count);
+        }
 
-                    callBack.onSuccess(response);
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            }
-
-            @Override
-            public void error(String err) {
-                Log.e("ali", " webservice / saveWorkReport ");
-                callBack.onError(new ErrorMessage(ErrorPlaceHolder.err2));
-            }
-        });
-
+        return count;
     }
 
     //-------------------------------------------------------------------------------
@@ -496,7 +529,7 @@ public class Webservice {
     }
 
     //-------------------------------------------------------------------------------
-    public static void uploadFile(Context context, String filePath, final CallBack callBack) {
+    public static void uploadFile(Context context, String filePath, final CallBackUpload callBack, final String tag) {
         HttpHelper helper = new HttpHelper(context, SERVER_ADDRESS_UPLOAD, false, 0);
 
         helper.upload(filePath, new ResponseHandler() {
@@ -507,7 +540,7 @@ public class Webservice {
 
                     JSONObject jsonObject = new JSONObject(response.getResult());
 
-                    callBack.onSuccess(response);
+                    callBack.onSuccess(response, tag);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
