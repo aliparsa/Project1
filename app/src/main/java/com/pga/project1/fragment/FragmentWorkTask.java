@@ -40,7 +40,6 @@ import com.pga.project1.Utilities.Webservice;
 import com.pga.project1.Viewes.ViewDateTimePickerPersian;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -291,7 +290,7 @@ public class FragmentWorkTask extends Fragment {
             @Override
             public void onSuccess(ArrayList<Chart> taskList) {
 
-                List<AdapterInputType> itemList = new ArrayList<AdapterInputType>();
+                ArrayList<AdapterInputType> itemList = new ArrayList<AdapterInputType>();
                 for (Chart chart : taskList) {
                     itemList.add(new AdapterInputType(chart, "icon+title+subtitle", chart.getName(), chart.getStart_date(), BitmapFactory.decodeResource(getResources(),
                             R.drawable.ic_launcher)));

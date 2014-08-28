@@ -36,7 +36,7 @@ public class TreeViewActivity extends Activity {
     Chart chart;
 
 
-    Stack<ListViewCustomAdapter> stack = new Stack<ListViewCustomAdapter>();
+    Stack<List<AdapterInputType>> stack = new Stack<List<AdapterInputType>>();
     private ListViewCustomAdapter adapter;
     private PathMapManager pathManager;
 
@@ -120,7 +120,7 @@ public class TreeViewActivity extends Activity {
             @Override
             public void onSuccess(ArrayList<Chart> result) {
 
-                stack.push(adapter);
+                stack.push(adapter.itemList);
                 PathMapManager.push(chart);
 
                 pathManager = (PathMapManager) findViewById(R.id.pmm);
@@ -166,7 +166,9 @@ public class TreeViewActivity extends Activity {
 
     private void loadTreeFromStack() {
 
-        lv.setAdapter(stack.pop());
+        adapter = new ListViewCustomAdapter(context, R.layout.fragment_layout_project_tree_view, stack.pop());
+        lv.setAdapter(adapter);
+
         PathMapManager.pop("act tree view on loadTreeFromStack");
         pathManager.refresh();
     }
@@ -187,7 +189,7 @@ public class TreeViewActivity extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        stack.push(adapter);
+        stack.push(adapter.itemList);
     }
 
     //-----------------------------------------
