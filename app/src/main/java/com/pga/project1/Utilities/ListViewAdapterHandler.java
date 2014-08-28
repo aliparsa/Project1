@@ -9,7 +9,7 @@ import com.pga.project1.Structures.AdapterInputType;
 public class ListViewAdapterHandler {
 
 
-    public ListViewCustomAdapter checkAdapterForNoItem(ListViewCustomAdapter adapter, String title){
+    public static ListViewCustomAdapter checkAdapterForNoItem(ListViewCustomAdapter adapter){
 
         if(adapter.itemList.size() == 0){
 
