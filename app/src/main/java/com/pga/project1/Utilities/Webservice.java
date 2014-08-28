@@ -82,6 +82,7 @@ public class Webservice {
         });
     }
 
+    // TODO HANDELED
     //-----------------------------------------------------------------------------
     public static void GetChildOfID(Context context, final int id, final CallBack callBack) {
 
@@ -128,6 +129,7 @@ public class Webservice {
 
     }
 
+    // TODO HANDELED
     //------------------------------------------------------------------------
     public static void Login(Context context, String username, String password, final CallBack callback) {
 
@@ -258,6 +260,7 @@ public class Webservice {
 
     }
 
+    // TODO HANDELED
     //-------------------------------------------------------------------------------
     public static void searchPersonnel(Context context, String str, final CallBack<ArrayList<Personnel>> callBack) {
 
@@ -293,6 +296,7 @@ public class Webservice {
         });
     }
 
+    // TODO HANDELED
     // TODO WOROG ANSWER FROM SERVER
     //-------------------------------------------------------------------------------
     public static void getReportListByWorkId(Context context, int id, final CallBack callBack) {
@@ -329,6 +333,7 @@ public class Webservice {
 
     }
 
+    // TODO HANDELED
     //-------------------------------------------------------------------------------
     public static void addPersonnelToWork(Context context, int personnelId, int workId, Task task, final CallBack<ServerResponse> callBack) {
         HttpHelper helper = new HttpHelper(context, SERVER_ADDRESS, false, 0);
@@ -338,7 +343,7 @@ public class Webservice {
                 new BasicNameValuePair("personnel_id", personnelId + ""),
                 new BasicNameValuePair("chart_id", workId + ""),
                 new BasicNameValuePair("name", task.getName()),
-                new BasicNameValuePair("price", task.getPrice()),
+                new BasicNameValuePair("budget", task.getPrice()),
                 new BasicNameValuePair("start_date", task.getStart_date()),
                 new BasicNameValuePair("end_date", task.getEnd_date()),
                 new BasicNameValuePair("total_work", task.getKolKar()),
@@ -370,6 +375,7 @@ public class Webservice {
 
     }
 
+    // TODO HANDELED NOT TESTED
     //-------------------------------------------------------------------------------
     public static void saveWorkReport(Context context, Report report, String[] imagePaths, final ProgressCallBack callBack) {
         HttpHelper helper = new HttpHelper(context, SERVER_ADDRESS, false, 0);
@@ -427,12 +433,14 @@ public class Webservice {
 
     }
 
+    //TODO HANDEL BY ASHKAN
     //-------------------------------------------------------------------------------
     public static void getWorkUnitList(Context context, final CallBack<ArrayList<WorkUnit>> callBack) {
-        HttpHelper helper = new HttpHelper(context, SERVER_ADDRESS, false, 0);
+        //HttpHelper helper = new HttpHelper(context, SERVER_ADDRESS, false, 0);
+        HttpHelper helper = new HttpHelper(context, SHAYAN_SERVER_ADDRESS, false, 0);
 
         BasicNameValuePair[] arr = {
-                new BasicNameValuePair("tag", "work_unit")
+                new BasicNameValuePair("tag", "work_units")
         };
 
         helper.postHttp(arr, new ResponseHandler() {
@@ -468,7 +476,7 @@ public class Webservice {
 
         BasicNameValuePair[] arr = {
                 new BasicNameValuePair("tag", "remove_task"),
-                new BasicNameValuePair("task_id", task_id + ""),
+                new BasicNameValuePair("id", task_id + ""),
         };
         helper.postHttp(arr, new ResponseHandler() {
             @Override
@@ -494,6 +502,7 @@ public class Webservice {
 
     }
 
+    // TODO HANDELED
     //-------------------------------------------------------------------------------
     public static void uploadFile(Context context, String filePath, final CallBack callBack) {
         HttpHelper helper = new HttpHelper(context, SERVER_ADDRESS_UPLOAD, false, 0);

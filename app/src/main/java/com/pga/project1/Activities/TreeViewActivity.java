@@ -116,7 +116,6 @@ public class TreeViewActivity extends Activity {
     private void loadTree(final Chart chart) {
 
 
-
         Webservice.GetChildOfID(context, chart.getId(), new CallBack<ArrayList<Chart>>() {
             @Override
             public void onSuccess(ArrayList<Chart> result) {
@@ -188,7 +187,6 @@ public class TreeViewActivity extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
         stack.push(adapter);
     }
 

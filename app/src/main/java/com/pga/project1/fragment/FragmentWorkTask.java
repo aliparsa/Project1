@@ -139,18 +139,22 @@ public class FragmentWorkTask extends Fragment {
             @Override
             public void onSuccess(ArrayList<WorkUnit> result) {
 
-                String[] workunit = new String[result.size()];
+                String[] workUnit = new String[result.size()];
+                int[] workUnitId = new int[result.size()];
+
                 for (int i = 0; i < result.size(); i++) {
-                    workunit[i] = result.get(i).toString();
+                    workUnit[i] = result.get(i).toString();
+                    workUnitId[i] = result.get(i).getId();
                 }
 
-                spinner_noe_kar.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, workunit));
+                spinner_noe_kar.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, workUnit));
 
             }
 
             @Override
             public void onError(String err) {
                 //TODO KHATA DAR ERTEBAT INTERNETI
+
             }
         });
 
@@ -219,6 +223,7 @@ public class FragmentWorkTask extends Fragment {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 //TODO Store Report
+
 
                 Task task = new Task(task_name.getText().toString(),
                         task_price.getText().toString(),

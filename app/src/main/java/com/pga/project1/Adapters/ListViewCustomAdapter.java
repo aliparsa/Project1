@@ -31,7 +31,7 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
     public static String NOITEM_ITEM = "no item item";
     public List<AdapterInputType> itemList;
     Context context;
-    int layoutResID;
+    public int layoutResID;
     String IMAGE_DRAWER_ITEM = "image";
     String FOOTER = "footer";
 
@@ -74,7 +74,7 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
 
             Animation animation = AnimationUtils.loadAnimation(context, R.anim.slide_from_left);
             animation.setStartOffset(20 * (position + 1));
-            view.setAnimation(animation);
+            view.startAnimation(animation);
 
             lv_image = (LinearLayout) view.findViewById(R.id.lv_image);
             lv_icon_title_subtitle = (LinearLayout) view.findViewById(R.id.lv_icon_title_subtitle);
