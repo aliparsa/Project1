@@ -76,9 +76,14 @@ list of types that adapter can be handel
 
 
 
+    public AdapterInputType(String type) {
+        this.type = type;
+    }
+
     public AdapterInputType() {
 
     }
+
 
 
     /*public View getView(Context context, View convertView) {

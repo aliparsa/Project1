@@ -36,9 +36,9 @@
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="2dp"
             android:orientation="horizontal"
             android:padding="10dp"
-            android:layout_margin="2dp"
             android:visibility="visible">
 
             <RelativeLayout
@@ -54,49 +54,49 @@
                     android:src="@drawable/ic_launcher" />
 
                 <RelativeLayout
+                    android:id="@+id/relativeLayout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
-                    android:layout_alignParentTop="true"
-                    android:id="@+id/relativeLayout">
+                    android:layout_alignParentTop="true">
 
                     <view
+                        android:id="@+id/graph_view"
+                        class="com.pga.project1.Viewes.Graphview"
                         android:layout_width="70dp"
                         android:layout_height="70dp"
-                        class="com.pga.project1.Viewes.Graphview"
-                        app:background="#ffdbdbdb"
-                        app:color1="#ff9bccff"
-                        app:strokeColor="#ff759ac1"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
                         android:textColor="#ffae00ff"
                         app:animationSpeed="2"
-                        android:id="@+id/graph_view"
-                        android:layout_alignParentTop="true"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true" />
+                        app:background="#ffdbdbdb"
+                        app:color1="#ff9bccff"
+                        app:strokeColor="#ff759ac1" />
 
                     <ProgressBar
                         android:id="@+id/progressBar2"
                         style="@android:style/Widget.ProgressBar.Horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:progressDrawable="@drawable/progress_bar_drawble"
-
                         android:layout_margin="5dp"
+
                         android:indeterminate="false"
+                        android:progressDrawable="@drawable/progress_bar_drawble"
 
 
                         android:visibility="gone" />
 
                     <TextView
+                        android:id="@+id/percent_textview"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceSmall"
-                        android:id="@+id/percent_textview"
-                        android:textColor="#ffffff"
-                        android:layout_gravity="center_vertical"
-
                         android:layout_centerHorizontal="true"
                         android:layout_centerVertical="true"
+                        android:layout_gravity="center_vertical"
+
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="#ffffff"
                         android:visibility="gone" />
                 </RelativeLayout>
 
@@ -104,11 +104,11 @@
                     android:id="@+id/linearLayout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
+                    android:layout_toLeftOf="@+id/icon2"
                     android:layout_toRightOf="@+id/relativeLayout"
-                    android:layout_toLeftOf="@+id/icon2">
+                    android:orientation="vertical">
 
-                <TextView
+                    <TextView
                         android:id="@+id/title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -135,23 +135,22 @@
 
     <LinearLayout
         android:id="@+id/ll_people"
-        android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:padding="8dp"
         android:layout_margin="2dp"
+        android:orientation="horizontal"
+        android:padding="8dp"
 
         >
 
         <ImageView
-            android:visibility="gone"
             android:id="@+id/imgv_people_imag"
-
             android:layout_width="60dp"
+
             android:layout_height="60dp"
-            android:src="@drawable/personal"
             android:layout_gravity="center_vertical|right"
-            />
+            android:src="@drawable/personal"
+            android:visibility="gone" />
 
         <com.pga.project1.Viewes.ImageLoaderView
             android:id="@+id/imgl_people_imag"
@@ -167,46 +166,88 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="right"
-                android:layout_gravity="center_vertical"
-                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true">
+                android:layout_alignParentTop="true"
+                android:layout_gravity="center_vertical"
+                android:gravity="right"
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/txt_people_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
 
+                    android:padding="3dp"
                     android:text="Hello"
-                    android:textSize="20sp"
-                    android:padding="3dp" />
+                    android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/txt_people_phone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
 
-                    android:text="09171380449"
-                    android:textSize="10sp"
+                    android:padding="3dp"
                     android:paddingStart="8dp"
-                    android:padding="3dp" />
+                    android:text="09171380449"
+                    android:textSize="10sp" />
 
                 <TextView
                     android:id="@+id/txt_people_groups"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
 
+                    android:padding="3dp"
                     android:text="hello, how, are"
-                    android:textSize="9sp"
                     android:textColor="#ff8d8d8d"
-                    android:padding="3dp" />
+                    android:textSize="9sp" />
 
             </LinearLayout>
         </RelativeLayout>
 
 
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/ll_noItem"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="آیتمی موجود نمیباشد" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="horizontal">
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true" />
+        </RelativeLayout>
     </LinearLayout>
 
 </LinearLayout>

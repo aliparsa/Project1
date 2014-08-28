@@ -2,7 +2,7 @@ package com.pga.project1.Viewes;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.BitmapFactory;
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -24,9 +24,12 @@ public class ImageLoaderView extends RelativeLayout {
     private ImageView fakeImageView;
     private ImageView mainImageView;
     private ProgressBar progressBar;
+    private AsynLoadImage async;
 
     public ImageLoaderView(Context context, String url) {
         super(context);
+
+
 
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.image_loader_view, this, true);
@@ -71,18 +74,26 @@ public class ImageLoaderView extends RelativeLayout {
 
         progressBar.setProgress(0);
         mainImageView.setImageResource(0);
+        mainImageView.setImageBitmap(null);
 
         this.url = url;
     }
 
     public void startLoading() {
 
-        if(url != null && url.length() > 0) {
-            AsynLoadImage async = new AsynLoadImage(this.url, new ProgressCallBack<String>() {
-                @Override
-                public void onSuccess(String result) {
+        if(async != null && !async.isCancelled()) {
+            async.cancel(true);
+            progressBar.setProgress(0);
+            mainImageView.setImageResource(0);
+            mainImageView.setImageBitmap(null);
+        }
 
-                    mainImageView.setImageBitmap(BitmapFactory.decodeFile(result));
+        if(url != null && url.length() > 0) {
+            async = new AsynLoadImage(getContext(), this.url, new ProgressCallBack<Bitmap>() {
+                @Override
+                public void onSuccess(Bitmap result) {
+
+                    mainImageView.setImageBitmap(result);
                 }
 
                 @Override
@@ -91,7 +102,7 @@ public class ImageLoaderView extends RelativeLayout {
                 }
 
                 @Override
-                public void onProgress(int done, int total, String result) {
+                public void onProgress(int done, int total, Bitmap result) {
 
                     progressBar.setProgress(done);
                 }
@@ -103,4 +114,11 @@ public class ImageLoaderView extends RelativeLayout {
     }
 
 
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+
+        if(async != null && !async.isCancelled())
+            async.cancel(true);
+    }
 }

@@ -1,7 +1,11 @@
 package com.pga.project1.Utilities;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Environment;
+import android.util.LruCache;
 
 import com.pga.project1.Intefaces.ProgressCallBack;
 import com.pga.project1.Structures.ErrorPlaceHolder;
@@ -14,35 +18,67 @@ import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
 
-public class AsynLoadImage extends AsyncTask<String, String, String> {
+public class AsynLoadImage extends AsyncTask<String, String, Bitmap> {
 
 
     private static int imageNumber = 0;
 
-    private String imageUrl;
-    private ProgressCallBack<String> callback;
 
-    public AsynLoadImage(String imageUrl, ProgressCallBack<String> callback){
+    static int cacheSizeInKB = 1024 * 5;
+    static LruCache<String, Bitmap> cache = new LruCache<String, Bitmap>(cacheSizeInKB) {
+
+        @Override
+        protected void entryRemoved(boolean evicted, String key, Bitmap old, Bitmap newBitmap) {
+        }
+
+        /**re ite
+         * Measure item size in kilobytes rather than units,
+         * which is more practical for a bitmap cache
+         */
+        @Override
+        protected int sizeOf(String key, Bitmap value) {
+            final int bitmapSize = value.getByteCount() / 1024;
+            return bitmapSize == 0 ? 1 : bitmapSize;
+        }
+    };
+
+
+    DiskLruImageCache cacheDisk;
+
+    private String imageUrl;
+    private ProgressCallBack<Bitmap> callback;
+
+    public AsynLoadImage(Context context, String imageUrl, ProgressCallBack<Bitmap> callback) {
 
         this.imageUrl = imageUrl;
         this.callback = callback;
+
+        //cacheDisk = new DiskLruImageCache(context, "uniqueCache", cacheSizeInKB, Bitmap.CompressFormat.JPEG, 300);
+
     }
 
-        /**
-         * Before starting background thread Show Progress Bar Dialog
-         * */
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
+    /**
+     * Before starting background thread Show Progress Bar Dialog
+     */
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+    }
 
-        /**
-         * Downloading file in background thread
-         * */
-        @Override
-        protected String doInBackground(String... f_url) {
-            int count;
-            try {
+    /**
+     * Downloading file in background thread
+     */
+    @Override
+    protected Bitmap doInBackground(String... f_url) {
+        int count;
+        try {
+
+            Bitmap image = cache.get(imageUrl);
+
+            if(image != null){
+                return image;
+            }else {
+
                 URL url = new URL(imageUrl);
                 URLConnection connection = url.openConnection();
                 connection.connect();
@@ -81,32 +117,40 @@ public class AsynLoadImage extends AsyncTask<String, String, String> {
                 output.close();
                 input.close();
 
-                return file.getPath();
+                image = BitmapFactory.decodeFile(file.getPath());
+                cache.put(imageUrl, image);
 
-            } catch (Exception e) {
+                file.delete();
 
+                return image;
             }
 
-            return null;
+        } catch (Exception e) {
+
         }
+
+        return null;
+    }
 
     @Override
     protected void onProgressUpdate(String... values) {
 
-        callback.onProgress( Integer.parseInt(values[0]), 0, null);
+        callback.onProgress(Integer.parseInt(values[0]), 0, null);
     }
 
     /**
-         * After completing background task Dismiss the progress dialog
-         * **/
-        @Override
-        protected void onPostExecute(String file_url) {
+     * After completing background task Dismiss the progress dialog
+     * *
+     */
+    @Override
+    protected void onPostExecute(Bitmap file) {
 
-            if(file_url == null){
-                callback.onError(new ErrorMessage(ErrorPlaceHolder.err2));
-            }else{
-                callback.onSuccess(file_url);
-            }
-
+        if (file == null) {
+            callback.onError(new ErrorMessage(ErrorPlaceHolder.err2));
+        } else {
+            callback.onSuccess(file);
         }
+
+    }
+
 }

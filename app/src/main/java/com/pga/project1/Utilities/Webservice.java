@@ -4,7 +4,6 @@ import android.content.Context;
 import android.util.Log;
 
 import com.pga.project1.DataModel.Chart;
-import com.pga.project1.DataModel.Feature;
 import com.pga.project1.DataModel.Personnel;
 import com.pga.project1.DataModel.Report;
 import com.pga.project1.DataModel.ServerResponse;
@@ -38,7 +37,7 @@ public class Webservice {
     //-----------------------------------------------------------------------------
     public static void getProjects(Context context, final CallBack<ArrayList<Chart>> callBack) {
 
-        HttpHelper helper = new HttpHelper(context, SHAYAN_SERVER_ADDRESS, false, 0);
+        HttpHelper helper = new HttpHelper(context, SERVER_ADDRESS, false, 0);
         //HttpHelper helper = new HttpHelper(context, SERVER_ADDRESS, false, 0);
 
 
@@ -84,7 +83,7 @@ public class Webservice {
     //-----------------------------------------------------------------------------
     public static void GetChildOfID(Context context, final int id, final CallBack callBack) {
 
-        HttpHelper helper = new HttpHelper(context, SHAYAN_SERVER_ADDRESS, false, 0);
+        HttpHelper helper = new HttpHelper(context, SERVER_ADDRESS, false, 0);
         //HttpHelper helper = new HttpHelper(context, SERVER_ADDRESS, false, 0);
 
         BasicNameValuePair[] arr = {
@@ -131,7 +130,7 @@ public class Webservice {
     public static void Login(Context context, String username, String password, final CallBack callback) {
 
 
-        HttpHelper helper = new HttpHelper(context, SHAYAN_SERVER_ADDRESS, false, 0);
+        HttpHelper helper = new HttpHelper(context, SERVER_ADDRESS, false, 0);
         //HttpHelper helper = new HttpHelper(context, SERVER_ADDRESS, false, 0);
 
         BasicNameValuePair[] arr = {
