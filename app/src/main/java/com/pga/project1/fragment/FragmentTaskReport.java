@@ -23,7 +23,6 @@ import com.pga.project1.Utilities.ListViewAdapterHandler;
 import com.pga.project1.Utilities.Webservice;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by ashkan on 8/19/2014.
@@ -80,7 +79,7 @@ public class FragmentTaskReport extends Fragment {
             @Override
             public void onSuccess(ArrayList<Report> reportList) {
 
-                List<AdapterInputType> itemList = new ArrayList<AdapterInputType>();
+                ArrayList<AdapterInputType> itemList = new ArrayList<AdapterInputType>();
                 for (Report report : reportList) {
                     itemList.add(new AdapterInputType(chart, "icon+title+subtitle", report.getDate(), report.getPercent() + "", BitmapFactory.decodeResource(getResources(),
                             R.drawable.ic_launcher)));
