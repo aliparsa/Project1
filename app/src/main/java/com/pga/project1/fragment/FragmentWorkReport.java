@@ -1,10 +1,10 @@
 package com.pga.project1.fragment;
 
 
+import android.app.Fragment;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -23,7 +23,7 @@ import com.pga.project1.DataModel.Report;
 import com.pga.project1.Intefaces.CallBack;
 import com.pga.project1.R;
 import com.pga.project1.Structures.AdapterInputType;
-import com.pga.project1.Utilities.ErrorMessage;
+import com.pga.project1.Utilities.ListViewAdapterHandler;
 import com.pga.project1.Utilities.Webservice;
 
 import java.util.ArrayList;
@@ -111,7 +111,7 @@ public class FragmentWorkReport extends Fragment {
                         new ListViewCustomAdapter(getActivity(), R.layout.fragment_layout_project_tree_view, itemList);
 
                 // set adapter to lv
-                lv.setAdapter(adapter);
+                lv.setAdapter(ListViewAdapterHandler.checkAdapterForNoItem(adapter));
 
                 // set on click listener
                 lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
