@@ -52,6 +52,7 @@ public class FragmentWorkTask extends Fragment {
     private PersianCalendar selectedStartDateTime;
     private PersianCalendar selectedEndDateTime;
     Spinner spinner_noe_kar;
+    ListView lv;
 
     public FragmentWorkTask() {
         // Required empty public constructor
@@ -71,6 +72,8 @@ public class FragmentWorkTask extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        lv = (ListView) getView().findViewById(R.id.lv_fragmentWork_task_taskviewr);
 
         prepareTasks();
     }
@@ -104,6 +107,9 @@ public class FragmentWorkTask extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        prepareTasks();
+
         switch (requestCode) {
             case 1212: {
                 if (resultCode == Activity.RESULT_OK) {
@@ -230,7 +236,7 @@ public class FragmentWorkTask extends Fragment {
                         selectedStartDateTime.getIranianDate(),
                         selectedEndDateTime.getIranianDate(),
                         editText_kol_kar.getText().toString(),
-                        spinner_noe_kar.getSelectedItemId() + "",
+                        (spinner_noe_kar.getSelectedItemId() + 1) + "",
                         editText_tozihat.getText().toString()
                 );
 
@@ -242,7 +248,7 @@ public class FragmentWorkTask extends Fragment {
                     @Override
                     public void onSuccess(ServerResponse result) {
                         pg.setMessage("در حال بروزرسانی اطلاعات");
-                        if (result.getResult().equals("ok")) {
+                        if (result.getResult().equals("{\"result\":\"ok\"}")) {
                             Toast.makeText(getActivity(), "عملیات انجام شد", Toast.LENGTH_SHORT).show();
                             prepareTasks();
                         } else {
@@ -279,8 +285,6 @@ public class FragmentWorkTask extends Fragment {
     }
 
     private void prepareTasks() {
-
-        final ListView lv = (ListView) getView().findViewById(R.id.lv_fragmentWork_task_taskviewr);
 
 
         Webservice.getTaskListByWorkId(getActivity(), chart.getId(), new CallBack<ArrayList<Chart>>() {
@@ -334,7 +338,7 @@ public class FragmentWorkTask extends Fragment {
 
                 Intent intent = new Intent(getActivity(), ActivityTaskPage.class);
                 intent.putExtra("chart", chart);
-                startActivity(intent);
+                startActivityForResult(intent, 147);
 
             } else
                 return;
@@ -344,4 +348,6 @@ public class FragmentWorkTask extends Fragment {
 
 
     }
+
+
 }

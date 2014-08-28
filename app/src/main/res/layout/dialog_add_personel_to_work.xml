@@ -94,6 +94,7 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="number"
                 android:id="@+id/editText_kol_kar" />
 
             <TextView

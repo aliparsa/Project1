@@ -91,8 +91,7 @@ public class HttpHelper {
                                 BasicNameValuePair param = params[i];
                                 basicNameValuePairs.add(param);
                             }
-
-                            httppost.setEntity(new UrlEncodedFormEntity(basicNameValuePairs));
+                            httppost.setEntity(new UrlEncodedFormEntity(basicNameValuePairs, HTTP.UTF_8));
                         }
 
                         HttpResponse response = httpclient.execute(httppost);

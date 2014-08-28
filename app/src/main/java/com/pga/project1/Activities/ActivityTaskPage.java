@@ -141,7 +141,7 @@ public class ActivityTaskPage extends Activity {
 
         final Activity self = this;
 
-        Webservice.removeTask(this, getTaskId(), new CallBack<ServerResponse>() {
+        Webservice.removeTask(this, chart.getId(), new CallBack<ServerResponse>() {
             @Override
             public void onSuccess(ServerResponse result) {
 
@@ -151,6 +151,7 @@ public class ActivityTaskPage extends Activity {
 
             @Override
             public void onError(String err) {
+                Toast.makeText(self, "حذف انجام نشد", Toast.LENGTH_SHORT).show();
 
             }
         });
