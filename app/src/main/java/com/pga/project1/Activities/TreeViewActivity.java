@@ -1,7 +1,9 @@
 package com.pga.project1.Activities;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -16,6 +18,7 @@ import android.widget.Toast;
 import com.pga.project1.Adapters.ListViewCustomAdapter;
 import com.pga.project1.DataModel.Chart;
 import com.pga.project1.Intefaces.CallBack;
+import com.pga.project1.Intefaces.CallBackFunction;
 import com.pga.project1.R;
 import com.pga.project1.Structures.AdapterInputType;
 import com.pga.project1.Utilities.Account;
@@ -92,37 +95,37 @@ public class TreeViewActivity extends Activity {
             @Override
             public void onError(String err) {
                 //TODO Show Error
-                if (err.equals("UNAUTHORIZED")) {
 
-                    // clear token
-                    Account.getInstant(context).clearToken();
 
-                    // pass user to login page
-                    Intent intent = new Intent(context, LoginActivity.class);
-                    intent.putExtra("reason", "UNAUTHORIZED");
-                    startActivity(intent);
-                }
+                HandleError(err, new CallBackFunction() {
+                    @Override
+                    public void execute() {
+                        loadProjects();
+                    }
+                });
 
-                Toast.makeText(context, "Error 101 " + err, Toast.LENGTH_SHORT).show();
-                //Toast toast = Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT);
-                //toast.show();
+
             }
 
 
         });
     }
 
-    private void loadTree(Chart chart) {
+    private void loadTree(final Chart chart) {
 
-        stack.push(adapter);
-        PathMapManager.push(chart);
 
-        pathManager = (PathMapManager) findViewById(R.id.pmm);
-        pathManager.refresh();
 
         Webservice.GetChildOfID(context, chart.getId(), new CallBack<ArrayList<Chart>>() {
             @Override
             public void onSuccess(ArrayList<Chart> result) {
+
+                stack.push(adapter);
+                PathMapManager.push(chart);
+
+                pathManager = (PathMapManager) findViewById(R.id.pmm);
+                pathManager.refresh();
+
+
                 // Child Returned
                 List<AdapterInputType> itemList = new ArrayList<AdapterInputType>();
 
@@ -139,11 +142,22 @@ public class TreeViewActivity extends Activity {
 
                 // set on click listener
                 lv.setOnItemClickListener(new onTreeViewClickListener());
+
+                // set on long click listener
+                lv.setOnItemLongClickListener(new onTreeViewLongClickListener());
+
             }
 
             @Override
             public void onError(String err) {
-                Toast.makeText(context, "Error 102", Toast.LENGTH_SHORT).show();
+
+
+                HandleError(err, new CallBackFunction() {
+                    @Override
+                    public void execute() {
+                        loadTree(chart);
+                    }
+                });
             }
 
         });
@@ -176,7 +190,6 @@ public class TreeViewActivity extends Activity {
         stack.push(adapter);
     }
 
-
     //-----------------------------------------
 
     @Override
@@ -198,7 +211,6 @@ public class TreeViewActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-
     @Override
     public void onBackPressed() {
         //super.onBackPressed();
@@ -210,7 +222,6 @@ public class TreeViewActivity extends Activity {
             super.onBackPressed();
         }
     }
-
 
     public class onTreeViewClickListener implements AdapterView.OnItemClickListener {
 
@@ -263,5 +274,80 @@ public class TreeViewActivity extends Activity {
 
     }
 
+    public class onTreeViewLongClickListener implements AdapterView.OnItemLongClickListener {
 
+        @Override
+        public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+            Object tag = ((ListViewCustomAdapter.DrawerItemHolder) view.getTag()).getTag();
+            Chart chart;
+
+            if (tag instanceof Chart)
+                chart = (Chart) tag;
+            else
+                return false;
+
+
+            switch (chart.getType_id()) {
+                case 3: // item is chart
+                    new AlertDialog.Builder(context)
+                            .setTitle(chart.getName())
+                            .setCancelable(false)
+                            .setPositiveButton("تایید", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                        }
+                                    }
+                            )
+                            .show();
+                    break;
+
+                case 5: // item is chart
+                    new AlertDialog.Builder(context)
+                            .setTitle(chart.getName())
+                            .setCancelable(false)
+                            .setPositiveButton("تایید", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                        }
+                                    }
+                            )
+                            .show();
+                    break;
+            }
+
+            return false;
+        }
+    }
+
+
+    private void HandleError(String err, final CallBackFunction callback) {
+
+        // toast error
+        Toast.makeText(context, err, Toast.LENGTH_SHORT).show();
+
+
+        //---------------------------------------
+        if (err.equals("network error")) {
+            new AlertDialog.Builder(context)
+                    .setTitle("عدم دسترسی به سرور")
+                    .setCancelable(false)
+                    .setMessage("لطفا تنظیمات ارتباطی تلفن همراه خود را بررسی نمایید")
+                    .setPositiveButton("تلاش مجدد", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    callback.execute();
+                                }
+                            }
+                    )
+                    .show();
+        }
+        //---------------------------------------
+        if (err.equals("UNAUTHORIZED")) {
+
+            // clear token
+            Account.getInstant(context).clearToken();
+
+            // pass user to login page
+            Intent intent = new Intent(context, LoginActivity.class);
+            intent.putExtra("reason", "UNAUTHORIZED");
+            startActivity(intent);
+        }
+    }
 }

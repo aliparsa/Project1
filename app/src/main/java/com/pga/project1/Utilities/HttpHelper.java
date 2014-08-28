@@ -152,7 +152,7 @@ public class HttpHelper {
 
                     } else {
 
-                        handler.error(new ErrorMessage(ErrorPlaceHolder.UnsupportedEncodingException));
+                        handler.error("network error");
                     }
                 }
             }.forceLoad();
@@ -160,7 +160,7 @@ public class HttpHelper {
         } catch (Exception e) {
             e.printStackTrace();
 
-            handler.error(new ErrorMessage(ErrorPlaceHolder.UnsupportedEncodingException));
+            handler.error("network error");
         }
     }
 
@@ -227,7 +227,7 @@ public class HttpHelper {
 
                     } else {
 
-                        handler.error(new ErrorMessage(ErrorPlaceHolder.UnsupportedEncodingException));
+                        handler.error("network error");
                     }
                 }
             }.forceLoad();
@@ -235,7 +235,7 @@ public class HttpHelper {
         } catch (Exception e) {
             e.printStackTrace();
 
-            handler.error(new ErrorMessage(ErrorPlaceHolder.UnsupportedEncodingException));
+            handler.error("network error");
         }
     }
 
