@@ -17,7 +17,7 @@ import com.pga.project1.DataModel.Personnel;
 import com.pga.project1.Intefaces.CallBack;
 import com.pga.project1.R;
 import com.pga.project1.Structures.AdapterInputType;
-import com.pga.project1.Utilities.ErrorMessage;
+import com.pga.project1.Utilities.ListViewAdapterHandler;
 import com.pga.project1.Utilities.Webservice;
 import com.pga.project1.Viewes.PathMapManager;
 
@@ -102,7 +102,7 @@ public class PersonelPickerActivity extends Activity {
                 adapter = new ListViewCustomAdapter(context,
                         R.layout.drawer_item, listItem);
 
-                listView.setAdapter(adapter);
+                listView.setAdapter(ListViewAdapterHandler.checkAdapterForNoItem(adapter));
                 listView.setOnItemClickListener(new onPersonnelClickListener());
 
             }

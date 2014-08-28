@@ -19,7 +19,7 @@ import com.pga.project1.DataModel.Report;
 import com.pga.project1.Intefaces.CallBack;
 import com.pga.project1.R;
 import com.pga.project1.Structures.AdapterInputType;
-import com.pga.project1.Utilities.ErrorMessage;
+import com.pga.project1.Utilities.ListViewAdapterHandler;
 import com.pga.project1.Utilities.Webservice;
 
 import java.util.ArrayList;
@@ -91,7 +91,7 @@ public class FragmentTaskReport extends Fragment {
                         new ListViewCustomAdapter(getActivity(), R.layout.fragment_layout_project_tree_view, itemList);
 
                 // set adapter to lv
-                listView.setAdapter(adapter);
+                listView.setAdapter(ListViewAdapterHandler.checkAdapterForNoItem(adapter));
 
                 // set on click listener
                 listView.setOnItemClickListener(new onReportListClickListener());

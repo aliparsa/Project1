@@ -1,9 +1,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.pga.project1.Activities.TreeViewActivity">
+
     <item
-        android:id="@+id/action_settings"
-        android:title="@string/action_settings"
-        android:orderInCategory="100"
-        android:showAsAction="never" />
+        android:id="@+id/ac_back"
+        android:orderInCategory="2"
+        android:icon="@drawable/ic_action_next_item"
+        android:showAsAction="always"
+        android:title="Back" />
+
 </menu>
