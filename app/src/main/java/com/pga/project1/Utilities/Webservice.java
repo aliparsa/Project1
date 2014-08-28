@@ -86,11 +86,12 @@ public class Webservice {
         });
     }
 
+    // DONE
     //-----------------------------------------------------------------------------
     public static void GetChildOfID(Context context, final int id, final CallBack callBack) {
 
-        //HttpHelper helper = new HttpHelper(context, SERVER_ADDRESS, false, 0);
         HttpHelper helper = new HttpHelper(context, SHAYAN_SERVER_ADDRESS, false, 0);
+        //HttpHelper helper = new HttpHelper(context, SERVER_ADDRESS, false, 0);
 
         BasicNameValuePair[] arr = {
                 new BasicNameValuePair("tag", "get_child_of_id"),
@@ -132,17 +133,18 @@ public class Webservice {
 
     }
 
+    // DONE
     //------------------------------------------------------------------------
     public static void Login(Context context, String username, String password, final CallBack callback) {
 
 
-        //HttpHelper helper = new HttpHelper(context, SERVER_ADDRESS, false, 0);
         HttpHelper helper = new HttpHelper(context, SHAYAN_SERVER_ADDRESS, false, 0);
+        //HttpHelper helper = new HttpHelper(context, SERVER_ADDRESS, false, 0);
 
         BasicNameValuePair[] arr = {
                 new BasicNameValuePair("tag", "login"),
-                new BasicNameValuePair("username", "admin2"),
-                new BasicNameValuePair("password", "admin2")
+                new BasicNameValuePair("username", "admin"),
+                new BasicNameValuePair("password", "admin")
         };
 
         helper.postHttp(arr, new ResponseHandler() {
@@ -262,6 +264,7 @@ public class Webservice {
 
     }
 
+    // DONE
     //-------------------------------------------------------------------------------
     public static void searchPersonnel(Context context, String str, final CallBack<ArrayList<Personnel>> callBack) {
 
@@ -297,7 +300,7 @@ public class Webservice {
         });
     }
 
-    // TODO WOROG ANSWER FROM SERVER
+    // DONE with error
     //-------------------------------------------------------------------------------
     public static void getReportListByWorkId(Context context, int id, final CallBack callBack) {
         HttpHelper helper = new HttpHelper(context, SHAYAN_SERVER_ADDRESS, false, 0);
@@ -333,22 +336,22 @@ public class Webservice {
 
     }
 
+    // DONE
     //-------------------------------------------------------------------------------
     public static void addPersonnelToWork(Context context, int personnelId, int workId, Task task, final CallBack<ServerResponse> callBack) {
-        HttpHelper helper = new HttpHelper(context, SERVER_ADDRESS, false, 0);
+        HttpHelper helper = new HttpHelper(context, SHAYAN_SERVER_ADDRESS, false, 0);
 
         BasicNameValuePair[] arr = {
                 new BasicNameValuePair("tag", "add_personnel_to_work"),
                 new BasicNameValuePair("personnel_id", personnelId + ""),
-                new BasicNameValuePair("work_id", workId + ""),
+                new BasicNameValuePair("chart_id", workId + ""),
                 new BasicNameValuePair("name", task.getName()),
-                new BasicNameValuePair("price", task.getPrice()),
+                new BasicNameValuePair("budget", task.getPrice()),
                 new BasicNameValuePair("start_date", task.getStart_date()),
                 new BasicNameValuePair("end_date", task.getEnd_date()),
-                new BasicNameValuePair("kol_kar", task.getKolKar()),
-                new BasicNameValuePair("vahed_kar", task.getVahedKar()),
-                new BasicNameValuePair("tozihat", task.getTozihat())
-
+                new BasicNameValuePair("total_work", task.getKolKar()),
+                new BasicNameValuePair("work_unit", task.getVahedKar()),
+                new BasicNameValuePair("description", task.getTozihat())
 
         };
         helper.postHttp(arr, new ResponseHandler() {
@@ -375,6 +378,7 @@ public class Webservice {
 
     }
 
+    // DONE
     //-------------------------------------------------------------------------------
     public static void saveWorkReport(Context context, final Report report, final String[] imagePaths, final ProgressCallBack callBack) {
         final HttpHelper helper = new HttpHelper(context, SERVER_ADDRESS, false, 0);
@@ -463,10 +467,10 @@ public class Webservice {
 
     //-------------------------------------------------------------------------------
     public static void getWorkUnitList(Context context, final CallBack<ArrayList<WorkUnit>> callBack) {
-        HttpHelper helper = new HttpHelper(context, SERVER_ADDRESS, false, 0);
+        HttpHelper helper = new HttpHelper(context, SHAYAN_SERVER_ADDRESS, false, 0);
 
         BasicNameValuePair[] arr = {
-                new BasicNameValuePair("tag", "work_unit")
+                new BasicNameValuePair("tag", "work_units")
         };
 
         helper.postHttp(arr, new ResponseHandler() {
@@ -496,13 +500,14 @@ public class Webservice {
 
     }
 
+    // DONE
     //------------------------------------------------------------------------------
     public static void removeTask(Context context, int task_id, final CallBack<ServerResponse> callBack) {
-        HttpHelper helper = new HttpHelper(context, SERVER_ADDRESS, false, 0);
+        HttpHelper helper = new HttpHelper(context, SHAYAN_SERVER_ADDRESS, false, 0);
 
         BasicNameValuePair[] arr = {
                 new BasicNameValuePair("tag", "remove_task"),
-                new BasicNameValuePair("task_id", task_id + ""),
+                new BasicNameValuePair("id", task_id + ""),
         };
         helper.postHttp(arr, new ResponseHandler() {
             @Override
@@ -528,6 +533,7 @@ public class Webservice {
 
     }
 
+    // DONE
     //-------------------------------------------------------------------------------
     public static void uploadFile(Context context, String filePath, final CallBackUpload callBack, final String tag) {
         HttpHelper helper = new HttpHelper(context, SERVER_ADDRESS_UPLOAD, false, 0);
