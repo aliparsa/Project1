@@ -37,8 +37,8 @@ public class Webservice {
     //-----------------------------------------------------------------------------
     public static void getProjects(Context context, final CallBack<ArrayList<Chart>> callBack) {
 
-        HttpHelper helper = new HttpHelper(context, SERVER_ADDRESS, false, 0);
         //HttpHelper helper = new HttpHelper(context, SERVER_ADDRESS, false, 0);
+        HttpHelper helper = new HttpHelper(context, SHAYAN_SERVER_ADDRESS, false, 0);
 
 
         BasicNameValuePair[] arr = {
@@ -85,7 +85,7 @@ public class Webservice {
     //-----------------------------------------------------------------------------
     public static void GetChildOfID(Context context, final int id, final CallBack callBack) {
 
-        HttpHelper helper = new HttpHelper(context, SERVER_ADDRESS, false, 0);
+        HttpHelper helper = new HttpHelper(context, SHAYAN_SERVER_ADDRESS, false, 0);
         //HttpHelper helper = new HttpHelper(context, SERVER_ADDRESS, false, 0);
 
         BasicNameValuePair[] arr = {
@@ -122,7 +122,7 @@ public class Webservice {
 
             @Override
             public void error(String err) {
-
+                callBack.onError(err);
             }
         });
 
@@ -132,7 +132,7 @@ public class Webservice {
     public static void Login(Context context, String username, String password, final CallBack callback) {
 
 
-        HttpHelper helper = new HttpHelper(context, SERVER_ADDRESS, false, 0);
+        HttpHelper helper = new HttpHelper(context, SHAYAN_SERVER_ADDRESS, false, 0);
         //HttpHelper helper = new HttpHelper(context, SERVER_ADDRESS, false, 0);
 
         BasicNameValuePair[] arr = {
@@ -336,15 +336,14 @@ public class Webservice {
         BasicNameValuePair[] arr = {
                 new BasicNameValuePair("tag", "add_personnel_to_work"),
                 new BasicNameValuePair("personnel_id", personnelId + ""),
-                new BasicNameValuePair("work_id", workId + ""),
+                new BasicNameValuePair("chart_id", workId + ""),
                 new BasicNameValuePair("name", task.getName()),
                 new BasicNameValuePair("price", task.getPrice()),
                 new BasicNameValuePair("start_date", task.getStart_date()),
                 new BasicNameValuePair("end_date", task.getEnd_date()),
-                new BasicNameValuePair("kol_kar", task.getKolKar()),
-                new BasicNameValuePair("vahed_kar", task.getVahedKar()),
-                new BasicNameValuePair("tozihat", task.getTozihat())
-
+                new BasicNameValuePair("total_work", task.getKolKar()),
+                new BasicNameValuePair("work_unit", task.getVahedKar()),
+                new BasicNameValuePair("description", task.getTozihat())
 
         };
         helper.postHttp(arr, new ResponseHandler() {
