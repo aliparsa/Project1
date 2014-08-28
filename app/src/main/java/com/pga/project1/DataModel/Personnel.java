@@ -22,21 +22,22 @@ public class Personnel implements Serializable {
     private String last_name;
     private String personnel_code;
     private String phone_number;
+    private String personnel_image;
+    private ArrayList<String> workGroups = new ArrayList<String>();
 
-    public Personnel(int id, String first_name, String last_name, String personnel_code, String phone_number, String personnel_image) {
+
+    public Personnel(int id, String first_name, String last_name, String personnel_code, String phone_number, String personnel_image, ArrayList<String> workGroups) {
         this.id = id;
         this.first_name = first_name;
         this.last_name = last_name;
         this.personnel_code = personnel_code;
         this.phone_number = phone_number;
         this.personnel_image = personnel_image;
+        this.workGroups = workGroups;
     }
 
-    private String personnel_image;
-    private ArrayList<String> groups = new ArrayList<String>();
 
-
-    private Personnel(){
+    private Personnel() {
 
     }
 
@@ -60,7 +61,7 @@ public class Personnel implements Serializable {
 
                 Personnel p = getPersonnelFromJson(json);
 
-                if(p == null)
+                if (p == null)
                     continue;
 
                 //String json
@@ -76,7 +77,7 @@ public class Personnel implements Serializable {
     }
 
 
-    public static Personnel getPersonnelFromJson(JSONObject json){
+    public static Personnel getPersonnelFromJson(JSONObject json) {
 
         Personnel p = null;
 
@@ -103,12 +104,12 @@ public class Personnel implements Serializable {
             JSONArray groupsJson = jsonHelper.getJsonArray(json, "groups", new JSONArray());
 
             for (int j = 0; j < groupsJson.length(); j++) {
-                p.groups.add(groupsJson.getString(j));
+                p.workGroups.add(groupsJson.getString(j));
 
             }
         } catch (JSONException e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             return p;
         }
     }
@@ -118,8 +119,8 @@ public class Personnel implements Serializable {
         String str = "";
         boolean isFirst = true;
 
-        for (String group : groups){
-            if(isFirst)
+        for (String group : workGroups) {
+            if (isFirst)
                 str += group;
             else
                 str += " ," + group;
@@ -173,7 +174,7 @@ public class Personnel implements Serializable {
 
 
     public String getFullName() {
-        return this.getFirst_name() + " " +this.getLast_name();
+        return this.getFirst_name() + " " + this.getLast_name();
     }
 
     public String getPersonnel_image() {

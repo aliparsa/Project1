@@ -10,5 +10,5 @@ public interface ResponseHandler {
 
     public void handleResponse(ServerResponse response);
 
-    public void error(ErrorMessage err);
+    public void error(String err);
 }

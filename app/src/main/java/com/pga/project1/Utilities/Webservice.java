@@ -74,8 +74,10 @@ public class Webservice {
             }
 
             @Override
-            public void error(ErrorMessage err) {
+            public void error(String err) {
+
                 Log.d("ali", "Error");
+                callBack.onError(err);
             }
         });
     }
@@ -119,7 +121,7 @@ public class Webservice {
             }
 
             @Override
-            public void error(ErrorMessage err) {
+            public void error(String err) {
 
             }
         });
@@ -178,13 +180,12 @@ public class Webservice {
             }
 
             @Override
-            public void error(ErrorMessage err) {
+            public void error(String err) {
                 callback.onError("err11");
             }
         });
 
     }
-
     //-------------------------------------------------------------------------------
 //    public static void getFeatureById(Context context, int id, final CallBack callback) {
 //
@@ -227,10 +228,10 @@ public class Webservice {
     //-------------------------------------------------------------------------------
     public static void getTaskListByWorkId(Context context, final int id, final CallBack callBack) {
 
-        HttpHelper helper = new HttpHelper(context, SERVER_ADDRESS, false, 0);
+        HttpHelper helper = new HttpHelper(context, SHAYAN_SERVER_ADDRESS, false, 0);
 
         BasicNameValuePair[] arr = {
-                new BasicNameValuePair("tag", "get_task_list"),
+                new BasicNameValuePair("tag", "get_task_of_id"),
                 new BasicNameValuePair("id", id + "")
         };
         helper.postHttp(arr, new ResponseHandler() {
@@ -247,11 +248,10 @@ public class Webservice {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             }
 
             @Override
-            public void error(ErrorMessage err) {
+            public void error(String err) {
 
             }
         });
@@ -261,7 +261,7 @@ public class Webservice {
     //-------------------------------------------------------------------------------
     public static void searchPersonnel(Context context, String str, final CallBack<ArrayList<Personnel>> callBack) {
 
-        HttpHelper helper = new HttpHelper(context, SERVER_ADDRESS, false, 0);
+        HttpHelper helper = new HttpHelper(context, SHAYAN_SERVER_ADDRESS, false, 0);
 
         BasicNameValuePair[] arr = {
                 new BasicNameValuePair("tag", "search_personnel"),
@@ -287,18 +287,19 @@ public class Webservice {
             }
 
             @Override
-            public void error(ErrorMessage err) {
+            public void error(String err) {
 
             }
         });
     }
 
+    // TODO WOROG ANSWER FROM SERVER
     //-------------------------------------------------------------------------------
     public static void getReportListByWorkId(Context context, int id, final CallBack callBack) {
-        HttpHelper helper = new HttpHelper(context, SERVER_ADDRESS, false, 0);
+        HttpHelper helper = new HttpHelper(context, SHAYAN_SERVER_ADDRESS, false, 0);
 
         BasicNameValuePair[] arr = {
-                new BasicNameValuePair("tag", "get_report_list"),
+                new BasicNameValuePair("tag", "get_report_of_id"),
                 new BasicNameValuePair("id", id + "")
         };
         helper.postHttp(arr, new ResponseHandler() {
@@ -320,7 +321,7 @@ public class Webservice {
             }
 
             @Override
-            public void error(ErrorMessage err) {
+            public void error(String err) {
                 Log.e("ali", " webservice / getReportListByWorkId ");
 
             }
@@ -363,13 +364,12 @@ public class Webservice {
             }
 
             @Override
-            public void error(ErrorMessage err) {
+            public void error(String err) {
                 Log.e("ali", " webservice / addPersonnelToWork ");
             }
         });
 
     }
-
 
     //-------------------------------------------------------------------------------
     public static void saveWorkReport(Context context, Report report, String[] imagePaths, final ProgressCallBack callBack) {
@@ -420,7 +420,7 @@ public class Webservice {
             }
 
             @Override
-            public void error(ErrorMessage err) {
+            public void error(String err) {
                 Log.e("ali", " webservice / saveWorkReport ");
                 callBack.onError(new ErrorMessage(ErrorPlaceHolder.err2));
             }
@@ -455,7 +455,7 @@ public class Webservice {
             }
 
             @Override
-            public void error(ErrorMessage err) {
+            public void error(String err) {
                 Log.e("ali", " webservice / getReportListByWorkId ");
 
             }
@@ -488,7 +488,7 @@ public class Webservice {
             }
 
             @Override
-            public void error(ErrorMessage err) {
+            public void error(String err) {
                 Log.e("ali", " webservice / addPersonnelToWork ");
             }
         });
@@ -516,7 +516,7 @@ public class Webservice {
             }
 
             @Override
-            public void error(ErrorMessage err) {
+            public void error(String err) {
                 Log.e("ali", " webservice / saveWorkReport ");
                 callBack.onError("err12");
             }
