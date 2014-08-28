@@ -27,6 +27,8 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
 
     public static String ICON_TITLE_SUBTITLE = "icon+title+subtitle";
     public static String PERSONNEL_ITEM = "personnelItem";
+    public static String LOADING_ITEM = "loading item";
+    public static String NOITEM_ITEM = "no item item";
     public List<AdapterInputType> itemList;
     Context context;
     int layoutResID;
@@ -39,7 +41,9 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
     // main linear layout in view
     LinearLayout lv_image;
     LinearLayout lv_icon_title_subtitle;
-    private LinearLayout ll_people;
+    LinearLayout ll_people;
+    LinearLayout ll_noItem;
+    LinearLayout ll_loading;
 
 
     public ListViewCustomAdapter(Context context, int layoutResourceID,
@@ -55,9 +59,8 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        // TODO Auto-generated method stub
 
-        View view = convertView;
+         View view = convertView;
 
         DrawerItemHolder holder;
         if (view != null) {
@@ -76,6 +79,8 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
             lv_image = (LinearLayout) view.findViewById(R.id.lv_image);
             lv_icon_title_subtitle = (LinearLayout) view.findViewById(R.id.lv_icon_title_subtitle);
             ll_people = (LinearLayout) view.findViewById(R.id.ll_people);
+            ll_noItem = (LinearLayout) view.findViewById(R.id.ll_noItem);
+            ll_loading= (LinearLayout) view.findViewById(R.id.ll_loading);
         }
 
 
@@ -86,7 +91,7 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
         if (itemList.get(position).type.equals(IMAGE_DRAWER_ITEM)) {
 
             getImageOnlyItem(holder, item);
-            PleaseOnlyShow(lv_image);
+            OnlyShow(lv_image);
 
         }
 
@@ -94,7 +99,7 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
         if (itemList.get(position).type.equals(ICON_TITLE_SUBTITLE)) {
 
             getIconTitleSubtitle(holder, item);
-            PleaseOnlyShow(lv_icon_title_subtitle);
+            OnlyShow(lv_icon_title_subtitle);
 
         }
 
@@ -102,7 +107,21 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
         if (itemList.get(position).type.equals(PERSONNEL_ITEM)) {
 
             getPeopleItem(holder, item);
-            PleaseOnlyShow(ll_people);
+            OnlyShow(ll_people);
+
+        }
+
+        //PERSONNEL ppl
+        if (itemList.get(position).type.equals(NOITEM_ITEM)) {
+
+            OnlyShow(ll_noItem);
+
+        }
+
+        //PERSONNEL ppl
+        if (itemList.get(position).type.equals(LOADING_ITEM)) {
+
+            OnlyShow(ll_loading);
 
         }
 
@@ -110,11 +129,13 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
         return view;
     }
 
-    public void PleaseOnlyShow(LinearLayout lv) {
+    public void OnlyShow(LinearLayout lv) {
 
         lv_image.setVisibility(LinearLayout.GONE);
         lv_icon_title_subtitle.setVisibility(LinearLayout.GONE);
         ll_people.setVisibility(LinearLayout.GONE);
+        ll_noItem.setVisibility(LinearLayout.GONE);
+        ll_loading.setVisibility(LinearLayout.GONE);
 
         lv.setVisibility(LinearLayout.VISIBLE);
     }

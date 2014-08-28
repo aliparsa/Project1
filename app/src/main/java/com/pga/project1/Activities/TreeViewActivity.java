@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -22,7 +21,7 @@ import com.pga.project1.Intefaces.CallBackFunction;
 import com.pga.project1.R;
 import com.pga.project1.Structures.AdapterInputType;
 import com.pga.project1.Utilities.Account;
-import com.pga.project1.Utilities.ErrorMessage;
+import com.pga.project1.Utilities.ListViewAdapterHandler;
 import com.pga.project1.Utilities.Webservice;
 import com.pga.project1.Viewes.PathMapManager;
 
@@ -48,6 +47,9 @@ public class TreeViewActivity extends Activity {
 
 
         lv = (ListView) findViewById(R.id.lv_fragmentProjectTreeView_treeView);
+
+        //TODO create function to handle listview loading
+
         pathManager = (PathMapManager) findViewById(R.id.pmm);
 
         if (savedInstanceState != null) {
@@ -85,7 +87,7 @@ public class TreeViewActivity extends Activity {
 
                 adapter = new ListViewCustomAdapter(context, R.layout.fragment_layout_project_tree_view, itemList);
 
-                lv.setAdapter(adapter);
+                lv.setAdapter(ListViewAdapterHandler.checkAdapterForNoItem(adapter));
 
                 // set on click listener
                 lv.setOnItemClickListener(new onTreeViewClickListener());
@@ -138,7 +140,7 @@ public class TreeViewActivity extends Activity {
                 adapter = new ListViewCustomAdapter(context, R.layout.fragment_layout_project_tree_view, itemList);
 
                 // set adapter to lv
-                lv.setAdapter(adapter);
+                lv.setAdapter(ListViewAdapterHandler.checkAdapterForNoItem(adapter));
 
                 // set on click listener
                 lv.setOnItemClickListener(new onTreeViewClickListener());
