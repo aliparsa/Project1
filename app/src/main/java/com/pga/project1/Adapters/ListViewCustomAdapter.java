@@ -72,7 +72,7 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = inflater.inflate(R.layout.drawer_item, null);
 
-            Animation animation = AnimationUtils.loadAnimation(context, R.anim.slide_from_left);
+            Animation animation = AnimationUtils.loadAnimation(context, R.anim.activity_fade_in_animation);
             animation.setStartOffset(20 * (position + 1));
             view.startAnimation(animation);
 
