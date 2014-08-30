@@ -10,7 +10,7 @@ public interface ProgressCallBack<T> {
 
     public void onSuccess(T result);
 
-    public void onError(ErrorMessage err);
+    public void onError(String errorMessage);
 
     public void onProgress(int done, int total, T result);
 

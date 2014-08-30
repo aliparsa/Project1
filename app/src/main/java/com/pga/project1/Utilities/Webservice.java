@@ -413,7 +413,7 @@ public class Webservice {
                                 @Override
                                 public void error(String err) {
                                     Log.e("ali", " webservice / saveWorkReport ");
-                                    callBack.onError(new ErrorMessage(ErrorPlaceHolder.err2));
+                                    callBack.onError("error 1418");
                                 }
                             });
                         }
@@ -421,7 +421,7 @@ public class Webservice {
                         @Override
                         public void onError(String errorMessage) {
                             Log.e("ali", " webservice / saveWorkReport ");
-                            callBack.onError(new ErrorMessage(ErrorPlaceHolder.err2));
+                            callBack.onError("error 1419");
                         }
 
                     }, now);
@@ -456,13 +456,14 @@ public class Webservice {
                 @Override
                 public void error(String err) {
                     Log.e("ali", " webservice / saveWorkReport ");
-                    callBack.onError(new ErrorMessage(ErrorPlaceHolder.err2));
+                    callBack.onError("error 1422");
                 }
             });
         }
 
     }
 
+    //-------------------------------------------------------------------------------
     static Map<String, ArrayList<String>> uploadCountMap = new HashMap<String, ArrayList<String>>();
 
     private static int uploadHelper(String tag, String imageName) {

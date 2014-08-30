@@ -97,7 +97,7 @@ public class ImageLoaderView extends RelativeLayout {
                 }
 
                 @Override
-                public void onError(ErrorMessage err) {
+                public void onError(String err) {
 
                 }
 

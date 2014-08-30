@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class Report implements Serializable {
 
 
-    public Report(int id, Chart chart, int personnel_id, String date, String report, int percent, String[] images) {
+    public Report(int id, Chart chart, int personnel_id, String date, String report, int percent) {
         this.id = id;
         this.chart_id = chart.getId();
         this.personnel_id = personnel_id;
@@ -24,7 +24,7 @@ public class Report implements Serializable {
         this.report = report;
         this.percent = percent;
         this.chart = chart;
-        this.images = images;
+
 
     }
 
@@ -58,9 +58,6 @@ public class Report implements Serializable {
     private int percent;
     private Chart chart;
     private ArrayList<String> imageUrls = new ArrayList<String>();
-    private String[] images;
-
-
 
 
     public static ArrayList<Report> getArrayFromJson(JSONArray jsonArray) {
@@ -84,7 +81,7 @@ public class Report implements Serializable {
 
                 for (int j = 0; j < imageJson.length(); j++) {
 
-                    imageUrls.add(   imageJson.getString(j)  );
+                    imageUrls.add(imageJson.getString(j));
                 }
 
                 Report reportItem = new Report(id, chart_id, personnel_id, date, report, percent, imageUrls);
@@ -153,24 +150,12 @@ public class Report implements Serializable {
         this.chart = chart;
     }
 
-    public String[] getImages() {
-        return images;
+
+    public ArrayList<String> getImageUrls() {
+        return imageUrls;
     }
 
-    public void setImages(String[] images) {
-        this.images = images;
-    }
-
-    public String[] CastJsonArrayToStringArray(JSONArray jsonImages) {
-        try {
-
-            String[] images = new String[5];
-            for (int i = 0; i < jsonImages.length(); i++) {
-                images[i] = (String) jsonImages.get(i);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return images;
+    public void setImageUrls(ArrayList<String> imageUrls) {
+        this.imageUrls = imageUrls;
     }
 }
