@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import com.pga.project1.DataModel.PathObject;
 import com.pga.project1.DataModel.Report;
 import com.pga.project1.R;
+import com.pga.project1.Viewes.ImageLoaderView;
 import com.pga.project1.Viewes.PathMapManager;
 
 public class EditReportActivity extends Activity {
@@ -31,8 +32,6 @@ public class EditReportActivity extends Activity {
         setContentView(R.layout.activity_edit_report);
 
 
-
-
         ll_image_list = (LinearLayout) findViewById(R.id.ll_fragmentWork_workReport_imageList);
         etreport = (EditText) findViewById(R.id.edittext_fragmentNewReportWork_reportText);
         percent = (Button) findViewById(R.id.btn_fragmentNewReportWork_selectPercent);
@@ -41,6 +40,14 @@ public class EditReportActivity extends Activity {
         etreport.setText(report.getReport());
         percent.setText(report.getPercent() + "%");
         timePicker.setText(report.getDate());
+
+        for (int i = 0; i < report.getImageUrls().size(); i++) {
+            if (report.getImageUrls().get(i) != null) {
+                ImageLoaderView imgvl = new ImageLoaderView(this, report.getImageUrls().get(i));
+                ll_image_list.addView(imgvl);
+            }
+
+        }
 
     }
 

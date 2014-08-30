@@ -14,6 +14,8 @@ import java.util.ArrayList;
  */
 @SuppressWarnings("serial")
 public class Report implements Serializable {
+
+
     public Report(int id, Chart chart, int personnel_id, String date, String report, int percent) {
         this.id = id;
         this.chart_id = chart.getId();
@@ -22,6 +24,8 @@ public class Report implements Serializable {
         this.report = report;
         this.percent = percent;
         this.chart = chart;
+
+
     }
 
 
@@ -56,8 +60,6 @@ public class Report implements Serializable {
     private ArrayList<String> imageUrls = new ArrayList<String>();
 
 
-
-
     public static ArrayList<Report> getArrayFromJson(JSONArray jsonArray) {
         ArrayList<Report> itemlist = new ArrayList<Report>();
         try {
@@ -79,7 +81,7 @@ public class Report implements Serializable {
 
                 for (int j = 0; j < imageJson.length(); j++) {
 
-                    imageUrls.add(   imageJson.getString(j)  );
+                    imageUrls.add(imageJson.getString(j));
                 }
 
                 Report reportItem = new Report(id, chart_id, personnel_id, date, report, percent, imageUrls);
@@ -146,5 +148,14 @@ public class Report implements Serializable {
 
     public void setChart(Chart chart) {
         this.chart = chart;
+    }
+
+
+    public ArrayList<String> getImageUrls() {
+        return imageUrls;
+    }
+
+    public void setImageUrls(ArrayList<String> imageUrls) {
+        this.imageUrls = imageUrls;
     }
 }

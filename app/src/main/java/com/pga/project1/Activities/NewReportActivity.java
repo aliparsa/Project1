@@ -210,7 +210,7 @@ public class NewReportActivity extends Activity {
 
 
         final ProgressDialog pg = new ProgressDialog(context);
-        pg.setMessage("Sending Report...");
+        pg.setMessage("در حال ارسال");
         pg.setCancelable(false);
         pg.setMax(100);
         pg.show();
@@ -237,6 +237,7 @@ public class NewReportActivity extends Activity {
                         .setPositiveButton("تایید", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 // continue with delete
+                                finish();
 
 
                             }
@@ -247,7 +248,7 @@ public class NewReportActivity extends Activity {
             }
 
             @Override
-            public void onError(ErrorMessage err) {
+            public void onError(String err) {
                 pg.dismiss();
 
                 new AlertDialog.Builder(context)
@@ -270,7 +271,7 @@ public class NewReportActivity extends Activity {
             @Override
             public void onProgress(int done, int total, Object result) {
                 pg.setMessage("در حال ارسال " + done + " از " + total + " تصویر");
-                pg.setProgress(100 / total * done);
+                //pg.setProgress(100 / total * done);
             }
         });
 
