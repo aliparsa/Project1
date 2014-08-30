@@ -369,6 +369,8 @@ public class Webservice {
 
                             int uploaded = uploadHelper(tag, (String) result);
 
+                            callBack.onProgress(uploaded, finalImageCount, result);
+
                             if (uploaded == finalImageCount) {
                                 sendMainRequest(tag);
                             }

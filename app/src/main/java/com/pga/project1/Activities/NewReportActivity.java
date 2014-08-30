@@ -212,6 +212,7 @@ public class NewReportActivity extends Activity {
         final ProgressDialog pg = new ProgressDialog(context);
         pg.setMessage("Sending Report...");
         pg.setCancelable(false);
+        pg.setMax(100);
         pg.show();
 
 
@@ -230,10 +231,10 @@ public class NewReportActivity extends Activity {
                 pg.dismiss();
 
                 new AlertDialog.Builder(context)
-                        .setTitle("Report Saved")
-                        .setMessage("some text")
+                        .setTitle("موفقیت")
+                        .setMessage("عملکرد ذخیره شد!")
                         .setIcon(android.R.drawable.ic_dialog_alert)
-                        .setPositiveButton("خب", new DialogInterface.OnClickListener() {
+                        .setPositiveButton("تایید", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 // continue with delete
 
@@ -250,8 +251,8 @@ public class NewReportActivity extends Activity {
                 pg.dismiss();
 
                 new AlertDialog.Builder(context)
-                        .setTitle("Report save error")
-                        .setMessage("some text")
+                        .setTitle("خطا")
+                        .setMessage("عملیات انجام نشد!")
                         .setIcon(android.R.drawable.ic_dialog_alert)
                         .setPositiveButton("خب", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
@@ -268,7 +269,8 @@ public class NewReportActivity extends Activity {
 
             @Override
             public void onProgress(int done, int total, Object result) {
-                pg.setMessage(done + " of " + total + " image Uploaded");
+                pg.setMessage("در حال ارسال " + done + " از " + total + " تصویر");
+                pg.setProgress(100 / total * done);
             }
         });
 
