@@ -479,7 +479,6 @@ public class Webservice {
 
         if(uploadCountMap.containsKey(tag)){
             list = uploadCountMap.get(tag);
-
             list.add(imageName);
 
         }else{

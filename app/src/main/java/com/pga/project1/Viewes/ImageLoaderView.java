@@ -111,6 +111,8 @@ public class ImageLoaderView extends RelativeLayout {
                 public void onError(String err) {
                     //TODO broken image
 
+                    mainImageView.setImageResource(R.drawable.image_error);
+
                     progressBar.setVisibility(GONE);
                 }
 

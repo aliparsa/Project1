@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -39,6 +40,7 @@ public class TreeViewActivity extends Activity {
     Stack<List<AdapterInputType>> stack = new Stack<List<AdapterInputType>>();
     private ListViewCustomAdapter adapter;
     private PathMapManager pathManager;
+    private boolean TwiceBackPressed=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -219,6 +221,24 @@ public class TreeViewActivity extends Activity {
     @Override
     public void onBackPressed() {
         //super.onBackPressed();
+
+
+        if (TwiceBackPressed)
+            finish();
+        else {
+            Toast.makeText(this, "جهت خروج یکبار دیگر بزنید", Toast.LENGTH_SHORT).show();
+            TwiceBackPressed = true;
+            new Handler().postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+                    TwiceBackPressed = false;
+                }
+            }, 700);
+        }
+
+
+
 
         if (stack.size() > 0) {
             loadTreeFromStack();
