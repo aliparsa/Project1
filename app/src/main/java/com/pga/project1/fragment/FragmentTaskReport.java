@@ -72,7 +72,7 @@ public class FragmentTaskReport extends Fragment {
         return rootView;
     }
 
-    private void loadReports() {
+    public void loadReports() {
 
 
         Webservice.getReportListByWorkId(getActivity(), chart.getId(), new CallBack<ArrayList<Report>>() {
