@@ -81,12 +81,16 @@ public class ImageLoaderView extends RelativeLayout {
 
     public void startLoading() {
 
-        if(async != null && !async.isCancelled()) {
+        /*if(async != null && !async.isCancelled()) {
             async.cancel(true);
             progressBar.setProgress(0);
             mainImageView.setImageResource(0);
             mainImageView.setImageBitmap(null);
-        }
+        }*/
+
+        progressBar.setProgress(0);
+        mainImageView.setImageResource(0);
+        mainImageView.setImageBitmap(null);
 
         if(url != null && url.length() > 0) {
             async = new AsynLoadImage(getContext(), this.url, new ProgressCallBack<Bitmap>() {

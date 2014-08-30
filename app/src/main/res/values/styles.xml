@@ -20,7 +20,7 @@
     <!-- ActionBarTab styles -->
     <style name="MyActionBarTabBar">
         <item name="android:gravity">start</item>
-        <item name="android:background">#2c95f8</item>
+        <item name="android:background">#5FACF5</item>
         <item name="android:showDividers">middle</item>
         <item name="android:divider">#cccccc</item>
         <item name="android:minWidth">0dp</item>

@@ -81,7 +81,7 @@ public class Report implements Serializable {
 
                 for (int j = 0; j < imageJson.length(); j++) {
 
-                    imageUrls.add(imageJson.getString(j));
+                    imageUrls.add(JsonHelper.getStringS((JSONObject) imageJson.get(j), "image", ""));
                 }
 
                 Report reportItem = new Report(id, chart_id, personnel_id, date, report, percent, imageUrls);

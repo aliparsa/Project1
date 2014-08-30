@@ -44,6 +44,8 @@ public class EditReportActivity extends Activity {
         for (int i = 0; i < report.getImageUrls().size(); i++) {
             if (report.getImageUrls().get(i) != null) {
                 ImageLoaderView imgvl = new ImageLoaderView(this, report.getImageUrls().get(i));
+                imgvl.getLayoutParams().width = 200;
+                imgvl.getLayoutParams().height = 200;
                 ll_image_list.addView(imgvl);
             }
 

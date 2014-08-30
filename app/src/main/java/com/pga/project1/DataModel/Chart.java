@@ -31,6 +31,7 @@ public class Chart implements PathMapObject, Serializable {
     private int auto_percent;
     private int hand_percent;
     private ArrayList<Feature> featureList;
+    private String image;
     // private int percent;
 
 
@@ -38,7 +39,7 @@ public class Chart implements PathMapObject, Serializable {
     private Personnel personnel;
 
 
-    public Chart(int id, int type_id, String name, String start_date, String end_date, Personnel personnel, String allow_delay, String status, String price, String is_pay, String root_id, String work_unit, int auto_percent, int hand_percent, ArrayList<Feature> featureList) {
+    public Chart(int id, int type_id, String name, String start_date, String end_date, Personnel personnel, String allow_delay, String status, String price, String is_pay, String root_id, String work_unit, int auto_percent, int hand_percent, ArrayList<Feature> featureList, String image) {
         this.id = id;
         this.type_id = type_id;
         this.name = name;
@@ -56,6 +57,7 @@ public class Chart implements PathMapObject, Serializable {
         this.auto_percent = auto_percent;
         this.hand_percent = hand_percent;
         this.featureList = featureList;
+        this.image = image;
     }
 
 
@@ -93,9 +95,11 @@ public class Chart implements PathMapObject, Serializable {
                 String root_id = jsonObject.getString("root_id");
                 String work_unit = jsonObject.getString("work_unit");
 
+
                 int auto_percent = JsonHelper.getIntS(jsonObject, "auto_percent", 0);
                 int hand_percent = JsonHelper.getIntS(jsonObject, "hand_percent", 0);
 
+                String image = JsonHelper.getStringS(jsonObject, "image", null);
 
                 Chart chartItem = new Chart(
                         id,
@@ -112,7 +116,8 @@ public class Chart implements PathMapObject, Serializable {
                         work_unit,
                         auto_percent,
                         hand_percent,
-                        featureList
+                        featureList,
+                        image
                 );
 
                 itemlist.add(chartItem);
@@ -239,6 +244,14 @@ public class Chart implements PathMapObject, Serializable {
 
     public void setHand_percent(int hand_percent) {
         this.hand_percent = hand_percent;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }
 
