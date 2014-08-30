@@ -32,6 +32,7 @@ import com.pga.project1.DataModel.Report;
 import com.pga.project1.Intefaces.ProgressCallBack;
 import com.pga.project1.R;
 import com.pga.project1.Utilities.ErrorMessage;
+import com.pga.project1.Utilities.ImageHelper;
 import com.pga.project1.Utilities.PersianCalendar;
 import com.pga.project1.Utilities.Webservice;
 import com.pga.project1.Viewes.PathMapManager;
@@ -40,6 +41,8 @@ import com.pga.project1.Viewes.ViewDateTimePickerPersian;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.net.URI;
+import java.util.Random;
 
 public class NewReportActivity extends Activity {
 
@@ -331,14 +334,15 @@ public class NewReportActivity extends Activity {
             switch (requestCode) {
                 case CAMERA_REQUEST:
                     // TODO Handle Picked Image From Camera
+
                     Bitmap photo_camera = (Bitmap) data.getExtras().get("data");
-                    String path1 = storeThisImage(photo_camera);
+                    ImageHelper imh = new ImageHelper();
+                    String kam_hajm = imh.compressImage(Uri.fromFile(storeThisImage(photo_camera)).getPath(), context);
 
                     // add image to linear layout
-
-                    Bitmap ThumbImage = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(path1), 200, 200);
+                    Bitmap ThumbImage = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(kam_hajm), 200, 200);
                     temp_img.setImageBitmap(ThumbImage);
-                    temp_img.setTag(path1);
+                    temp_img.setTag(kam_hajm);
                     ll_image_list.addView(temp_img);
 
 
@@ -350,18 +354,24 @@ public class NewReportActivity extends Activity {
                     //User had pick an image.
                     Cursor cursor = context.getContentResolver().query(_uri, new String[]{android.provider.MediaStore.Images.ImageColumns.DATA}, null, null, null);
                     cursor.moveToFirst();
+
                     //Link to the image
                     String path2 = cursor.getString(0);
                     cursor.close();
 
+
                     // create bitmap from path
                     File imgFile = new File(path2);
+                    ImageHelper imh2 = new ImageHelper();
+                    String kam_hajm2 = imh2.compressImage(Uri.fromFile(imgFile).getPath(), context);
+
+
                     if (imgFile.exists()) {
 
                         // add image to linear layout
-                        Bitmap ThumbImage2 = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(path2), 200, 200);
+                        Bitmap ThumbImage2 = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(kam_hajm2), 200, 200);
                         temp_img.setImageBitmap(ThumbImage2);
-                        temp_img.setTag(path2);
+                        temp_img.setTag(kam_hajm2);
                         ll_image_list.addView(temp_img);
 
                     }
@@ -420,25 +430,23 @@ public class NewReportActivity extends Activity {
     }
 
     //-----------------------------------------------------------------------
-    public String storeThisImage(Bitmap bitmap) {
-        FileOutputStream out = null;
-        String filename = Environment.getExternalStorageDirectory() + "/" + Environment.DIRECTORY_DCIM + "/img.jpeg";
+    public File storeThisImage(Bitmap bitmap) {
         String path = Environment.getExternalStorageDirectory().toString();
         try {
 
             OutputStream fOut = null;
-            File file = new File(path, "img.jpg");
+            File file = new File(path, new Random().nextLong() + ".jpg");
             fOut = new FileOutputStream(file);
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fOut);
+            long x = file.getTotalSpace();
             fOut.flush();
             fOut.close();
+            return file;
 
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
-
-        return path + "/" + "img.jpg";
     }
 
 
@@ -452,5 +460,31 @@ public class NewReportActivity extends Activity {
         actionBar.setDisplayShowCustomEnabled(true);
         actionBar.setDisplayShowTitleEnabled(false);
         actionBar.setCustomView(v);
+    }
+
+    public String normalizeImage(String path) {
+        File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
+        Bitmap b = BitmapFactory.decodeFile(path);
+
+
+        Bitmap out = Bitmap.createScaledBitmap(b, 1024, 768, false);
+
+        Random rand = new Random();
+        Long longNum = rand.nextLong();
+        File file = new File(dir, longNum + ".png");
+        FileOutputStream fOut;
+        try {
+            fOut = new FileOutputStream(file);
+
+            out.compress(Bitmap.CompressFormat.PNG, 100, fOut);
+            fOut.flush();
+            fOut.close();
+            b.recycle();
+            out.recycle();
+
+        } catch (Exception e) { // TODO
+
+        }
+        return dir.getAbsolutePath() + "/" + longNum + ".png";
     }
 }

@@ -3,6 +3,7 @@ package com.pga.project1.Viewes;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -61,10 +62,10 @@ public class ImageLoaderView extends RelativeLayout {
         this.progressBar = (ProgressBar) findViewById(R.id.progressBar);
         progressBar.setMax(100);
 
-        if(!showProgressBar)
+        if (!showProgressBar)
             progressBar.setVisibility(GONE);
 
-        if(!isInEditMode())
+        if (!isInEditMode())
             startLoading();
     }
 
@@ -94,10 +95,10 @@ public class ImageLoaderView extends RelativeLayout {
         mainImageView.setImageResource(0);
         mainImageView.setImageBitmap(null);
 
-        if(showProgressBar)
+        if (showProgressBar)
             progressBar.setVisibility(VISIBLE);
 
-        if(url != null && url.length() > 0) {
+        if (url != null && url.length() > 0) {
             async = new AsynLoadImage(getContext(), this.url, new ProgressCallBack<Bitmap>() {
                 @Override
                 public void onSuccess(Bitmap result) {
@@ -144,7 +145,9 @@ public class ImageLoaderView extends RelativeLayout {
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
 
-        if(async != null && !async.isCancelled())
+        if (async != null && !async.isCancelled())
             async.cancel(true);
     }
+
+
 }

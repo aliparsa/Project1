@@ -1,11 +1,15 @@
 package com.pga.project1.Activities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.pga.project1.DataModel.PathObject;
@@ -43,10 +47,18 @@ public class EditReportActivity extends Activity {
 
         for (int i = 0; i < report.getImageUrls().size(); i++) {
             if (report.getImageUrls().get(i) != null) {
-                ImageLoaderView imgvl = new ImageLoaderView(this, report.getImageUrls().get(i));
-                imgvl.getLayoutParams().width = 200;
-                imgvl.getLayoutParams().height = 200;
+                final ImageLoaderView imgvl = new ImageLoaderView(this, report.getImageUrls().get(i));
+                imgvl.setPadding(3, 3, 3, 3);
+                imgvl.setTag(report.getImageUrls().get(i));
+                imgvl.setLayoutParams(new LinearLayout.LayoutParams(200, 200));
                 ll_image_list.addView(imgvl);
+
+                imgvl.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        showImage((String) imgvl.getTag());
+                    }
+                });
             }
 
         }
@@ -81,5 +93,12 @@ public class EditReportActivity extends Activity {
         super.onDestroy();
 
         PathMapManager.pop("Edit Report act");
+    }
+
+    //------------------------------------
+    public void showImage(String path) {
+        Intent intent = new Intent(this, ActivityShowImage.class);
+        intent.putExtra("image_url", (String) path);
+        startActivity(intent);
     }
 }

@@ -48,6 +48,8 @@
                 <view
                     android:layout_width="50dp"
                     android:layout_height="50dp"
+                    android:padding="3dp"
+                    app:show_progressbar="false"
                     class="com.pga.project1.Viewes.ImageLoaderView"
                     android:id="@+id/imgview_item"
                     android:layout_alignParentTop="true"
@@ -98,17 +100,7 @@
 
                         android:visibility="gone" />
 
-                    <TextView
-                        android:id="@+id/percent_textview"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
-                        android:layout_gravity="center_vertical"
 
-                        android:textAppearance="?android:attr/textAppearanceSmall"
-                        android:textColor="#ffffff"
-                        android:visibility="gone" />
                 </RelativeLayout>
 
                 <LinearLayout
@@ -117,9 +109,10 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:layout_below="@+id/icon2"
+                    android:padding="5dp"
                     android:layout_toLeftOf="@+id/imgview_item">
 
-                <TextView
+                    <TextView
                         android:id="@+id/title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -229,14 +222,14 @@
         android:orientation="vertical"
         android:visibility="visible">
 
-            <TextView
+        <TextView
 
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:padding="10dp"
-                android:layout_gravity="center_horizontal"
-                android:text="آیتمی موجود نمیباشد" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:padding="10dp"
+            android:layout_gravity="center_horizontal"
+            android:text="آیتمی موجود نمیباشد" />
 
     </LinearLayout>
 
@@ -250,13 +243,11 @@
         android:visibility="visible">
 
 
-
-            <ProgressBar
-                android:id="@+id/progressBar"
-                android:layout_gravity="center_horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                 />
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
 </LinearLayout>

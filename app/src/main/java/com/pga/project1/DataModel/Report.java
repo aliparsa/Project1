@@ -16,6 +16,8 @@ import java.util.ArrayList;
 public class Report implements Serializable {
 
 
+    private String image;
+
     public Report(int id, Chart chart, int personnel_id, String date, String report, int percent) {
         this.id = id;
         this.chart_id = chart.getId();
@@ -157,5 +159,13 @@ public class Report implements Serializable {
 
     public void setImageUrls(ArrayList<String> imageUrls) {
         this.imageUrls = imageUrls;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

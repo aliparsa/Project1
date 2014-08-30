@@ -30,32 +30,15 @@ public class ActivityShowImage extends Activity {
         setContentView(R.layout.activity_activity_show_image);
 
 
-//        String[] imagePaths = getIntent().getStringArrayExtra("images");
-//        images = new Bitmap[imagePaths.length];
-//        for (int i = 0; i < imagePaths.length; i++) {
-//
-//            File imgFile = new File(imagePaths[i]);
-//            if (imgFile.exists()) {
-//                Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
-//                images[i] = myBitmap;
-//            }
-//        }
-
-//        imagePath = getIntent().getStringExtra("image");
-
         String imagePath = getIntent().getStringExtra("image");
         imv = (ImageView) findViewById(R.id.ImageView_show_Image);
         File imgFile = new File(imagePath);
         if (imgFile.exists()) {
-                Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+            Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
 //               Bitmap ThumbImage = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(imagePath),300,300 );
             imv.setImageBitmap(myBitmap);
-            }
+        }
 
-        //Gallery gallery = (Gallery) findViewById(R.id.gallery_show);
-
-//        gallery.setSpacing(1);
-//        gallery.setAdapter(new GalleryImageAdapter(this, imv, images));
 
     }
 
