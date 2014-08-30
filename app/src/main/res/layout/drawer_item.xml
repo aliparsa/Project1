@@ -45,13 +45,23 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent">
 
+                <view
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    class="com.pga.project1.Viewes.ImageLoaderView"
+                    android:id="@+id/imgview_item"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
+
                 <ImageView
                     android:id="@+id/icon2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentTop="true"
-                    android:src="@drawable/ic_launcher" />
+                    android:src="@drawable/ic_launcher"
+                    android:visibility="gone" />
 
                 <RelativeLayout
                     android:id="@+id/relativeLayout"
@@ -72,7 +82,8 @@
                         app:animationSpeed="2"
                         app:background="#ffdbdbdb"
                         app:color1="#ff9bccff"
-                        app:strokeColor="#ff759ac1" />
+                        app:strokeColor="#ff759ac1"
+                        android:visibility="visible" />
 
                     <ProgressBar
                         android:id="@+id/progressBar2"
@@ -104,11 +115,11 @@
                     android:id="@+id/linearLayout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toLeftOf="@+id/icon2"
-                    android:layout_toRightOf="@+id/relativeLayout"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_below="@+id/icon2"
+                    android:layout_toLeftOf="@+id/imgview_item">
 
-                    <TextView
+                <TextView
                         android:id="@+id/title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

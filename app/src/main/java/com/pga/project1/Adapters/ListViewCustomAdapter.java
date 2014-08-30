@@ -163,10 +163,14 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
         if (holder.graphview == null)
             holder.graphview = (Graphview) lv_icon_title_subtitle.findViewById(R.id.graph_view);
 
+        if (holder.img == null)
+            holder.img = (ImageLoaderView) lv_icon_title_subtitle.findViewById(R.id.imgview_item);
+
 
         holder.icon_in_title_subtitle.setImageBitmap(item.image1);
         holder.title.setText(item.title);
         holder.subtitle.setText(item.subTitle);
+
 
         if (item.getTag() != null && item.getTag() instanceof Chart) {
 
@@ -175,6 +179,9 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
             holder.graphview.showAnimation = item.isFirstTimeItemShowed;
             holder.graphview.setPercent(((Chart) item.getTag()).getHand_percent());
             item.isFirstTimeItemShowed = false;
+
+            holder.img.setUrl(((Chart) item.getTag()).getImage());
+            holder.img.startLoading();
 
 
         }
@@ -224,6 +231,7 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
 
     public static class DrawerItemHolder {
 
+        //----------------------
         public TextView title;
         TextView subtitle;
         ImageView icon;
@@ -232,6 +240,7 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
         ProgressBar progressBar;
         TextView percent;
         Graphview graphview;
+        ImageLoaderView img;
 
         //---------------------
         ImageView peopleImage;
