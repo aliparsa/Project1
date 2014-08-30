@@ -164,7 +164,12 @@ public class PersianCalendar {
      * @return String
      */
     public String getIranianDate() {
-        return (irYear + "/" + irMonth + "/" + irDay);
+
+        return (irYear
+                + "/" +
+                ((irMonth < 10) ? ("0" + irMonth) : irMonth)
+                + "/" +
+                ((irDay < 10) ? ("0" + irDay) : irDay));
     }
 
     /**

@@ -35,7 +35,6 @@ public class Webservice {
 
     final static public String SERVER_ADDRESS = "http://192.168.1.66:8099/pm";
     final static public String SHAYAN_SERVER_ADDRESS = "http://192.168.0.79:3434/index.php/webservice?";
-    final static public String SERVER_ADDRESS_UPLOAD = "http://192.168.0.79:3434/index.php/w-upload";
 
 
     //-----------------------------------------------------------------------------
@@ -192,45 +191,8 @@ public class Webservice {
         });
 
     }
-    //-------------------------------------------------------------------------------
-//    public static void getFeatureById(Context context, int id, final CallBack callback) {
-//
-//// HttpHelper helper = new HttpHelper(context, SHAYAN_SERVER_ADDRESS, false, 0);
-//        HttpHelper helper = new HttpHelper(context, SERVER_ADDRESS, false, 0);
-//
-//        BasicNameValuePair[] arr = {
-//                new BasicNameValuePair("tag", "get_chart_feature"),
-//                new BasicNameValuePair("id", id + "")
-//        };
-//
-//        helper.postHttp(arr, new ResponseHandler() {
-//            @Override
-//            public void handleResponse(ServerResponse response) {
-//
-//                try {
-//
-//
-//                    JSONArray jsonArray = new JSONArray(response.getResult());
-//
-//                    ArrayList<Feature> featureList = Feature.getArrayFromJson(jsonArray);
-//                    callback.onSuccess(featureList);
-//
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//
-//
-//            }
-//
-//            @Override
-//            public void error(ErrorMessage err) {
-//
-//            }
-//        });
-//    }
 
+    // DONE
     //-------------------------------------------------------------------------------
     public static void getTaskListByWorkId(Context context, final int id, final CallBack callBack) {
 
@@ -381,88 +343,143 @@ public class Webservice {
     // DONE
     //-------------------------------------------------------------------------------
     public static void saveWorkReport(Context context, final Report report, final String[] imagePaths, final ProgressCallBack callBack) {
-        final HttpHelper helper = new HttpHelper(context, SERVER_ADDRESS, false, 0);
+        final HttpHelper helper = new HttpHelper(context, SHAYAN_SERVER_ADDRESS, false, 0);
 
+        if (imagePaths != null) {
 
-        final String now = new Date().toString();
-        for (int i = 0; i < imagePaths.length; i++) {
+            int imageCount = 0;
+            for (int i = 0; i < imagePaths.length; i++) {
 
-            final String imagePath = imagePaths[i];
+                if (imagePaths[i] != null)
+                    imageCount++;
+            }
 
-            uploadFile(context, imagePath, new CallBackUpload() {
+            final String now = new Date().toString();
+            for (int i = 0; i < imagePaths.length; i++) {
 
-                @Override
-                public void onSuccess(Object result, String tag) {
+                final String imagePath = imagePaths[i];
+                final int finalImageCount = imageCount;
 
-                    int uploaded = uploadHelper(tag);
+                if (imagePath != null) {
 
-                    if(uploaded == imagePath.length())
-                    {
-                        sendMainRequest();
-                    }
-                }
+                    uploadFile(context, imagePath, new CallBackUpload() {
 
-                void sendMainRequest(){
-                    BasicNameValuePair[] arr = {
-                            new BasicNameValuePair("tag", "save_work_report"),
-                            new BasicNameValuePair("chart_id", report.getChart().getId() + ""),
-                            new BasicNameValuePair("report_text", report.getReport() + ""),
-                            new BasicNameValuePair("report_percent", report.getPercent() + ""),
-                            new BasicNameValuePair("report_date", report.getDate() + "")
-
-                    };
-
-                    helper.postHttp(arr, new ResponseHandler() {
                         @Override
-                        public void handleResponse(ServerResponse response) {
+                        public void onSuccess(Object result, String tag) {
 
-                            try {
+                            int uploaded = uploadHelper(tag, (String) result);
 
-                                JSONObject jsonObject = new JSONObject(response.getResult());
+                            if (uploaded == finalImageCount) {
+                                sendMainRequest(tag);
+                            }
+                        }
 
-                                callBack.onSuccess(response);
+                        void sendMainRequest(String tag) {
 
-                            } catch (JSONException e) {
-                                e.printStackTrace();
+                            ArrayList<String> imagesOfTag = uploadCountMap.get(tag);
+                            String imagesJson = "";
+                            for (String imageAddress : imagesOfTag) {
+
+                                imagesJson += imageAddress + ";";
                             }
 
+                            BasicNameValuePair[] arr = {
+                                    new BasicNameValuePair("tag", "save_report"),
+                                    new BasicNameValuePair("id", report.getChart().getId() + ""),
+                                    new BasicNameValuePair("report", report.getReport() + ""),
+                                    new BasicNameValuePair("percent_work", report.getPercent() + ""),
+                                    new BasicNameValuePair("date", report.getDate() + ""),
+                                    new BasicNameValuePair("images", imagesJson)
+                            };
+
+                            helper.postHttp(arr, new ResponseHandler() {
+                                @Override
+                                public void handleResponse(ServerResponse response) {
+
+                                    try {
+
+                                        JSONObject jsonObject = new JSONObject(response.getResult());
+
+                                        callBack.onSuccess(response);
+
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+
+                                }
+
+                                @Override
+                                public void error(String err) {
+                                    Log.e("ali", " webservice / saveWorkReport ");
+                                    callBack.onError(new ErrorMessage(ErrorPlaceHolder.err2));
+                                }
+                            });
                         }
 
                         @Override
-                        public void error(String err) {
+                        public void onError(String errorMessage) {
                             Log.e("ali", " webservice / saveWorkReport ");
                             callBack.onError(new ErrorMessage(ErrorPlaceHolder.err2));
                         }
-                    });
+
+                    }, now);
+                }
+            }
+        } else {
+            BasicNameValuePair[] arr = {
+                    new BasicNameValuePair("tag", "save_report"),
+                    new BasicNameValuePair("id", report.getChart().getId() + ""),
+                    new BasicNameValuePair("report", report.getReport() + ""),
+                    new BasicNameValuePair("percent_work", report.getPercent() + ""),
+                    new BasicNameValuePair("date", report.getDate() + ""),
+                    new BasicNameValuePair("images", "")
+            };
+
+            helper.postHttp(arr, new ResponseHandler() {
+                @Override
+                public void handleResponse(ServerResponse response) {
+
+                    try {
+
+                        JSONObject jsonObject = new JSONObject(response.getResult());
+
+                        callBack.onSuccess(response);
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
                 }
 
                 @Override
-                public void onError(String errorMessage) {
+                public void error(String err) {
                     Log.e("ali", " webservice / saveWorkReport ");
                     callBack.onError(new ErrorMessage(ErrorPlaceHolder.err2));
                 }
-
-            }, now);
+            });
         }
 
     }
 
-    static Map<String, Integer> uploadCountMap = new HashMap<String, Integer>();
+    static Map<String, ArrayList<String>> uploadCountMap = new HashMap<String, ArrayList<String>>();
 
-    private static int uploadHelper(String tag) {
+    private static int uploadHelper(String tag, String imageName) {
 
-        int count = 1;
+        ArrayList<String> list;
 
         if(uploadCountMap.containsKey(tag)){
-            count = uploadCountMap.get(tag);
-            uploadCountMap.remove(tag);
-            count++;
-            uploadCountMap.put(tag, count);
+            list = uploadCountMap.get(tag);
+
+            list.add(imageName);
+
         }else{
-            uploadCountMap.put(tag, count);
+            list = new ArrayList<String>();
+            list.add(imageName);
+
+            uploadCountMap.put(tag, list);
         }
 
-        return count;
+        return list.size();
     }
 
     //-------------------------------------------------------------------------------
@@ -536,7 +553,7 @@ public class Webservice {
     // DONE
     //-------------------------------------------------------------------------------
     public static void uploadFile(Context context, String filePath, final CallBackUpload callBack, final String tag) {
-        HttpHelper helper = new HttpHelper(context, SERVER_ADDRESS_UPLOAD, false, 0);
+        HttpHelper helper = new HttpHelper(context, SHAYAN_SERVER_ADDRESS, false, 0);
 
         helper.upload(filePath, new ResponseHandler() {
             @Override
@@ -545,8 +562,18 @@ public class Webservice {
                 try {
 
                     JSONObject jsonObject = new JSONObject(response.getResult());
+                    //TODO get image in server name
 
-                    callBack.onSuccess(response, tag);
+                    String result = JsonHelper.getStringS(jsonObject, "result", "");
+                    String imageName = "";
+                    if (result.equals("ok")) {
+
+                        imageName = JsonHelper.getStringS(jsonObject, "image_address", "");
+                    } else {
+                        callBack.onError("notSaved");
+                    }
+
+                    callBack.onSuccess(imageName, tag);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
