@@ -72,6 +72,7 @@ public class Webservice {
 
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    callBack.onError("exception getProjects");
                 }
 
             }
@@ -120,6 +121,8 @@ public class Webservice {
 
                 } catch (JSONException e) {
                     e.printStackTrace();
+
+                    callBack.onError("Exception");
                 }
 
             }
@@ -127,6 +130,7 @@ public class Webservice {
             @Override
             public void error(String err) {
 
+                callBack.onError(err);
             }
         });
 
@@ -221,6 +225,7 @@ public class Webservice {
             @Override
             public void error(String err) {
 
+                callBack.onError(err);
             }
         });
 
