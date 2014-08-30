@@ -13,7 +13,6 @@ import com.pga.project1.Intefaces.CallBack;
 import com.pga.project1.Intefaces.CallBackUpload;
 import com.pga.project1.Intefaces.ProgressCallBack;
 import com.pga.project1.Intefaces.ResponseHandler;
-import com.pga.project1.Structures.ErrorPlaceHolder;
 
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
@@ -72,6 +71,7 @@ public class Webservice {
 
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    callBack.onError("exception getProjects");
                 }
 
             }
@@ -120,6 +120,8 @@ public class Webservice {
 
                 } catch (JSONException e) {
                     e.printStackTrace();
+
+                    callBack.onError("Exception");
                 }
 
             }
@@ -127,6 +129,7 @@ public class Webservice {
             @Override
             public void error(String err) {
 
+                callBack.onError(err);
             }
         });
 
@@ -221,6 +224,7 @@ public class Webservice {
             @Override
             public void error(String err) {
 
+                callBack.onError(err);
             }
         });
 
@@ -328,12 +332,15 @@ public class Webservice {
 
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    callBack.onError("exception");
                 }
 
             }
 
             @Override
             public void error(String err) {
+
+                callBack.onError(err);
                 Log.e("ali", " webservice / addPersonnelToWork ");
             }
         });
@@ -507,6 +514,7 @@ public class Webservice {
 
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    callBack.onError("Exception");
                 }
 
             }
@@ -514,6 +522,7 @@ public class Webservice {
             @Override
             public void error(String err) {
                 Log.e("ali", " webservice / getReportListByWorkId ");
+                callBack.onError(err);
 
             }
         });
@@ -541,6 +550,8 @@ public class Webservice {
 
                 } catch (JSONException e) {
                     e.printStackTrace();
+
+                    callBack.onError("Exception");
                 }
 
             }
@@ -548,6 +559,7 @@ public class Webservice {
             @Override
             public void error(String err) {
                 Log.e("ali", " webservice / addPersonnelToWork ");
+                callBack.onError(err);
             }
         });
 
@@ -580,6 +592,7 @@ public class Webservice {
 
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    callBack.onError("exception");
                 }
 
             }
