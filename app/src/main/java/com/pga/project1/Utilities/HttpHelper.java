@@ -181,6 +181,19 @@ public class HttpHelper {
                         HttpClient client = new DefaultHttpClient();
                         HttpPost post = new HttpPost(url);
 
+                        /*
+                        List<BasicNameValuePair> basicNameValuePairs = new ArrayList<BasicNameValuePair>(2);
+
+
+                        BasicNameValuePair tocketNV = new BasicNameValuePair("token", token);
+                        basicNameValuePairs.add(tocketNV);
+
+                        BasicNameValuePair param = new BasicNameValuePair("tag", "upload");
+                        basicNameValuePairs.add(param);
+
+                        post.setEntity(new UrlEncodedFormEntity(basicNameValuePairs, HTTP.UTF_8));
+*/
+
                         MultipartEntityBuilder builder = MultipartEntityBuilder.create();
 
                         builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
@@ -188,8 +201,11 @@ public class HttpHelper {
                         FileBody fileBody = new FileBody(new File(filePath));
 
                         builder.addPart("image", fileBody);
+                        builder.addTextBody("tag", "upload");
+                        builder.addTextBody("token", token);
 
                         HttpEntity entity = builder.build();
+
 
                         post.setEntity(entity);
 
