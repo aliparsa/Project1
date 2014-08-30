@@ -1,20 +1,15 @@
 package com.pga.project1.Activities;
 
 import android.app.Activity;
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.ThumbnailUtils;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.Gallery;
 import android.widget.ImageView;
 
 import com.pga.project1.R;
+import com.pga.project1.Viewes.ImageLoaderView;
 
 import java.io.File;
 
@@ -23,6 +18,7 @@ public class ActivityShowImage extends Activity {
     ImageView imv;
 
     Bitmap[] images;
+    private ImageLoaderView imlv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,15 +26,40 @@ public class ActivityShowImage extends Activity {
         setContentView(R.layout.activity_activity_show_image);
 
 
+//        String[] imagePaths = getIntent().getStringArrayExtra("images");
+//        images = new Bitmap[imagePaths.length];
+//        for (int i = 0; i < imagePaths.length; i++) {
+//
+//            File imgFile = new File(imagePaths[i]);
+//            if (imgFile.exists()) {
+//                Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+//                images[i] = myBitmap;
+//            }
+//        }
+
+//        imagePath = getIntent().getStringExtra("image");
+
         String imagePath = getIntent().getStringExtra("image");
-        imv = (ImageView) findViewById(R.id.ImageView_show_Image);
-        File imgFile = new File(imagePath);
-        if (imgFile.exists()) {
-            Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+        String imageurl = getIntent().getStringExtra("image_url");
+
+        if(imagePath != null) {
+            imv = (ImageView) findViewById(R.id.ImageView_show_Image);
+            File imgFile = new File(imagePath);
+            if (imgFile.exists()) {
+                Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
 //               Bitmap ThumbImage = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(imagePath),300,300 );
-            imv.setImageBitmap(myBitmap);
+                imv.setImageBitmap(myBitmap);
+            }
+        }else if(imageurl != null){
+            imlv = (ImageLoaderView) findViewById(R.id.ImageLoaderView_show_Image);
+
+            imlv.setUrlAndStartLoading(imageurl);
         }
 
+        //Gallery gallery = (Gallery) findViewById(R.id.gallery_show);
+
+//        gallery.setSpacing(1);
+//        gallery.setAdapter(new GalleryImageAdapter(this, imv, images));
 
     }
 
