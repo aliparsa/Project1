@@ -13,6 +13,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.pga.project1.DataModel.Chart;
+import com.pga.project1.DataModel.Report;
 import com.pga.project1.R;
 import com.pga.project1.Structures.AdapterInputType;
 import com.pga.project1.Viewes.Graphview;
@@ -154,11 +155,11 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
         if (holder.subtitle == null)
             holder.subtitle = (TextView) lv_icon_title_subtitle.findViewById(R.id.subtitle);
 
-        if (holder.progressBar == null)
-            holder.progressBar = (ProgressBar) lv_icon_title_subtitle.findViewById(R.id.progressBar2);
+//        if (holder.progressBar == null)
+//            holder.progressBar = (ProgressBar) lv_icon_title_subtitle.findViewById(R.id.progressBar2);
 
-        if (holder.percent == null)
-            holder.percent = (TextView) lv_icon_title_subtitle.findViewById(R.id.percent_textview);
+//        if (holder.percent == null)
+//            holder.percent = (TextView) lv_icon_title_subtitle.findViewById(R.id.percent_textview);
 
         if (holder.graphview == null)
             holder.graphview = (Graphview) lv_icon_title_subtitle.findViewById(R.id.graph_view);
@@ -171,17 +172,32 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
         holder.title.setText(item.title);
         holder.subtitle.setText(item.subTitle);
 
-
+//for charts
         if (item.getTag() != null && item.getTag() instanceof Chart) {
 
-            holder.progressBar.setProgress((((Chart) item.getTag()).getHand_percent()));
-            holder.percent.setText((((Chart) item.getTag()).getHand_percent()) + " % ");
+            //holder.progressBar.setProgress((((Chart) item.getTag()).getHand_percent()));
+            //            holder.percent.setText((((Chart) item.getTag()).getHand_percent()) + " % ");
             holder.graphview.showAnimation = item.isFirstTimeItemShowed;
             holder.graphview.setPercent(((Chart) item.getTag()).getHand_percent());
             item.isFirstTimeItemShowed = false;
 
             holder.img.setUrl(((Chart) item.getTag()).getImage());
             holder.img.startLoading();
+
+
+        }
+        //for reports
+        if (item.getTag() != null && item.getTag() instanceof Report) {
+
+            Report report = (Report) item.getTag();
+            //holder.progressBar.setProgress(report.getPercent());
+            //holder.percent.setText((((Chart) item.getTag()).getHand_percent()) + " % ");
+            holder.graphview.showAnimation = item.isFirstTimeItemShowed;
+            holder.graphview.setPercent(report.getPercent());
+            item.isFirstTimeItemShowed = false;
+            holder.icon_in_title_subtitle.setImageResource(R.drawable.report);
+
+            holder.img.setUrlAndStartLoading(report.getImage());
 
 
         }
@@ -237,8 +253,8 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
         ImageView icon;
         ImageView icon_in_title_subtitle;
         private Object tag;
-        ProgressBar progressBar;
-        TextView percent;
+        // ProgressBar progressBar;
+        // TextView percent;
         Graphview graphview;
         ImageLoaderView img;
 

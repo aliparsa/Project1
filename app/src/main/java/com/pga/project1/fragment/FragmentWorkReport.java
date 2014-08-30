@@ -24,6 +24,7 @@ import com.pga.project1.Intefaces.CallBack;
 import com.pga.project1.R;
 import com.pga.project1.Structures.AdapterInputType;
 import com.pga.project1.Utilities.ErrorMessage;
+import com.pga.project1.Utilities.ListViewAdapterHandler;
 import com.pga.project1.Utilities.Webservice;
 
 import java.util.ArrayList;
@@ -36,6 +37,7 @@ public class FragmentWorkReport extends Fragment {
 
 
     private Chart chart;
+    ListView lv;
 
     public FragmentWorkReport() {
         // Required empty public constructor
@@ -56,6 +58,9 @@ public class FragmentWorkReport extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+
+        lv = (ListView) getView().findViewById(R.id.lv_fragmentWork_report_reportViewer);
 
         prepareReport();
     }
@@ -95,7 +100,6 @@ public class FragmentWorkReport extends Fragment {
     private void prepareReport() {
 
 
-        final ListView lv = (ListView) getView().findViewById(R.id.lv_fragmentWork_report_reportViewer);
         Webservice.getReportListByWorkId(getActivity(), chart.getId(), new CallBack<ArrayList<Report>>() {
             @Override
             public void onSuccess(ArrayList<Report> reportList) {
@@ -111,7 +115,7 @@ public class FragmentWorkReport extends Fragment {
                         new ListViewCustomAdapter(getActivity(), R.layout.fragment_layout_project_tree_view, itemList);
 
                 // set adapter to lv
-                lv.setAdapter(adapter);
+                lv.setAdapter(ListViewAdapterHandler.checkAdapterForNoItem(adapter));
 
                 // set on click listener
                 lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -122,7 +126,7 @@ public class FragmentWorkReport extends Fragment {
 
                         Intent intent = new Intent(getActivity(), EditReportActivity.class);
                         intent.putExtra("report", (Report) tag);
-                        startActivity(intent);
+                        startActivityForResult(intent, 148);
                     }
                 });
 
@@ -133,6 +137,14 @@ public class FragmentWorkReport extends Fragment {
                 Toast.makeText(getActivity(), "Error 109", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == 148) {
+            prepareReport();
+        }
     }
 
     public void setChart(Chart chart) {
