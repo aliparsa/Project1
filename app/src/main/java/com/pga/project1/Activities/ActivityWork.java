@@ -3,18 +3,10 @@ package com.pga.project1.Activities;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
-import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
-import android.support.v4.view.GestureDetectorCompat;
-import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.pga.project1.DataModel.Chart;
 import com.pga.project1.R;
@@ -42,6 +34,8 @@ public class ActivityWork extends Activity {
 
         this.chart = (Chart) getIntent().getSerializableExtra("chart");
         PathMapManager.push(chart);
+
+        getActionBar().setTitle(chart.getName());
 
         pageType = PageType.Info;
 

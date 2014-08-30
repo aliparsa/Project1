@@ -91,15 +91,15 @@ public class Personnel implements Serializable {
             if (jsonHelper.error)
                 return null;
 
-            p.first_name = jsonHelper.getString(json, "first_name", ""); //json.getString("first_name");
-            p.last_name = jsonHelper.getString(json, "last_name", ""); //json.getString("last_name");
-            p.personnel_code = jsonHelper.getString(json, "personnel_code", ""); //json.getString("personnel_code");
-            p.personnel_image = jsonHelper.getString(json, "personnel_image", "");
+            p.first_name = jsonHelper.getString(json, "person_firstname", ""); //json.getString("first_name");
+            p.last_name = jsonHelper.getString(json, "person_lastname", ""); //json.getString("last_name");
+            p.personnel_code = jsonHelper.getString(json, "person_code", ""); //json.getString("personnel_code");
+            p.personnel_image = jsonHelper.getString(json, "person_image", "");
 
             if (jsonHelper.error)
                 return null;
 
-            p.phone_number = jsonHelper.getString(json, "phone_number", ""); //json.getString("phone_number");
+            p.phone_number = jsonHelper.getString(json, "person_phone", ""); //json.getString("phone_number");
 
             JSONArray groupsJson = jsonHelper.getJsonArray(json, "groups", new JSONArray());
 
