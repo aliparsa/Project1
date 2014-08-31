@@ -39,7 +39,19 @@ list of types that adapter can be handel
     public String groupPerson;
     public String imagePerson;
 
+    ///--------------------------------
+    private int id;
+    private int type_id;
 
+    public Object tag;
+
+
+    //drawer item-----------------
+    private String drawerTitle;
+    private int drawerIconResource;
+
+
+    //-----------------------------
     public AdapterInputType(Object tag, String type, String namePerson, String phonePerson, String groupPerson, String imagePerson) {
         this.type = type;
         this.namePerson = namePerson;
@@ -50,11 +62,6 @@ list of types that adapter can be handel
     }
 
     //-----------------------------------
-
-    private int id;
-    private int type_id;
-
-    public Object tag;
 
     public AdapterInputType(Object tag, String type, String title, String subtitle, Bitmap icon) {
         this.tag = tag;
@@ -74,13 +81,20 @@ list of types that adapter can be handel
         this.tag = tag;
     }
 
+    //-Drawer Item----------------
+    public AdapterInputType(Object tag, String type,String drawerTitle, int drawerIconResource) {
+        this.type = type;
+        this.tag = tag;
+        this.drawerIconResource = drawerIconResource;
+        this.drawerTitle = drawerTitle;
+    }
 
-
+    //---------------------------
     public AdapterInputType(String type) {
         this.type = type;
     }
 
-    public AdapterInputType() {
+        public AdapterInputType() {
 
     }
 
@@ -122,5 +136,21 @@ list of types that adapter can be handel
 
     public void setTag(Object tag) {
         this.tag = tag;
+    }
+
+    public String getDrawerTitle() {
+        return drawerTitle;
+    }
+
+    public void setDrawerTitle(String drawerTitle) {
+        this.drawerTitle = drawerTitle;
+    }
+
+    public int getDrawerIconResource() {
+        return drawerIconResource;
+    }
+
+    public void setDrawerIconResource(int drawerIconResource) {
+        this.drawerIconResource = drawerIconResource;
     }
 }

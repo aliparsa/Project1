@@ -9,7 +9,6 @@ import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.pga.project1.DataModel.Chart;
@@ -30,6 +29,8 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
     public static String PERSONNEL_ITEM = "personnelItem";
     public static String LOADING_ITEM = "loading item";
     public static String NOITEM_ITEM = "no item item";
+    public static String DRAWER_ITEM = "drawer item";
+
     public List<AdapterInputType> itemList;
     Context context;
     public int layoutResID;
@@ -45,6 +46,7 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
     LinearLayout ll_people;
     LinearLayout ll_noItem;
     LinearLayout ll_loading;
+    LinearLayout ll_drawer;
 
 
     public ListViewCustomAdapter(Context context, int layoutResourceID,
@@ -82,6 +84,7 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
             ll_people = (LinearLayout) view.findViewById(R.id.ll_people);
             ll_noItem = (LinearLayout) view.findViewById(R.id.ll_noItem);
             ll_loading = (LinearLayout) view.findViewById(R.id.ll_loading);
+            ll_drawer = (LinearLayout) view.findViewById(R.id.ll_drawer_item);
         }
 
 
@@ -126,9 +129,19 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
 
         }
 
+        //Drawer item
+        if (itemList.get(position).type.equals(DRAWER_ITEM)) {
+
+            OnlyShow(ll_drawer);
+            getDrawerItem(holder, item);
+
+        }
+
 
         return view;
     }
+
+
 
     public void OnlyShow(LinearLayout lv) {
 
@@ -137,6 +150,7 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
         ll_people.setVisibility(LinearLayout.GONE);
         ll_noItem.setVisibility(LinearLayout.GONE);
         ll_loading.setVisibility(LinearLayout.GONE);
+        ll_drawer.setVisibility(LinearLayout.GONE);
 
         lv.setVisibility(LinearLayout.VISIBLE);
     }
@@ -239,6 +253,23 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
         holder.setTag(item.getTag());
     }
 
+    private void getDrawerItem(DrawerItemHolder holder, AdapterInputType item) {
+
+
+        if (holder.drawerTitle == null)
+            holder.drawerTitle = (TextView) ll_drawer.findViewById(R.id.txt_drawerItem_title);
+
+        if (holder.drawerIcon == null)
+            holder.drawerIcon = (ImageView) ll_drawer.findViewById(R.id.imgv_drawerItem_icon);
+
+
+        holder.drawerTitle.setText(item.getDrawerTitle());
+        holder.drawerIcon.setImageResource(item.getDrawerIconResource());
+
+
+
+    }
+
     public static class DrawerItemHolder {
 
         //----------------------
@@ -260,6 +291,11 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
         TextView PeopleGroups;
         //---------------------
 
+        //Drawer Item --------------------
+        TextView drawerTitle;
+        ImageView drawerIcon;
+
+        ///------------------------
         public Object getTag() {
             return tag;
         }
