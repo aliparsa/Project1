@@ -8,7 +8,6 @@ import android.os.Environment;
 import android.util.LruCache;
 
 import com.pga.project1.Intefaces.ProgressCallBack;
-import com.pga.project1.Structures.ErrorPlaceHolder;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -24,7 +23,7 @@ public class AsynLoadImage extends AsyncTask<String, String, Bitmap> {
     private static int imageNumber = 0;
 
 
-    static int cacheSizeInKB = 1024 * 5;
+    static int cacheSizeInKB = 1024 * 20;
     static LruCache<String, Bitmap> cache = new LruCache<String, Bitmap>(cacheSizeInKB) {
 
         @Override
