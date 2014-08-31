@@ -104,7 +104,10 @@ public class Personnel implements Serializable {
             JSONArray groupsJson = jsonHelper.getJsonArray(json, "groups", new JSONArray());
 
             for (int j = 0; j < groupsJson.length(); j++) {
-                p.workGroups.add(groupsJson.getString(j));
+
+                JSONObject groupJson = groupsJson.getJSONObject(j);
+
+                p.workGroups.add( JsonHelper.getStringS(groupJson, "group_name", "*") );
 
             }
         } catch (JSONException e) {
