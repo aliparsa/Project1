@@ -6,7 +6,6 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -23,7 +22,6 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.pga.project1.Adapters.ListViewCustomAdapter;
-import com.pga.project1.Activities.MainActivity;
 import com.pga.project1.R;
 import com.pga.project1.Structures.AdapterInputType;
 
@@ -77,23 +75,10 @@ public class NavigationDrawerFragment extends Fragment {
         // Create Fake Data List
         datalist = new ArrayList<AdapterInputType>();
 
-        AdapterInputType item = new AdapterInputType();
-        item.type = "image";
-        item.image1 = BitmapFactory.decodeResource(getResources(),
-                R.drawable.ic_launcher);
-
-
-        AdapterInputType item3 = new AdapterInputType();
-        item3.type = "icon+title+subtitle";
-        item3.image1 = BitmapFactory.decodeResource(getResources(),
-                R.drawable.ic_launcher);
-        item3.title = "مدیریت پروژه";
-
+        AdapterInputType item = new AdapterInputType(null, ListViewCustomAdapter.DRAWER_ITEM
+        ,"مدیریت پروژه", R.drawable.category);
 
         datalist.add(item);
-        datalist.add(item3);
-        datalist.add(item);
-
 
         // Read in the flag indicating whether or not the user has demonstrated awareness of the
         // drawer. See PREF_USER_LEARNED_DRAWER for details.

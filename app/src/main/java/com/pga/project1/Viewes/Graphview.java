@@ -7,6 +7,8 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.graphics.Shader;
+import android.graphics.SweepGradient;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -89,6 +91,7 @@ public class Graphview extends View {
         //rectf = new RectF(5, 5, min - 5, min - 5);
         rectf = new RectF(20, 20, min - 20, min - 20);
 
+
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 
@@ -112,6 +115,10 @@ public class Graphview extends View {
         paint.setAntiAlias(true);
         paint.setStrokeCap(Paint.Cap.ROUND);
         paint.setStyle(Paint.Style.STROKE);
+        //canvas.drawArc(rectf, 0, 360, true, paint);
+
+        Shader gradient = new SweepGradient(0, getMeasuredHeight()/2, Color.RED, Color.WHITE);
+        paint.setShader(gradient);
         canvas.drawArc(rectf, 0, 360, true, paint);
 
 
