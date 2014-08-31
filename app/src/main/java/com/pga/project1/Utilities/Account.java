@@ -60,6 +60,7 @@ public class Account {
         String token;
         token = app_preferences.getString("token", null);
 
+        if (token == null) return false;
 
         if (token.length() < 1)
             return false;

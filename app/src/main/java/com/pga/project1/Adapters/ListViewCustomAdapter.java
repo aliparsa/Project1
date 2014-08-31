@@ -61,7 +61,7 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-         View view = convertView;
+        View view = convertView;
 
         DrawerItemHolder holder;
         if (view != null) {
@@ -81,7 +81,7 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
             lv_icon_title_subtitle = (LinearLayout) view.findViewById(R.id.lv_icon_title_subtitle);
             ll_people = (LinearLayout) view.findViewById(R.id.ll_people);
             ll_noItem = (LinearLayout) view.findViewById(R.id.ll_noItem);
-            ll_loading= (LinearLayout) view.findViewById(R.id.ll_loading);
+            ll_loading = (LinearLayout) view.findViewById(R.id.ll_loading);
         }
 
 
@@ -176,15 +176,11 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
         //for charts
         if (item.getTag() != null && item.getTag() instanceof Chart) {
 
-            //holder.progressBar.setProgress((((Chart) item.getTag()).getHand_percent()));
-            //            holder.percent.setText((((Chart) item.getTag()).getHand_percent()) + " % ");
             holder.graphview.showAnimation = item.isFirstTimeItemShowed;
             holder.graphview.setPercent(((Chart) item.getTag()).getHand_percent());
             item.isFirstTimeItemShowed = false;
-
             holder.img.setUrl(((Chart) item.getTag()).getImage());
             holder.img.startLoading();
-
 
         }
 
@@ -193,15 +189,10 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
         if (item.getTag() != null && item.getTag() instanceof Report) {
 
             Report report = (Report) item.getTag();
-            //holder.progressBar.setProgress(report.getPercent());
-            //holder.percent.setText((((Chart) item.getTag()).getHand_percent()) + " % ");
             holder.graphview.showAnimation = item.isFirstTimeItemShowed;
             holder.graphview.setPercent(report.getPercent());
             item.isFirstTimeItemShowed = false;
             holder.img.setBitmapResource(R.drawable.report);
-
-            //holder.img.setUrlAndStartLoading(report.getImage());
-
 
         }
         //

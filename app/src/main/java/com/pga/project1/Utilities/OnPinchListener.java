@@ -1,7 +1,10 @@
 package com.pga.project1.Utilities;
 
+import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.graphics.PointF;
+import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.util.FloatMath;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -44,6 +47,19 @@ public class OnPinchListener implements View.OnTouchListener {
         // TODO Auto-generated method stub
 
         ImageView view = imageView;
+
+        Drawable drawable = view.getDrawable();
+
+        // you should call after the bitmap drawn
+        Rect bounds = drawable.getBounds();
+        int width = bounds.width();
+        int height = bounds.height();
+        int bitmapWidth = drawable.getIntrinsicWidth(); //this is the bitmap's width
+        int bitmapHeight = drawable.getIntrinsicHeight(); //this is the bitmap's heigh
+
+
+        view.setScaleType(ImageView.ScaleType.MATRIX);
+
         dumpEvent(event);
 
         // Handle touch events here...
@@ -73,8 +89,9 @@ public class OnPinchListener implements View.OnTouchListener {
                 if (mode == DRAG) {
                     // ...
                     matrix.set(savedMatrix);
-                    matrix.postTranslate(event.getX() - start.x, event.getY()
-                            - start.y);
+                    matrix.postTranslate(event.getX() - start.x, event.getY() - start.y);
+                    Log.d("ali", "X  > " + (event.getX() - start.x) + " Y > " + (event.getY() - start.y));
+
                 } else if (mode == ZOOM) {
                     float newDist = spacing(event);
                     Log.d(TAG, "newDist=" + newDist);
