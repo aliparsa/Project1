@@ -1,5 +1,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
@@ -15,19 +16,22 @@
 
 
     <ImageView
-    android:id="@+id/ImageView_show_Image"
-    android:layout_centerVertical="true"
-    android:layout_centerHorizontal="true"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:scaleType="fitCenter" />
+        android:id="@+id/ImageView_show_Image"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="fitCenter"
+        android:visibility="gone" />
 
     <com.pga.project1.Viewes.ImageLoaderView
         android:id="@+id/ImageLoaderView_show_Image"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        app:zoomAllowed="true"
+        android:visibility="gone" />
 
 
 </RelativeLayout>

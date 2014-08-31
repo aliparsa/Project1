@@ -126,7 +126,7 @@ public class PathMapManager extends LinearLayout {
                 mainLayout.addView(img);
             } else {
                 //    btn.setBackgroundResource(R.drawable.selector_btn_pathmap_current);
-                Animation animation = AnimationUtils.loadAnimation(context, R.anim.slide_from_left);
+                Animation animation = AnimationUtils.loadAnimation(context, R.anim.activity_fade_in_animation);
                 img.setAnimation(animation);
             }
 
@@ -136,7 +136,7 @@ public class PathMapManager extends LinearLayout {
                 //    btn.setBackgroundResource(R.drawable.selector_btn_pathmap);
             } else {
                 //    btn.setBackgroundResource(R.drawable.selector_btn_pathmap_current);
-                Animation animation = AnimationUtils.loadAnimation(context, R.anim.slide_from_left);
+                Animation animation = AnimationUtils.loadAnimation(context, R.anim.activity_fade_in_animation);
                 btn.setAnimation(animation);
             }
             btn.setText(name);

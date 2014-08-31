@@ -3,17 +3,27 @@ package com.pga.project1.Viewes;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Matrix;
+import android.graphics.PointF;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.util.AttributeSet;
+import android.util.FloatMath;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.pga.project1.Intefaces.ProgressCallBack;
 import com.pga.project1.R;
 import com.pga.project1.Utilities.AsynLoadImage;
+import com.pga.project1.Utilities.OnPinchListener;
 
 /**
  * Created by ashkan on 8/27/2014.
@@ -27,7 +37,11 @@ public class ImageLoaderView extends RelativeLayout {
     private ProgressBar progressBar;
     private AsynLoadImage async;
 
-    public ImageLoaderView(Context context, String url) {
+
+    private boolean isZoomAllowed;
+    private int zoomControler = 20;
+
+    public ImageLoaderView(final Context context, String url) {
         super(context);
 
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -35,9 +49,19 @@ public class ImageLoaderView extends RelativeLayout {
 
         this.url = url;
         this.showProgressBar = true;
+        this.isZoomAllowed = false;
 
         configure();
+
+        if (isZoomAllowed) {
+            // mainImageView.setClickable(false);
+
+            this.setOnTouchListener(new OnPinchListener(mainImageView));
+        }
+
+
     }
+
 
     public ImageLoaderView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -48,8 +72,14 @@ public class ImageLoaderView extends RelativeLayout {
 
         this.url = a.getString(R.styleable.ImageLoaderView_URL);
         this.showProgressBar = a.getBoolean(R.styleable.ImageLoaderView_show_progressbar, true);
+        this.isZoomAllowed = a.getBoolean(R.styleable.ImageLoaderView_zoomAllowed, false);
 
         configure();
+
+        if (isZoomAllowed) {
+            // mainImageView.setClickable(false);
+            this.setOnTouchListener(new OnPinchListener(mainImageView));
+        }
 
         a.recycle();
     }
@@ -158,6 +188,21 @@ public class ImageLoaderView extends RelativeLayout {
 
         if (async != null && !async.isCancelled())
             async.cancel(true);
+    }
+
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+
+        //here u can control the width and height of the images........ this line is very important
+        mainImageView.getDrawable().setBounds((getWidth() / 2) - zoomControler, (getHeight() / 2) - zoomControler, (getWidth() / 2) + zoomControler, (getHeight() / 2) + zoomControler);
+        mainImageView.getDrawable().draw(canvas);
+    }
+
+
+    public void setZoomAllowed(boolean flag) {
+        isZoomAllowed = flag;
     }
 
 

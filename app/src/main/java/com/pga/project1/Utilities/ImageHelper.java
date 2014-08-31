@@ -24,6 +24,7 @@ import java.io.IOException;
 public class ImageHelper {
 
 
+/*
     private Context context;
 
     public String compressImage(String imageUri, Context context) {
@@ -111,21 +112,23 @@ public class ImageHelper {
 
             int orientation = exif.getAttributeInt(
                     ExifInterface.TAG_ORIENTATION, 0);
-            Log.d("EXIF", "Exif: " + orientation);
+           // Log.d("EXIF", "Exif: " + orientation);
             Matrix matrix = new Matrix();
             if (orientation == 6) {
                 matrix.postRotate(90);
-                Log.d("EXIF", "Exif: " + orientation);
+              //  Log.d("EXIF", "Exif: " + orientation);
             } else if (orientation == 3) {
                 matrix.postRotate(180);
-                Log.d("EXIF", "Exif: " + orientation);
+               // Log.d("EXIF", "Exif: " + orientation);
             } else if (orientation == 8) {
                 matrix.postRotate(270);
-                Log.d("EXIF", "Exif: " + orientation);
+              //  Log.d("EXIF", "Exif: " + orientation);
             }
-            scaledBitmap = Bitmap.createBitmap(scaledBitmap, 0, 0,
+          */
+/*  scaledBitmap = Bitmap.createBitmap(scaledBitmap, 0, 0,
                     scaledBitmap.getWidth(), scaledBitmap.getHeight(), matrix,
-                    true);
+                    true);*//*
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -185,5 +188,33 @@ public class ImageHelper {
         }
 
         return inSampleSize;
+    }
+*/
+
+
+    public Bitmap resizeImage(int estimatedWidth, String path) {
+        File imgFile = new File(path);
+        if (imgFile.exists()) {
+            Bitmap bitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+            return resizeImage(estimatedWidth, bitmap);
+        }
+        return null;
+    }
+
+    public Bitmap resizeImage(int estimatedWidth, Bitmap bitmap) {
+
+        if (bitmap.getWidth() < estimatedWidth)
+            return bitmap;
+        else {
+            // Resize Image
+            int width = bitmap.getWidth();
+            int height = bitmap.getHeight();
+
+            int measure = Math.round((bitmap.getWidth() / estimatedWidth));
+            return Bitmap.createScaledBitmap(bitmap, width / measure, height / measure, true);
+
+        }
+
+
     }
 }

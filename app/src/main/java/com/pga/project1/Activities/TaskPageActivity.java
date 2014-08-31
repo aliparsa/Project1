@@ -111,7 +111,7 @@ public class TaskPageActivity extends Activity {
 
             Intent intent = new Intent(this, NewReportActivity.class);
             intent.putExtra("chart", chart);
-            startActivity(intent);
+            startActivityForResult(intent, 654);
 
             return true;
         }
@@ -134,6 +134,17 @@ public class TaskPageActivity extends Activity {
         }
 
         return false;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 654) {
+            if (reportFrag != null && reportFrag == currentFrag)
+                reportFrag.loadReports();
+
+        }
     }
 
     private void deleteChart() {
@@ -248,8 +259,6 @@ public class TaskPageActivity extends Activity {
                     fm.beginTransaction()
                             .replace(R.id.host_taskPage, reportFrag)
                             .commit();
-
-                    reportFrag.loadReports();
 
                     currentFrag = reportFrag;
                 }

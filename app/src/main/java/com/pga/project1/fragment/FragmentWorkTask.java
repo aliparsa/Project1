@@ -306,6 +306,9 @@ public class FragmentWorkTask extends Fragment {
                 // set on click listener
                 lv.setOnItemClickListener(new onTaskListClickListener());
 
+                // set on long click listener
+                lv.setOnItemLongClickListener(new onTaskLongClickListener());
+
             }
 
             @Override
@@ -348,5 +351,62 @@ public class FragmentWorkTask extends Fragment {
 
     }
 
+    public class onTaskLongClickListener implements AdapterView.OnItemLongClickListener {
+
+        @Override
+        public boolean onItemLongClick(AdapterView<?> adapterView, final View view, int i, long l) {
+            if (view.getTag() instanceof ListViewCustomAdapter.DrawerItemHolder && ((ListViewCustomAdapter.DrawerItemHolder) view.getTag()).getTag() instanceof Chart) {
+                final Chart chart = (Chart) ((ListViewCustomAdapter.DrawerItemHolder) view.getTag()).getTag();
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity())
+                        .setItems(new String[]{"حذف"},
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int item) {
+                                        switch (item) {
+                                            case 0:
+                                                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity())
+                                                        .setTitle("آیا " + chart.getPersonnel().getFullName() + " از " + chart.getName() + " حذف شود؟")
+                                                        .setPositiveButton("بله", new DialogInterface.OnClickListener() {
+                                                            @Override
+                                                            public void onClick(DialogInterface dialogInterface, int i) {
+                                                                Webservice.removeTask(getActivity(), chart.getId(), new CallBack<ServerResponse>() {
+                                                                    @Override
+                                                                    public void onSuccess(ServerResponse result) {
+
+                                                                        Toast.makeText(getActivity(), "حذف انجام شد", Toast.LENGTH_SHORT).show();
+                                                                        prepareTasks();
+                                                                    }
+
+                                                                    @Override
+                                                                    public void onError(String err) {
+                                                                        Toast.makeText(getActivity(), "حذف انجام نشد", Toast.LENGTH_SHORT).show();
+
+                                                                    }
+                                                                });
+
+                                                            }
+                                                        }).setNegativeButton("خیر", new DialogInterface.OnClickListener() {
+                                                            @Override
+                                                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                                                            }
+                                                        });
+                                                builder.show();
+
+
+                                                break;
+                                        }
+                                    }
+
+
+                                }
+                        );
+                builder.show();
+
+            }
+            return false;
+        }
+    }
 
 }

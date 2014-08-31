@@ -17,11 +17,18 @@
 
         android:id="@+id/ll_fragmentLogin_panel">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ورود به سامانه"
+            android:id="@+id/textView" />
+
         <EditText
             android:id="@+id/etxt_fragmentLogin_username"
             android:layout_width="200dp"
             android:layout_height="fill_parent"
-            android:hint="Username" />
+            android:hint="نام کاربری"
+            android:gravity="right" />
 
 
         <EditText
@@ -29,14 +36,14 @@
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
-            android:hint="Password" />
+            android:hint="کلمه عبور"
+            android:gravity="right" />
 
         <Button
             android:id="@+id/btn_fragmentLogin_login"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-
-            android:text="Login" />
+            android:text="ورود" />
 
         <ProgressBar
             android:layout_width="wrap_content"

@@ -172,7 +172,8 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
         holder.title.setText(item.title);
         holder.subtitle.setText(item.subTitle);
 
-//for charts
+
+        //for charts
         if (item.getTag() != null && item.getTag() instanceof Chart) {
 
             //holder.progressBar.setProgress((((Chart) item.getTag()).getHand_percent()));
@@ -186,6 +187,8 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
 
 
         }
+
+
         //for reports
         if (item.getTag() != null && item.getTag() instanceof Report) {
 

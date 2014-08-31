@@ -229,6 +229,7 @@
             android:textSize="20sp"
             android:padding="10dp"
             android:layout_gravity="center_horizontal"
+            android:textColor="#6a6a6a"
             android:text="آیتمی موجود نمیباشد" />
 
     </LinearLayout>

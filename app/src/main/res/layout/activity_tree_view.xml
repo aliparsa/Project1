@@ -28,7 +28,7 @@
 
     <ListView
 
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:id="@+id/lv_fragmentProjectTreeView_treeView"
         android:layout_below="@+id/pmm_fragmentProjectTreeView_pathMap"

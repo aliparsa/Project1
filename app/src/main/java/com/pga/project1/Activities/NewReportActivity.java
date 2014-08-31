@@ -348,18 +348,25 @@ public class NewReportActivity extends Activity {
                 case CAMERA_REQUEST:
                     // TODO Handle Picked Image From Camera
                     try {
+
+                        // get photo captured by camera
                         Bitmap photo_camera = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
 
 
-                        //Bitmap photo_camera = (Bitmap) data.getExtras().get("data");
+                        //resize photo to estimated size
                         ImageHelper imh = new ImageHelper();
-                        String kam_hajm = imh.compressImage(Uri.fromFile(storeThisImage(photo_camera)).getPath(), context);
+                        Bitmap lowQualityBitmap = imh.resizeImage(1024, photo_camera);
+                        String ImagePath = storeThisImage(lowQualityBitmap).getAbsolutePath();
+
 
                         // add image to linear layout
-                        Bitmap ThumbImage = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(kam_hajm), 200, 200);
+                        Bitmap ThumbImage = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(ImagePath), 200, 200);
                         temp_img.setImageBitmap(ThumbImage);
-                        temp_img.setTag(kam_hajm);
+
+                        // add image path as tag to view
+                        temp_img.setTag(ImagePath);
                         ll_image_list.addView(temp_img);
+
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     } catch (IOException e) {
@@ -377,25 +384,22 @@ public class NewReportActivity extends Activity {
                     cursor.moveToFirst();
 
                     //Link to the image
-                    String path2 = cursor.getString(0);
+                    String path = cursor.getString(0);
                     cursor.close();
 
+                    //resize photo to estimated size
+                    ImageHelper imh = new ImageHelper();
+                    Bitmap lowQualityBitmap = imh.resizeImage(1024, path);
+                    String ImagePath = storeThisImage(lowQualityBitmap).getAbsolutePath();
 
-                    // create bitmap from path
-                    File imgFile = new File(path2);
-                    ImageHelper imh2 = new ImageHelper();
-                    String kam_hajm2 = imh2.compressImage(Uri.fromFile(imgFile).getPath(), context);
+                    // add image to linear layout
+                    Bitmap ThumbImage = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(ImagePath), 200, 200);
+                    temp_img.setImageBitmap(ThumbImage);
 
+                    // add image path as tag to view
+                    temp_img.setTag(ImagePath);
+                    ll_image_list.addView(temp_img);
 
-                    if (imgFile.exists()) {
-
-                        // add image to linear layout
-                        Bitmap ThumbImage2 = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(kam_hajm2), 200, 200);
-                        temp_img.setImageBitmap(ThumbImage2);
-                        temp_img.setTag(kam_hajm2);
-                        ll_image_list.addView(temp_img);
-
-                    }
 
                     break;
 

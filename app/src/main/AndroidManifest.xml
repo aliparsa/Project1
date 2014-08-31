@@ -54,6 +54,7 @@
             </intent-filter>
         </activity>
         <activity
+            android:windowSoftInputMode="adjustResize"
             android:name=".Activities.LoginActivity"
             android:label="@string/title_activity_login"></activity>
         <activity

@@ -6,8 +6,10 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import com.pga.project1.R;
 import com.pga.project1.Viewes.ImageLoaderView;
@@ -20,6 +22,8 @@ public class ShowImageActivity extends Activity {
 
     Bitmap[] images;
     private ImageLoaderView imlv;
+
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +60,13 @@ public class ShowImageActivity extends Activity {
             imlv = (ImageLoaderView) findViewById(R.id.ImageLoaderView_show_Image);
             imlv.setVisibility(View.VISIBLE);
             imlv.setUrlAndStartLoading(imageurl);
+
+            imlv.setZoomAllowed(true);
+
         }
+
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.GONE);
 
         //Gallery gallery = (Gallery) findViewById(R.id.gallery_show);
 

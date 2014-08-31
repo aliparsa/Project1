@@ -30,6 +30,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
+import static com.pga.project1.Utilities.TwiceBackEndApp.twiceBackCheck;
+
 public class TreeViewActivity extends Activity {
 
     ListView lv;
@@ -223,19 +225,7 @@ public class TreeViewActivity extends Activity {
         //super.onBackPressed();
 
 
-        if (TwiceBackPressed)
-            finish();
-        else {
-            Toast.makeText(this, "جهت خروج یکبار دیگر بزنید", Toast.LENGTH_SHORT).show();
-            TwiceBackPressed = true;
-            new Handler().postDelayed(new Runnable() {
-
-                @Override
-                public void run() {
-                    TwiceBackPressed = false;
-                }
-            }, 700);
-        }
+        twiceBackCheck(this);
 
 
         if (stack.size() > 0) {
