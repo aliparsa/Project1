@@ -12,7 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.pga.project1.Activities.ActivityTaskPage;
+import com.pga.project1.Activities.TaskPageActivity;
 import com.pga.project1.Adapters.ListViewCustomAdapter;
 import com.pga.project1.DataModel.Chart;
 import com.pga.project1.DataModel.Report;
@@ -115,7 +115,7 @@ public class FragmentTaskReport extends Fragment {
             if (tag instanceof Chart) {
                 chart = (Chart) tag;
 
-                Intent intent = new Intent(getActivity(), ActivityTaskPage.class);
+                Intent intent = new Intent(getActivity(), TaskPageActivity.class);
                 intent.putExtra("chart", chart);
                 startActivity(intent);
 

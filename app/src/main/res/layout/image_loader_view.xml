@@ -10,8 +10,8 @@
 
     <ImageView
         android:id="@+id/imv_fake"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
     <ProgressBar
         style="?android:attr/progressBarStyleHorizontal"
@@ -25,10 +25,10 @@
     <ImageView
         android:id="@+id/imv_main"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:scaleType="fitXY" />
+        android:scaleType="fitCenter" />
 
 </RelativeLayout>

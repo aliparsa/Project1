@@ -195,9 +195,9 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
             holder.graphview.showAnimation = item.isFirstTimeItemShowed;
             holder.graphview.setPercent(report.getPercent());
             item.isFirstTimeItemShowed = false;
-            holder.icon_in_title_subtitle.setImageResource(R.drawable.report);
+            holder.img.setBitmapResource(R.drawable.report);
 
-            holder.img.setUrlAndStartLoading(report.getImage());
+            //holder.img.setUrlAndStartLoading(report.getImage());
 
 
         }

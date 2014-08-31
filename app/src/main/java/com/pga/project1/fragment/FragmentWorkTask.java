@@ -23,7 +23,7 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.pga.project1.Activities.ActivityTaskPage;
+import com.pga.project1.Activities.TaskPageActivity;
 import com.pga.project1.Activities.PersonelPickerActivity;
 import com.pga.project1.Adapters.ListViewCustomAdapter;
 import com.pga.project1.DataModel.Chart;
@@ -335,7 +335,7 @@ public class FragmentWorkTask extends Fragment {
                 //((MainActivity) getActivity()).ShowTaskPageFragment(chart);
 
 
-                Intent intent = new Intent(getActivity(), ActivityTaskPage.class);
+                Intent intent = new Intent(getActivity(), TaskPageActivity.class);
                 intent.putExtra("chart", chart);
                 startActivityForResult(intent, 147);
 

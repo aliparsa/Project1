@@ -23,7 +23,7 @@ import com.pga.project1.Viewes.PathMapManager;
 import com.pga.project1.fragment.FragmentTaskInfo;
 import com.pga.project1.fragment.FragmentTaskReport;
 
-public class ActivityTaskPage extends Activity {
+public class TaskPageActivity extends Activity {
 
 
     //{Constants-----------------------------------------------------

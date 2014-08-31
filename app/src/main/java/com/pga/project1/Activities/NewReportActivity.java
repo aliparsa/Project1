@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -14,6 +15,7 @@ import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -31,7 +33,6 @@ import com.pga.project1.DataModel.PathObject;
 import com.pga.project1.DataModel.Report;
 import com.pga.project1.Intefaces.ProgressCallBack;
 import com.pga.project1.R;
-import com.pga.project1.Utilities.ErrorMessage;
 import com.pga.project1.Utilities.ImageHelper;
 import com.pga.project1.Utilities.PersianCalendar;
 import com.pga.project1.Utilities.Webservice;
@@ -39,9 +40,10 @@ import com.pga.project1.Viewes.PathMapManager;
 import com.pga.project1.Viewes.ViewDateTimePickerPersian;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.OutputStream;
-import java.net.URI;
 import java.util.Random;
 
 public class NewReportActivity extends Activity {
@@ -58,6 +60,8 @@ public class NewReportActivity extends Activity {
     private PersianCalendar selectedDateTime;
     Context context;
     Chart chart;
+    private Uri imageUri;
+
 
     //--------------------------------------------------------------------------------
 
@@ -281,7 +285,6 @@ public class NewReportActivity extends Activity {
     }
 
 
-
     //--------------------------------------------------------------------------------
 
     private void attachMedia() {
@@ -309,8 +312,18 @@ public class NewReportActivity extends Activity {
     //--------------------------------------------------------------------------------
     private void callCamera() {
 
-        Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(cameraIntent, CAMERA_REQUEST);
+        ContentValues values = new ContentValues();
+        values.put(MediaStore.Images.Media.TITLE, "New Picture" + new Random().nextInt());
+        values.put(MediaStore.Images.Media.DESCRIPTION, "From your Camera");
+        imageUri = getContentResolver().insert(
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+        startActivityForResult(intent, CAMERA_REQUEST);
+
+
+/*        Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(cameraIntent, CAMERA_REQUEST);*/
     }
 
     //--------------------------------------------------------------------------------
@@ -334,16 +347,24 @@ public class NewReportActivity extends Activity {
             switch (requestCode) {
                 case CAMERA_REQUEST:
                     // TODO Handle Picked Image From Camera
+                    try {
+                        Bitmap photo_camera = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
 
-                    Bitmap photo_camera = (Bitmap) data.getExtras().get("data");
-                    ImageHelper imh = new ImageHelper();
-                    String kam_hajm = imh.compressImage(Uri.fromFile(storeThisImage(photo_camera)).getPath(), context);
 
-                    // add image to linear layout
-                    Bitmap ThumbImage = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(kam_hajm), 200, 200);
-                    temp_img.setImageBitmap(ThumbImage);
-                    temp_img.setTag(kam_hajm);
-                    ll_image_list.addView(temp_img);
+                        //Bitmap photo_camera = (Bitmap) data.getExtras().get("data");
+                        ImageHelper imh = new ImageHelper();
+                        String kam_hajm = imh.compressImage(Uri.fromFile(storeThisImage(photo_camera)).getPath(), context);
+
+                        // add image to linear layout
+                        Bitmap ThumbImage = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(kam_hajm), 200, 200);
+                        temp_img.setImageBitmap(ThumbImage);
+                        temp_img.setTag(kam_hajm);
+                        ll_image_list.addView(temp_img);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
 
 
                     break;
@@ -423,7 +444,7 @@ public class NewReportActivity extends Activity {
 //        for (int i = 0; i < ll_image_list.getChildCount(); i++) {
 //            imagesPath[i]= (String)(ll_image_list.getChildAt(i).getTag());
 //        }
-        Intent intent = new Intent(this, ActivityShowImage.class);
+        Intent intent = new Intent(this, ShowImageActivity.class);
         intent.putExtra("image", (String) selectedImageView.getTag());
         startActivity(intent);
 

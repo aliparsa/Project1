@@ -40,7 +40,7 @@ public class TreeViewActivity extends Activity {
     Stack<List<AdapterInputType>> stack = new Stack<List<AdapterInputType>>();
     private ListViewCustomAdapter adapter;
     private PathMapManager pathManager;
-    private boolean TwiceBackPressed=false;
+    private boolean TwiceBackPressed = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -238,8 +238,6 @@ public class TreeViewActivity extends Activity {
         }
 
 
-
-
         if (stack.size() > 0) {
             loadTreeFromStack();
 
@@ -281,7 +279,7 @@ public class TreeViewActivity extends Activity {
                 case 6:       // item is work
                     //((MainActivity) getActivity()).ShowWorkFragment(chart, "Project Tree View Fragment", true);
 
-                    Intent intent = new Intent(context, ActivityWork.class);
+                    Intent intent = new Intent(context, WorkActivity.class);
                     intent.putExtra("chart", chart);
                     startActivity(intent);
 

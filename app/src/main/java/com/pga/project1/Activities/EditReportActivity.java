@@ -6,10 +6,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.pga.project1.DataModel.PathObject;
@@ -97,7 +95,7 @@ public class EditReportActivity extends Activity {
 
     //------------------------------------
     public void showImage(String path) {
-        Intent intent = new Intent(this, ActivityShowImage.class);
+        Intent intent = new Intent(this, ShowImageActivity.class);
         intent.putExtra("image_url", (String) path);
         startActivity(intent);
     }
