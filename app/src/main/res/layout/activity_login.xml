@@ -5,51 +5,79 @@
     android:layout_height="match_parent">
 
     <LinearLayout
+        android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:background="#eeeeee"
-        android:baselineAligned="true"
-        android:gravity="center"
+        android:layout_centerHorizontal="true">
 
-        android:orientation="vertical"
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:src="@drawable/clock"
 
-        android:id="@+id/ll_fragmentLogin_panel">
+            android:id="@+id/imageView"
+            android:layout_gravity="center_horizontal" />
 
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:text="ورود به سامانه"
-            android:id="@+id/textView" />
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:baselineAligned="true"
+            android:gravity="center"
 
-        <EditText
-            android:id="@+id/etxt_fragmentLogin_username"
-            android:layout_width="200dp"
-            android:layout_height="fill_parent"
-            android:hint="نام کاربری"
-            android:gravity="right" />
+            android:orientation="vertical"
+
+            android:id="@+id/ll_fragmentLogin_panel">
+
+            <EditText
+                android:id="@+id/etxt_fragmentLogin_username"
+                android:hint="نام کاربری"
+
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="5dp"
+                android:padding="7dp"
+                android:drawableLeft="@drawable/ic_action_camera"
+                android:textColorHint="#c2c2c2"
+                android:background="@drawable/user_pass_textfield_background"
+                android:gravity="right" />
 
 
-        <EditText
-            android:id="@+id/etxt_fragmentLogin_password"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:hint="کلمه عبور"
-            android:gravity="right" />
+            <EditText
+                android:id="@+id/etxt_fragmentLogin_password"
+                android:hint="کلمه عبور"
 
-        <Button
-            android:id="@+id/btn_fragmentLogin_login"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:text="ورود" />
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:padding="7dp"
+                android:drawableLeft="@drawable/ic_action_camera"
+                android:textColorHint="#c2c2c2"
+                android:background="@drawable/user_pass_textfield_background"
+                android:gravity="right" />
 
-        <ProgressBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/pgb_fragmentLogin_loader"
-            android:visibility="gone" />
+            <Button
+                android:id="@+id/btn_fragmentLogin_login"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_margin="5dp"
+                android:padding="3dp"
+                android:background="@drawable/login_button_background"
+                android:textColor="@color/login_text_color"
+                android:text="ورود" />
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/pgb_fragmentLogin_loader"
+                android:visibility="gone" />
+
+        </LinearLayout>
 
     </LinearLayout>
 

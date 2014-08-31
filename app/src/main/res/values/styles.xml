@@ -9,7 +9,7 @@
 
     <!-- ActionBar styles -->
     <style name="MyActionBar" parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
-        <item name="android:background">#1284ff</item>
+        <item name="android:background">#002d5c</item>
     </style>
 
     <style name="CustomActivityThemeNoActionBar" parent="@android:style/Theme.Holo.Light">
@@ -20,7 +20,7 @@
     <!-- ActionBarTab styles -->
     <style name="MyActionBarTabBar">
         <item name="android:gravity">start</item>
-        <item name="android:background">#5FACF5</item>
+        <item name="android:background">#004A96</item>
         <item name="android:showDividers">middle</item>
         <item name="android:divider">#cccccc</item>
         <item name="android:minWidth">0dp</item>
