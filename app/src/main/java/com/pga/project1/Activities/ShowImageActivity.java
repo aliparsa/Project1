@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.pga.project1.R;
@@ -13,7 +14,7 @@ import com.pga.project1.Viewes.ImageLoaderView;
 
 import java.io.File;
 
-public class ActivityShowImage extends Activity {
+public class ShowImageActivity extends Activity {
     String imagePath;
     ImageView imv;
 
@@ -42,17 +43,18 @@ public class ActivityShowImage extends Activity {
         String imagePath = getIntent().getStringExtra("image");
         String imageurl = getIntent().getStringExtra("image_url");
 
-        if(imagePath != null) {
+        if (imagePath != null) {
             imv = (ImageView) findViewById(R.id.ImageView_show_Image);
+            imv.setVisibility(View.VISIBLE);
             File imgFile = new File(imagePath);
             if (imgFile.exists()) {
                 Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
 //               Bitmap ThumbImage = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(imagePath),300,300 );
                 imv.setImageBitmap(myBitmap);
             }
-        }else if(imageurl != null){
+        } else if (imageurl != null) {
             imlv = (ImageLoaderView) findViewById(R.id.ImageLoaderView_show_Image);
-
+            imlv.setVisibility(View.VISIBLE);
             imlv.setUrlAndStartLoading(imageurl);
         }
 

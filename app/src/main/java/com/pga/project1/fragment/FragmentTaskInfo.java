@@ -61,7 +61,7 @@ public class FragmentTaskInfo extends Fragment {
         dayWorkedView = (ViewNameValue) rootView.findViewById(R.id.txt_fragmentTaskInfo_dayWorked);
 
 
-        personnelPic.setUrl(chart.getPersonnel().getPersonnel_image());
+        personnelPic.setUrlAndStartLoading(chart.getPersonnel().getPersonnel_image());
 
         personnelNameView.setValue(chart.getPersonnel().getFullName());
         personnelJobView.setValue(chart.getName());

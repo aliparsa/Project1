@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    tools:context="com.pga.project1.Activities.ActivityShowImage">
+    tools:context="com.pga.project1.Activities.ShowImageActivity">
 
 
     <ProgressBar
@@ -15,19 +15,21 @@
 
 
     <ImageView
-    android:id="@+id/ImageView_show_Image"
-    android:layout_centerVertical="true"
-    android:layout_centerHorizontal="true"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:scaleType="fitCenter" />
+        android:id="@+id/ImageView_show_Image"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="fitCenter"
+        android:visibility="gone" />
 
     <com.pga.project1.Viewes.ImageLoaderView
         android:id="@+id/ImageLoaderView_show_Image"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
 
 
 </RelativeLayout>

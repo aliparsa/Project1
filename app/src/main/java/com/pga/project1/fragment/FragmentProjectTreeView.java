@@ -12,7 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.pga.project1.Activities.ActivityWork;
+import com.pga.project1.Activities.WorkActivity;
 import com.pga.project1.Activities.MainActivity;
 import com.pga.project1.Adapters.ListViewCustomAdapter;
 import com.pga.project1.DataModel.Chart;
@@ -167,7 +167,7 @@ public class FragmentProjectTreeView extends Fragment {
                 case 1:       // item is work
                     //((MainActivity) getActivity()).ShowWorkFragment(chart, "Project Tree View Fragment", true);
 
-                    Intent intent = new Intent(getActivity(), ActivityWork.class);
+                    Intent intent = new Intent(getActivity(), WorkActivity.class);
                     intent.putExtra("chart", chart);
                     startActivity(intent);
 

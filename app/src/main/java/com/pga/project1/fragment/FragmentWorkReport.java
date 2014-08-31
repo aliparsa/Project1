@@ -94,7 +94,7 @@ public class FragmentWorkReport extends Fragment {
     public void newWorkReport() {
         Intent intent = new Intent(getActivity(), NewReportActivity.class);
         intent.putExtra("chart", chart);
-        startActivity(intent);
+        startActivityForResult(intent, 148);
     }
 
     private void prepareReport() {
@@ -126,7 +126,7 @@ public class FragmentWorkReport extends Fragment {
 
                         Intent intent = new Intent(getActivity(), EditReportActivity.class);
                         intent.putExtra("report", (Report) tag);
-                        startActivityForResult(intent, 148);
+                        startActivity(intent);
                     }
                 });
 

@@ -141,6 +141,17 @@ public class ImageLoaderView extends RelativeLayout {
     }
 
 
+    public void setBitmap(Bitmap bitmap) {
+        progressBar.setVisibility(GONE);
+        this.mainImageView.setImageBitmap(bitmap);
+    }
+
+    public void setBitmapResource(int resource) {
+        progressBar.setVisibility(GONE);
+        this.mainImageView.setImageResource(resource);
+    }
+
+
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();

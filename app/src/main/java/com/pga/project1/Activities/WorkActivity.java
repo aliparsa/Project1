@@ -15,7 +15,7 @@ import com.pga.project1.fragment.FragmentWorkInfo;
 import com.pga.project1.fragment.FragmentWorkReport;
 import com.pga.project1.fragment.FragmentWorkTask;
 
-public class ActivityWork extends Activity {
+public class WorkActivity extends Activity {
 
     private Chart chart;
     private Menu menu;
