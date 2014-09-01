@@ -46,7 +46,7 @@
         android:layout_alignParentLeft="true"
         android:layout_marginRight="@dimen/distance_actionbar_action1_action2"
         android:background="@android:color/transparent"
-        android:textColor="@android:color/actionbar_button_text"
+        android:textColor="@color/actionbar_button_text"
         />
 
     <Button
@@ -55,7 +55,7 @@
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/ac_action1"
-        android:textColor="@android:color/actionbar_button_text"
+        android:textColor="@color/actionbar_button_text"
         android:background="@android:color/transparent"
         />
 

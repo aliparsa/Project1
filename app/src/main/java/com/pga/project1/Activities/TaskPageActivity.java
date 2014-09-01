@@ -8,16 +8,23 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pga.project1.DataModel.Chart;
 import com.pga.project1.DataModel.ServerResponse;
 import com.pga.project1.Intefaces.CallBack;
 import com.pga.project1.R;
+import com.pga.project1.Utilities.FontHelper;
+import com.pga.project1.Utilities.Fonts;
 import com.pga.project1.Utilities.Webservice;
 import com.pga.project1.Viewes.PathMapManager;
 import com.pga.project1.fragment.FragmentTaskInfo;
@@ -46,6 +53,8 @@ public class TaskPageActivity extends Activity {
     FragmentTaskInfo infoFrag;
     FragmentTaskReport reportFrag;
     Fragment currentFrag;
+    private Button removeTaskButton;
+    private Button addReportButton;
 
     //-----------------------------------------------------Fields}
 
@@ -68,10 +77,75 @@ public class TaskPageActivity extends Activity {
 
         this.pageType = PageType.Info;
 
-
+        prepareActionBar();
     }
 
-    @Override
+    private void prepareActionBar() {
+
+        View customActionBar = getLayoutInflater().inflate(R.layout.actionbar_back, null);
+        final ActionBar actionBar = getActionBar();
+        actionBar.setDisplayShowHomeEnabled(false);
+        actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setCustomView(customActionBar);
+
+        TextView title = (TextView) customActionBar.findViewById(R.id.ac_title);
+        FontHelper.SetFont(this, Fonts.MAIN_FONT, title, Typeface.BOLD);
+
+        ImageView back = (ImageView) customActionBar.findViewById(R.id.ac_back);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+
+        removeTaskButton =  (Button) customActionBar.findViewById(R.id.ac_action1);
+        addReportButton =  (Button) customActionBar.findViewById(R.id.ac_action2);
+
+        removeTaskButton.setText("حذف وظیفه");
+        removeTaskButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.people,0,0,0);
+        removeTaskButton.setTextColor(getResources().getColor(R.color.actionbar_button_text));
+
+        removeTaskButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                deleteChart();
+            }
+        });
+
+        addReportButton.setText("عملکرد جدید");
+        addReportButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.work,0, 0, 0);
+        addReportButton.setTextColor(getResources().getColor(R.color.actionbar_button_text));
+        addReportButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getBaseContext(), NewReportActivity.class);
+                intent.putExtra("chart", chart);
+                startActivityForResult(intent, 654);
+            }
+        });
+
+        showHideMenuItems(false, false);
+
+        setTabs();
+    }
+
+    private void showHideMenuItems(boolean ac_remove_task, boolean ac_new_work_report_vis) {
+
+
+        removeTaskButton.setVisibility(View.GONE);
+        addReportButton.setVisibility(View.GONE);
+
+        if(ac_remove_task)
+            removeTaskButton.setVisibility(View.VISIBLE);
+
+        if(ac_new_work_report_vis)
+            addReportButton.setVisibility(View.VISIBLE);
+    }
+
+   /* @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
         getMenuInflater().inflate(R.menu.menu_fragment_task, menu);
@@ -87,7 +161,7 @@ public class TaskPageActivity extends Activity {
         setTabs();
 
         return true;
-    }
+    }*/
 
 
     @Override
@@ -116,21 +190,7 @@ public class TaskPageActivity extends Activity {
             return true;
         }
         if (item.getItemId() == R.id.action_removeTask) {
-
-            AlertDialog.Builder builder = new AlertDialog.Builder(this)
-                    .setTitle("آیا " + chart.getPersonnel().getFullName() + " از " + this.chart.getName() + " حذف شود؟")
-                    .setPositiveButton("بله", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            deleteChart();
-                        }
-                    }).setNegativeButton("خیر", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-
-                        }
-                    });
-            builder.show();
+            deleteChart();
         }
 
         return false;
@@ -151,20 +211,36 @@ public class TaskPageActivity extends Activity {
 
         final Activity self = this;
 
-        Webservice.removeTask(this, chart.getId(), new CallBack<ServerResponse>() {
-            @Override
-            public void onSuccess(ServerResponse result) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this)
+                .setTitle("آیا " + chart.getPersonnel().getFullName() + " از " + this.chart.getName() + " حذف شود؟")
+                .setPositiveButton("بله", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
 
-                Toast.makeText(self, "حذف انجام شد", Toast.LENGTH_SHORT).show();
-                finish();
-            }
+                        Webservice.removeTask(self, chart.getId(), new CallBack<ServerResponse>() {
+                            @Override
+                            public void onSuccess(ServerResponse result) {
 
-            @Override
-            public void onError(String err) {
-                Toast.makeText(self, "حذف انجام نشد", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(self, "حذف انجام شد", Toast.LENGTH_SHORT).show();
+                                finish();
+                            }
 
-            }
-        });
+                            @Override
+                            public void onError(String err) {
+                                Toast.makeText(self, "حذف انجام نشد", Toast.LENGTH_SHORT).show();
+
+                            }
+                        });
+
+                    }
+                }).setNegativeButton("خیر", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+        builder.show();
+
     }
 
     @Override
@@ -224,11 +300,14 @@ public class TaskPageActivity extends Activity {
                 }
 
                 pageType = PageType.Info;
-                MenuItem addNewReport = menu.findItem(R.id.action_addReportTask);
+
+                showHideMenuItems(true, false);
+
+                /*MenuItem addNewReport = menu.findItem(R.id.action_addReportTask);
                 if (addNewReport != null) addNewReport.setVisible(false);
 
                 MenuItem RemoveTask = menu.findItem(R.id.action_removeTask);
-                if (RemoveTask != null) RemoveTask.setVisible(true);
+                if (RemoveTask != null) RemoveTask.setVisible(true);*/
             }
 
             @Override
@@ -264,11 +343,14 @@ public class TaskPageActivity extends Activity {
                 }
 
                 pageType = PageType.Reports;
-                MenuItem addNewReport = menu.findItem(R.id.action_addReportTask);
+
+                showHideMenuItems(false, true);
+
+               /* MenuItem addNewReport = menu.findItem(R.id.action_addReportTask);
                 if (addNewReport != null) addNewReport.setVisible(true);
 
                 MenuItem RemoveTask = menu.findItem(R.id.action_removeTask);
-                if (RemoveTask != null) RemoveTask.setVisible(false);
+                if (RemoveTask != null) RemoveTask.setVisible(false);*/
             }
 
             @Override
