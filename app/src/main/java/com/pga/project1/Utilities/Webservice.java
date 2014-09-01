@@ -145,8 +145,8 @@ public class Webservice {
 
         BasicNameValuePair[] arr = {
                 new BasicNameValuePair("tag", "login"),
-                new BasicNameValuePair("username", "admin"),
-                new BasicNameValuePair("password", "admin")
+                new BasicNameValuePair("username", username),
+                new BasicNameValuePair("password", password)
         };
 
         helper.postHttp(arr, new ResponseHandler() {
@@ -477,11 +477,11 @@ public class Webservice {
 
         ArrayList<String> list;
 
-        if(uploadCountMap.containsKey(tag)){
+        if (uploadCountMap.containsKey(tag)) {
             list = uploadCountMap.get(tag);
             list.add(imageName);
 
-        }else{
+        } else {
             list = new ArrayList<String>();
             list.add(imageName);
 

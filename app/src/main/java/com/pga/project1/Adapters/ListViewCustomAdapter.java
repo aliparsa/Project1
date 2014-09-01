@@ -160,8 +160,8 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
         if (holder.icon == null)
             holder.icon = (ImageView) lv_icon_title_subtitle.findViewById(R.id.icon);
 
-        if (holder.icon_in_title_subtitle == null)
-            holder.icon_in_title_subtitle = (ImageView) lv_icon_title_subtitle.findViewById(R.id.icon2);
+//        if (holder.icon_in_title_subtitle == null)
+//            holder.icon_in_title_subtitle = (ImageView) lv_icon_title_subtitle.findViewById(R.id.icon2);
 
         if (holder.title == null)
             holder.title = (TextView) lv_icon_title_subtitle.findViewById(R.id.title);
@@ -182,7 +182,7 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
             holder.img = (ImageLoaderView) lv_icon_title_subtitle.findViewById(R.id.imgview_item);
 
 
-        holder.icon_in_title_subtitle.setImageBitmap(item.image1);
+//        holder.icon_in_title_subtitle.setImageBitmap(item.image1);
         holder.title.setText(item.title);
         holder.subtitle.setText(item.subTitle);
 
@@ -191,7 +191,13 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
         if (item.getTag() != null && item.getTag() instanceof Chart) {
 
             holder.graphview.showAnimation = item.isFirstTimeItemShowed;
-            holder.graphview.setPercent(((Chart) item.getTag()).getHand_percent());
+
+            if (((Chart) item.getTag()).getType_id() == 7) {
+                holder.graphview.setPercent(((Chart) item.getTag()).getAuto_percent());
+            } else {
+                holder.graphview.setPercent(((Chart) item.getTag()).getHand_percent());
+            }
+
             item.isFirstTimeItemShowed = false;
             holder.img.setUrl(((Chart) item.getTag()).getImage());
             holder.img.startLoading();
