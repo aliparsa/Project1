@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.RadialGradient;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Shader;
@@ -39,6 +40,9 @@ public class Graphview extends View {
     private int animationSpeed;
     private int strokeWidth;
     private float percent;
+    int red = 255;
+    int blue = 0;
+    int green = 0;
 
 
     public Graphview(Context context, AttributeSet attrs) {
@@ -115,10 +119,6 @@ public class Graphview extends View {
         paint.setAntiAlias(true);
         paint.setStrokeCap(Paint.Cap.ROUND);
         paint.setStyle(Paint.Style.STROKE);
-        //canvas.drawArc(rectf, 0, 360, true, paint);
-
-        Shader gradient = new SweepGradient(0, getMeasuredHeight()/2, Color.RED, Color.WHITE);
-        paint.setShader(gradient);
         canvas.drawArc(rectf, 0, 360, true, paint);
 
 
@@ -126,7 +126,6 @@ public class Graphview extends View {
             if (i == 0) {
 
                 // Draw Main
-
                 paint.setColor(COLORS[i]);
                 paint.setStyle(Paint.Style.FILL);
                 // canvas.drawArc(rectf, -90, value_degree[i], true, paint);
@@ -147,8 +146,8 @@ public class Graphview extends View {
                 //canvas.drawArc(innerCircle, 0, 360, true, paint);
 
                 ////====================
-
-                paint.setColor(COLORS[i]);
+                paint.setColor(getNextColor(value_degree[i]));
+                //paint.setColor(COLORS[i]);
                 paint.setStrokeWidth(strokeWidth);
                 paint.setAntiAlias(true);
                 paint.setStrokeCap(Paint.Cap.ROUND);
@@ -180,6 +179,24 @@ public class Graphview extends View {
             value_degree[0] += animationSpeed;
             invalidate();
         }
+    }
+
+    private int getNextColor(float value) {
+
+        // 0 - 180
+
+        // 255 - 0
+        if (value >= 0 && value <= 180) {
+            red = 255;
+            green = (255 / 180) * (int) value;
+        } else {
+            int xvalue = (int) value - 180;
+            green = 255;
+            red = Math.abs(255 - ((255 / 180) * (int) value));
+        }
+
+
+        return Color.argb(255, red, green, blue);
     }
 
     public float getPercent() {
