@@ -45,7 +45,9 @@
                 android:drawableLeft="@drawable/ic_action_camera"
                 android:textColorHint="#c2c2c2"
                 android:background="@drawable/user_pass_textfield_background"
-                android:gravity="right" />
+                android:gravity="right"
+                android:singleLine="true"
+                />
 
 
             <EditText
@@ -59,7 +61,10 @@
                 android:drawableLeft="@drawable/ic_action_camera"
                 android:textColorHint="#c2c2c2"
                 android:background="@drawable/user_pass_textfield_background"
-                android:gravity="right" />
+                android:gravity="right"
+
+                android:singleLine="true"
+                />
 
             <Button
                 android:id="@+id/btn_fragmentLogin_login"

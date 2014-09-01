@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/actionbar_padding"
+    >
+
+
+    <RelativeLayout
+        android:id="@+id/rl_navback"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true">
+
+        <ImageView
+            android:id="@+id/ac_nav"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_drawer"
+            android:paddingLeft="10dp"
+
+            />
+
+        <ImageView
+            android:id="@+id/ac_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_back_button"
+            android:paddingLeft="10dp"
+            android:visibility="gone"
+            />
+
+        </RelativeLayout>
+
+
+    <ImageView
+        android:id="@+id/ac_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:scaleType="center"
+        android:src="@drawable/category"
+        android:layout_toLeftOf="@+id/rl_navback"
+        android:paddingLeft="@dimen/distance_between_icon_and_title"
+        />
+
+    <TextView
+        android:id="@+id/ac_title"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="@string/app_name"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/ac_icon"
+        android:gravity="center_vertical"
+        />
+
+
+    <ImageButton
+        android:id="@+id/ac_action1"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_marginRight="@dimen/distance_actionbar_action1_action2"
+        />
+
+    <ImageButton
+        android:id="@+id/ac_action2"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/ac_action1" />
+
+</RelativeLayout>

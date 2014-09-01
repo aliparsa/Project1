@@ -4,15 +4,14 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pga.project1.DataModel.Chart;
@@ -70,7 +69,7 @@ public class MainActivity extends Activity
 //        if (savedInstanceState==null)
 //            ShowTreeFragmnet("");
 
-        View customActionBar = getLayoutInflater().inflate(R.layout.custom_action_bar, null);
+        View customActionBar = getLayoutInflater().inflate(R.layout.actionbar_simple, null);
         final ActionBar actionBar = getActionBar();
         actionBar.setDisplayShowHomeEnabled(false);
         actionBar.setDisplayShowTitleEnabled(false);
@@ -79,26 +78,26 @@ public class MainActivity extends Activity
 
         prepareActionbar(customActionBar);
 
-        Intent intent = new Intent(this, TreeViewActivity.class);
-        startActivity(intent);
-        finish();
+       // Intent intent = new Intent(this, TreeViewActivity.class);
+        //startActivity(intent);
+       // finish();
 
 
 
     }
 
     private void prepareActionbar(View customActionBar) {
-        ImageButton r1 = (ImageButton) customActionBar.findViewById(R.id.r1);
-        Button btn = (Button) customActionBar.findViewById(R.id.button);
+        ImageView icon = (ImageView) customActionBar.findViewById(R.id.ac_icon);
+        TextView title = (TextView) customActionBar.findViewById(R.id.ac_title);
 
-        r1.setOnClickListener(new View.OnClickListener() {
+        /*r1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mNavigationDrawerFragment.toggleNavigationDrawer();
             }
         });
 
-        btn.setText("مدیریت پروژه");
+        btn.setText("مدیریت پروژه");*/
 
 
     }
