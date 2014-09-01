@@ -7,7 +7,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -278,6 +277,12 @@ public class TreeViewActivity extends Activity {
 
                     //pushing to Path Map
                     // PathMapManager.push(chart);
+                    break;
+
+                case 7:
+                    Intent intent2 = new Intent(context, TaskPageActivity.class);
+                    intent2.putExtra("chart", chart);
+                    startActivityForResult(intent2, 147);
 
             }
 
