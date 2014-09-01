@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.DrawerLayout;
@@ -78,9 +79,9 @@ public class MainActivity extends Activity
 
         prepareActionbar(customActionBar);
 
-       // Intent intent = new Intent(this, TreeViewActivity.class);
-        //startActivity(intent);
-       // finish();
+        Intent intent = new Intent(this, TreeViewActivity.class);
+        startActivity(intent);
+        finish();
 
 
 
