@@ -1,17 +1,16 @@
 package com.pga.project1.fragment;
 
 
+import android.app.Fragment;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -23,7 +22,6 @@ import com.pga.project1.DataModel.Report;
 import com.pga.project1.Intefaces.CallBack;
 import com.pga.project1.R;
 import com.pga.project1.Structures.AdapterInputType;
-import com.pga.project1.Utilities.ErrorMessage;
 import com.pga.project1.Utilities.ListViewAdapterHandler;
 import com.pga.project1.Utilities.Webservice;
 
@@ -49,7 +47,7 @@ public class FragmentWorkReport extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        setHasOptionsMenu(true);
+        //setHasOptionsMenu(true);
 
         return inflater.inflate(R.layout.fragment_work_report, container, false);
     }
@@ -63,10 +61,22 @@ public class FragmentWorkReport extends Fragment {
         lv = (ListView) getView().findViewById(R.id.lv_fragmentWork_report_reportViewer);
 
         prepareReport();
+
+        prepareActionbarButton();
     }
 
+    private void prepareActionbarButton() {
+        View actionbar = getActivity().getActionBar().getCustomView();
+        Button addReport = (Button) actionbar.findViewById(R.id.ac_action2);
+        addReport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                newWorkReport();
+            }
+        });
+    }
 
-    @Override
+/*    @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         // super.onCreateOptionsMenu(menu, inflater);
 
@@ -77,7 +87,7 @@ public class FragmentWorkReport extends Fragment {
         }
 
         super.onCreateOptionsMenu(menu, inflater);
-    }
+    }*/
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

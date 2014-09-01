@@ -4,12 +4,19 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.pga.project1.DataModel.Chart;
 import com.pga.project1.R;
+import com.pga.project1.Utilities.FontHelper;
+import com.pga.project1.Utilities.Fonts;
 import com.pga.project1.Viewes.PathMapManager;
 import com.pga.project1.fragment.FragmentWorkInfo;
 import com.pga.project1.fragment.FragmentWorkReport;
@@ -27,6 +34,8 @@ public class WorkActivity extends Activity {
     private boolean isTabsSet = false;
 
     PageType pageType;
+    private Button addPersonnelButton;
+    private Button addReportButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +52,46 @@ public class WorkActivity extends Activity {
 
         setContentView(R.layout.activity_activity_work);
 
+        prepareActionBar();
     }
 
+    private void prepareActionBar() {
 
+        View customActionBar = getLayoutInflater().inflate(R.layout.actionbar_back, null);
+        final ActionBar actionBar = getActionBar();
+        actionBar.setDisplayShowHomeEnabled(false);
+        actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setCustomView(customActionBar);
+
+        TextView title = (TextView) customActionBar.findViewById(R.id.ac_title);
+        FontHelper.SetFont(this, Fonts.MAIN_FONT, title, Typeface.BOLD);
+
+        ImageView back = (ImageView) customActionBar.findViewById(R.id.ac_back);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+
+        addPersonnelButton =  (Button) customActionBar.findViewById(R.id.ac_action1);
+        addReportButton =  (Button) customActionBar.findViewById(R.id.ac_action2);
+
+        addPersonnelButton.setText("پرسنل جدید");
+        addPersonnelButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.people,0,0,0);
+        addPersonnelButton.setTextColor(getResources().getColor(R.color.actionbar_button_text));
+
+        addReportButton.setText("عملکرد جدید");
+        addReportButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.work,0, 0, 0);
+        addReportButton.setTextColor(getResources().getColor(R.color.actionbar_button_text));
+        showHideMenuItems(false, false);
+
+        setTabs("prepare");
+    }
+
+/*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -59,6 +105,7 @@ public class WorkActivity extends Activity {
 
         return true;
     }
+*/
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -78,6 +125,18 @@ public class WorkActivity extends Activity {
 
     private void showHideMenuItems(boolean ac_pick_personnel_vis, boolean ac_new_work_report_vis) {
 
+        addPersonnelButton.setVisibility(View.GONE);
+        addReportButton.setVisibility(View.GONE);
+
+        if(ac_pick_personnel_vis)
+            addPersonnelButton.setVisibility(View.VISIBLE);
+
+        if(ac_new_work_report_vis)
+            addReportButton.setVisibility(View.VISIBLE);
+    }
+
+/*    private void showHideMenuItems(boolean ac_pick_personnel_vis, boolean ac_new_work_report_vis) {
+
         MenuItem ac_pick_personnel = this.menu.findItem(R.id.ac_pick_personnel);
         MenuItem ac_new_work_report = this.menu.findItem(R.id.ac_new_work_report);
 
@@ -88,7 +147,7 @@ public class WorkActivity extends Activity {
         if (ac_new_work_report != null) {
             ac_new_work_report.setVisible(ac_new_work_report_vis);
         }
-    }
+    }*/
 
     private void setTabs(String caller) {
 
@@ -173,6 +232,7 @@ public class WorkActivity extends Activity {
                 }
 
                 pageType = PageType.Task;
+                showHideMenuItems(true, false);
             }
 
             @Override
@@ -207,7 +267,7 @@ public class WorkActivity extends Activity {
                 }
 
                 pageType = PageType.Report;
-
+                showHideMenuItems(false, true);
             }
 
             @Override

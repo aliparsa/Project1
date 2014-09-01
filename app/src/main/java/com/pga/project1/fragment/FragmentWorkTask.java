@@ -10,8 +10,6 @@ import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,8 +21,8 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.pga.project1.Activities.TaskPageActivity;
 import com.pga.project1.Activities.PersonelPickerActivity;
+import com.pga.project1.Activities.TaskPageActivity;
 import com.pga.project1.Adapters.ListViewCustomAdapter;
 import com.pga.project1.DataModel.Chart;
 import com.pga.project1.DataModel.Personnel;
@@ -63,7 +61,7 @@ public class FragmentWorkTask extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        setHasOptionsMenu(true);
+        //setHasOptionsMenu(true);
 
         return inflater.inflate(R.layout.fragment_work_task, container, false);
     }
@@ -75,10 +73,23 @@ public class FragmentWorkTask extends Fragment {
         lv = (ListView) getView().findViewById(R.id.lv_fragmentWork_task_taskviewr);
 
         prepareTasks();
+
+        prepareActionbarButton();
+    }
+
+    private void prepareActionbarButton() {
+        View actionbar = getActivity().getActionBar().getCustomView();
+        Button addPersonnel = (Button) actionbar.findViewById(R.id.ac_action1);
+        addPersonnel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                pickPersonnel();
+            }
+        });
     }
 
 
-    @Override
+   /* @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         //
 
@@ -89,7 +100,7 @@ public class FragmentWorkTask extends Fragment {
         }
 
         super.onCreateOptionsMenu(menu, inflater);
-    }
+    }*/
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

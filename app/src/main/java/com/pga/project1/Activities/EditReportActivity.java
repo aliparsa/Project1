@@ -1,18 +1,23 @@
 package com.pga.project1.Activities;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.pga.project1.DataModel.PathObject;
 import com.pga.project1.DataModel.Report;
 import com.pga.project1.R;
+import com.pga.project1.Utilities.FontHelper;
+import com.pga.project1.Utilities.Fonts;
 import com.pga.project1.Viewes.ImageLoaderView;
 import com.pga.project1.Viewes.PathMapManager;
 
@@ -61,15 +66,38 @@ public class EditReportActivity extends Activity {
 
         }
 
+        prepareActionBar();
+    }
+
+    private void prepareActionBar() {
+
+        View customActionBar = getLayoutInflater().inflate(R.layout.actionbar_back, null);
+        final ActionBar actionBar = getActionBar();
+        actionBar.setDisplayShowHomeEnabled(false);
+        actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setCustomView(customActionBar);
+
+        TextView title = (TextView) customActionBar.findViewById(R.id.ac_title);
+        FontHelper.SetFont(this, Fonts.MAIN_FONT, title, Typeface.BOLD);
+
+        ImageView back = (ImageView) customActionBar.findViewById(R.id.ac_back);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
     }
 
 
-    @Override
+ /*   @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.edit_report, menu);
         return true;
-    }
+    }*/
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
