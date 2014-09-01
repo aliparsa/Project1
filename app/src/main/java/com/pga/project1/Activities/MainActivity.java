@@ -4,6 +4,8 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.DrawerLayout;
@@ -16,6 +18,8 @@ import android.widget.Toast;
 
 import com.pga.project1.DataModel.Chart;
 import com.pga.project1.R;
+import com.pga.project1.Utilities.FontHelper;
+import com.pga.project1.Utilities.Fonts;
 import com.pga.project1.Viewes.PathMapManager;
 import com.pga.project1.fragment.FragmentProjectTreeView;
 import com.pga.project1.fragment.NavigationDrawerFragment;
@@ -69,35 +73,41 @@ public class MainActivity extends Activity
 //        if (savedInstanceState==null)
 //            ShowTreeFragmnet("");
 
-        View customActionBar = getLayoutInflater().inflate(R.layout.actionbar_simple, null);
-        final ActionBar actionBar = getActionBar();
-        actionBar.setDisplayShowHomeEnabled(false);
-        actionBar.setDisplayShowTitleEnabled(false);
-        actionBar.setDisplayShowCustomEnabled(true);
-        getActionBar().setCustomView(customActionBar);
 
-        prepareActionbar(customActionBar);
 
-       // Intent intent = new Intent(this, TreeViewActivity.class);
-        //startActivity(intent);
-       // finish();
+        prepareActionbar();
 
+        Intent intent = new Intent(this, TreeViewActivity.class);
+        startActivity(intent);
+        finish();
 
 
     }
 
-    private void prepareActionbar(View customActionBar) {
+    private void prepareActionbar() {
+
+        View customActionBar = getLayoutInflater().inflate(R.layout.actionbar_nav, null);
+        final ActionBar actionBar = getActionBar();
+        actionBar.setDisplayShowHomeEnabled(false);
+        actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setCustomView(customActionBar);
+
         ImageView icon = (ImageView) customActionBar.findViewById(R.id.ac_icon);
         TextView title = (TextView) customActionBar.findViewById(R.id.ac_title);
 
-        /*r1.setOnClickListener(new View.OnClickListener() {
+        FontHelper.SetFont(this, Fonts.MAIN_FONT, title, Typeface.BOLD);
+
+        ImageView nav = (ImageView) customActionBar.findViewById(R.id.ac_nav);
+
+        nav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mNavigationDrawerFragment.toggleNavigationDrawer();
+
             }
         });
 
-        btn.setText("مدیریت پروژه");*/
 
 
     }

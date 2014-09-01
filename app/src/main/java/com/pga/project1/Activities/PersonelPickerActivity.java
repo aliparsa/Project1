@@ -1,15 +1,18 @@
 package com.pga.project1.Activities;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.TextView;
 
 import com.pga.project1.Adapters.ListViewCustomAdapter;
 import com.pga.project1.DataModel.PathObject;
@@ -17,6 +20,8 @@ import com.pga.project1.DataModel.Personnel;
 import com.pga.project1.Intefaces.CallBack;
 import com.pga.project1.R;
 import com.pga.project1.Structures.AdapterInputType;
+import com.pga.project1.Utilities.FontHelper;
+import com.pga.project1.Utilities.Fonts;
 import com.pga.project1.Utilities.ListViewAdapterHandler;
 import com.pga.project1.Utilities.Webservice;
 import com.pga.project1.Viewes.PathMapManager;
@@ -44,7 +49,7 @@ public class PersonelPickerActivity extends Activity {
 
         context = this;
 
-        searchView = (SearchView) findViewById(R.id.srchv_searchPersonnel_searchName);
+        //searchView = (SearchView) findViewById(R.id.srchv_searchPersonnel_searchName);
         listView = (ListView) findViewById(R.id.lv_searchPersonnel_results);
 
         adapter = new ListViewCustomAdapter(this,
@@ -55,17 +60,63 @@ public class PersonelPickerActivity extends Activity {
 
         // listView.setAdapter(adapter);
 
+        //searchView.setOnQueryTextListener(new onPersonnelSearchListener());
+
+
+        prepareActionbar();
+    }
+
+
+    private void prepareActionbar() {
+
+        View customActionBar = getLayoutInflater().inflate(R.layout.actionbar_search, null);
+        final ActionBar actionBar = getActionBar();
+        actionBar.setDisplayShowHomeEnabled(false);
+        actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setCustomView(customActionBar);
+
+        ImageView icon = (ImageView) customActionBar.findViewById(R.id.ac_icon);
+        TextView title = (TextView) customActionBar.findViewById(R.id.ac_title);
+        title.setVisibility(View.GONE);
+
+        FontHelper.SetFont(this, Fonts.MAIN_FONT, title, Typeface.BOLD);
+
+        ImageView back = (ImageView) customActionBar.findViewById(R.id.ac_back);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                onBackPressed();
+            }
+        });
+
+        searchView = (SearchView) customActionBar.findViewById(R.id.ac_search);
         searchView.setOnQueryTextListener(new onPersonnelSearchListener());
+
+        int searchPlateId = searchView.getContext().getResources().getIdentifier("android:id/search_plate", null, null);
+       // searchView.findViewById(searchPlateId).setBackgroundResource(R.drawable.textfield_search_selected);
+
+        int voiceSearchPlateId = searchView.getContext().getResources().getIdentifier("android:id/submit_area", null, null);
+        //searchView.findViewById(voiceSearchPlateId).setBackgroundResource(R.drawable.textfield_search_right_selected);
+
+        // change hint color
+        int searchTextViewId = searchView.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
+        TextView searchTextView = (TextView) searchView.findViewById(searchTextViewId);
+        searchTextView.setTextColor(getResources().getColor(R.color.actionbar_title_color));
+        searchTextView.setHintTextColor(getResources().getColor(R.color.actionbar_search_hint));
+        //searchTextView.setTextSize(R.dimen.actionbar_search_font_size);
 
     }
 
 
-    @Override
+   /* @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.personel_picker, menu);
         return true;
-    }
+    }*/
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

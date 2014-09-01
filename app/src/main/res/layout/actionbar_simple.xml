@@ -23,6 +23,7 @@
         android:layout_alignParentTop="true"
         android:layout_toLeftOf="@+id/ac_icon"
         android:gravity="center_vertical"
+        android:textColor="@color/actionbar_title_color"
         />
 
 

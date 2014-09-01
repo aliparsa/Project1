@@ -3,14 +3,15 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/actionbar_padding">
+    android:padding="@dimen/actionbar_padding"
+    >
 
 
     <ImageView
-        android:id="@+id/ac_nav"
+        android:id="@+id/ac_back"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:src="@drawable/ic_drawer"
+        android:src="@drawable/ic_action_next_item"
         android:layout_alignParentEnd="true"
         android:paddingLeft="10dp"
         />
@@ -21,7 +22,7 @@
         android:layout_height="match_parent"
         android:scaleType="center"
         android:src="@drawable/category"
-        android:layout_toLeftOf="@+id/ac_nav"
+        android:layout_toLeftOf="@+id/ac_back"
         android:paddingLeft="@dimen/distance_between_icon_and_title"
         />
 
@@ -37,5 +38,17 @@
         android:textSize="@dimen/actionbar_title_size"
         />
 
+
+    <SearchView
+        android:id="@+id/ac_search"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+
+        android:layout_alignParentLeft="true"
+        android:layout_toLeftOf="@+id/ac_title"
+        android:iconifiedByDefault="false"
+
+        android:queryHint="اینجا جستجو کنید"
+        ></SearchView>
 
 </RelativeLayout>

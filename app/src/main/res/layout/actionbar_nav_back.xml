@@ -53,22 +53,28 @@
         android:layout_alignParentTop="true"
         android:layout_toLeftOf="@+id/ac_icon"
         android:gravity="center_vertical"
+        android:textColor="@color/actionbar_title_color"
         />
 
 
-    <ImageButton
+    <Button
         android:id="@+id/ac_action1"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
         android:layout_marginRight="@dimen/distance_actionbar_action1_action2"
+
+        android:background="@android:color/transparent"
         />
 
-    <ImageButton
+    <Button
         android:id="@+id/ac_action2"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/ac_action1" />
+        android:layout_toRightOf="@+id/ac_action1"
+
+        android:background="@android:color/transparent"
+        />
 
 </RelativeLayout>
