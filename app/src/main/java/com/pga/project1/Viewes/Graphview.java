@@ -92,8 +92,8 @@ public class Graphview extends View {
         this.setMeasuredDimension(parentWidth, parentHeight);
 
         float min = Math.min(this.getMeasuredWidth(), this.getMeasuredHeight());
-        //rectf = new RectF(5, 5, min - 5, min - 5);
-        rectf = new RectF(20, 20, min - 20, min - 20);
+        rectf = new RectF(5, 5, min - 5, min - 5);
+        // rectf = new RectF(20, 20, min - 20, min - 20);
 
 
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
@@ -109,32 +109,35 @@ public class Graphview extends View {
 
 
         // draw background
-       /* paint.setColor(background);
+        // paint.setAntiAlias(true);
+        paint.setColor(background);
         paint.setStyle(Paint.Style.FILL_AND_STROKE);
-        canvas.drawArc(rectf, 0, 360, true, paint);*/
+        canvas.drawArc(rectf, 0, 360, true, paint);
         // end draw background
 
-        paint.setColor(background);
-        paint.setStrokeWidth(strokeWidth);
-        paint.setAntiAlias(true);
-        paint.setStrokeCap(Paint.Cap.ROUND);
-        paint.setStyle(Paint.Style.STROKE);
-        canvas.drawArc(rectf, 0, 360, true, paint);
+//        paint.setColor(background);
+//        paint.setStrokeWidth(strokeWidth);
+//        paint.setAntiAlias(true);
+//        paint.setStrokeCap(Paint.Cap.ROUND);
+//        paint.setStyle(Paint.Style.STROKE);
+//        canvas.drawArc(rectf, 0, 360, true, paint);
 
 
         for (int i = 0; i < value_degree.length; i++) {//values2.length; i++) {
             if (i == 0) {
 
+
                 // Draw Main
                 paint.setColor(COLORS[i]);
                 paint.setStyle(Paint.Style.FILL);
-                // canvas.drawArc(rectf, -90, value_degree[i], true, paint);
+                canvas.drawArc(rectf, -90, value_degree[i], true, paint);
 
-                // Draw Stroke
+             /*   // Draw Stroke
                 paint.setColor(strokeColor);
                 paint.setStyle(Paint.Style.STROKE);
+                paint.setStrokeCap(Paint.Cap.ROUND);
                 paint.setStrokeWidth(strokeWidth);
-                //canvas.drawArc(rectf, -90, value_degree[i], true, paint);
+                canvas.drawArc(rectf, -90, value_degree[i], true, paint);*/
 
                 // Draw Inner Circle
                 paint.setColor(Color.WHITE);
@@ -143,16 +146,16 @@ public class Graphview extends View {
                 float end_Point = this.getMeasuredWidth() * 3 / 4;
                 RectF innerCircle = new RectF(rectf);
                 innerCircle.set(start_Point, start_Point, end_Point, end_Point);
-                //canvas.drawArc(innerCircle, 0, 360, true, paint);
+                canvas.drawArc(innerCircle, 0, 360, true, paint);
 
                 ////====================
-                paint.setColor(getNextColor(value_degree[i]));
-                //paint.setColor(COLORS[i]);
-                paint.setStrokeWidth(strokeWidth);
-                paint.setAntiAlias(true);
-                paint.setStrokeCap(Paint.Cap.ROUND);
-                paint.setStyle(Paint.Style.STROKE);
-                canvas.drawArc(rectf, -85, value_degree[i], false, paint);
+//             //   paint.setColor(getNextColor(value_degree[i]));
+//                paint.setColor(COLORS[i]);
+//                paint.setStrokeWidth(strokeWidth);
+//                paint.setAntiAlias(true);
+//                paint.setStrokeCap(Paint.Cap.ROUND);
+//                paint.setStyle(Paint.Style.STROKE);
+//                canvas.drawArc(rectf, -85, value_degree[i], false, paint);
                 //==========
 
                 // Draw Text
@@ -181,23 +184,23 @@ public class Graphview extends View {
         }
     }
 
-    private int getNextColor(float value) {
-
-        // 0 - 180
-
-        // 255 - 0
-        if (value >= 0 && value <= 180) {
-            red = 255;
-            green = (255 / 180) * (int) value;
-        } else {
-            int xvalue = (int) value - 180;
-            green = 255;
-            red = Math.abs(255 - ((255 / 180) * (int) value));
-        }
-
-
-        return Color.argb(255, red, green, blue);
-    }
+//    private int getNextColor(float value) {
+//
+//        // 0 - 180
+//
+//        // 255 - 0
+//        if (value >= 0 && value <= 180) {
+//            red = 255;
+//            green = (255 / 180) * (int) value;
+//        } else {
+//            int xvalue = (int) value - 180;
+//            green = 255;
+//            red = Math.abs(255 - ((255 / 180) * (int) value));
+//        }
+//
+//
+//        return Color.argb(255, red, green, blue);
+//    }
 
     public float getPercent() {
         return percent;
