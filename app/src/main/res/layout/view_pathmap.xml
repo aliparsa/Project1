@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="1dp"
-    android:background="#a8268bff"
+    android:background="#00c6b8"
     >
 
     <HorizontalScrollView

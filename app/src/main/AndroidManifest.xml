@@ -53,10 +53,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:windowSoftInputMode="adjustResize"
             android:name=".Activities.LoginActivity"
+            android:theme="@style/CustomActivityThemeNoActionBar"
             android:label="@string/title_activity_login"></activity>
+
+
         <activity
             android:name=".Activities.TreeViewActivity"
             android:label="@string/title_activity_tree_view"></activity>
