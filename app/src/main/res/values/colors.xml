@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="NaviDrawerItem_title">#000000</color>
-    <color name="NaviDrawerItem_subtitle">#888888</color>
+    <color name="NaviDrawerItem_title">#002d5c</color>
+    <color name="NaviDrawerItem_subtitle">#002d5c</color>
     <color name="black_overlay">#66000000</color>
 
 
@@ -12,8 +12,8 @@
     <color name="user_pass_edittext_solid">#e8f0ef</color>
 
 
-    <color name="actionbar_title_color" >#f6f6f6</color>
-    <color name="actionbar_search_hint" >#d6d6d6</color>
+    <color name="actionbar_title_color">#f6f6f6</color>
+    <color name="actionbar_search_hint">#d6d6d6</color>
+    <color name="actionbar_button_text">#f6f6f6</color>
 
-    <color name="actionbar_button_text" >#f6f6f6</color>
 </resources>

@@ -65,7 +65,7 @@
 
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/txt_index"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
@@ -80,7 +80,7 @@
                 android:layout_height="wrap_content"
                 android:editable="false"
                 android:layout_alignParentTop="true"
-                android:layout_toLeftOf="@+id/textView"
+                android:layout_toLeftOf="@+id/txt_index"
                 android:text="0%" />
 
         </RelativeLayout>

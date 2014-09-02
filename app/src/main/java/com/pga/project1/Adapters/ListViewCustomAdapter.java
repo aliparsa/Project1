@@ -160,6 +160,9 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
         if (holder.icon == null)
             holder.icon = (ImageView) lv_icon_title_subtitle.findViewById(R.id.icon);
 
+        if (holder.index == null)
+            holder.index = (TextView) lv_icon_title_subtitle.findViewById(R.id.txt_index);
+
 //        if (holder.icon_in_title_subtitle == null)
 //            holder.icon_in_title_subtitle = (ImageView) lv_icon_title_subtitle.findViewById(R.id.icon2);
 
@@ -198,9 +201,11 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
                 holder.graphview.setPercent(((Chart) item.getTag()).getHand_percent());
             }
 
-            item.isFirstTimeItemShowed = false;
-            holder.img.setUrl(((Chart) item.getTag()).getImage());
-            holder.img.startLoading();
+            holder.index.setText(getPosition(item) + 1 + "");
+
+            //item.isFirstTimeItemShowed = false;
+            // holder.img.setUrl(((Chart) item.getTag()).getImage());
+            //  holder.img.startLoading();
 
         }
 
@@ -300,6 +305,7 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
         //Drawer Item --------------------
         TextView drawerTitle;
         ImageView drawerIcon;
+        public TextView index;
 
         ///------------------------
         public Object getTag() {

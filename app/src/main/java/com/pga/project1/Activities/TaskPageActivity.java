@@ -9,6 +9,8 @@ import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
@@ -22,8 +24,9 @@ import com.pga.project1.Utilities.Webservice;
 import com.pga.project1.Viewes.PathMapManager;
 import com.pga.project1.fragment.FragmentTaskInfo;
 import com.pga.project1.fragment.FragmentTaskReport;
+import com.pga.project1.test.TabPagerAdapter;
 
-public class TaskPageActivity extends Activity {
+public class TaskPageActivity extends FragmentActivity {
 
 
     //{Constants-----------------------------------------------------
@@ -47,6 +50,11 @@ public class TaskPageActivity extends Activity {
     FragmentTaskReport reportFrag;
     Fragment currentFrag;
 
+
+    ViewPager Tab;
+    TaskPageTabPagerAdapter TabAdapter;
+    ActionBar actionBar;
+
     //-----------------------------------------------------Fields}
 
     //{Constructor-----------------------------------------------------
@@ -61,6 +69,13 @@ public class TaskPageActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
+        // Force Tab Support
+        if (getActionBar().getNavigationMode() == ActionBar.NAVIGATION_MODE_STANDARD)
+            getActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+
+        getActionBar().removeAllTabs();
+
         this.chart = (Chart) getIntent().getSerializableExtra("chart");
         PathMapManager.push(chart);
 
@@ -69,8 +84,60 @@ public class TaskPageActivity extends Activity {
         this.pageType = PageType.Info;
 
 
-    }
+        // add swipe tab
 
+        TabAdapter = new TaskPageTabPagerAdapter(getSupportFragmentManager(), chart);
+        Tab = (ViewPager) findViewById(R.id.pager);
+        Tab.setOnPageChangeListener(
+                new ViewPager.SimpleOnPageChangeListener() {
+                    @Override
+                    public void onPageSelected(int position) {
+                        actionBar = getActionBar();
+                        actionBar.setSelectedNavigationItem(position);
+                    }
+                }
+        );
+        Tab.setAdapter(TabAdapter);
+        actionBar = getActionBar();
+        //Enable Tabs on Action Bar
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+        ActionBar.TabListener tabListener = new ActionBar.TabListener() {
+            @Override
+            public void onTabReselected(android.app.ActionBar.Tab tab,
+                                        FragmentTransaction ft) {
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
+                Tab.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(android.app.ActionBar.Tab tab,
+                                        FragmentTransaction ft) {
+                // TODO Auto-generated method stub
+            }
+        };
+
+        //Add New Tab
+
+        // actionBar.addTab(actionBar.newTab().setText("گزارش عملکرد").setTabListener(tabListener),false);
+        // actionBar.addTab(actionBar.newTab().setText("اطلاعات").setTabListener(tabListener),false);
+        //
+        ActionBar.Tab tab_taskInfo = getActionBar().newTab();
+        ActionBar.Tab tab_taskReport = getActionBar().newTab();
+
+        // Set Tab Titles
+        tab_taskInfo.setText("اطلاعات").setTabListener(tabListener);
+        tab_taskReport.setText("گزارش عملکرد").setTabListener(tabListener);
+
+        getActionBar().addTab(tab_taskReport);
+        getActionBar().addTab(tab_taskInfo);
+
+        this.getActionBar().selectTab(tab_taskInfo);
+    }
+/*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -87,7 +154,7 @@ public class TaskPageActivity extends Activity {
         setTabs();
 
         return true;
-    }
+    }*/
 
 
     @Override
@@ -140,11 +207,11 @@ public class TaskPageActivity extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == 654) {
+       /* if (requestCode == 654) {
             if (reportFrag != null && reportFrag == currentFrag)
                 reportFrag.loadReports();
 
-        }
+        }*/
     }
 
     private void deleteChart() {
@@ -203,25 +270,6 @@ public class TaskPageActivity extends Activity {
             @Override
             public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
 
-                if (infoFrag == null) {
-
-                    currentFrag = infoFrag = new FragmentTaskInfo();
-                    infoFrag.setChart(chart);
-
-                    FragmentManager fm = getFragmentManager();
-                    fm.beginTransaction()
-                            .add(R.id.host_taskPage, infoFrag)
-                            .commit();
-
-                } else if (currentFrag != infoFrag) {
-                    FragmentManager fm = getFragmentManager();
-                    fm.beginTransaction()
-                            .replace(R.id.host_taskPage, infoFrag)
-                            .commit();
-
-                    currentFrag = infoFrag;
-
-                }
 
                 pageType = PageType.Info;
                 MenuItem addNewReport = menu.findItem(R.id.action_addReportTask);
@@ -244,7 +292,7 @@ public class TaskPageActivity extends Activity {
             @Override
             public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
 
-                if (reportFrag == null) {
+                /*if (reportFrag == null) {
 
                     currentFrag = reportFrag = new FragmentTaskReport();
                     reportFrag.setChart(chart);
@@ -261,7 +309,7 @@ public class TaskPageActivity extends Activity {
                             .commit();
 
                     currentFrag = reportFrag;
-                }
+                }*/
 
                 pageType = PageType.Reports;
                 MenuItem addNewReport = menu.findItem(R.id.action_addReportTask);

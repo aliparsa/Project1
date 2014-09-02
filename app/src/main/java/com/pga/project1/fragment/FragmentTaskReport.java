@@ -1,6 +1,6 @@
 package com.pga.project1.fragment;
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;

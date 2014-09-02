@@ -2,7 +2,7 @@ package com.pga.project1.Activities;
 
 import android.app.ActionBar;
 import android.app.Activity;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -21,7 +21,7 @@ import com.pga.project1.R;
 import com.pga.project1.Utilities.FontHelper;
 import com.pga.project1.Utilities.Fonts;
 import com.pga.project1.Viewes.PathMapManager;
-import com.pga.project1.fragment.FragmentProjectTreeView;
+
 import com.pga.project1.fragment.NavigationDrawerFragment;
 
 
@@ -42,6 +42,10 @@ public class MainActivity extends Activity
 
     private Fragment currentFragment;
     private boolean TwiceBackPressed = false;
+
+    public MainActivity() {
+
+    }
 
 
     //----------------------------------------------------------------------------------------
@@ -72,7 +76,6 @@ public class MainActivity extends Activity
 //
 //        if (savedInstanceState==null)
 //            ShowTreeFragmnet("");
-
 
 
         prepareActionbar();
@@ -107,7 +110,6 @@ public class MainActivity extends Activity
 
             }
         });
-
 
 
     }
@@ -195,7 +197,7 @@ public class MainActivity extends Activity
     }
 
     //----------------------------------------------------------------------------------------
-    public void ShowTreeFragmnet(String CallerFragment) {
+    /*public void ShowTreeFragmnet(String CallerFragment) {
 
         // hide Tabs if Exist
         hideTabs();
@@ -205,10 +207,10 @@ public class MainActivity extends Activity
         replaceFragment(frag, "FragmentProjectTreeView", false);
 
 
-    }
+    }*/
 
     //-----------------------------------------------------------------------------------
-    public void ShowTreeFragmnet(Chart chart, String CallerFragment) {
+  /*  public void ShowTreeFragmnet(Chart chart, String CallerFragment) {
 
 
         // hide Tabs if Exist
@@ -220,7 +222,7 @@ public class MainActivity extends Activity
         replaceFragment(frag, "FragmentProjectTreeView", true);
 
         PathMapManager.push(chart);
-    }
+    }*/
 
     //---------------------------------------------------------------------------------------
     public void ShowWorkFragment(Chart chart, String CallerFragment, boolean addToBackStack) {
@@ -307,7 +309,7 @@ public class MainActivity extends Activity
     }
 
     //-------------------------------------------------------------------------------------
-    public void replaceFragment(Fragment frag, String tag, boolean addToBackStack) {
+   /* public void replaceFragment(Fragment frag, String tag, boolean addToBackStack) {
 
         if (addToBackStack) {  // add to back stack or not
 
@@ -341,7 +343,7 @@ public class MainActivity extends Activity
             }
         }
         currentFragment = frag;
-    }
+    }*/
 
     //-------------------------------------------------------------------------------------
     public static class BackStackChanged implements FragmentManager.OnBackStackChangedListener {
