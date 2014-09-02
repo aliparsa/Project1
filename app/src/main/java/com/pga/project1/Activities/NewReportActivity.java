@@ -21,6 +21,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -177,12 +178,12 @@ public class NewReportActivity extends Activity {
             }
         });
 
-        addPhotoButton =  (Button) customActionBar.findViewById(R.id.ac_action1);
-        saveButton =  (Button) customActionBar.findViewById(R.id.ac_action2);
+        addPhotoButton =  (Button) customActionBar.findViewById(R.id.ac_action2);
+        saveButton =  (Button) customActionBar.findViewById(R.id.ac_action1);
 
         //addPhotoButton.setText("تصویر");
         addPhotoButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_camera,0,0,0);
-        addPhotoButton.setTextColor(getResources().getColor(R.color.actionbar_button_text));
+        //addPhotoButton.setTextColor(getResources().getColor(R.color.actionbar_button_text));
         addPhotoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -192,11 +193,37 @@ public class NewReportActivity extends Activity {
 
         //saveButton.setText("ذخیره");
         saveButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_save,0, 0, 0);
-        saveButton.setTextColor(getResources().getColor(R.color.actionbar_button_text));
+       // saveButton.setTextColor(getResources().getColor(R.color.actionbar_button_text));
+        final Context context = this;
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                saveReport();
+
+                if(report.getText().length() == 0) {
+
+                    saveButton.startAnimation(AnimationUtils.loadAnimation(context, R.anim.view_not_valid));
+                    Toast.makeText(context, "متن گزارش باید پر شود", Toast.LENGTH_SHORT).show();
+                     return;
+                }
+
+
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(context)
+                        .setTitle("آیا عملکرد ثبت شود؟")
+                        .setPositiveButton("بله", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                saveReport();
+                            }
+                        }).setNegativeButton("خیر", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                            }
+                        });
+
+
+
             }
         });
      }
@@ -262,6 +289,12 @@ public class NewReportActivity extends Activity {
     //--------------------------------------------------------------------------------
 
     private void saveReport() {
+
+
+
+
+
+
 
         int type = 1;
 

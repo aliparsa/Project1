@@ -47,6 +47,7 @@
         android:layout_height="32dp"
         android:layout_alignParentLeft="true"
         android:layout_centerInParent="true"
+        android:orientation="horizontal"
         android:layout_marginLeft="@dimen/distance_actionbar_action1_action2"
         >
 
