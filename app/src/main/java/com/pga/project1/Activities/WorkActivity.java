@@ -63,6 +63,8 @@ public class WorkActivity extends FragmentActivity {
 
         setContentView(R.layout.activity_activity_work);
 
+        prepareActionBar();
+
         ////swipe
         // add swipe tab
 
@@ -100,15 +102,15 @@ public class WorkActivity extends FragmentActivity {
                 Tab.setCurrentItem(tab.getPosition());
 
                 switch (tab.getPosition()) {
-                    case 3:
+                    case 2:
                         showHideMenuItems(false, false);
                         break;
 
-                    case 2:
+                    case 1:
                         showHideMenuItems(true, false);
                         break;
 
-                    case 1:
+                    case 0:
                         showHideMenuItems(false, true);
                         break;
                 }
@@ -147,7 +149,6 @@ public class WorkActivity extends FragmentActivity {
         this.getActionBar().selectTab(tab_taskInfo);*/
 
 
-        prepareActionBar();
     }
 
     private void prepareActionBar() {

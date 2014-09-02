@@ -3,27 +3,36 @@ package com.pga.project1.Activities;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Fragment;
+import android.graphics.Typeface;
+import android.support.v4.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pga.project1.DataModel.Chart;
 import com.pga.project1.DataModel.ServerResponse;
 import com.pga.project1.Intefaces.CallBack;
 import com.pga.project1.R;
+import com.pga.project1.Utilities.FontHelper;
+import com.pga.project1.Utilities.Fonts;
 import com.pga.project1.Utilities.Webservice;
 import com.pga.project1.Viewes.PathMapManager;
 import com.pga.project1.fragment.FragmentTaskInfo;
 import com.pga.project1.fragment.FragmentTaskReport;
 
-public class TaskPageActivity extends Activity {
+public class TaskPageActivity extends FragmentActivity {
 
 
     //{Constants-----------------------------------------------------
@@ -47,6 +56,12 @@ public class TaskPageActivity extends Activity {
     FragmentTaskReport reportFrag;
     Fragment currentFrag;
 
+    private Button removeTaskButton;
+    private Button addReportButton;
+
+    ViewPager Tab;
+    TaskPageTabPagerAdapter TabAdapter;
+    ActionBar actionBar;
     //-----------------------------------------------------Fields}
 
     //{Constructor-----------------------------------------------------
@@ -67,6 +82,8 @@ public class TaskPageActivity extends Activity {
         setContentView(R.layout.activity_activity_task_page);
 
         this.pageType = PageType.Info;
+
+        prepareActionBar();
 
         TabAdapter = new TaskPageTabPagerAdapter(getSupportFragmentManager(), chart);
         Tab = (ViewPager) findViewById(R.id.pager);
@@ -93,6 +110,16 @@ public class TaskPageActivity extends Activity {
             @Override
             public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
                 Tab.setCurrentItem(tab.getPosition());
+
+                switch (tab.getPosition()) {
+                    case 0:
+                        showHideMenuItems(false, true);
+                        break;
+
+                    case 1:
+                        showHideMenuItems(true, false);
+                        break;
+                }
             }
 
             @Override
@@ -171,7 +198,6 @@ public class TaskPageActivity extends Activity {
 
         showHideMenuItems(false, false);
 
-        setTabs();
     }
 
     private void showHideMenuItems(boolean ac_remove_task, boolean ac_new_work_report_vis) {
@@ -187,7 +213,7 @@ public class TaskPageActivity extends Activity {
             addReportButton.setVisibility(View.VISIBLE);
     }
 
-    @Override
+/*    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
         getMenuInflater().inflate(R.menu.menu_fragment_task, menu);
@@ -203,7 +229,7 @@ public class TaskPageActivity extends Activity {
         setTabs();
 
         return true;
-    }
+    }*/
 
 
     @Override
@@ -319,7 +345,7 @@ public class TaskPageActivity extends Activity {
             @Override
             public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
 
-                if (infoFrag == null) {
+               /* if (infoFrag == null) {
 
                     currentFrag = infoFrag = new FragmentTaskInfo();
                     infoFrag.setChart(chart);
@@ -344,7 +370,7 @@ public class TaskPageActivity extends Activity {
                 if (addNewReport != null) addNewReport.setVisible(false);
 
                 MenuItem RemoveTask = menu.findItem(R.id.action_removeTask);
-                if (RemoveTask != null) RemoveTask.setVisible(true);
+                if (RemoveTask != null) RemoveTask.setVisible(true);*/
             }
 
             @Override
@@ -360,7 +386,7 @@ public class TaskPageActivity extends Activity {
             @Override
             public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
 
-                if (reportFrag == null) {
+               /* if (reportFrag == null) {
 
                     currentFrag = reportFrag = new FragmentTaskReport();
                     reportFrag.setChart(chart);
@@ -384,7 +410,7 @@ public class TaskPageActivity extends Activity {
                 if (addNewReport != null) addNewReport.setVisible(true);
 
                 MenuItem RemoveTask = menu.findItem(R.id.action_removeTask);
-                if (RemoveTask != null) RemoveTask.setVisible(false);
+                if (RemoveTask != null) RemoveTask.setVisible(false);*/
             }
 
             @Override
