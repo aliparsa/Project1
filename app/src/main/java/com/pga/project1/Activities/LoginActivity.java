@@ -3,6 +3,7 @@ package com.pga.project1.Activities;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,6 +19,8 @@ import android.widget.Toast;
 import com.pga.project1.Intefaces.CallBack;
 import com.pga.project1.R;
 import com.pga.project1.Utilities.Account;
+import com.pga.project1.Utilities.FontHelper;
+import com.pga.project1.Utilities.Fonts;
 import com.pga.project1.Utilities.ValidationMessage;
 import com.pga.project1.Utilities.Webservice;
 
@@ -52,6 +55,8 @@ public class LoginActivity extends Activity {
         loaderBar = (ProgressBar) findViewById(R.id.pgb_fragmentLogin_loader);
 
         panel = (LinearLayout) findViewById(R.id.ll_fragmentLogin_panel);
+
+//        FontHelper.SetFont(context, Fonts.MAIN_FONT,btnLogin, Typeface.BOLD);
 
         btnLogin = (Button) findViewById(R.id.btn_fragmentLogin_login);
         btnLogin.setOnClickListener(new View.OnClickListener() {

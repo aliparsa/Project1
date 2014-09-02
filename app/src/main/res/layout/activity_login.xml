@@ -42,10 +42,10 @@
                 android:layout_marginRight="5dp"
                 android:layout_marginBottom="5dp"
                 android:padding="7dp"
-                android:drawableLeft="@drawable/ic_action_camera"
+                android:drawableRight="@drawable/ic_action_camera"
                 android:textColorHint="#c2c2c2"
                 android:background="@drawable/user_pass_textfield_background"
-                android:gravity="right"
+                android:gravity="center"
                 android:singleLine="true"
                 />
 
@@ -58,11 +58,11 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:padding="7dp"
-                android:drawableLeft="@drawable/ic_action_camera"
+                android:drawableRight="@drawable/ic_action_camera"
                 android:textColorHint="#c2c2c2"
                 android:background="@drawable/user_pass_textfield_background"
-                android:gravity="right"
-
+                android:gravity="center"
+                android:password="true"
                 android:singleLine="true"
                 />
 
