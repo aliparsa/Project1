@@ -2,64 +2,75 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="@dimen/actionbar_padding"
+    android:layout_height="@dimen/actionbar_height"
     >
 
 
     <ImageView
         android:id="@+id/ac_back"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:src="@drawable/ic_action_next_item"
-        android:layout_alignParentEnd="true"
-        android:paddingLeft="10dp"
+        android:layout_height="32dp"
+        android:layout_centerInParent="true"
+        android:src="@drawable/ic_back"
+        android:layout_alignParentRight="true"
+        android:alpha="0.8"
+
         />
 
     <ImageView
         android:id="@+id/ac_icon"
+        android:layout_centerInParent="true"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:scaleType="center"
+        android:layout_height="32dp"
         android:src="@drawable/category"
         android:layout_toLeftOf="@+id/ac_back"
-        android:paddingLeft="@dimen/distance_between_icon_and_title"
+        android:layout_marginRight="@dimen/distance_actionbar_action1_action2"
         />
 
     <TextView
+        android:layout_centerInParent="true"
         android:id="@+id/ac_title"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="40dp"
         android:text="@string/app_name"
-        android:layout_alignParentTop="true"
         android:layout_toLeftOf="@+id/ac_icon"
         android:gravity="center_vertical"
+
         android:textColor="@color/actionbar_title_color"
         android:textSize="@dimen/actionbar_title_size"
-        />
-
-
-    <Button
-        android:id="@+id/ac_action1"
-        android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:layout_alignParentLeft="true"
         android:layout_marginRight="@dimen/distance_actionbar_action1_action2"
-        android:padding="5dp"
-        android:drawablePadding="15dp"
-        android:background="@android:color/transparent"
-        android:textColor="@color/actionbar_button_text"
         />
 
-    <Button
-        android:id="@+id/ac_action2"
+
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/ac_action1"
-        android:padding="5dp"
-        android:textColor="@color/actionbar_button_text"
-        android:background="@android:color/transparent"
-        />
+        android:layout_height="32dp"
+        android:layout_alignParentLeft="true"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="@dimen/distance_actionbar_action1_action2"
+        >
+
+        <Button
+            android:id="@+id/ac_action1"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginRight="@dimen/distance_actionbar_action1_action2"
+            android:background="@android:color/transparent"
+            android:textColor="@color/actionbar_button_text"
+            android:alpha="0.8"
+            />
+
+        <Button
+            android:id="@+id/ac_action2"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+
+            android:textColor="@color/actionbar_button_text"
+            android:background="@android:color/transparent"
+            android:alpha="0.8"
+            />
+
+        </LinearLayout>
+
 
 </RelativeLayout>

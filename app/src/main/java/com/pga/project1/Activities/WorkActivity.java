@@ -175,12 +175,14 @@ public class WorkActivity extends FragmentActivity {
         addReportButton =  (Button) customActionBar.findViewById(R.id.ac_action2);
 
         //addPersonnelButton.setText("پرسنل جدید");
-        addPersonnelButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_add_personnel,0,0,0);
+        addPersonnelButton.setCompoundDrawablesWithIntrinsicBounds(0,0,0,R.drawable.ic_add_personnel);
         addPersonnelButton.setTextColor(getResources().getColor(R.color.icon_color));
 
         //addReportButton.setText("عملکرد جدید");
-        addReportButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_add_report,0, 0, 0);
+        addReportButton.setCompoundDrawablesWithIntrinsicBounds(0,0, 0, R.drawable.ic_add_report);
         addReportButton.setTextColor(getResources().getColor(R.color.icon_color));
+
+
         showHideMenuItems(false, false);
 
         //setTabs("prepare");

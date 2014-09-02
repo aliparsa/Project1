@@ -180,8 +180,8 @@ public class NewReportActivity extends Activity {
         addPhotoButton =  (Button) customActionBar.findViewById(R.id.ac_action1);
         saveButton =  (Button) customActionBar.findViewById(R.id.ac_action2);
 
-        addPhotoButton.setText("تصویر");
-        addPhotoButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_action_camera,0,0,0);
+        //addPhotoButton.setText("تصویر");
+        addPhotoButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_camera,0,0,0);
         addPhotoButton.setTextColor(getResources().getColor(R.color.actionbar_button_text));
         addPhotoButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -190,8 +190,8 @@ public class NewReportActivity extends Activity {
             }
         });
 
-        saveButton.setText("ذخیره");
-        saveButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_drawer,0, 0, 0);
+        //saveButton.setText("ذخیره");
+        saveButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_save,0, 0, 0);
         saveButton.setTextColor(getResources().getColor(R.color.actionbar_button_text));
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
