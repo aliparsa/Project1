@@ -111,6 +111,57 @@ public class PathMapManager extends LinearLayout {
 
         Button btn = null;
 
+
+        //end angle
+        ImageView img = new ImageView(this.getContext());
+        img.setScaleType(ImageView.ScaleType.FIT_XY);
+        img.setLayoutParams(new LayoutParams(20, LayoutParams.MATCH_PARENT));
+        img.setImageResource(R.drawable.arrow);//TODO add path map divider
+
+        mainLayout.addView(img);
+        //---------------------
+
+        for (int i = stack.size() - 1; i >= 0; i--) {
+
+            PathMapObject object = stack.get(i);
+
+            String name = object.getName();
+
+            btn = (Button) inflater.inflate(R.layout.path_map_button, null);
+            btn.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.arrow,0);
+
+            if (!isFirst) {
+                //    btn.setBackgroundResource(R.drawable.selector_btn_pathmap);
+            } else {
+                //    btn.setBackgroundResource(R.drawable.selector_btn_pathmap_current);
+                //Animation animation = AnimationUtils.loadAnimation(context, R.anim.activity_fade_in_animation);
+                //btn.setAnimation(animation);
+            }
+            btn.setText(name);
+            btn.setTag(object.getSelf());
+
+            mainLayout.addView(btn);
+
+            isFirst = false;
+
+        }
+
+
+        invalidate();
+        requestLayout();
+    }
+
+
+    public void refreshOld() {
+
+        mainLayout.removeAllViews();
+
+        boolean isFirst = true;
+        //if()
+
+
+        Button btn = null;
+
         for (int i = stack.size() - 1; i >= 0; i--) {
 
             PathMapObject object = stack.get(i);
@@ -152,6 +203,5 @@ public class PathMapManager extends LinearLayout {
         invalidate();
         requestLayout();
     }
-
 
 }

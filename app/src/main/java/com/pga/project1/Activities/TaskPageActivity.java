@@ -3,13 +3,12 @@ package com.pga.project1.Activities;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.graphics.Typeface;
-import android.support.v4.app.Fragment;
-import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
@@ -173,8 +172,8 @@ public class TaskPageActivity extends FragmentActivity {
         removeTaskButton =  (Button) customActionBar.findViewById(R.id.ac_action1);
         addReportButton =  (Button) customActionBar.findViewById(R.id.ac_action2);
 
-        removeTaskButton.setText("حذف وظیفه");
-        removeTaskButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.people,0,0,0);
+        //removeTaskButton.setText("حذف وظیفه");
+        removeTaskButton.setCompoundDrawablesWithIntrinsicBounds(0,0,0,R.drawable.ic_delete);
         removeTaskButton.setTextColor(getResources().getColor(R.color.actionbar_button_text));
 
         removeTaskButton.setOnClickListener(new View.OnClickListener() {
@@ -184,8 +183,8 @@ public class TaskPageActivity extends FragmentActivity {
             }
         });
 
-        addReportButton.setText("عملکرد جدید");
-        addReportButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.work,0, 0, 0);
+        //addReportButton.setText("عملکرد جدید");
+        addReportButton.setCompoundDrawablesWithIntrinsicBounds(0,0, 0, R.drawable.ic_add_report);
         addReportButton.setTextColor(getResources().getColor(R.color.actionbar_button_text));
         addReportButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -293,20 +292,38 @@ public class TaskPageActivity extends FragmentActivity {
 
         final Activity self = this;
 
-        Webservice.removeTask(this, chart.getId(), new CallBack<ServerResponse>() {
-            @Override
-            public void onSuccess(ServerResponse result) {
 
-                Toast.makeText(self, "حذف انجام شد", Toast.LENGTH_SHORT).show();
-                finish();
-            }
+        AlertDialog.Builder builder = new AlertDialog.Builder(this)
+                .setTitle("آیا " + chart.getPersonnel().getFullName() + " از " + this.chart.getName() + " حذف شود؟")
+                .setPositiveButton("بله", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
 
-            @Override
-            public void onError(String err) {
-                Toast.makeText(self, "حذف انجام نشد", Toast.LENGTH_SHORT).show();
+                        Webservice.removeTask(self, chart.getId(), new CallBack<ServerResponse>() {
+                            @Override
+                            public void onSuccess(ServerResponse result) {
 
-            }
-        });
+                                Toast.makeText(self, "حذف انجام شد", Toast.LENGTH_SHORT).show();
+                                finish();
+                            }
+
+                            @Override
+                            public void onError(String err) {
+                                Toast.makeText(self, "حذف انجام نشد", Toast.LENGTH_SHORT).show();
+
+                            }
+                        });
+
+
+                    }
+                }).setNegativeButton("خیر", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+        builder.show();
+
     }
 
     @Override
