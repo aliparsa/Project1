@@ -2,7 +2,7 @@ package com.pga.project1.fragment;
 
 
 import android.os.Bundle;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,9 +65,9 @@ public class FragmentWorkInfo extends Fragment {
 //            public void onSuccess(ArrayList<Feature> featureList) {
 //                chart.setFeatureList(featureList);
 //
-                for (Feature fe : chart.getFeatureList()) {
-                    MainLinearLayout.addView(new ViewNameValue(getActivity(), fe.getName(), fe.getValue()));
-                }
+        for (Feature fe : chart.getFeatureList()) {
+            MainLinearLayout.addView(new ViewNameValue(getActivity(), fe.getName(), fe.getValue()));
+        }
 //            }
 //
 //            @Override

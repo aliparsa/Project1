@@ -2,10 +2,12 @@ package com.pga.project1.Activities;
 
 import android.app.ActionBar;
 import android.app.Activity;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.app.FragmentTransaction;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,7 +24,7 @@ import com.pga.project1.fragment.FragmentWorkInfo;
 import com.pga.project1.fragment.FragmentWorkReport;
 import com.pga.project1.fragment.FragmentWorkTask;
 
-public class WorkActivity extends Activity {
+public class WorkActivity extends FragmentActivity {
 
     private Chart chart;
     private Menu menu;
@@ -37,9 +39,18 @@ public class WorkActivity extends Activity {
     private Button addPersonnelButton;
     private Button addReportButton;
 
+    ///
+    ViewPager Tab;
+    WorkPageTabPagerAdapter TabAdapter;
+    ActionBar actionBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (getActionBar().getNavigationMode() == ActionBar.NAVIGATION_MODE_STANDARD)
+            getActionBar().setNavigationMode(
+                    ActionBar.NAVIGATION_MODE_TABS);
 
         this.chart = (Chart) getIntent().getSerializableExtra("chart");
         PathMapManager.push(chart);
@@ -51,6 +62,90 @@ public class WorkActivity extends Activity {
         isTabsSet = false;
 
         setContentView(R.layout.activity_activity_work);
+
+        ////swipe
+        // add swipe tab
+
+        TabAdapter = new WorkPageTabPagerAdapter(getSupportFragmentManager(), chart);
+        Tab = (ViewPager) findViewById(R.id.pager);
+        Tab.setOnPageChangeListener(
+                new ViewPager.SimpleOnPageChangeListener() {
+                    @Override
+                    public void onPageSelected(int position) {
+                        actionBar = getActionBar();
+                        actionBar.setSelectedNavigationItem(position);
+                    }
+                }
+        );
+        Tab.setAdapter(TabAdapter);
+        actionBar = getActionBar();
+        //Enable Tabs on Action Bar
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+
+
+        // Create Tabs
+        final ActionBar.Tab tab_workInfo = getActionBar().newTab();
+        ActionBar.Tab tab_workTask = getActionBar().newTab();
+        ActionBar.Tab tab_workReport = getActionBar().newTab();
+
+        ActionBar.TabListener tabListener = new ActionBar.TabListener() {
+            @Override
+            public void onTabReselected(android.app.ActionBar.Tab tab,
+                                        FragmentTransaction ft) {
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
+                Tab.setCurrentItem(tab.getPosition());
+
+                switch (tab.getPosition()) {
+                    case 3:
+                        showHideMenuItems(false, false);
+                        break;
+
+                    case 2:
+                        showHideMenuItems(true, false);
+                        break;
+
+                    case 1:
+                        showHideMenuItems(false, true);
+                        break;
+                }
+            }
+
+            @Override
+            public void onTabUnselected(android.app.ActionBar.Tab tab,
+                                        FragmentTransaction ft) {
+                // TODO Auto-generated method stub
+            }
+        };
+
+        // Set Tab Titles
+        tab_workInfo.setText("اطلاعات کار").setTabListener(tabListener);
+        tab_workTask.setText("وظیفه ها").setTabListener(tabListener);
+        tab_workReport.setText("گزارش عملکرد").setTabListener(tabListener);
+
+        getActionBar().addTab(tab_workReport, false);
+        getActionBar().addTab(tab_workTask, false);
+        getActionBar().addTab(tab_workInfo, false);
+
+        this.getActionBar().selectTab(tab_workInfo);
+
+        /*ActionBar.Tab tab_taskInfo = getActionBar().newTab();
+        ActionBar.Tab tab_taskInfo = getActionBar().newTab();
+        ActionBar.Tab tab_taskReport = getActionBar().newTab();
+
+        // Set Tab Titles
+        tab_taskInfo.setText("اطلاعات").setTabListener(tabListener);
+        tab_taskInfo.setText("اطلاعات").setTabListener(tabListener);
+        tab_taskReport.setText("گزارش عملکرد").setTabListener(tabListener);
+
+        getActionBar().addTab(tab_taskReport);
+        getActionBar().addTab(tab_taskInfo);
+
+        this.getActionBar().selectTab(tab_taskInfo);*/
+
 
         prepareActionBar();
     }
@@ -88,7 +183,7 @@ public class WorkActivity extends Activity {
         addReportButton.setTextColor(getResources().getColor(R.color.actionbar_button_text));
         showHideMenuItems(false, false);
 
-        setTabs("prepare");
+        //setTabs("prepare");
     }
 
 /*
@@ -177,7 +272,7 @@ public class WorkActivity extends Activity {
             @Override
             public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
 
-                if (infoFrag == null) {
+           /*     if (infoFrag == null) {
 
                     currentFrag = infoFrag = new FragmentWorkInfo();
                     infoFrag.setChart(chart);
@@ -188,20 +283,20 @@ public class WorkActivity extends Activity {
                 } else if (currentFrag != infoFrag) {
                     fragmentTransaction
                             .attach(infoFrag);
-                            /*.remove(currentFrag)
+                            *//*.remove(currentFrag)
                             .add(R.id.tab_host, infoFrag)
-                            .commit();*/
+                            .commit();*//*
 
                     currentFrag = infoFrag;
                 }
 
-                pageType = PageType.Info;
+                pageType = PageType.Info;*/
             }
 
             @Override
             public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
 
-                fragmentTransaction.detach(currentFrag);
+              /*  fragmentTransaction.detach(currentFrag);*/
             }
 
             @Override
@@ -213,7 +308,7 @@ public class WorkActivity extends Activity {
         tab_workTask.setTabListener(new ActionBar.TabListener() {
             @Override
             public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-                if (taskFrag == null) {
+               /* if (taskFrag == null) {
 
                     currentFrag = taskFrag = new FragmentWorkTask();
                     taskFrag.setChart(chart);
@@ -224,20 +319,20 @@ public class WorkActivity extends Activity {
                 } else if (currentFrag != taskFrag) {
                     fragmentTransaction
                             .attach(taskFrag);
-                            /*.remove(currentFrag)
+                            *//*.remove(currentFrag)
                             .add(R.id.tab_host, taskFrag)
-                            .commit();*/
+                            .commit();*//*
 
                     currentFrag = taskFrag;
                 }
 
                 pageType = PageType.Task;
-                showHideMenuItems(true, false);
+                showHideMenuItems(true, false);*/
             }
 
             @Override
             public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-                fragmentTransaction.detach(currentFrag);
+//                fragmentTransaction.detach(currentFrag);
             }
 
             @Override
@@ -248,7 +343,7 @@ public class WorkActivity extends Activity {
         tab_workReport.setTabListener(new ActionBar.TabListener() {
             @Override
             public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-                if (reportFrag == null) {
+              /*  if (reportFrag == null) {
 
                     currentFrag = reportFrag = new FragmentWorkReport();
                     reportFrag.setChart(chart);
@@ -259,20 +354,20 @@ public class WorkActivity extends Activity {
                 } else if (currentFrag != reportFrag) {
                     fragmentTransaction
                             .attach(reportFrag);
-                            /*.remove(currentFrag)
+                            *//*.remove(currentFrag)
                             .add(R.id.tab_host, reportFrag)
-                            .commit();*/
+                            .commit();*//*
 
                     currentFrag = reportFrag;
                 }
 
                 pageType = PageType.Report;
-                showHideMenuItems(false, true);
+                showHideMenuItems(false, true);*/
             }
 
             @Override
             public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-                fragmentTransaction.detach(currentFrag);
+                // fragmentTransaction.detach(currentFrag);
             }
 
             @Override
