@@ -64,6 +64,8 @@ public class NewReportActivity extends Activity {
     Context context;
     Chart chart;
     private Uri imageUri;
+    private Button addPhotoButton;
+    private Button saveButton;
 
 
     //--------------------------------------------------------------------------------
@@ -174,7 +176,30 @@ public class NewReportActivity extends Activity {
                 onBackPressed();
             }
         });
-    }
+
+        addPhotoButton =  (Button) customActionBar.findViewById(R.id.ac_action1);
+        saveButton =  (Button) customActionBar.findViewById(R.id.ac_action2);
+
+        addPhotoButton.setText("تصویر");
+        addPhotoButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_action_camera,0,0,0);
+        addPhotoButton.setTextColor(getResources().getColor(R.color.actionbar_button_text));
+        addPhotoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                attachMedia();
+            }
+        });
+
+        saveButton.setText("ذخیره");
+        saveButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_drawer,0, 0, 0);
+        saveButton.setTextColor(getResources().getColor(R.color.actionbar_button_text));
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                saveReport();
+            }
+        });
+     }
 
     //--------------------------------------------------------------------------------
 

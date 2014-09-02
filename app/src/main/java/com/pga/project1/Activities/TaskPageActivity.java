@@ -9,8 +9,6 @@ import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
@@ -24,9 +22,8 @@ import com.pga.project1.Utilities.Webservice;
 import com.pga.project1.Viewes.PathMapManager;
 import com.pga.project1.fragment.FragmentTaskInfo;
 import com.pga.project1.fragment.FragmentTaskReport;
-import com.pga.project1.test.TabPagerAdapter;
 
-public class TaskPageActivity extends FragmentActivity {
+public class TaskPageActivity extends Activity {
 
 
     //{Constants-----------------------------------------------------
@@ -50,11 +47,6 @@ public class TaskPageActivity extends FragmentActivity {
     FragmentTaskReport reportFrag;
     Fragment currentFrag;
 
-
-    ViewPager Tab;
-    TaskPageTabPagerAdapter TabAdapter;
-    ActionBar actionBar;
-
     //-----------------------------------------------------Fields}
 
     //{Constructor-----------------------------------------------------
@@ -69,22 +61,12 @@ public class TaskPageActivity extends FragmentActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
-        // Force Tab Support
-        if (getActionBar().getNavigationMode() == ActionBar.NAVIGATION_MODE_STANDARD)
-            getActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-
-        getActionBar().removeAllTabs();
-
         this.chart = (Chart) getIntent().getSerializableExtra("chart");
         PathMapManager.push(chart);
 
         setContentView(R.layout.activity_activity_task_page);
 
         this.pageType = PageType.Info;
-
-
-        // add swipe tab
 
         TabAdapter = new TaskPageTabPagerAdapter(getSupportFragmentManager(), chart);
         Tab = (ViewPager) findViewById(R.id.pager);
@@ -136,8 +118,75 @@ public class TaskPageActivity extends FragmentActivity {
         getActionBar().addTab(tab_taskInfo);
 
         this.getActionBar().selectTab(tab_taskInfo);
+
+
     }
-/*
+
+    private void prepareActionBar() {
+
+        View customActionBar = getLayoutInflater().inflate(R.layout.actionbar_back, null);
+        final ActionBar actionBar = getActionBar();
+        actionBar.setDisplayShowHomeEnabled(false);
+        actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setCustomView(customActionBar);
+
+        TextView title = (TextView) customActionBar.findViewById(R.id.ac_title);
+        FontHelper.SetFont(this, Fonts.MAIN_FONT, title, Typeface.BOLD);
+
+        ImageView back = (ImageView) customActionBar.findViewById(R.id.ac_back);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+
+        removeTaskButton =  (Button) customActionBar.findViewById(R.id.ac_action1);
+        addReportButton =  (Button) customActionBar.findViewById(R.id.ac_action2);
+
+        removeTaskButton.setText("حذف وظیفه");
+        removeTaskButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.people,0,0,0);
+        removeTaskButton.setTextColor(getResources().getColor(R.color.actionbar_button_text));
+
+        removeTaskButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                deleteChart();
+            }
+        });
+
+        addReportButton.setText("عملکرد جدید");
+        addReportButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.work,0, 0, 0);
+        addReportButton.setTextColor(getResources().getColor(R.color.actionbar_button_text));
+        addReportButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getBaseContext(), NewReportActivity.class);
+                intent.putExtra("chart", chart);
+                startActivityForResult(intent, 654);
+            }
+        });
+
+        showHideMenuItems(false, false);
+
+        setTabs();
+    }
+
+    private void showHideMenuItems(boolean ac_remove_task, boolean ac_new_work_report_vis) {
+
+
+        removeTaskButton.setVisibility(View.GONE);
+        addReportButton.setVisibility(View.GONE);
+
+        if(ac_remove_task)
+            removeTaskButton.setVisibility(View.VISIBLE);
+
+        if(ac_new_work_report_vis)
+            addReportButton.setVisibility(View.VISIBLE);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -154,7 +203,7 @@ public class TaskPageActivity extends FragmentActivity {
         setTabs();
 
         return true;
-    }*/
+    }
 
 
     @Override
@@ -207,11 +256,11 @@ public class TaskPageActivity extends FragmentActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-       /* if (requestCode == 654) {
+        if (requestCode == 654) {
             if (reportFrag != null && reportFrag == currentFrag)
                 reportFrag.loadReports();
 
-        }*/
+        }
     }
 
     private void deleteChart() {
@@ -270,6 +319,25 @@ public class TaskPageActivity extends FragmentActivity {
             @Override
             public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
 
+                if (infoFrag == null) {
+
+                    currentFrag = infoFrag = new FragmentTaskInfo();
+                    infoFrag.setChart(chart);
+
+                    FragmentManager fm = getFragmentManager();
+                    fm.beginTransaction()
+                            .add(R.id.host_taskPage, infoFrag)
+                            .commit();
+
+                } else if (currentFrag != infoFrag) {
+                    FragmentManager fm = getFragmentManager();
+                    fm.beginTransaction()
+                            .replace(R.id.host_taskPage, infoFrag)
+                            .commit();
+
+                    currentFrag = infoFrag;
+
+                }
 
                 pageType = PageType.Info;
                 MenuItem addNewReport = menu.findItem(R.id.action_addReportTask);
@@ -292,7 +360,7 @@ public class TaskPageActivity extends FragmentActivity {
             @Override
             public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
 
-                /*if (reportFrag == null) {
+                if (reportFrag == null) {
 
                     currentFrag = reportFrag = new FragmentTaskReport();
                     reportFrag.setChart(chart);
@@ -309,7 +377,7 @@ public class TaskPageActivity extends FragmentActivity {
                             .commit();
 
                     currentFrag = reportFrag;
-                }*/
+                }
 
                 pageType = PageType.Reports;
                 MenuItem addNewReport = menu.findItem(R.id.action_addReportTask);

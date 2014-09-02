@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
+    android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/actionbar_padding">
+    android:padding="@dimen/actionbar_padding"
+    >
 
 
     <ImageView
@@ -13,7 +13,8 @@
         android:layout_height="match_parent"
         android:src="@drawable/ic_action_next_item"
         android:layout_alignParentEnd="true"
-        android:paddingLeft="10dp" />
+        android:paddingLeft="10dp"
+        />
 
     <ImageView
         android:id="@+id/ac_icon"
@@ -22,7 +23,8 @@
         android:scaleType="center"
         android:src="@drawable/category"
         android:layout_toLeftOf="@+id/ac_back"
-        android:paddingLeft="@dimen/distance_between_icon_and_title" />
+        android:paddingLeft="@dimen/distance_between_icon_and_title"
+        />
 
     <TextView
         android:id="@+id/ac_title"
@@ -33,7 +35,8 @@
         android:layout_toLeftOf="@+id/ac_icon"
         android:gravity="center_vertical"
         android:textColor="@color/actionbar_title_color"
-        android:textSize="@dimen/actionbar_title_size" />
+        android:textSize="@dimen/actionbar_title_size"
+        />
 
 
     <Button
@@ -43,7 +46,8 @@
         android:layout_alignParentLeft="true"
         android:layout_marginRight="@dimen/distance_actionbar_action1_action2"
         android:background="@android:color/transparent"
-        android:textColor="@color/actionbar_button_text" />
+        android:textColor="@android:color/actionbar_button_text"
+        />
 
     <Button
         android:id="@+id/ac_action2"
@@ -51,7 +55,8 @@
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/ac_action1"
-        android:textColor="@color/actionbar_button_text"
-        android:background="@android:color/transparent" />
+        android:textColor="@android:color/actionbar_button_text"
+        android:background="@android:color/transparent"
+        />
 
 </RelativeLayout>
