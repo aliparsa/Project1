@@ -211,10 +211,20 @@ public class Webservice {
 
                 try {
 
-                    JSONArray jsonArray = new JSONArray(response.getResult());
 
-                    ArrayList<Chart> chartList = Chart.getArrayFromJson(jsonArray);
-                    callBack.onSuccess(chartList);
+                    switch (response.getStatusCode()) {
+                        case SC_UNAUTHORIZED: {
+                            callBack.onError("UNAUTHORIZED");
+                            break;
+                        }
+                        case SC_OK: {
+                            JSONArray jsonArray = new JSONArray(response.getResult());
+                            ArrayList<Chart> chartList = Chart.getArrayFromJson(jsonArray);
+                            callBack.onSuccess(chartList);
+                            break;
+                        }
+                    }
+
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -246,12 +256,20 @@ public class Webservice {
 
                 try {
 
+                    switch (response.getStatusCode()) {
+                        case SC_UNAUTHORIZED: {
+                            callBack.onError("UNAUTHORIZED");
+                            break;
+                        }
+                        case SC_OK: {
+                            JSONArray jsonArray = new JSONArray(response.getResult());
+                            ArrayList<Personnel> perList = Personnel.getArrayFromJson(jsonArray);
+                            callBack.onSuccess(perList);
+                            break;
+                        }
+                    }
 
-                    JSONArray jsonArray = new JSONArray(response.getResult());
-                    ArrayList<Personnel> perList = Personnel.getArrayFromJson(jsonArray);
 
-
-                    callBack.onSuccess(perList);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -281,11 +299,20 @@ public class Webservice {
 
                 try {
 
-                    JSONArray jsonArray = new JSONArray(response.getResult());
+                    switch (response.getStatusCode()) {
+                        case SC_UNAUTHORIZED: {
+                            callBack.onError("UNAUTHORIZED");
+                            break;
+                        }
+                        case SC_OK: {
+                            JSONArray jsonArray = new JSONArray(response.getResult());
+                            ArrayList<Report> reportList = Report.getArrayFromJson(jsonArray);
+                            callBack.onSuccess(reportList);
+                            break;
+                        }
+                    }
 
-                    ArrayList<Report> reportList = Report.getArrayFromJson(jsonArray);
 
-                    callBack.onSuccess(reportList);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -326,9 +353,18 @@ public class Webservice {
 
                 try {
 
-                    JSONObject jsonObject = new JSONObject(response.getResult());
+                    switch (response.getStatusCode()) {
+                        case SC_UNAUTHORIZED: {
+                            callBack.onError("UNAUTHORIZED");
+                            break;
+                        }
+                        case SC_OK: {
+                            JSONObject jsonObject = new JSONObject(response.getResult());
+                            callBack.onSuccess(response);
+                            break;
+                        }
+                    }
 
-                    callBack.onSuccess(response);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -407,9 +443,18 @@ public class Webservice {
 
                                     try {
 
-                                        JSONObject jsonObject = new JSONObject(response.getResult());
+                                        switch (response.getStatusCode()) {
+                                            case SC_UNAUTHORIZED: {
+                                                callBack.onError("UNAUTHORIZED");
+                                                break;
+                                            }
+                                            case SC_OK: {
+                                                JSONObject jsonObject = new JSONObject(response.getResult());
+                                                callBack.onSuccess(response);
+                                                break;
+                                            }
+                                        }
 
-                                        callBack.onSuccess(response);
 
                                     } catch (JSONException e) {
                                         e.printStackTrace();
@@ -450,9 +495,19 @@ public class Webservice {
 
                     try {
 
-                        JSONObject jsonObject = new JSONObject(response.getResult());
 
-                        callBack.onSuccess(response);
+                        switch (response.getStatusCode()) {
+                            case SC_UNAUTHORIZED: {
+                                callBack.onError("UNAUTHORIZED");
+                                break;
+                            }
+                            case SC_OK: {
+                                JSONObject jsonObject = new JSONObject(response.getResult());
+                                callBack.onSuccess(response);
+                                break;
+                            }
+                        }
+
 
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -505,11 +560,20 @@ public class Webservice {
 
                 try {
 
-                    JSONArray jsonArray = new JSONArray(response.getResult());
+                    switch (response.getStatusCode()) {
+                        case SC_UNAUTHORIZED: {
+                            callBack.onError("UNAUTHORIZED");
+                            break;
+                        }
+                        case SC_OK: {
+                            JSONArray jsonArray = new JSONArray(response.getResult());
+                            ArrayList<WorkUnit> reportList = WorkUnit.getArrayFromJson(jsonArray);
+                            callBack.onSuccess(reportList);
+                            break;
+                        }
+                    }
 
-                    ArrayList<WorkUnit> reportList = WorkUnit.getArrayFromJson(jsonArray);
 
-                    callBack.onSuccess(reportList);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -543,9 +607,18 @@ public class Webservice {
 
                 try {
 
-                    JSONObject jsonObject = new JSONObject(response.getResult());
+                    switch (response.getStatusCode()) {
+                        case SC_UNAUTHORIZED: {
+                            callBack.onError("UNAUTHORIZED");
+                            break;
+                        }
+                        case SC_OK: {
+                            JSONObject jsonObject = new JSONObject(response.getResult());
+                            callBack.onSuccess(response);
+                            break;
+                        }
+                    }
 
-                    callBack.onSuccess(response);
 
                 } catch (JSONException e) {
                     e.printStackTrace();

@@ -2,6 +2,7 @@ package com.pga.project1.Utilities;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.widget.Button;
 import android.widget.TextView;
 
 /**
@@ -27,4 +28,25 @@ public class FontHelper {
                 break;
         }
     }
+
+    public static void SetFont(Context context, Fonts font, Button view, int typeFace) {
+        Typeface tf;
+
+        switch (font) {
+            case MAIN_FONT:
+                tf = Typeface.createFromAsset(context.getAssets(), "fonts/BKOODB.TTF");
+                view.setTypeface(tf, typeFace);
+                break;
+            case BKAMRAN:
+                tf = Typeface.createFromAsset(context.getAssets(), "fonts/BKAMRAN.TTF");
+                view.setTypeface(tf, typeFace);
+                break;
+            case BKOODAK:
+                tf = Typeface.createFromAsset(context.getAssets(), "fonts/BKOODB.TTF");
+                view.setTypeface(tf, typeFace);
+                break;
+        }
+    }
+
+
 }
