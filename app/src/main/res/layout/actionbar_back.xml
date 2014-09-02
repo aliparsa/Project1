@@ -6,7 +6,7 @@
     >
 
 
-    <Button
+    <ImageView
         android:id="@+id/ac_back"
         android:layout_width="wrap_content"
         android:layout_height="32dp"
