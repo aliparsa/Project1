@@ -42,9 +42,11 @@
     <Button
         android:id="@+id/ac_action1"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="fill_parent"
         android:layout_alignParentLeft="true"
         android:layout_marginRight="@dimen/distance_actionbar_action1_action2"
+        android:padding="5dp"
+        android:drawablePadding="15dp"
         android:background="@android:color/transparent"
         android:textColor="@color/actionbar_button_text"
         />
@@ -52,9 +54,10 @@
     <Button
         android:id="@+id/ac_action2"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="fill_parent"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/ac_action1"
+        android:padding="5dp"
         android:textColor="@color/actionbar_button_text"
         android:background="@android:color/transparent"
         />

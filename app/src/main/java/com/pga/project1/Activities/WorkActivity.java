@@ -1,11 +1,10 @@
 package com.pga.project1.Activities;
 
 import android.app.ActionBar;
-import android.app.Activity;
-import android.support.v4.app.Fragment;
 import android.app.FragmentTransaction;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
@@ -175,13 +174,13 @@ public class WorkActivity extends FragmentActivity {
         addPersonnelButton =  (Button) customActionBar.findViewById(R.id.ac_action1);
         addReportButton =  (Button) customActionBar.findViewById(R.id.ac_action2);
 
-        addPersonnelButton.setText("پرسنل جدید");
-        addPersonnelButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.people,0,0,0);
-        addPersonnelButton.setTextColor(getResources().getColor(R.color.actionbar_button_text));
+        //addPersonnelButton.setText("پرسنل جدید");
+        addPersonnelButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_add_personnel,0,0,0);
+        addPersonnelButton.setTextColor(getResources().getColor(R.color.icon_color));
 
-        addReportButton.setText("عملکرد جدید");
-        addReportButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.work,0, 0, 0);
-        addReportButton.setTextColor(getResources().getColor(R.color.actionbar_button_text));
+        //addReportButton.setText("عملکرد جدید");
+        addReportButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_add_report,0, 0, 0);
+        addReportButton.setTextColor(getResources().getColor(R.color.icon_color));
         showHideMenuItems(false, false);
 
         //setTabs("prepare");
