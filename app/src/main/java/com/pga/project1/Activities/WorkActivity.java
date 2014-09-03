@@ -2,6 +2,7 @@ package com.pga.project1.Activities;
 
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -148,6 +149,15 @@ public class WorkActivity extends FragmentActivity {
         this.getActionBar().selectTab(tab_taskInfo);*/
 
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(currentFrag instanceof FragmentWorkTask){
+            ((FragmentWorkTask) currentFrag).setChart(chart);
+        }
     }
 
     private void prepareActionBar() {

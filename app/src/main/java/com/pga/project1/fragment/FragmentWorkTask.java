@@ -57,11 +57,22 @@ public class FragmentWorkTask extends Fragment {
 
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        Bundle bundle = this.getArguments();
+        this.setChart((Chart) bundle.getSerializable("chart"));
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
         //setHasOptionsMenu(true);
+
+
+
 
         return inflater.inflate(R.layout.fragment_work_task, container, false);
     }
@@ -118,7 +129,7 @@ public class FragmentWorkTask extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        prepareTasks();
+        //prepareTasks();
 
         switch (requestCode) {
             case 1212: {
@@ -132,7 +143,15 @@ public class FragmentWorkTask extends Fragment {
                 }
                 break;
             }
+            case 147: {
+
+                if (resultCode == Activity.RESULT_OK) {
+                    prepareTasks();
+                }
+            }
+
         }
+
     }
 
     private void addPersonnelToWork(final Personnel personnel) {
