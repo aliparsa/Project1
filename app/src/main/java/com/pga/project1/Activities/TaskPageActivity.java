@@ -304,6 +304,8 @@ public class TaskPageActivity extends FragmentActivity {
                             public void onSuccess(ServerResponse result) {
 
                                 Toast.makeText(self, "حذف انجام شد", Toast.LENGTH_SHORT).show();
+
+                                setResult(RESULT_OK);
                                 finish();
                             }
 

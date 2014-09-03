@@ -1,13 +1,11 @@
 package com.pga.project1.Activities;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.PagerAdapter;
 
 import com.pga.project1.DataModel.Chart;
-import com.pga.project1.fragment.FragmentTaskInfo;
-import com.pga.project1.fragment.FragmentTaskReport;
 import com.pga.project1.fragment.FragmentWorkInfo;
 import com.pga.project1.fragment.FragmentWorkReport;
 import com.pga.project1.fragment.FragmentWorkTask;
@@ -40,7 +38,10 @@ public class WorkPageTabPagerAdapter extends FragmentStatePagerAdapter {
             case 1:
                 //Fragment for Android Tab
                 FragmentWorkTask f2 = new FragmentWorkTask();
-                f2.setChart(chart);
+                //f2.setChart(chart);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("chart", chart);
+                f2.setArguments(bundle);
                 return f2;
 
             case 2:

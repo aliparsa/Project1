@@ -250,6 +250,7 @@ public class NewReportActivity extends Activity {
             if (ll_image_list.getChildCount() < 5)
                 attachMedia();
             else
+                addPhotoButton.startAnimation(AnimationUtils.loadAnimation(context, R.anim.view_not_valid));
                 Toast.makeText(context, "فقط 5 تصویر میتوان افزود", Toast.LENGTH_SHORT).show();
             return true;
         }
