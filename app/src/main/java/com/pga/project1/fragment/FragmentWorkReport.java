@@ -116,7 +116,7 @@ public class FragmentWorkReport extends Fragment {
 
                 List<AdapterInputType> itemList = new ArrayList<AdapterInputType>();
                 for (Report report : reportList) {
-                    itemList.add(new AdapterInputType(report, "icon+title+subtitle", report.getDate(), report.getPercent() + "", BitmapFactory.decodeResource(getResources(),
+                    itemList.add(new AdapterInputType(report, "report item", report.getDate(), report.getPercent() + "", BitmapFactory.decodeResource(getResources(),
                             R.drawable.ic_launcher)));
                 }
 

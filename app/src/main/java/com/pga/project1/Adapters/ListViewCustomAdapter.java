@@ -30,6 +30,7 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
     public static String LOADING_ITEM = "loading item";
     public static String NOITEM_ITEM = "no item item";
     public static String DRAWER_ITEM = "drawer item";
+    public static String REPORT_ITEM = "report item";
 
     public List<AdapterInputType> itemList;
     Context context;
@@ -47,6 +48,7 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
     LinearLayout ll_noItem;
     LinearLayout ll_loading;
     LinearLayout ll_drawer;
+    LinearLayout ll_report;
 
 
     public ListViewCustomAdapter(Context context, int layoutResourceID,
@@ -85,6 +87,7 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
             ll_noItem = (LinearLayout) view.findViewById(R.id.ll_noItem);
             ll_loading = (LinearLayout) view.findViewById(R.id.ll_loading);
             ll_drawer = (LinearLayout) view.findViewById(R.id.ll_drawer_item);
+            ll_report = (LinearLayout) view.findViewById(R.id.ll_report);
         }
 
 
@@ -93,10 +96,8 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
 
         // ITEM 1
         if (itemList.get(position).type.equals(IMAGE_DRAWER_ITEM)) {
-
             getImageOnlyItem(holder, item);
             OnlyShow(lv_image);
-
         }
 
         // ITEM 2
@@ -137,6 +138,14 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
 
         }
 
+        //Report item
+        if (itemList.get(position).type.equals(REPORT_ITEM)) {
+
+            OnlyShow(ll_report);
+            getReportItem(holder, item);
+
+        }
+
 
         return view;
     }
@@ -151,6 +160,7 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
         ll_noItem.setVisibility(LinearLayout.GONE);
         ll_loading.setVisibility(LinearLayout.GONE);
         ll_drawer.setVisibility(LinearLayout.GONE);
+        ll_report.setVisibility(LinearLayout.GONE);
 
         lv.setVisibility(LinearLayout.VISIBLE);
     }
@@ -163,20 +173,11 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
         if (holder.index == null)
             holder.index = (TextView) lv_icon_title_subtitle.findViewById(R.id.txt_index);
 
-//        if (holder.icon_in_title_subtitle == null)
-//            holder.icon_in_title_subtitle = (ImageView) lv_icon_title_subtitle.findViewById(R.id.icon2);
-
         if (holder.title == null)
             holder.title = (TextView) lv_icon_title_subtitle.findViewById(R.id.title);
 
         if (holder.subtitle == null)
             holder.subtitle = (TextView) lv_icon_title_subtitle.findViewById(R.id.subtitle);
-
-//        if (holder.progressBar == null)
-//            holder.progressBar = (ProgressBar) lv_icon_title_subtitle.findViewById(R.id.progressBar2);
-
-//        if (holder.percent == null)
-//            holder.percent = (TextView) lv_icon_title_subtitle.findViewById(R.id.percent_textview);
 
         if (holder.graphview == null)
             holder.graphview = (Graphview) lv_icon_title_subtitle.findViewById(R.id.graph_view);
@@ -210,18 +211,8 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
         }
 
 
-        //for reports
-        if (item.getTag() != null && item.getTag() instanceof Report) {
 
-            Report report = (Report) item.getTag();
-            holder.graphview.showAnimation = item.isFirstTimeItemShowed;
-            holder.graphview.setPercent(report.getPercent());
-            item.isFirstTimeItemShowed = false;
-            holder.img.setBitmapResource(R.drawable.report);
 
-        }
-        //
-//
 
         holder.setTag(item.getTag());
     }
@@ -260,6 +251,41 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
         holder.PeopleName.setText(item.namePerson);
         holder.PeoplePhone.setText(item.phonePerson);
         holder.PeopleGroups.setText(item.groupPerson);
+
+        holder.setTag(item.getTag());
+    }
+
+
+    public void getReportItem(DrawerItemHolder holder, AdapterInputType item) {
+
+
+        if (holder.reportTitle == null)
+            holder.reportTitle = (TextView) ll_report.findViewById(R.id.ll_report_title);
+
+        if (holder.reportSubtitle == null)
+            holder.reportSubtitle = (TextView) ll_report.findViewById(R.id.ll_report_subtitle);
+
+        if (holder.reportGraphview == null)
+            holder.reportGraphview = (Graphview) ll_report.findViewById(R.id.ll_report_graphview);
+
+
+        if (item.getTag() != null && item.getTag() instanceof Report) {
+
+            Report report = (Report) item.getTag();
+
+            holder.reportTitle.setText(report.getDate() + "عملکرد");
+
+            if (report.getReport().length() > 10)
+                holder.reportSubtitle.setText(report.getReport().substring(0, 10) + "...");
+            else
+                holder.reportSubtitle.setText(report.getReport());
+
+            holder.reportGraphview.showAnimation = item.isFirstTimeItemShowed;
+            holder.reportGraphview.setPercent(report.getPercent());
+            item.isFirstTimeItemShowed = false;
+
+        }
+
 
         holder.setTag(item.getTag());
     }
@@ -307,7 +333,13 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
         ImageView drawerIcon;
         public TextView index;
 
+
+        // Report Item ------------
+        TextView reportTitle;
+        TextView reportSubtitle;
+        Graphview reportGraphview;
         ///------------------------
+
         public Object getTag() {
             return tag;
         }

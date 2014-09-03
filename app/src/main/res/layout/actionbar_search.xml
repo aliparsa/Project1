@@ -9,6 +9,8 @@
 
     <ImageView
         android:id="@+id/ac_back"
+        android:background="@drawable/hit"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
@@ -48,6 +50,7 @@
         android:layout_alignParentLeft="true"
         android:layout_toLeftOf="@+id/ac_title"
         android:iconifiedByDefault="false"
+        android:background="@drawable/hit"
 
         android:queryHint="اینجا جستجو کنید"
         ></SearchView>
