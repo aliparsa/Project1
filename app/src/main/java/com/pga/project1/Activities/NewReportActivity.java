@@ -221,7 +221,7 @@ public class NewReportActivity extends Activity {
 
                             }
                         });
-
+                builder.show();
 
 
             }

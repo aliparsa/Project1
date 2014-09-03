@@ -77,7 +77,7 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
 
             Animation animation = AnimationUtils.loadAnimation(context, R.anim.activity_fade_in_animation);
             animation.setStartOffset(20 * (position + 1));
-            view.startAnimation(animation);
+            //view.startAnimation(animation);
 
             lv_image = (LinearLayout) view.findViewById(R.id.lv_image);
             lv_icon_title_subtitle = (LinearLayout) view.findViewById(R.id.lv_icon_title_subtitle);

@@ -128,7 +128,9 @@ public class PathMapManager extends LinearLayout {
             String name = object.getName();
 
             btn = (Button) inflater.inflate(R.layout.path_map_button, null);
-            btn.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.arrow,0);
+
+//            btn.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.larrow,0);
+//            btn.setCompoundDrawablePadding(20);
 
             if (!isFirst) {
                 //    btn.setBackgroundResource(R.drawable.selector_btn_pathmap);
