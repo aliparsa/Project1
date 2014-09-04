@@ -128,6 +128,7 @@ public class AddPersonnelToWorkActivity extends Activity {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
 
+                                setResult(Activity.RESULT_CANCELED);
                                 finish();
                             }
                         });
@@ -247,12 +248,31 @@ public class AddPersonnelToWorkActivity extends Activity {
                 pg.setMessage("در حال بروزرسانی اطلاعات");
                 if (result.getResult().equals("{\"result\":\"ok\"}")) {
                     Toast.makeText(self, "عملیات انجام شد", Toast.LENGTH_SHORT).show();
-                    //prepareTasks();
 
+                    setResult(Activity.RESULT_OK);
                     finish();
-
                 } else {
-                    Toast.makeText(self, "عملیات انجام نشد", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(self, "عملیات انجام نشد", Toast.LENGTH_SHORT).show();
+
+                    new AlertDialog.Builder(self)
+                            .setTitle("عملیات انجام نشد")
+                            .setCancelable(false)
+                            .setPositiveButton("تلاش مجدد", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+
+                                            addPersonnelToWork();
+                                        }
+                                    }
+                            ).setNegativeButton("انصراف", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                    setResult(Activity.RESULT_CANCELED);
+                                    finish();
+                                }
+                            }
+                    )
+                            .show();
+
                 }
                 pg.dismiss();
             }

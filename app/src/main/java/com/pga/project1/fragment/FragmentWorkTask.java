@@ -141,7 +141,7 @@ public class FragmentWorkTask extends Fragment {
 
                     intent.putExtra("chart", chart);
                     intent.putExtra("personnel", personnel);
-                    startActivityForResult(intent, 1212);
+                    startActivityForResult(intent, 1200);
 
                 } else {
                     Toast.makeText(getActivity(), "No personel Selected", Toast.LENGTH_SHORT).show();
@@ -154,6 +154,14 @@ public class FragmentWorkTask extends Fragment {
                 if (resultCode == Activity.RESULT_OK) {
                     prepareTasks();
                 }
+                break;
+            }
+            case 1200:{
+
+                if(resultCode == Activity.RESULT_OK){
+                    prepareTasks();
+                }
+
             }
 
         }
