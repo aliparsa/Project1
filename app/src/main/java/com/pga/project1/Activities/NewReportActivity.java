@@ -178,34 +178,38 @@ public class NewReportActivity extends Activity {
             }
         });
 
-        addPhotoButton =  (Button) customActionBar.findViewById(R.id.ac_action2);
-        saveButton =  (Button) customActionBar.findViewById(R.id.ac_action1);
+        addPhotoButton = (Button) customActionBar.findViewById(R.id.ac_action2);
+        saveButton = (Button) customActionBar.findViewById(R.id.ac_action1);
 
         //addPhotoButton.setText("تصویر");
-        addPhotoButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_camera,0,0,0);
+        addPhotoButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_camera, 0, 0, 0);
         //addPhotoButton.setTextColor(getResources().getColor(R.color.actionbar_button_text));
         addPhotoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                attachMedia();
+                if (ll_image_list.getChildCount() < 5)
+                    attachMedia();
+                else {
+                    addPhotoButton.startAnimation(AnimationUtils.loadAnimation(context, R.anim.view_not_valid));
+                    Toast.makeText(context, "فقط 5 تصویر میتوان افزود", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
         //saveButton.setText("ذخیره");
-        saveButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_save,0, 0, 0);
-       // saveButton.setTextColor(getResources().getColor(R.color.actionbar_button_text));
+        saveButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_save, 0, 0, 0);
+        // saveButton.setTextColor(getResources().getColor(R.color.actionbar_button_text));
         final Context context = this;
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                if(report.getText().length() == 0) {
+                if (report.getText().length() == 0) {
 
                     saveButton.startAnimation(AnimationUtils.loadAnimation(context, R.anim.view_not_valid));
                     Toast.makeText(context, "متن گزارش باید پر شود", Toast.LENGTH_SHORT).show();
-                     return;
+                    return;
                 }
-
 
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(context)
@@ -226,7 +230,7 @@ public class NewReportActivity extends Activity {
 
             }
         });
-     }
+    }
 
     //--------------------------------------------------------------------------------
 
@@ -246,13 +250,15 @@ public class NewReportActivity extends Activity {
         int id = item.getItemId();
 
         if (id == R.id.action_camera) {
+
             //TODO handle Camera
             if (ll_image_list.getChildCount() < 5)
                 attachMedia();
-            else
+            else {
                 addPhotoButton.startAnimation(AnimationUtils.loadAnimation(context, R.anim.view_not_valid));
                 Toast.makeText(context, "فقط 5 تصویر میتوان افزود", Toast.LENGTH_SHORT).show();
-            return true;
+                return true;
+            }
         }
 
         if (id == R.id.ac_work_report_save) {
@@ -290,11 +296,6 @@ public class NewReportActivity extends Activity {
     //--------------------------------------------------------------------------------
 
     private void saveReport() {
-
-
-
-
-
 
 
         int type = 1;

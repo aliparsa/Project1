@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
 
-    public static String ICON_TITLE_SUBTITLE = "icon+title+subtitle";
+    public static String CHART_ITEM = "chart item";
     public static String PERSONNEL_ITEM = "personnelItem";
     public static String LOADING_ITEM = "loading item";
     public static String NOITEM_ITEM = "no item item";
@@ -42,8 +42,8 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
 
 
     // main linear layout in view
-    LinearLayout lv_image;
-    LinearLayout lv_icon_title_subtitle;
+
+    LinearLayout ll_chart;
     LinearLayout ll_people;
     LinearLayout ll_noItem;
     LinearLayout ll_loading;
@@ -81,8 +81,7 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
             animation.setStartOffset(20 * (position + 1));
             //view.startAnimation(animation);
 
-            lv_image = (LinearLayout) view.findViewById(R.id.lv_image);
-            lv_icon_title_subtitle = (LinearLayout) view.findViewById(R.id.lv_icon_title_subtitle);
+            ll_chart = (LinearLayout) view.findViewById(R.id.ll_chart);
             ll_people = (LinearLayout) view.findViewById(R.id.ll_people);
             ll_noItem = (LinearLayout) view.findViewById(R.id.ll_noItem);
             ll_loading = (LinearLayout) view.findViewById(R.id.ll_loading);
@@ -94,18 +93,12 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
         AdapterInputType item = itemList.get(position);
         view.setTag(holder);
 
-        // ITEM 1
-        if (itemList.get(position).type.equals(IMAGE_DRAWER_ITEM)) {
-            getImageOnlyItem(holder, item);
-            OnlyShow(lv_image);
-        }
 
-        // ITEM 2
-        if (itemList.get(position).type.equals(ICON_TITLE_SUBTITLE)) {
+        // Chart item
+        if (itemList.get(position).type.equals(CHART_ITEM)) {
 
-            getIconTitleSubtitle(holder, item);
-            OnlyShow(lv_icon_title_subtitle);
-
+            getChartItem(holder, item);
+            OnlyShow(ll_chart);
         }
 
         //PERSONNEL ppl
@@ -113,21 +106,18 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
 
             getPeopleItem(holder, item);
             OnlyShow(ll_people);
-
         }
 
-        //PERSONNEL ppl
+        //No Item Item
         if (itemList.get(position).type.equals(NOITEM_ITEM)) {
 
             OnlyShow(ll_noItem);
-
         }
 
-        //PERSONNEL ppl
+        //Loading item
         if (itemList.get(position).type.equals(LOADING_ITEM)) {
 
             OnlyShow(ll_loading);
-
         }
 
         //Drawer item
@@ -146,83 +136,53 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
 
         }
 
-
         return view;
     }
 
-
-
     public void OnlyShow(LinearLayout lv) {
 
-        lv_image.setVisibility(LinearLayout.GONE);
-        lv_icon_title_subtitle.setVisibility(LinearLayout.GONE);
-        ll_people.setVisibility(LinearLayout.GONE);
-        ll_noItem.setVisibility(LinearLayout.GONE);
-        ll_loading.setVisibility(LinearLayout.GONE);
-        ll_drawer.setVisibility(LinearLayout.GONE);
-        ll_report.setVisibility(LinearLayout.GONE);
+        if (ll_chart != null) ll_chart.setVisibility(LinearLayout.GONE);
+        if (ll_people != null) ll_people.setVisibility(LinearLayout.GONE);
+        if (ll_noItem != null) ll_noItem.setVisibility(LinearLayout.GONE);
+        if (ll_loading != null) ll_loading.setVisibility(LinearLayout.GONE);
+        if (ll_drawer != null) ll_drawer.setVisibility(LinearLayout.GONE);
+        if (ll_report != null) ll_report.setVisibility(LinearLayout.GONE);
 
         lv.setVisibility(LinearLayout.VISIBLE);
     }
 
-    public void getIconTitleSubtitle(DrawerItemHolder holder, AdapterInputType item) {
+    public void getChartItem(DrawerItemHolder holder, AdapterInputType item) {
 
-        if (holder.icon == null)
-            holder.icon = (ImageView) lv_icon_title_subtitle.findViewById(R.id.icon);
+        if (holder.chartTitle == null)
+            holder.chartTitle = (TextView) ll_chart.findViewById(R.id.chart_title);
 
-        if (holder.index == null)
-            holder.index = (TextView) lv_icon_title_subtitle.findViewById(R.id.txt_index);
+        if (holder.chartSubtitle == null)
+            holder.chartSubtitle = (TextView) ll_chart.findViewById(R.id.chart_subtitle);
 
-        if (holder.title == null)
-            holder.title = (TextView) lv_icon_title_subtitle.findViewById(R.id.title);
+        if (holder.chartGraph == null)
+            holder.chartGraph = (Graphview) ll_chart.findViewById(R.id.chart_graph);
 
-        if (holder.subtitle == null)
-            holder.subtitle = (TextView) lv_icon_title_subtitle.findViewById(R.id.subtitle);
-
-        if (holder.graphview == null)
-            holder.graphview = (Graphview) lv_icon_title_subtitle.findViewById(R.id.graph_view);
-
-        if (holder.img == null)
-            holder.img = (ImageLoaderView) lv_icon_title_subtitle.findViewById(R.id.imgview_item);
+        if (holder.chartIcon == null)
+            holder.chartIcon = (ImageLoaderView) ll_chart.findViewById(R.id.chart_icon);
 
 
-//        holder.icon_in_title_subtitle.setImageBitmap(item.image1);
-        holder.title.setText(item.title);
-        holder.subtitle.setText(item.subTitle);
+        holder.chartTitle.setText(item.title);
+        holder.chartSubtitle.setText(item.subTitle);
 
 
-        //for charts
         if (item.getTag() != null && item.getTag() instanceof Chart) {
 
-            holder.graphview.showAnimation = item.isFirstTimeItemShowed;
+            holder.chartGraph.showAnimation = item.isFirstTimeItemShowed;
 
             if (((Chart) item.getTag()).getType_id() == 7) {
-                holder.graphview.setPercent(((Chart) item.getTag()).getAuto_percent());
+                holder.chartGraph.setPercent(((Chart) item.getTag()).getAuto_percent());
             } else {
-                holder.graphview.setPercent(((Chart) item.getTag()).getHand_percent());
+                holder.chartGraph.setPercent(((Chart) item.getTag()).getHand_percent());
             }
-
-            holder.index.setText(getPosition(item) + 1 + "");
-
-            //item.isFirstTimeItemShowed = false;
-            // holder.img.setUrl(((Chart) item.getTag()).getImage());
-            //  holder.img.startLoading();
-
         }
 
-
-
-
-
-        holder.setTag(item.getTag());
-    }
-
-    public void getImageOnlyItem(DrawerItemHolder holder, AdapterInputType item) {
-
-        if (holder.icon == null)
-            holder.icon = (ImageView) lv_image.findViewById(R.id.icon);
-
-        holder.icon.setImageBitmap(item.image1);
+        if (item.getType_id() == 6)
+            holder.chartIcon.setBitmapResource(R.drawable.vazife);
 
         holder.setTag(item.getTag());
     }
@@ -255,7 +215,6 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
         holder.setTag(item.getTag());
     }
 
-
     public void getReportItem(DrawerItemHolder holder, AdapterInputType item) {
 
 
@@ -268,12 +227,15 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
         if (holder.reportGraphview == null)
             holder.reportGraphview = (Graphview) ll_report.findViewById(R.id.ll_report_graphview);
 
+        if (holder.reportIcon == null)
+            holder.reportIcon = (ImageLoaderView) ll_report.findViewById(R.id.report_icon);
+
 
         if (item.getTag() != null && item.getTag() instanceof Report) {
 
             Report report = (Report) item.getTag();
 
-            holder.reportTitle.setText(report.getDate() + "عملکرد");
+            holder.reportTitle.setText(" عملکرد " + report.getDate());
 
             if (report.getReport().length() > 10)
                 holder.reportSubtitle.setText(report.getReport().substring(0, 10) + "...");
@@ -283,6 +245,8 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
             holder.reportGraphview.showAnimation = item.isFirstTimeItemShowed;
             holder.reportGraphview.setPercent(report.getPercent());
             item.isFirstTimeItemShowed = false;
+
+            holder.reportIcon.setBitmapResource(R.drawable.report);
 
         }
 
@@ -309,26 +273,27 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
 
     public static class DrawerItemHolder {
 
-        //----------------------
-        public TextView title;
-        TextView subtitle;
-        ImageView icon;
-        ImageView icon_in_title_subtitle;
+
+        // Global -------------------------
         private Object tag;
-        // ProgressBar progressBar;
-        // TextView percent;
-        Graphview graphview;
+
+
+        // Chart Item----------------------
+        public TextView chartTitle;
+        TextView chartSubtitle;
+        ImageLoaderView chartIcon;
+        Graphview chartGraph;
         ImageLoaderView img;
 
-        //---------------------
+        // People item -----------------
         ImageView peopleImage;
         ImageLoaderView peopleImageLoader;
         TextView PeopleName;
         TextView PeoplePhone;
         TextView PeopleGroups;
-        //---------------------
 
-        //Drawer Item --------------------
+
+        // Navigation Drawer Item --------
         TextView drawerTitle;
         ImageView drawerIcon;
         public TextView index;
@@ -338,6 +303,7 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
         TextView reportTitle;
         TextView reportSubtitle;
         Graphview reportGraphview;
+        ImageLoaderView reportIcon;
         ///------------------------
 
         public Object getTag() {
@@ -348,6 +314,5 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
             this.tag = tag;
         }
     }
-
 
 }
