@@ -51,6 +51,7 @@ public class PersonelPickerActivity extends Activity {
 
         //searchView = (SearchView) findViewById(R.id.srchv_searchPersonnel_searchName);
         listView = (ListView) findViewById(R.id.lv_searchPersonnel_results);
+        listView.setAdapter(ListViewAdapterHandler.getLoadingAdapter(this));
 
         adapter = new ListViewCustomAdapter(this,
                 R.layout.drawer_item, new ArrayList<AdapterInputType>());

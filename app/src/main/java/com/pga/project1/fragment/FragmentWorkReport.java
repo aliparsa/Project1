@@ -59,6 +59,7 @@ public class FragmentWorkReport extends Fragment {
 
 
         lv = (ListView) getView().findViewById(R.id.lv_fragmentWork_report_reportViewer);
+        lv.setAdapter(ListViewAdapterHandler.getLoadingAdapter(getActivity()));
 
         prepareReport();
 

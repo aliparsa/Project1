@@ -81,6 +81,7 @@ public class FragmentWorkTask extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         lv = (ListView) getView().findViewById(R.id.lv_fragmentWork_task_taskviewr);
+        lv.setAdapter(ListViewAdapterHandler.getLoadingAdapter(getActivity()));
 
         prepareTasks();
 

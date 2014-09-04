@@ -66,6 +66,7 @@ public class FragmentTaskReport extends Fragment {
 
 
         listView = (ListView) rootView.findViewById(R.id.lv_fragmentTask_report);
+        listView.setAdapter(ListViewAdapterHandler.getLoadingAdapter(getActivity()));
         loadReports();
 
 
