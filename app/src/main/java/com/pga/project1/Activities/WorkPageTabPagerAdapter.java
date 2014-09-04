@@ -31,7 +31,9 @@ public class WorkPageTabPagerAdapter extends FragmentStatePagerAdapter {
             case 0:
                 //Fragment for Ios Tab
                 FragmentWorkReport f3 = new FragmentWorkReport();
-                f3.setChart(chart);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("chart", chart);
+                f3.setArguments(bundle);
                 return f3;
 
 
@@ -39,9 +41,9 @@ public class WorkPageTabPagerAdapter extends FragmentStatePagerAdapter {
                 //Fragment for Android Tab
                 FragmentWorkTask f2 = new FragmentWorkTask();
                 //f2.setChart(chart);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("chart", chart);
-                f2.setArguments(bundle);
+                Bundle bundle2 = new Bundle();
+                bundle2.putSerializable("chart", chart);
+                f2.setArguments(bundle2);
                 return f2;
 
             case 2:

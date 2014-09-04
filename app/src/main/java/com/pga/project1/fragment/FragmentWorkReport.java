@@ -39,6 +39,9 @@ public class FragmentWorkReport extends Fragment {
 
     public FragmentWorkReport() {
         // Required empty public constructor
+
+        Bundle bundle = this.getArguments();
+        this.setChart((Chart) bundle.getSerializable("chart"));
     }
 
 
