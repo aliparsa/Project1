@@ -270,8 +270,7 @@ public class AddPersonnelToWorkActivity extends Activity {
                                     finish();
                                 }
                             }
-                    )
-                            .show();
+                    ).show();
 
                 }
                 pg.dismiss();
@@ -280,7 +279,24 @@ public class AddPersonnelToWorkActivity extends Activity {
             @Override
             public void onError(String err) {
                 pg.dismiss();
-                Toast.makeText(self, "Error", Toast.LENGTH_SHORT).show();
+
+                new AlertDialog.Builder(self)
+                        .setTitle("عملیات انجام نشد")
+                        .setCancelable(false)
+                        .setPositiveButton("تلاش مجدد", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+
+                                        addPersonnelToWork();
+                                    }
+                                }
+                        ).setNegativeButton("انصراف", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                setResult(Activity.RESULT_CANCELED);
+                                finish();
+                            }
+                        }
+                ).show();
             }
         });
     }
