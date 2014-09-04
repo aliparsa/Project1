@@ -21,6 +21,7 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.pga.project1.Activities.AddPersonnelToWorkActivity;
 import com.pga.project1.Activities.PersonelPickerActivity;
 import com.pga.project1.Activities.TaskPageActivity;
 import com.pga.project1.Adapters.ListViewCustomAdapter;
@@ -135,8 +136,15 @@ public class FragmentWorkTask extends Fragment {
             case 1212: {
                 if (resultCode == Activity.RESULT_OK) {
                     Personnel personnel = (Personnel) data.getSerializableExtra("personnel");
-                    addPersonnelToWork(personnel);
+                   // addPersonnelToWork(personnel);
 //                    Toast.makeText(getActivity(), "Personel id is > " + personnel.getFirst_name(), Toast.LENGTH_SHORT).show();
+
+                    Intent intent = new Intent(getActivity(), AddPersonnelToWorkActivity.class);
+
+                    intent.putExtra("chart", chart);
+                    intent.putExtra("personnel", personnel);
+                    startActivityForResult(intent, 1212);
+
                 } else {
                     Toast.makeText(getActivity(), "No personel Selected", Toast.LENGTH_SHORT).show();
 

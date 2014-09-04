@@ -29,5 +29,6 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="title_activity_test">testActivity</string>
+    <string name="title_activity_add_personnel_to_work">AddPersonnelToWorkActivity</string>
 
 </resources>
