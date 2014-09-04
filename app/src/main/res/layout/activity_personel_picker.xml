@@ -27,6 +27,8 @@
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:divider="@null"
+        android:dividerHeight="0dp"
         android:id="@+id/lv_searchPersonnel_results"
         android:layout_below="@+id/srchv_searchPersonnel_searchName"
         android:layout_centerHorizontal="true" />

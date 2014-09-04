@@ -196,6 +196,7 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
                     holder.chartIcon.setBitmapResource(R.drawable.vazife);
                     holder.chartTitle.setText(chart.getPersonnel().getFullName());
                     holder.chartDate.setText(chart.getStart_date());
+                    holder.chartIcon.setBitmapResource(R.drawable.vazife);
                     holder.chartSubtitle.setText(chart.getName());
                     break;
 
@@ -208,12 +209,15 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
                 case PROJECT:
                     holder.chartTitle.setText(chart.getName());
                     holder.chartGraph.setPercent(chart.getHand_percent());
+                    holder.chartIcon.setBitmapResource(R.drawable.project);
                     holder.chartDate.setText(chart.getStart_date());
                     break;
 
                 case CHART:
                     holder.chartTitle.setText(chart.getName());
                     holder.chartGraph.setPercent(chart.getHand_percent());
+                    holder.chartIcon.setBitmapResource(R.drawable.chrat);
+
                     holder.chartDate.setText(chart.getStart_date());
                     break;
             }

@@ -62,8 +62,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/chart_date"
-                    android:text="date"
-                    android:textSize="14sp"
+                    android:text="."
+                    android:textSize="12sp"
                     android:textColor="@color/chart_date_color"
                     android:layout_alignTop="@+id/chart_icon"
                     android:layout_toRightOf="@+id/chart_graph" />
@@ -106,7 +106,7 @@
                         android:paddingTop="3dp"
                         android:alpha="0.8"
                         android:textSize="10sp"
-                        android:text="content here"
+
                         android:textColor="@color/NaviDrawerItem_subtitle" />
 
 
@@ -239,8 +239,8 @@
 
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="date"
-                    android:textSize="14sp"
+                    android:text="."
+                    android:textSize="12sp"
                     android:textColor="@color/chart_date_color"
                     android:id="@+id/report_date"
                     android:layout_alignTop="@+id/view2"
@@ -295,7 +295,7 @@
                         android:layout_gravity="right"
                         android:alpha="0.8"
                         android:paddingTop="3dp"
-                        android:text="content here"
+
                         android:textSize="10sp"
                         android:textColor="@color/NaviDrawerItem_subtitle" />
                 </LinearLayout>
