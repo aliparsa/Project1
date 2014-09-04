@@ -12,6 +12,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:padding="5dp"
+        android:layout_margin="5dp"
+        android:background="@drawable/round_back_ground"
         >
         <com.pga.project1.Viewes.ImageLoaderView
             android:id="@+id/imgv_fragmentTaskInfo_pic"
@@ -55,6 +58,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:padding="5dp"
+        android:layout_margin="5dp"
+        android:background="@drawable/round_back_ground"
         >
 
         <com.pga.project1.Viewes.ViewNameValue
