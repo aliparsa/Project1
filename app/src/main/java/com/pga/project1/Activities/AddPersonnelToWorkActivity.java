@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pga.project1.DataModel.Chart;
+import com.pga.project1.DataModel.PathObject;
 import com.pga.project1.DataModel.Personnel;
 import com.pga.project1.DataModel.ServerResponse;
 import com.pga.project1.DataModel.Task;
@@ -29,6 +30,7 @@ import com.pga.project1.Utilities.FontHelper;
 import com.pga.project1.Utilities.Fonts;
 import com.pga.project1.Utilities.PersianCalendar;
 import com.pga.project1.Utilities.Webservice;
+import com.pga.project1.Viewes.PathMapManager;
 import com.pga.project1.Viewes.ViewDateTimePickerPersian;
 
 import java.util.ArrayList;
@@ -60,6 +62,8 @@ public class AddPersonnelToWorkActivity extends Activity {
 
         chart = (Chart) getIntent().getSerializableExtra("chart");
         personnel = (Personnel) getIntent().getSerializableExtra("personnel");
+
+        PathMapManager.push(new PathObject(personnel.getFullName() + " در" + chart.getName()));
 
         task_name = (EditText) findViewById(R.id.editText_task_name);
         task_price = (EditText) findViewById(R.id.editText_task_price);
@@ -299,5 +303,13 @@ public class AddPersonnelToWorkActivity extends Activity {
                 ).show();
             }
         });
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        PathMapManager.pop("add personnel to work activity");
     }
 }
