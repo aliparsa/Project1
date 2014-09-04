@@ -128,6 +128,7 @@ public class WorkActivity extends FragmentActivity {
         tab_workTask.setText("وظیفه ها").setTabListener(tabListener);
         tab_workReport.setText("گزارش عملکرد").setTabListener(tabListener);
 
+
         getActionBar().addTab(tab_workReport, false);
         getActionBar().addTab(tab_workTask, false);
         getActionBar().addTab(tab_workInfo, false);
@@ -155,7 +156,7 @@ public class WorkActivity extends FragmentActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(currentFrag instanceof FragmentWorkTask){
+        if (currentFrag instanceof FragmentWorkTask) {
             ((FragmentWorkTask) currentFrag).setChart(chart);
         }
     }
@@ -181,15 +182,15 @@ public class WorkActivity extends FragmentActivity {
             }
         });
 
-        addPersonnelButton =  (Button) customActionBar.findViewById(R.id.ac_action1);
-        addReportButton =  (Button) customActionBar.findViewById(R.id.ac_action2);
+        addPersonnelButton = (Button) customActionBar.findViewById(R.id.ac_action1);
+        addReportButton = (Button) customActionBar.findViewById(R.id.ac_action2);
 
         //addPersonnelButton.setText("پرسنل جدید");
-        addPersonnelButton.setCompoundDrawablesWithIntrinsicBounds(0,0,0,R.drawable.ic_add_personnel);
+        addPersonnelButton.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, R.drawable.ic_add_personnel);
         addPersonnelButton.setTextColor(getResources().getColor(R.color.icon_color));
 
         //addReportButton.setText("عملکرد جدید");
-        addReportButton.setCompoundDrawablesWithIntrinsicBounds(0,0, 0, R.drawable.ic_add_report);
+        addReportButton.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, R.drawable.ic_add_report);
         addReportButton.setTextColor(getResources().getColor(R.color.icon_color));
 
 
@@ -235,10 +236,10 @@ public class WorkActivity extends FragmentActivity {
         addPersonnelButton.setVisibility(View.GONE);
         addReportButton.setVisibility(View.GONE);
 
-        if(ac_pick_personnel_vis)
+        if (ac_pick_personnel_vis)
             addPersonnelButton.setVisibility(View.VISIBLE);
 
-        if(ac_new_work_report_vis)
+        if (ac_new_work_report_vis)
             addReportButton.setVisibility(View.VISIBLE);
     }
 

@@ -73,8 +73,6 @@ public class FragmentWorkTask extends Fragment {
         //setHasOptionsMenu(true);
 
 
-
-
         return inflater.inflate(R.layout.fragment_work_task, container, false);
     }
 
@@ -330,7 +328,7 @@ public class FragmentWorkTask extends Fragment {
 
                 ArrayList<AdapterInputType> itemList = new ArrayList<AdapterInputType>();
                 for (Chart chart : taskList) {
-                    itemList.add(new AdapterInputType(chart, "icon+title+subtitle", chart.getName(), chart.getStart_date(), BitmapFactory.decodeResource(getResources(),
+                    itemList.add(new AdapterInputType(chart, ListViewCustomAdapter.CHART_ITEM, chart.getName(), chart.getStart_date(), BitmapFactory.decodeResource(getResources(),
                             R.drawable.ic_launcher)));
                 }
 

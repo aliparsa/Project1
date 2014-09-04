@@ -65,7 +65,7 @@
         android:layout_alignParentLeft="true"
         android:layout_marginRight="@dimen/distance_actionbar_action1_action2"
 
-        android:background="@android:color/transparent"
+        android:background="@drawable/hit"
         />
 
     <Button
@@ -75,7 +75,7 @@
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/ac_action1"
 
-        android:background="@android:color/transparent"
+        android:background="@drawable/hit"
         />
 
 </RelativeLayout>
