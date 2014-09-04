@@ -1,6 +1,7 @@
 package com.pga.project1.Adapters;
 
 import android.content.Context;
+import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,15 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
     public static String NOITEM_ITEM = "no item item";
     public static String DRAWER_ITEM = "drawer item";
     public static String REPORT_ITEM = "report item";
+
+    public final static int SHERKAT = 1;
+    public final static int TAMIN_KONANDE = 2;
+    public final static int PROJECT = 3;
+    public final static int ANBAR = 4;
+    public final static int CHART = 5;
+    public final static int FAALIYAT = 6;
+    public final static int VAZIFE = 7;
+
 
     public List<AdapterInputType> itemList;
     Context context;
@@ -159,6 +169,9 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
         if (holder.chartSubtitle == null)
             holder.chartSubtitle = (TextView) ll_chart.findViewById(R.id.chart_subtitle);
 
+        if (holder.chartDate == null)
+            holder.chartDate = (TextView) ll_chart.findViewById(R.id.chart_date);
+
         if (holder.chartGraph == null)
             holder.chartGraph = (Graphview) ll_chart.findViewById(R.id.chart_graph);
 
@@ -167,23 +180,44 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
 
 
         holder.chartTitle.setText(item.title);
-        holder.chartSubtitle.setText(item.subTitle);
+        // holder.chartSubtitle.setText(item.subTitle);
 
 
         if (item.getTag() != null && item.getTag() instanceof Chart) {
 
+            Chart chart = (Chart) item.getTag();
+
             holder.chartGraph.showAnimation = item.isFirstTimeItemShowed;
 
-            if (((Chart) item.getTag()).getType_id() == 7) {
-                holder.chartGraph.setPercent(((Chart) item.getTag()).getAuto_percent());
-            } else {
-                holder.chartGraph.setPercent(((Chart) item.getTag()).getHand_percent());
+
+            switch (chart.getType_id()) {
+                case VAZIFE:
+                    holder.chartGraph.setPercent(chart.getAuto_percent());
+                    holder.chartIcon.setBitmapResource(R.drawable.vazife);
+                    holder.chartTitle.setText(chart.getPersonnel().getFullName());
+                    holder.chartDate.setText(chart.getStart_date());
+                    holder.chartSubtitle.setText(chart.getName());
+                    break;
+
+                case FAALIYAT:
+                    holder.chartTitle.setText(chart.getName());
+                    holder.chartIcon.setBitmapResource(R.drawable.faaliyat);
+                    holder.chartDate.setText(chart.getStart_date());
+                    break;
+
+                case PROJECT:
+                    holder.chartTitle.setText(chart.getName());
+                    holder.chartGraph.setPercent(chart.getHand_percent());
+                    holder.chartDate.setText(chart.getStart_date());
+                    break;
+
+                case CHART:
+                    holder.chartTitle.setText(chart.getName());
+                    holder.chartGraph.setPercent(chart.getHand_percent());
+                    holder.chartDate.setText(chart.getStart_date());
+                    break;
             }
         }
-
-        if (item.getType_id() == 6)
-            holder.chartIcon.setBitmapResource(R.drawable.vazife);
-
         holder.setTag(item.getTag());
     }
 
@@ -224,18 +258,26 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
         if (holder.reportSubtitle == null)
             holder.reportSubtitle = (TextView) ll_report.findViewById(R.id.ll_report_subtitle);
 
+        if (holder.reportDate == null)
+            holder.reportDate = (TextView) ll_report.findViewById(R.id.report_date);
+
         if (holder.reportGraphview == null)
             holder.reportGraphview = (Graphview) ll_report.findViewById(R.id.ll_report_graphview);
 
         if (holder.reportIcon == null)
             holder.reportIcon = (ImageLoaderView) ll_report.findViewById(R.id.report_icon);
 
+        if (holder.reportAttachmentIcon == null)
+            holder.reportAttachmentIcon = (ImageView) ll_report.findViewById(R.id.report_attachmentIcon);
+
 
         if (item.getTag() != null && item.getTag() instanceof Report) {
 
             Report report = (Report) item.getTag();
 
-            holder.reportTitle.setText(" عملکرد " + report.getDate());
+
+            holder.reportTitle.setText(" عملکرد ");
+            holder.reportDate.setText(report.getDate());
 
             if (report.getReport().length() > 10)
                 holder.reportSubtitle.setText(report.getReport().substring(0, 10) + "...");
@@ -247,6 +289,11 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
             item.isFirstTimeItemShowed = false;
 
             holder.reportIcon.setBitmapResource(R.drawable.report);
+
+            if (report.getImageUrls().size() > 0)
+                holder.reportAttachmentIcon.setVisibility(View.VISIBLE);
+            else
+                holder.reportAttachmentIcon.setVisibility(View.INVISIBLE);
 
         }
 
@@ -284,6 +331,7 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
         ImageLoaderView chartIcon;
         Graphview chartGraph;
         ImageLoaderView img;
+        TextView chartDate;
 
         // People item -----------------
         ImageView peopleImage;
@@ -304,6 +352,8 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
         TextView reportSubtitle;
         Graphview reportGraphview;
         ImageLoaderView reportIcon;
+        TextView reportDate;
+        ImageView reportAttachmentIcon;
         ///------------------------
 
         public Object getTag() {
