@@ -4,6 +4,7 @@
     <color name="NaviDrawerItem_title">#002d5c</color>
     <color name="NaviDrawerItem_subtitle">#002d5c</color>
     <color name="black_overlay">#66000000</color>
+    <color name="chart_date_color">#ec4b2c</color>
 
 
     <color name="login_button_background">#00dac3</color>
@@ -23,5 +24,6 @@
     <color name="tab_bar_background">#ff02dac2</color>
     <color name="tab_bar_divider">#01bba7</color>
     <color name="tab_bar_text_color">#002d5c</color>
+
 
 </resources>

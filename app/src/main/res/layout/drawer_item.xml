@@ -58,7 +58,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="fill_parent">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/chart_date"
+                    android:text="date"
+                    android:textSize="14sp"
+                    android:textColor="@color/chart_date_color"
+                    android:layout_alignTop="@+id/chart_icon"
+                    android:layout_toRightOf="@+id/chart_graph" />
+
                 <view
+                    android:alpha="0.8"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:padding="3dp"
@@ -92,7 +103,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right"
-                        android:text="salamsalamsalamsalam"
+                        android:paddingTop="3dp"
+                        android:alpha="0.8"
+                        android:textSize="10sp"
+                        android:text="content here"
                         android:textColor="@color/NaviDrawerItem_subtitle" />
 
 
@@ -100,6 +114,7 @@
 
                 <view
                     android:id="@+id/chart_graph"
+                    android:alpha="0.8"
                     class="com.pga.project1.Viewes.Graphview"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
@@ -169,7 +184,7 @@
 
                     android:padding="3dp"
                     android:text="Hello"
-                    android:textSize="20sp" />
+                    android:textSize="15sp" />
 
                 <TextView
                     android:id="@+id/txt_people_phone"
@@ -178,7 +193,7 @@
 
                     android:padding="3dp"
                     android:paddingStart="8dp"
-                    android:text="09171380449"
+                    android:text="0917....."
                     android:textSize="10sp" />
 
                 <TextView
@@ -220,6 +235,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="fill_parent">
 
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="date"
+                    android:textSize="14sp"
+                    android:textColor="@color/chart_date_color"
+                    android:id="@+id/report_date"
+                    android:layout_alignTop="@+id/view2"
+                    android:layout_toRightOf="@+id/ll_report_graphview" />
+
                 <view
                     class="com.pga.project1.Viewes.ImageLoaderView"
                     app:show_progressbar="false"
@@ -234,6 +260,7 @@
                     <view
                         class="com.pga.project1.Viewes.ImageLoaderView"
                         app:show_progressbar="false"
+                        android:alpha="0.8"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:padding="3dp"
@@ -258,31 +285,26 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="right"
                         android:text="salam"
-                        android:textColor="@color/NaviDrawerItem_title" />
+
+                    android:textColor="@color/NaviDrawerItem_title" />
 
                     <TextView
                         android:id="@+id/ll_report_subtitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right"
-                        android:text="salamsalamsalamsalam"
+                        android:alpha="0.8"
+                        android:paddingTop="3dp"
+                        android:text="content here"
+                        android:textSize="10sp"
                         android:textColor="@color/NaviDrawerItem_subtitle" />
                 </LinearLayout>
-
-                <RelativeLayout
-                    android:id="@+id/relativeLayout2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true">
-
-                </RelativeLayout>
 
                 <view
 
                     class="com.pga.project1.Viewes.Graphview"
                     app:animationSpeed="3"
+                    android:alpha="0.8"
                     app:background="#ffdbdbdb"
                     android:layout_margin="5dp"
                     app:color1="#ef4a29"
@@ -295,6 +317,16 @@
                     android:layout_centerVertical="true"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true" />
+
+                <ImageView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:id="@+id/report_attachmentIcon"
+                    android:src="@drawable/ic_clip"
+                    android:scaleType="fitCenter"
+                    android:visibility="invisible"
+                    android:layout_alignBottom="@+id/view2"
+                    android:layout_toRightOf="@+id/ll_report_graphview" />
             </RelativeLayout>
         </LinearLayout>
     </LinearLayout>
