@@ -4,21 +4,12 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Matrix;
-import android.graphics.PointF;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.util.AttributeSet;
-import android.util.FloatMath;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.pga.project1.Intefaces.ProgressCallBack;
 import com.pga.project1.R;
@@ -36,6 +27,7 @@ public class ImageLoaderView extends RelativeLayout {
     private ImageView mainImageView;
     private ProgressBar progressBar;
     private AsynLoadImage async;
+    private  boolean circleImage;
 
 
     private boolean isZoomAllowed;
@@ -73,6 +65,11 @@ public class ImageLoaderView extends RelativeLayout {
         this.url = a.getString(R.styleable.ImageLoaderView_URL);
         this.showProgressBar = a.getBoolean(R.styleable.ImageLoaderView_show_progressbar, true);
         this.isZoomAllowed = a.getBoolean(R.styleable.ImageLoaderView_zoomAllowed, false);
+
+        this.circleImage=a.getBoolean(R.styleable.ImageLoaderView_circleImage,false);
+
+
+
 
         configure();
 
@@ -133,7 +130,9 @@ public class ImageLoaderView extends RelativeLayout {
                 @Override
                 public void onSuccess(Bitmap result) {
 
+                   // getclip(result);
                     mainImageView.setImageBitmap(result);
+                    invalidate();
 
                     progressBar.setVisibility(GONE);
                 }
@@ -170,7 +169,6 @@ public class ImageLoaderView extends RelativeLayout {
         startLoading();
     }
 
-
     public void setBitmap(Bitmap bitmap) {
         progressBar.setVisibility(GONE);
         this.mainImageView.setImageBitmap(bitmap);
@@ -196,8 +194,9 @@ public class ImageLoaderView extends RelativeLayout {
         super.onDraw(canvas);
 
         //here u can control the width and height of the images........ this line is very important
-        mainImageView.getDrawable().setBounds((getWidth() / 2) - zoomControler, (getHeight() / 2) - zoomControler, (getWidth() / 2) + zoomControler, (getHeight() / 2) + zoomControler);
-        mainImageView.getDrawable().draw(canvas);
+//        mainImageView.getDrawable().setBounds((getWidth() / 2) - zoomControler, (getHeight() / 2) - zoomControler, (getWidth() / 2) + zoomControler, (getHeight() / 2) + zoomControler);
+//        mainImageView.getDrawable().draw(canvas);
+
     }
 
 

@@ -24,7 +24,7 @@
             android:layout_margin="5dp"
             android:gravity="right"
 
-            android:text="salam salam salam salsalam salam salam salam salam salam salam salam salam salam salam salam salam salam salam salam salam salam am salam salam " />
+            android:text="salam" />
 
         <View
             android:id="@+id/view"
@@ -39,7 +39,7 @@
             android:layout_height="wrap_content"
             android:gravity="right"
             android:layout_margin="5dp"
-            android:text="name khanevadegi" />
+            android:text="evadegi" />
     </LinearLayout>
 
 

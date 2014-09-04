@@ -39,6 +39,7 @@
         <attr name="default_src" format="integer" />
         <attr name="show_progressbar" format="boolean" />
         <attr name="zoomAllowed" format="boolean" />
+        <attr name="circleImage" format="boolean"></attr>
     </declare-styleable>
 
 </resources>

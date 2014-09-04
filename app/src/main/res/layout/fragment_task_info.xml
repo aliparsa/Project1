@@ -19,6 +19,7 @@
         <com.pga.project1.Viewes.ImageLoaderView
             android:id="@+id/imgv_fragmentTaskInfo_pic"
             android:layout_width="100dp"
+            app:circleImage="true"
             android:layout_height="100dp" />
 
         <LinearLayout
@@ -31,7 +32,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:name="نام"
-                app:value="name here"
+                app:value=""
                 ></com.pga.project1.Viewes.ViewNameValue>
 
             <com.pga.project1.Viewes.ViewNameValue
@@ -39,7 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:name="سمت"
-            app:value="job type here"
+            app:value=""
             ></com.pga.project1.Viewes.ViewNameValue>
 
             <com.pga.project1.Viewes.ViewNameValue
@@ -47,7 +48,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:name="شماره تماس"
-                app:value="0917138044 a"
+                app:value=""
                 ></com.pga.project1.Viewes.ViewNameValue>
 
         </LinearLayout>
@@ -68,7 +69,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:name="شروع فعالیت"
-            app:value="1391/1/5"
+            app:value=""
             >
 
             </com.pga.project1.Viewes.ViewNameValue>
@@ -78,7 +79,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:name="پایان فعالیت"
-            app:value="1391/1/5">
+            app:value="">
 
         </com.pga.project1.Viewes.ViewNameValue>
 
@@ -87,7 +88,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:name="درصد انجام"
-            app:value="1391/1/5">
+            app:value="">
 
         </com.pga.project1.Viewes.ViewNameValue>
 
@@ -96,7 +97,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:name="روز های کار کرد"
-            app:value="1391/1/5"
+            app:value=""
             android:visibility="gone">
 
         </com.pga.project1.Viewes.ViewNameValue>
