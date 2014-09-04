@@ -96,10 +96,16 @@ public class PersonelPickerActivity extends Activity {
         searchView = (SearchView) customActionBar.findViewById(R.id.ac_search);
         searchView.setOnQueryTextListener(new onPersonnelSearchListener());
 
-        int searchPlateId = searchView.getContext().getResources().getIdentifier("android:id/search_plate", null, null);
+
+
+       // int searchButtonId = searchView.getContext().getResources().getIdentifier("android:id/search_button", null, null);
+        //Button searchIcon = (Button) searchView.findViewById(searchButtonId);
+       // searchIcon.setdraw//setImageResource(R.drawable.ic_search);
+
+        //int searchPlateId = searchView.getContext().getResources().getIdentifier("android:id/search_plate", null, null);
        // searchView.findViewById(searchPlateId).setBackgroundResource(R.drawable.textfield_search_selected);
 
-        int voiceSearchPlateId = searchView.getContext().getResources().getIdentifier("android:id/submit_area", null, null);
+        //int voiceSearchPlateId = searchView.getContext().getResources().getIdentifier("android:id/submit_area", null, null);
         //searchView.findViewById(voiceSearchPlateId).setBackgroundResource(R.drawable.textfield_search_right_selected);
 
         // change hint color

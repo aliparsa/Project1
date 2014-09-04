@@ -53,6 +53,8 @@
         android:background="@drawable/hit"
 
         android:queryHint="اینجا جستجو کنید"
+
+
         ></SearchView>
 
 </RelativeLayout>

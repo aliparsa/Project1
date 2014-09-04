@@ -101,7 +101,7 @@ public class PathMapManager extends LinearLayout {
         refresh();
     }
 
-    public void refresh() {
+    public void refreshWrong() {
 
         mainLayout.removeAllViews();
 
@@ -154,7 +154,7 @@ public class PathMapManager extends LinearLayout {
     }
 
 
-    public void refreshOld() {
+    public void refresh() {
 
         mainLayout.removeAllViews();
 
