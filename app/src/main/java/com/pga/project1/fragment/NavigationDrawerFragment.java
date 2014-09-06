@@ -17,7 +17,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -59,7 +61,7 @@ public class NavigationDrawerFragment extends Fragment {
     private ListView mDrawerListView;
     private View mFragmentContainerView;
 
-    private int mCurrentSelectedPosition = 0;
+    private int mCurrentSelectedPosition = -1;
     private boolean mFromSavedInstanceState;
     private boolean mUserLearnedDrawer;
     private ArrayList<AdapterInputType> datalist;
@@ -80,6 +82,11 @@ public class NavigationDrawerFragment extends Fragment {
 
         datalist.add(item);
 
+        AdapterInputType item2 = new AdapterInputType(null, ListViewCustomAdapter.DRAWER_ITEM
+                ,"درباره ما", R.drawable.category);
+
+        datalist.add(item2);
+
         // Read in the flag indicating whether or not the user has demonstrated awareness of the
         // drawer. See PREF_USER_LEARNED_DRAWER for details.
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
@@ -96,6 +103,7 @@ public class NavigationDrawerFragment extends Fragment {
 
         // Select either the default item (0) or the last selected item.
         selectItem(mCurrentSelectedPosition);
+
     }
 
     @Override
@@ -159,6 +167,10 @@ public class NavigationDrawerFragment extends Fragment {
                     return;
                 }
 
+
+                if(nav == null) nav = (ImageView) getActionBar().getCustomView().findViewById(R.id.ac_nav);
+                nav.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.anim_drawer_close));
+
                 getActivity().invalidateOptionsMenu(); // calls onPrepareOptionsMenu()
             }
 
@@ -177,6 +189,9 @@ public class NavigationDrawerFragment extends Fragment {
                             .getDefaultSharedPreferences(getActivity());
                     sp.edit().putBoolean(PREF_USER_LEARNED_DRAWER, true).apply();
                 }
+
+                if(nav == null) nav = (ImageView) getActionBar().getCustomView().findViewById(R.id.ac_nav);
+                nav.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.anim_drawer_open));
 
                 getActivity().invalidateOptionsMenu(); // calls onPrepareOptionsMenu()
             }
@@ -268,9 +283,9 @@ public class NavigationDrawerFragment extends Fragment {
 
             // Open and close navi bar
             if (isDrawerOpen()) {
-                mDrawerLayout.closeDrawer(Gravity.END);
+                closeDrawer();
             } else {
-                mDrawerLayout.openDrawer(Gravity.END);
+                openDrawer();
             }
 
             return true;
@@ -308,9 +323,26 @@ public class NavigationDrawerFragment extends Fragment {
 
     public void toggleNavigationDrawer() {
         if (isDrawerOpen()) {
-            mDrawerLayout.closeDrawer(Gravity.END);
+            closeDrawer();
         } else {
-            mDrawerLayout.openDrawer(Gravity.END);
+            openDrawer();
         }
     }
+
+    ImageView nav;
+
+    public void openDrawer(){
+
+        mDrawerLayout.openDrawer(Gravity.END);
+
+    }
+
+    public void closeDrawer(){
+
+        mDrawerLayout.closeDrawer(Gravity.END);
+
+    }
+
+
+
 }

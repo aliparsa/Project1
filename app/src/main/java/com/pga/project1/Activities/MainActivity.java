@@ -2,12 +2,12 @@ package com.pga.project1.Activities;
 
 import android.app.ActionBar;
 import android.app.Activity;
-import android.support.v4.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,8 +20,6 @@ import com.pga.project1.DataModel.Chart;
 import com.pga.project1.R;
 import com.pga.project1.Utilities.FontHelper;
 import com.pga.project1.Utilities.Fonts;
-import com.pga.project1.Viewes.PathMapManager;
-
 import com.pga.project1.fragment.NavigationDrawerFragment;
 
 
@@ -64,6 +62,7 @@ public class MainActivity extends Activity
                 (DrawerLayout) findViewById(R.id.drawer_layout));
 
 
+
         //  this.getFragmentManager().addOnBackStackChangedListener(new BackStackChanged(this));
 
 
@@ -80,9 +79,9 @@ public class MainActivity extends Activity
 
         prepareActionbar();
 
-        Intent intent = new Intent(this, TreeViewActivity.class);
+        /*Intent intent = new Intent(this, TreeViewActivity.class);
         startActivity(intent);
-        finish();
+        finish();*/
 
 
     }
@@ -119,22 +118,25 @@ public class MainActivity extends Activity
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
 
-    }
+        Intent intent;
 
-    //----------------------------------------------------------------------------------------
-    public void onSectionAttached(int number) {
-        switch (number) {
+        switch (position){
+
+            case 0:
+
+                intent = new Intent(this, TreeViewActivity.class);
+                startActivity(intent);
+                break;
+
             case 1:
-                mTitle = getString(R.string.title_section1);
-                break;
-            case 2:
-                mTitle = getString(R.string.title_section2);
-                break;
-            case 3:
-                mTitle = getString(R.string.title_section3);
+                intent = new Intent(this, AboutUsActivity.class);
+                startActivity(intent);
                 break;
         }
+
     }
+
+
 
     //----------------------------------------------------------------------------------------
     public void restoreActionBar() {
