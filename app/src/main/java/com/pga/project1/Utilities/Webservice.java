@@ -32,6 +32,7 @@ import java.util.Map;
 public class Webservice {
     //this is sparta
 
+
     final static public String SERVER_ADDRESS = "http://192.168.1.66:8099/pm";
     final static public String SHAYAN_SERVER_ADDRESS = "http://192.168.0.79:3434/index.php/webservice?";
 

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -174,7 +175,7 @@ public class PathMapManager extends LinearLayout {
             img.setLayoutParams(new LayoutParams(30, LayoutParams.MATCH_PARENT));
             img.setImageResource(R.drawable.arrow);//TODO add path map divider*/
 
-            ImageView img = (ImageView) inflater.inflate(R.layout.pathmap_arrow_imageview, null);
+            View img = (View) inflater.inflate(R.layout.pathmap_arrow_imageview, null);
 
             if (!isFirst) {
                 mainLayout.addView(img);
@@ -204,10 +205,10 @@ public class PathMapManager extends LinearLayout {
         }
 
 
-        ImageView img1 = (ImageView) inflater.inflate(R.layout.pathmap_arrow_imageview, null);
+        View img1 = (View) inflater.inflate(R.layout.pathmap_arrow_imageview, null);
         mainLayout.addView(img1);
 
-        ImageView imgHome = (ImageView) inflater.inflate(R.layout.pathmap_homeimage, null);
+        View imgHome = (View) inflater.inflate(R.layout.pathmap_homeimage, null);
         mainLayout.addView(imgHome);//
 
 

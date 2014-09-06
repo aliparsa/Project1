@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="@dimen/actionbar_height">
 
 
@@ -13,7 +14,6 @@
         android:src="@drawable/ic_nav"
         android:layout_alignParentRight="true"
         android:alpha="0.8"
-        android:background="@drawable/hit"
 
 
         />
@@ -41,8 +41,7 @@
 
         android:textColor="@color/actionbar_title_color"
         android:textSize="@dimen/actionbar_title_size"
-        android:layout_marginRight="@dimen/distance_actionbar_action1_action2"
-        />
+        android:layout_marginRight="@dimen/distance_actionbar_action1_action2" />
 
 
     <LinearLayout
@@ -51,8 +50,7 @@
         android:layout_alignParentLeft="true"
         android:layout_centerInParent="true"
         android:orientation="horizontal"
-        android:layout_marginLeft="@dimen/distance_actionbar_action1_action2"
-        >
+        android:layout_marginLeft="@dimen/distance_actionbar_action1_action2">
 
         <Button
             android:id="@+id/ac_action1"
@@ -62,8 +60,7 @@
             android:background="@drawable/hit"
             android:textColor="@color/actionbar_button_text"
 
-            android:alpha="0.8"
-            />
+            android:alpha="0.8" />
 
         <Button
             android:id="@+id/ac_action2"
@@ -72,8 +69,7 @@
 
             android:textColor="@color/actionbar_button_text"
             android:background="@drawable/hit"
-            android:alpha="0.8"
-            />
+            android:alpha="0.8" />
 
     </LinearLayout>
 

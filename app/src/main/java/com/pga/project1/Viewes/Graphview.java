@@ -53,7 +53,7 @@ public class Graphview extends View {
         // inflater.inflate(R.layout.view_name_value, this, true);
 
 
-        percent = a.getFloat(R.styleable.Graphview_percentValue, 25);
+        percent = a.getFloat(R.styleable.Graphview_percentValue, 0);
 
         background = a.getColor(R.styleable.Graphview_background, Color.DKGRAY);
         COLORS[0] = a.getColor(R.styleable.Graphview_color1, COLORS[0]);
