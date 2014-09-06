@@ -332,6 +332,7 @@ public class NewReportActivity extends Activity {
                         .setPositiveButton("تایید", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 // continue with delete
+                                setResult(Activity.RESULT_OK);
                                 finish();
 
 

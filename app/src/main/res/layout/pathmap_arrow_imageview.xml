@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ImageView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="20dp"
-    android:layout_height="20dp"
-    android:src="@drawable/arrow"
-    android:scaleType="centerCrop">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content">
+
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="40dp"
+        android:src="@drawable/arrow"
+        android:scaleType="fitCenter">
 
 
-</ImageView>
+    </ImageView>
+</LinearLayout>

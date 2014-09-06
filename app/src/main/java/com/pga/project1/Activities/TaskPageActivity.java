@@ -169,11 +169,11 @@ public class TaskPageActivity extends FragmentActivity {
             }
         });
 
-        removeTaskButton =  (Button) customActionBar.findViewById(R.id.ac_action1);
-        addReportButton =  (Button) customActionBar.findViewById(R.id.ac_action2);
+        removeTaskButton = (Button) customActionBar.findViewById(R.id.ac_action1);
+        addReportButton = (Button) customActionBar.findViewById(R.id.ac_action2);
 
         //removeTaskButton.setText("حذف وظیفه");
-        removeTaskButton.setCompoundDrawablesWithIntrinsicBounds(0,0,0,R.drawable.ic_delete);
+        removeTaskButton.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, R.drawable.ic_delete);
         removeTaskButton.setTextColor(getResources().getColor(R.color.actionbar_button_text));
 
         removeTaskButton.setOnClickListener(new View.OnClickListener() {
@@ -184,16 +184,8 @@ public class TaskPageActivity extends FragmentActivity {
         });
 
         //addReportButton.setText("عملکرد جدید");
-        addReportButton.setCompoundDrawablesWithIntrinsicBounds(0,0, 0, R.drawable.ic_add_report);
+        addReportButton.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, R.drawable.ic_add_report);
         addReportButton.setTextColor(getResources().getColor(R.color.actionbar_button_text));
-        addReportButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getBaseContext(), NewReportActivity.class);
-                intent.putExtra("chart", chart);
-                startActivityForResult(intent, 654);
-            }
-        });
 
         showHideMenuItems(false, false);
 
@@ -205,10 +197,10 @@ public class TaskPageActivity extends FragmentActivity {
         removeTaskButton.setVisibility(View.GONE);
         addReportButton.setVisibility(View.GONE);
 
-        if(ac_remove_task)
+        if (ac_remove_task)
             removeTaskButton.setVisibility(View.VISIBLE);
 
-        if(ac_new_work_report_vis)
+        if (ac_new_work_report_vis)
             addReportButton.setVisibility(View.VISIBLE);
     }
 

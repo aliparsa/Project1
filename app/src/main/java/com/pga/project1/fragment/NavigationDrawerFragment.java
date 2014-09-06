@@ -17,6 +17,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -171,7 +172,7 @@ public class NavigationDrawerFragment extends Fragment {
                 if(nav == null) nav = (ImageView) getActionBar().getCustomView().findViewById(R.id.ac_nav);
                 nav.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.anim_drawer_close));
 
-                getActivity().invalidateOptionsMenu(); // calls onPrepareOptionsMenu()
+                //getActivity().invalidateOptionsMenu(); // calls onPrepareOptionsMenu()
             }
 
             @Override
@@ -255,7 +256,7 @@ public class NavigationDrawerFragment extends Fragment {
         // Forward the new configuration the drawer toggle component.
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
-
+/*
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         // If the drawer is open, show the global app actions in the action bar. See also
@@ -293,7 +294,7 @@ public class NavigationDrawerFragment extends Fragment {
 
 
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 
     /**
      * Per the navigation drawer design guidelines, updates the action bar to show the global app
@@ -332,15 +333,16 @@ public class NavigationDrawerFragment extends Fragment {
     ImageView nav;
 
     public void openDrawer(){
-
         mDrawerLayout.openDrawer(Gravity.END);
-
     }
 
     public void closeDrawer(){
-
         mDrawerLayout.closeDrawer(Gravity.END);
 
+     /*   if(nav == null) nav = (ImageView) getActionBar().getCustomView().findViewById(R.id.ac_nav);
+        Animation anim = AnimationUtils.loadAnimation(getActivity(), R.anim.anim_drawer_open);
+        anim.setDuration(0);
+        nav.startAnimation(anim);*/
     }
 
 

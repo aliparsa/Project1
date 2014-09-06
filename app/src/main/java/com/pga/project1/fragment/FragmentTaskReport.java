@@ -1,18 +1,21 @@
 package com.pga.project1.fragment;
 
-import android.support.v4.app.Fragment;
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.pga.project1.Activities.EditReportActivity;
+import com.pga.project1.Activities.NewReportActivity;
 import com.pga.project1.Adapters.ListViewCustomAdapter;
 import com.pga.project1.DataModel.Chart;
 import com.pga.project1.DataModel.Report;
@@ -31,9 +34,10 @@ public class FragmentTaskReport extends Fragment {
     private Chart chart;
     private Menu menu;
     private ListView listView;
+    private Button addReportButton;
 
 
-    //{Constants-----------------------------------------------------
+    //{ButtonConstants-----------------------------------------------------
 
     //-----------------------------------------------------Constants}
 
@@ -58,6 +62,7 @@ public class FragmentTaskReport extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
+    //--------------------------------------------------------------------------------
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -67,12 +72,15 @@ public class FragmentTaskReport extends Fragment {
 
         listView = (ListView) rootView.findViewById(R.id.lv_fragmentTask_report);
         listView.setAdapter(ListViewAdapterHandler.getLoadingAdapter(getActivity()));
+
+        prepareActionBar();
         loadReports();
 
 
         return rootView;
     }
 
+    //--------------------------------------------------------------------------------
     public void loadReports() {
 
 
@@ -105,6 +113,54 @@ public class FragmentTaskReport extends Fragment {
         });
     }
 
+    //{Functions-----------------------------------------------------
+    public void setChart(Chart chart) {
+        this.chart = chart;
+    }
+
+
+    //-----------------------------------------------------override functions}
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK && requestCode == 654) {
+            loadReports();
+        }
+    }
+    //-----------------------------------------------------Functions}
+
+    //{static Functions-----------------------------------------------------
+
+    //-----------------------------------------------------static Functions}
+
+    //{Setter getters-----------------------------------------------------
+
+    //-----------------------------------------------------Setter getters}
+
+    //{Factory function--------------------------------------------------
+
+    //---------------------------------------------------Factory function}
+
+    //--------------------------------------------------------------------------------
+    private void prepareActionBar() {
+
+        View customActionBar = getActivity().getActionBar().getCustomView();
+
+        addReportButton = (Button) customActionBar.findViewById(R.id.ac_action2);
+        addReportButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), NewReportActivity.class);
+                intent.putExtra("chart", chart);
+                startActivityForResult(intent, 654);
+            }
+        });
+
+
+    }
+
+    //--------------------------------------------------------------------------------
     public class onReportListClickListener implements AdapterView.OnItemClickListener {
 
         @Override
@@ -126,25 +182,4 @@ public class FragmentTaskReport extends Fragment {
 
 
     }
-
-
-    //-----------------------------------------------------override functions}
-
-    //{Functions-----------------------------------------------------
-    public void setChart(Chart chart) {
-        this.chart = chart;
-    }
-    //-----------------------------------------------------Functions}
-
-    //{static Functions-----------------------------------------------------
-
-    //-----------------------------------------------------static Functions}
-
-    //{Setter getters-----------------------------------------------------
-
-    //-----------------------------------------------------Setter getters}
-
-    //{Factory function--------------------------------------------------
-
-    //---------------------------------------------------Factory function}
 }
