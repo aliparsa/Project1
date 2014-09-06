@@ -243,6 +243,7 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
             holder.PeopleGroups = (TextView) ll_people.findViewById(R.id.txt_people_groups);
 
 
+        //holder.peopleImageLoader.setBitmapResource(R.drawable.user_photo);
         holder.peopleImageLoader.setUrl(item.imagePerson);
         holder.peopleImageLoader.startLoading();
 

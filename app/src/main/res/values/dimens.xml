@@ -18,5 +18,5 @@
     <dimen name="actionbar_search_font_size">8sp</dimen>
 
     <dimen name="tab_bar_divider_height">32dp</dimen>
-    <dimen name="tab_bar_text_size">10sp</dimen>
+    <dimen name="tab_bar_text_size">12sp</dimen>
 </resources>

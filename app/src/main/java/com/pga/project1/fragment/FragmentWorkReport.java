@@ -40,10 +40,16 @@ public class FragmentWorkReport extends Fragment {
     public FragmentWorkReport() {
         // Required empty public constructor
 
+
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
         Bundle bundle = this.getArguments();
         this.setChart((Chart) bundle.getSerializable("chart"));
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -51,6 +57,7 @@ public class FragmentWorkReport extends Fragment {
         // Inflate the layout for this fragment
 
         //setHasOptionsMenu(true);
+
 
         return inflater.inflate(R.layout.fragment_work_report, container, false);
     }

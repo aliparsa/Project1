@@ -116,8 +116,8 @@
                     android:id="@+id/chart_graph"
                     android:alpha="0.8"
                     class="com.pga.project1.Viewes.Graphview"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:textColor="#ffae00ff"
                     app:animationSpeed="3"
                     app:background="#ffdbdbdb"
@@ -160,6 +160,7 @@
             android:id="@+id/imgl_people_imag"
             android:layout_width="70dp"
             android:layout_height="70dp"
+            app:default_src="@drawable/user_photo"
 
             ></com.pga.project1.Viewes.ImageLoaderView>
 
@@ -310,8 +311,8 @@
                     app:color1="#ef4a29"
                     app:strokeColor="#ff759ac1"
                     android:id="@+id/ll_report_graphview"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:textColor="#ffae00ff"
                     android:visibility="visible"
                     android:layout_centerVertical="true"

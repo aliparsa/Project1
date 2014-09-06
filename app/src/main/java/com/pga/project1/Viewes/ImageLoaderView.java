@@ -21,6 +21,7 @@ import com.pga.project1.Utilities.OnPinchListener;
  */
 public class ImageLoaderView extends RelativeLayout {
 
+    private int defaultImageID;
     private boolean showProgressBar;
     private String url;
     private ImageView fakeImageView;
@@ -66,6 +67,7 @@ public class ImageLoaderView extends RelativeLayout {
         this.showProgressBar = a.getBoolean(R.styleable.ImageLoaderView_show_progressbar, true);
         this.isZoomAllowed = a.getBoolean(R.styleable.ImageLoaderView_zoomAllowed, false);
 
+        this.defaultImageID = a.getResourceId(R.styleable.ImageLoaderView_default_src, 0);
         this.circleImage=a.getBoolean(R.styleable.ImageLoaderView_circleImage,false);
 
 
@@ -85,6 +87,8 @@ public class ImageLoaderView extends RelativeLayout {
 
         this.fakeImageView = (ImageView) findViewById(R.id.imv_fake);
         this.mainImageView = (ImageView) findViewById(R.id.imv_main);
+
+        fakeImageView.setImageResource(this.defaultImageID);
 
         this.progressBar = (ProgressBar) findViewById(R.id.progressBar);
         progressBar.setMax(100);
@@ -131,6 +135,9 @@ public class ImageLoaderView extends RelativeLayout {
                 public void onSuccess(Bitmap result) {
 
                    // getclip(result);
+                    fakeImageView.setImageResource(0);
+                    fakeImageView.setImageBitmap(null);
+
                     mainImageView.setImageBitmap(result);
                     invalidate();
 

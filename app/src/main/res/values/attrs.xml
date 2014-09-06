@@ -36,7 +36,7 @@
 
     <declare-styleable name="ImageLoaderView">
         <attr name="URL" format="string" />
-        <attr name="default_src" format="integer" />
+        <attr name="default_src" format="reference" />
         <attr name="show_progressbar" format="boolean" />
         <attr name="zoomAllowed" format="boolean" />
         <attr name="circleImage" format="boolean"></attr>

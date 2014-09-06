@@ -15,12 +15,15 @@
         android:padding="5dp"
         android:layout_margin="5dp"
         android:background="@drawable/round_back_ground"
-        >
+        android:layout_gravity="center_vertical">
+
         <com.pga.project1.Viewes.ImageLoaderView
             android:id="@+id/imgv_fragmentTaskInfo_pic"
             android:layout_width="100dp"
             app:circleImage="true"
-            android:layout_height="100dp" />
+            android:layout_height="100dp"
+            app:default_src="@drawable/user_photo"
+            android:layout_gravity="center_vertical" />
 
         <LinearLayout
             android:layout_width="wrap_content"

@@ -101,7 +101,7 @@ public class PathMapManager extends LinearLayout {
         refresh();
     }
 
-    public void refreshWrong() {
+  /*  public void refreshWrong() {
 
         mainLayout.removeAllViews();
 
@@ -113,10 +113,8 @@ public class PathMapManager extends LinearLayout {
 
 
         //end angle
-        ImageView img = new ImageView(this.getContext());
-        img.setScaleType(ImageView.ScaleType.FIT_XY);
-        img.setLayoutParams(new LayoutParams(20, LayoutParams.MATCH_PARENT));
-        img.setImageResource(R.drawable.arrow);//TODO add path map divider
+        ImageView img = (ImageView) inflater.inflate(R.layout.path_map_button, null);
+        //TODO add path map divider
 
         mainLayout.addView(img);
         //---------------------
@@ -152,7 +150,7 @@ public class PathMapManager extends LinearLayout {
         invalidate();
         requestLayout();
     }
-
+*/
 
     public void refresh() {
 
@@ -164,23 +162,26 @@ public class PathMapManager extends LinearLayout {
 
         Button btn = null;
 
+
         for (int i = stack.size() - 1; i >= 0; i--) {
 
             PathMapObject object = stack.get(i);
 
             String name = object.getName();
 
-            ImageView img = new ImageView(this.getContext());
+            /*ImageView img = new ImageView(this.getContext());
             img.setScaleType(ImageView.ScaleType.FIT_XY);
             img.setLayoutParams(new LayoutParams(30, LayoutParams.MATCH_PARENT));
-            img.setImageResource(R.drawable.arrow);//TODO add path map divider
+            img.setImageResource(R.drawable.arrow);//TODO add path map divider*/
+
+            ImageView img = (ImageView) inflater.inflate(R.layout.pathmap_arrow_imageview, null);
 
             if (!isFirst) {
                 mainLayout.addView(img);
             } else {
                 //    btn.setBackgroundResource(R.drawable.selector_btn_pathmap_current);
-                Animation animation = AnimationUtils.loadAnimation(context, R.anim.activity_fade_in_animation);
-                img.setAnimation(animation);
+                // Animation animation = AnimationUtils.loadAnimation(context, R.anim.activity_fade_in_animation);
+                // img.setAnimation(animation);
             }
 
             btn = (Button) inflater.inflate(R.layout.path_map_button, null);
@@ -189,8 +190,9 @@ public class PathMapManager extends LinearLayout {
                 //    btn.setBackgroundResource(R.drawable.selector_btn_pathmap);
             } else {
                 //    btn.setBackgroundResource(R.drawable.selector_btn_pathmap_current);
-                Animation animation = AnimationUtils.loadAnimation(context, R.anim.activity_fade_in_animation);
-                btn.setAnimation(animation);
+                //Animation animation = AnimationUtils.loadAnimation(context, R.anim.activity_fade_in_animation);
+                // btn.setAnimation(animation);
+                btn.setTextColor(context.getResources().getColor(R.color.chart_date_color));
             }
             btn.setText(name);
             btn.setTag(object.getSelf());
@@ -200,6 +202,13 @@ public class PathMapManager extends LinearLayout {
             isFirst = false;
 
         }
+
+
+        ImageView img1 = (ImageView) inflater.inflate(R.layout.pathmap_arrow_imageview, null);
+        mainLayout.addView(img1);
+
+        ImageView imgHome = (ImageView) inflater.inflate(R.layout.pathmap_homeimage, null);
+        mainLayout.addView(imgHome);//
 
 
         invalidate();
