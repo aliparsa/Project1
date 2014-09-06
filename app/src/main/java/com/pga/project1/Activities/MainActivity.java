@@ -96,6 +96,8 @@ public class MainActivity extends Activity
         actionBar.setCustomView(customActionBar);
 
         ImageView icon = (ImageView) customActionBar.findViewById(R.id.ac_icon);
+        icon.setVisibility(View.GONE);
+
         TextView title = (TextView) customActionBar.findViewById(R.id.ac_title);
 
         FontHelper.SetFont(this, Fonts.MAIN_FONT, title, Typeface.BOLD);
@@ -129,9 +131,16 @@ public class MainActivity extends Activity
                 break;
 
             case 1:
+                intent = new Intent(this, AboutAppActivity.class);
+                startActivity(intent);
+                break;
+
+            case 2:
                 intent = new Intent(this, AboutUsActivity.class);
                 startActivity(intent);
                 break;
+
+
         }
 
     }

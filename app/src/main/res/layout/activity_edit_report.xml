@@ -7,7 +7,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#ffffff"
+        android:background="@drawable/round_back_ground"
+        android:padding="5dp"
+        android:layout_margin="5dp"
         android:gravity="right"
         android:orientation="vertical">
 
@@ -33,18 +35,10 @@
             </LinearLayout>
         </HorizontalScrollView>
 
-        <RelativeLayout
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
-
-            <EditText
-                android:id="@+id/edittext_fragmentNewReportWork_reportText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:editable="false"
-                android:layout_alignParentTop="true"
-                android:layout_gravity="right"
-                android:layout_toLeftOf="@+id/textView2" />
+            android:layout_height="fill_parent">
 
             <TextView
                 android:id="@+id/textView2"
@@ -55,7 +49,16 @@
                 android:layout_alignParentTop="true"
                 android:layout_gravity="right"
                 android:text="@string/MatnGozaresh" />
-        </RelativeLayout>
+
+            <EditText
+                android:id="@+id/edittext_fragmentNewReportWork_reportText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:editable="false"
+                android:layout_alignParentTop="true"
+                android:layout_gravity="right"
+                android:layout_toLeftOf="@+id/textView2" />
+        </LinearLayout>
 
         <RelativeLayout
             android:id="@+id/relativeLayout"
@@ -80,6 +83,7 @@
                 android:layout_height="wrap_content"
                 android:editable="false"
                 android:layout_alignParentTop="true"
+                android:background="@drawable/login_button_background"
                 android:layout_toLeftOf="@+id/txt_index"
                 android:text="0%" />
 
@@ -105,6 +109,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
+                android:background="@drawable/login_button_background"
                 android:editable="false"
                 android:layout_toLeftOf="@+id/textView4"
                 android:text="1395/01/01 12:00" />

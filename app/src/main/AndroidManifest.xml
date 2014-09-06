@@ -75,9 +75,11 @@
         </activity>
         <activity
             android:name=".Activities.AboutUsActivity"
-            android:label="@string/title_activity_about_us"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:label="درباره ما"
+            android:screenOrientation="portrait" ></activity>
+        <activity
+            android:name=".Activities.AboutAppActivity"
+            android:label="درباره برنامه"></activity>
     </application>
 
 </manifest>

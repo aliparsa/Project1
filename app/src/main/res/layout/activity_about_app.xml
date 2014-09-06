@@ -1,0 +1,52 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.pga.project1.Activities.AboutAppActivity"
+    android:background="#fff2f8f8">
+
+
+    <ImageView
+        android:id="@+id/icon_about"
+        android:layout_marginRight="10dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_aboutus_dark"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="درباره برنامه"
+        android:id="@+id/textView"
+        android:textSize="25dp"
+        android:textColor="@color/NaviDrawerItem_subtitle"
+        android:singleLine="true"
+        android:layout_alignTop="@+id/icon_about"
+        android:layout_toLeftOf="@+id/icon_about"
+        android:layout_alignBottom="@+id/icon_about"
+        android:layout_marginRight="10dp"
+        android:gravity="center" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="20dp"
+        android:textSize="19dp"
+        android:textColor="@color/NaviDrawerItem_subtitle"
+        android:alpha="0.8"
+        android:singleLine="false"
+        android:text="اگر شما هم از آن دسته انسانهایی هستید که باید در آن واحد چندین برنامه را مدیریت کنید، اگر برای رسیدگی به امور کاری خود با کمبود زمان مواجه هستید و اگر... ، ما برای شما نرم افزار همراهی طراحی کرده ایم که با نصب آن بر روی موبایل خود می توانید در آن واحد چندین پروژه را مدیریت نمایید. برای هر پروژه خود چارت تعریف کنید، اختصاص وظایف داشته باشید و از پیشرفت پروژه خود گزارشگری کنید. با اطلاع آنلاین از چگونگی روند کارها مدیریتی در لحظه داشته باشید." />
+
+</RelativeLayout>
+
+

@@ -84,9 +84,14 @@ public class NavigationDrawerFragment extends Fragment {
         datalist.add(item);
 
         AdapterInputType item2 = new AdapterInputType(null, ListViewCustomAdapter.DRAWER_ITEM
-                ,"درباره ما", R.drawable.ic_aboutus);
+                , "درباره برنامه", R.drawable.ic_aboutus);
 
         datalist.add(item2);
+
+        AdapterInputType item3 = new AdapterInputType(null, ListViewCustomAdapter.DRAWER_ITEM
+                , "درباره ما", R.drawable.ic_aboutus);
+
+        datalist.add(item3);
 
         // Read in the flag indicating whether or not the user has demonstrated awareness of the
         // drawer. See PREF_USER_LEARNED_DRAWER for details.
@@ -168,9 +173,13 @@ public class NavigationDrawerFragment extends Fragment {
                     return;
                 }
 
-
-                if(nav == null) nav = (ImageView) getActionBar().getCustomView().findViewById(R.id.ac_nav);
-                nav.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.anim_drawer_close));
+                if (drawerIconClick) {
+                    drawerIconClick = false;
+                } else {
+                    if (nav == null)
+                        nav = (ImageView) getActionBar().getCustomView().findViewById(R.id.ac_nav);
+                    nav.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.anim_drawer_close));
+                }
 
                 //getActivity().invalidateOptionsMenu(); // calls onPrepareOptionsMenu()
             }
@@ -191,8 +200,13 @@ public class NavigationDrawerFragment extends Fragment {
                     sp.edit().putBoolean(PREF_USER_LEARNED_DRAWER, true).apply();
                 }
 
-                if(nav == null) nav = (ImageView) getActionBar().getCustomView().findViewById(R.id.ac_nav);
-                nav.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.anim_drawer_open));
+                if (drawerIconClick) {
+                    drawerIconClick = false;
+                } else {
+                    if (nav == null)
+                        nav = (ImageView) getActionBar().getCustomView().findViewById(R.id.ac_nav);
+                    nav.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.anim_drawer_open));
+                }
 
                 getActivity().invalidateOptionsMenu(); // calls onPrepareOptionsMenu()
             }
@@ -256,50 +270,7 @@ public class NavigationDrawerFragment extends Fragment {
         // Forward the new configuration the drawer toggle component.
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
-/*
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        // If the drawer is open, show the global app actions in the action bar. See also
-        // showGlobalContextActionBar, which controls the top-left area of the action bar.
-        if (mDrawerLayout != null && isDrawerOpen()) {
-            inflater.inflate(R.menu.main, menu);
-            showGlobalContextActionBar();
 
-            //  ((MainActivity) getActivity()).changeMenuIcons(true, false, "Navigation Menu");
-        }
-
-
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (mDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-
-        if (item.getItemId() == R.id.action_navi) {
-            //TODO Open And Close Navi bar here
-            Toast.makeText(getActivity(), "OPEN / CLOSE Navi", Toast.LENGTH_SHORT).show();
-
-            // Open and close navi bar
-            if (isDrawerOpen()) {
-                closeDrawer();
-            } else {
-                openDrawer();
-            }
-
-            return true;
-        }
-
-
-        return super.onOptionsItemSelected(item);
-    }*/
-
-    /**
-     * Per the navigation drawer design guidelines, updates the action bar to show the global app
-     * 'context', rather than just what's in the current screen.
-     */
     private void showGlobalContextActionBar() {
         ActionBar actionBar = getActionBar();
         //    actionBar.setDisplayShowTitleEnabled(true);
@@ -324,6 +295,7 @@ public class NavigationDrawerFragment extends Fragment {
 
     public void toggleNavigationDrawer() {
         if (isDrawerOpen()) {
+
             closeDrawer();
         } else {
             openDrawer();
@@ -332,17 +304,23 @@ public class NavigationDrawerFragment extends Fragment {
 
     ImageView nav;
 
+    boolean drawerIconClick = false;
     public void openDrawer(){
         mDrawerLayout.openDrawer(Gravity.END);
+
+        drawerIconClick = true;
+        if (nav == null) nav = (ImageView) getActionBar().getCustomView().findViewById(R.id.ac_nav);
+        nav.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.anim_drawer_open));
+
     }
 
     public void closeDrawer(){
         mDrawerLayout.closeDrawer(Gravity.END);
 
-     /*   if(nav == null) nav = (ImageView) getActionBar().getCustomView().findViewById(R.id.ac_nav);
-        Animation anim = AnimationUtils.loadAnimation(getActivity(), R.anim.anim_drawer_open);
-        anim.setDuration(0);
-        nav.startAnimation(anim);*/
+        drawerIconClick = true;
+        if (nav == null) nav = (ImageView) getActionBar().getCustomView().findViewById(R.id.ac_nav);
+        nav.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.anim_drawer_close));
+
     }
 
 
