@@ -78,12 +78,12 @@ public class NavigationDrawerFragment extends Fragment {
         datalist = new ArrayList<AdapterInputType>();
 
         AdapterInputType item = new AdapterInputType(null, ListViewCustomAdapter.DRAWER_ITEM
-        ,"مدیریت پروژه", R.drawable.category);
+        ,"مدیریت پروژه", R.drawable.ic_projects);
 
         datalist.add(item);
 
         AdapterInputType item2 = new AdapterInputType(null, ListViewCustomAdapter.DRAWER_ITEM
-                ,"درباره ما", R.drawable.category);
+                ,"درباره ما", R.drawable.ic_aboutus);
 
         datalist.add(item2);
 

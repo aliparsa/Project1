@@ -24,7 +24,7 @@
         android:layout_centerInParent="true"
         android:layout_width="wrap_content"
         android:layout_height="32dp"
-        android:src="@drawable/category"
+        android:src="@drawable/ic_projects"
         android:layout_toLeftOf="@+id/ac_back"
         android:layout_marginRight="@dimen/distance_actionbar_action1_action2"
 

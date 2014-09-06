@@ -75,7 +75,8 @@
         </activity>
         <activity
             android:name=".Activities.AboutUsActivity"
-            android:label="@string/title_activity_about_us" >
+            android:label="@string/title_activity_about_us"
+            android:screenOrientation="portrait" >
         </activity>
     </application>
 
