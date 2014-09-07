@@ -1,21 +1,18 @@
 package com.pga.project1.Activities;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -32,7 +29,7 @@ import com.pga.project1.Viewes.PathMapManager;
 import com.pga.project1.fragment.FragmentTaskInfo;
 import com.pga.project1.fragment.FragmentTaskReport;
 
-public class TaskPageActivity extends FragmentActivity {
+public class TaskPageActivity extends ActionBarActivity {
 
 
     //{Constants-----------------------------------------------------
@@ -56,8 +53,8 @@ public class TaskPageActivity extends FragmentActivity {
     FragmentTaskReport reportFrag;
     Fragment currentFrag;
 
-    private Button removeTaskButton;
-    private Button addReportButton;
+    private ImageView removeTaskButton;
+    private ImageView addReportButton;
 
     ViewPager Tab;
     TaskPageTabPagerAdapter TabAdapter;
@@ -91,24 +88,19 @@ public class TaskPageActivity extends FragmentActivity {
                 new ViewPager.SimpleOnPageChangeListener() {
                     @Override
                     public void onPageSelected(int position) {
-                        actionBar = getActionBar();
+                        actionBar = getSupportActionBar();
                         actionBar.setSelectedNavigationItem(position);
                     }
                 }
         );
         Tab.setAdapter(TabAdapter);
-        actionBar = getActionBar();
+        actionBar = getSupportActionBar();
         //Enable Tabs on Action Bar
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         ActionBar.TabListener tabListener = new ActionBar.TabListener() {
-            @Override
-            public void onTabReselected(android.app.ActionBar.Tab tab,
-                                        FragmentTransaction ft) {
-                // TODO Auto-generated method stub
-            }
 
             @Override
-            public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
+            public void onTabSelected(ActionBar.Tab tab, android.support.v4.app.FragmentTransaction fragmentTransaction) {
                 Tab.setCurrentItem(tab.getPosition());
 
                 switch (tab.getPosition()) {
@@ -123,9 +115,13 @@ public class TaskPageActivity extends FragmentActivity {
             }
 
             @Override
-            public void onTabUnselected(android.app.ActionBar.Tab tab,
-                                        FragmentTransaction ft) {
-                // TODO Auto-generated method stub
+            public void onTabUnselected(ActionBar.Tab tab, android.support.v4.app.FragmentTransaction fragmentTransaction) {
+
+            }
+
+            @Override
+            public void onTabReselected(ActionBar.Tab tab, android.support.v4.app.FragmentTransaction fragmentTransaction) {
+
             }
         };
 
@@ -134,17 +130,17 @@ public class TaskPageActivity extends FragmentActivity {
         // actionBar.addTab(actionBar.newTab().setText("گزارش عملکرد").setTabListener(tabListener),false);
         // actionBar.addTab(actionBar.newTab().setText("اطلاعات").setTabListener(tabListener),false);
         //
-        ActionBar.Tab tab_taskInfo = getActionBar().newTab();
-        ActionBar.Tab tab_taskReport = getActionBar().newTab();
+        ActionBar.Tab tab_taskInfo = getSupportActionBar().newTab();
+        ActionBar.Tab tab_taskReport = getSupportActionBar().newTab();
 
         // Set Tab Titles
         tab_taskInfo.setText("اطلاعات").setTabListener(tabListener);
         tab_taskReport.setText("گزارش عملکرد").setTabListener(tabListener);
 
-        getActionBar().addTab(tab_taskReport);
-        getActionBar().addTab(tab_taskInfo);
+        getSupportActionBar().addTab(tab_taskReport);
+        getSupportActionBar().addTab(tab_taskInfo);
 
-        this.getActionBar().selectTab(tab_taskInfo);
+        this.getSupportActionBar().selectTab(tab_taskInfo);
 
 
     }
@@ -152,17 +148,22 @@ public class TaskPageActivity extends FragmentActivity {
     private void prepareActionBar() {
 
         View customActionBar = getLayoutInflater().inflate(R.layout.actionbar_back, null);
-        final ActionBar actionBar = getActionBar();
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setNavigationMode(android.support.v7.app.ActionBar.NAVIGATION_MODE_TABS);
         actionBar.setCustomView(customActionBar);
 
         actionBar.setLogo(null); // forgot why this one but it helped
+        actionBar.setIcon(null);
 
         View homeIcon = findViewById(android.R.id.home);
-        ((View) homeIcon.getParent()).setVisibility(View.GONE);
-        ((View) homeIcon).setVisibility(View.GONE);
+        if(homeIcon != null && homeIcon.getParent() != null) {
+            ((View) homeIcon.getParent()).setVisibility(View.GONE);
+            ((View) homeIcon).setVisibility(View.GONE);
+        }
         actionBar.setDisplayShowTitleEnabled(false);
         actionBar.setDisplayShowHomeEnabled(true);
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setDisplayUseLogoEnabled(false);
 
 
         TextView title = (TextView) customActionBar.findViewById(R.id.ac_title);
@@ -177,12 +178,11 @@ public class TaskPageActivity extends FragmentActivity {
             }
         });
 
-        removeTaskButton = (Button) customActionBar.findViewById(R.id.ac_action1);
-        addReportButton = (Button) customActionBar.findViewById(R.id.ac_action2);
+        removeTaskButton = (ImageView) customActionBar.findViewById(R.id.ac_action1);
+        addReportButton = (ImageView) customActionBar.findViewById(R.id.ac_action2);
 
         //removeTaskButton.setText("حذف وظیفه");
-        removeTaskButton.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, R.drawable.ic_delete);
-        removeTaskButton.setTextColor(getResources().getColor(R.color.actionbar_button_text));
+        removeTaskButton.setImageResource(R.drawable.ic_delete);
 
         removeTaskButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -192,8 +192,7 @@ public class TaskPageActivity extends FragmentActivity {
         });
 
         //addReportButton.setText("عملکرد جدید");
-        addReportButton.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, R.drawable.ic_add_report);
-        addReportButton.setTextColor(getResources().getColor(R.color.actionbar_button_text));
+        addReportButton.setImageResource(R.drawable.ic_add_report);
 
         showHideMenuItems(false, false);
 
@@ -343,17 +342,17 @@ public class TaskPageActivity extends FragmentActivity {
         this.chart = chart;
     }
 
-    private void setTabs() {
+   /* private void setTabs() {
 
-        getActionBar().removeAllTabs();
+        getSupportActionBar().removeAllTabs();
 
         // Force Tab Support
-        if (getActionBar().getNavigationMode() == ActionBar.NAVIGATION_MODE_STANDARD)
-            getActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+        if (getSupportActionBar().getNavigationMode() == ActionBar.NAVIGATION_MODE_STANDARD)
+            getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
         // Create Tabs
-        ActionBar.Tab tab_taskInfo = getActionBar().newTab();
-        ActionBar.Tab tab_taskReport = getActionBar().newTab();
+        ActionBar.Tab tab_taskInfo = getSupportActionBar().newTab();
+        ActionBar.Tab tab_taskReport = getSupportActionBar().newTab();
 
         // Set Tab Titles
         tab_taskInfo.setText("اطلاعات");
@@ -364,7 +363,7 @@ public class TaskPageActivity extends FragmentActivity {
             @Override
             public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
 
-               /* if (infoFrag == null) {
+               *//* if (infoFrag == null) {
 
                     currentFrag = infoFrag = new FragmentTaskInfo();
                     infoFrag.setChart(chart);
@@ -389,7 +388,7 @@ public class TaskPageActivity extends FragmentActivity {
                 if (addNewReport != null) addNewReport.setVisible(false);
 
                 MenuItem RemoveTask = menu.findItem(R.id.action_removeTask);
-                if (RemoveTask != null) RemoveTask.setVisible(true);*/
+                if (RemoveTask != null) RemoveTask.setVisible(true);*//*
             }
 
             @Override
@@ -405,7 +404,7 @@ public class TaskPageActivity extends FragmentActivity {
             @Override
             public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
 
-               /* if (reportFrag == null) {
+               *//* if (reportFrag == null) {
 
                     currentFrag = reportFrag = new FragmentTaskReport();
                     reportFrag.setChart(chart);
@@ -429,7 +428,7 @@ public class TaskPageActivity extends FragmentActivity {
                 if (addNewReport != null) addNewReport.setVisible(true);
 
                 MenuItem RemoveTask = menu.findItem(R.id.action_removeTask);
-                if (RemoveTask != null) RemoveTask.setVisible(false);*/
+                if (RemoveTask != null) RemoveTask.setVisible(false);*//*
             }
 
             @Override
@@ -442,16 +441,16 @@ public class TaskPageActivity extends FragmentActivity {
         });
         // Cleanup And set Tabs
 
-        getActionBar().addTab(tab_taskReport, false);
-        getActionBar().addTab(tab_taskInfo, false);
+        getSupportActionBar().addTab(tab_taskReport, false);
+        getSupportActionBar().addTab(tab_taskInfo, false);
 
         if (this.pageType == PageType.Info) {
-            this.getActionBar().selectTab(tab_taskInfo);
+            this.getSupportActionBar().selectTab(tab_taskInfo);
         } else if (this.pageType == PageType.Reports) {
-            this.getActionBar().selectTab(tab_taskReport);
+            this.getSupportActionBar().selectTab(tab_taskReport);
         }
 
-    }
+    }*/
     //-----------------------------------------------------Functions}
 
     //{static Functions-----------------------------------------------------

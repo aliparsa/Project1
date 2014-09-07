@@ -4,6 +4,12 @@
     android:layout_height="match_parent"
     tools:context="com.pga.project1.Activities.EditReportActivity">
 
+    <com.pga.project1.Viewes.PathMapManager
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </com.pga.project1.Viewes.PathMapManager>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -14,11 +20,7 @@
         android:orientation="vertical">
 
 
-        <com.pga.project1.Viewes.PathMapManager
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
 
-        </com.pga.project1.Viewes.PathMapManager>
 
         <HorizontalScrollView
             android:id="@+id/horizontalScrollView"

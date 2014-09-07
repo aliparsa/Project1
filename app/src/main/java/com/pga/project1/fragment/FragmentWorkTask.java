@@ -17,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -90,7 +91,7 @@ public class FragmentWorkTask extends Fragment {
 
     private void prepareActionbarButton() {
         View actionbar = getActivity().getActionBar().getCustomView();
-        Button addPersonnel = (Button) actionbar.findViewById(R.id.ac_action1);
+        ImageView addPersonnel = (ImageView) actionbar.findViewById(R.id.ac_action1);
         addPersonnel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

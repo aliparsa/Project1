@@ -10,7 +10,7 @@ import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -34,7 +34,7 @@ public class FragmentTaskReport extends Fragment {
     private Chart chart;
     private Menu menu;
     private ListView listView;
-    private Button addReportButton;
+    private ImageView addReportButton;
 
 
     //{ButtonConstants-----------------------------------------------------
@@ -147,7 +147,7 @@ public class FragmentTaskReport extends Fragment {
 
         View customActionBar = getActivity().getActionBar().getCustomView();
 
-        addReportButton = (Button) customActionBar.findViewById(R.id.ac_action2);
+        addReportButton = (ImageView) customActionBar.findViewById(R.id.ac_action2);
         addReportButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

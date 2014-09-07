@@ -65,8 +65,8 @@ public class NewReportActivity extends Activity {
     Context context;
     Chart chart;
     private Uri imageUri;
-    private Button addPhotoButton;
-    private Button saveButton;
+    private ImageView addPhotoButton;
+    private ImageView saveButton;
 
 
     //--------------------------------------------------------------------------------
@@ -178,11 +178,11 @@ public class NewReportActivity extends Activity {
             }
         });
 
-        addPhotoButton = (Button) customActionBar.findViewById(R.id.ac_action2);
-        saveButton = (Button) customActionBar.findViewById(R.id.ac_action1);
+        addPhotoButton = (ImageView) customActionBar.findViewById(R.id.ac_action2);
+        saveButton = (ImageView) customActionBar.findViewById(R.id.ac_action1);
 
         //addPhotoButton.setText("تصویر");
-        addPhotoButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_camera, 0, 0, 0);
+        addPhotoButton.setImageResource(R.drawable.ic_camera);
         //addPhotoButton.setTextColor(getResources().getColor(R.color.actionbar_button_text));
         addPhotoButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -197,7 +197,7 @@ public class NewReportActivity extends Activity {
         });
 
         //saveButton.setText("ذخیره");
-        saveButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_save, 0, 0, 0);
+        saveButton.setImageResource(R.drawable.ic_save);
         // saveButton.setTextColor(getResources().getColor(R.color.actionbar_button_text));
         final Context context = this;
         saveButton.setOnClickListener(new View.OnClickListener() {

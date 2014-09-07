@@ -10,45 +10,42 @@
         android:layout_width="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:layout_alignBottom="@+id/linearLayout"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true">
+        android:background="@drawable/hit"
+        android:clickable="true"
+        android:layout_alignParentRight="true">
 
         <TextView
             android:layout_centerInParent="true"
             android:id="@+id/ac_title"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="48dp"
             android:text="@string/app_name"
             android:layout_toLeftOf="@+id/ac_icon"
             android:gravity="center_vertical"
 
             android:textColor="@color/actionbar_title_color"
-            android:textSize="@dimen/actionbar_title_size"
-            android:layout_marginRight="@dimen/distance_actionbar_action1_action2" />
+            android:textSize="@dimen/actionbar_title_size" />
 
         <ImageView
             android:id="@+id/ac_icon"
             android:layout_centerInParent="true"
-            android:layout_width="wrap_content"
-            android:layout_height="32dp"
-            android:src="@drawable/ic_projects"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_menu_logo_dark"
             android:layout_toLeftOf="@+id/ac_back"
-            android:layout_marginRight="@dimen/distance_actionbar_action1_action2"
-
+            android:scaleType="center"
 
             />
 
         <ImageView
             android:id="@+id/ac_back"
-            android:layout_width="wrap_content"
-            android:layout_height="32dp"
+            android:layout_width="25dp"
+            android:layout_height="48dp"
             android:layout_centerInParent="true"
             android:src="@drawable/ic_back"
             android:layout_alignParentRight="true"
-            android:alpha="0.8"
-            android:background="@drawable/hit"
-
+            android:alpha="1"
+            android:scaleType="center"
 
             />
 
@@ -56,30 +53,31 @@
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="32dp"
+        android:layout_height="48dp"
         android:orientation="horizontal"
-        android:layout_centerVertical="true"
+        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:gravity="center_vertical"
 
-        <Button
+        >
+
+        <ImageView
             android:id="@+id/ac_action1"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_marginRight="@dimen/distance_actionbar_action1_action2"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:background="@drawable/hit"
             android:textColor="@color/actionbar_button_text"
+            android:scaleType="center"
+            android:alpha="1" />
 
-            android:alpha="0.8" />
-
-        <Button
+        <ImageView
             android:id="@+id/ac_action2"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:scaleType="center"
             android:textColor="@color/actionbar_button_text"
             android:background="@drawable/hit"
-            android:alpha="0.8" />
+            android:alpha="1" />
 
     </LinearLayout>
 

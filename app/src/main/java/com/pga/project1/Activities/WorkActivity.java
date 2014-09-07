@@ -1,19 +1,15 @@
 package com.pga.project1.Activities;
 
-import android.support.v7.app.ActionBar;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -25,7 +21,6 @@ import com.pga.project1.Viewes.PathMapManager;
 import com.pga.project1.fragment.FragmentWorkInfo;
 import com.pga.project1.fragment.FragmentWorkReport;
 import com.pga.project1.fragment.FragmentWorkTask;
-import com.pga.project1.test.Android;
 
 public class WorkActivity extends ActionBarActivity {
 
@@ -39,8 +34,8 @@ public class WorkActivity extends ActionBarActivity {
     private boolean isTabsSet = false;
 
     PageType pageType;
-    private Button addPersonnelButton;
-    private Button addReportButton;
+    private ImageView addPersonnelButton;
+    private ImageView addReportButton;
 
     ///
     ViewPager Tab;
@@ -173,12 +168,19 @@ public class WorkActivity extends ActionBarActivity {
         actionBar.setCustomView(customActionBar);
 
         actionBar.setLogo(null); // forgot why this one but it helped
+        actionBar.setIcon(null);
 
         View homeIcon = findViewById(android.R.id.home);
-        ((View) homeIcon.getParent()).setVisibility(View.GONE);
-        ((View) homeIcon).setVisibility(View.GONE);
+
+        if(homeIcon != null && homeIcon.getParent() != null) {
+            ((View) homeIcon.getParent()).setVisibility(View.GONE);
+            ((View) homeIcon).setVisibility(View.GONE);
+        }
+
         actionBar.setDisplayShowTitleEnabled(false);
-        actionBar.setDisplayShowHomeEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(false);
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setDisplayUseLogoEnabled(false);
 
         TextView title = (TextView) customActionBar.findViewById(R.id.ac_title);
         FontHelper.SetFont(this, Fonts.MAIN_FONT, title, Typeface.BOLD);
@@ -192,16 +194,14 @@ public class WorkActivity extends ActionBarActivity {
             }
         });
 
-        addPersonnelButton = (Button) customActionBar.findViewById(R.id.ac_action1);
-        addReportButton = (Button) customActionBar.findViewById(R.id.ac_action2);
+        addPersonnelButton = (ImageView) customActionBar.findViewById(R.id.ac_action1);
+        addReportButton = (ImageView) customActionBar.findViewById(R.id.ac_action2);
 
         //addPersonnelButton.setText("پرسنل جدید");
-        addPersonnelButton.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, R.drawable.ic_add_personnel);
-        addPersonnelButton.setTextColor(getResources().getColor(R.color.icon_color));
+        addPersonnelButton.setImageResource(R.drawable.ic_add_personnel);
 
         //addReportButton.setText("عملکرد جدید");
-        addReportButton.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, R.drawable.ic_add_report);
-        addReportButton.setTextColor(getResources().getColor(R.color.icon_color));
+        addReportButton.setImageResource(R.drawable.ic_add_report);
 
 
         showHideMenuItems(false, false);
