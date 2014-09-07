@@ -37,6 +37,8 @@
         android:layout_alignParentEnd="false"
         android:layout_alignParentRight="true"
         android:dividerHeight="0dp"
+        android:scrollingCache="false"
+        android:cacheColorHint="@android:color/transparent"
         android:divider="@null"
         android:layout_alignParentBottom="true" />
 </LinearLayout>

@@ -7,6 +7,7 @@ import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -152,10 +153,17 @@ public class TaskPageActivity extends FragmentActivity {
 
         View customActionBar = getLayoutInflater().inflate(R.layout.actionbar_back, null);
         final ActionBar actionBar = getActionBar();
-        actionBar.setDisplayShowHomeEnabled(false);
-        actionBar.setDisplayShowTitleEnabled(false);
-        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         actionBar.setCustomView(customActionBar);
+
+        actionBar.setLogo(null); // forgot why this one but it helped
+
+        View homeIcon = findViewById(android.R.id.home);
+        ((View) homeIcon.getParent()).setVisibility(View.GONE);
+        ((View) homeIcon).setVisibility(View.GONE);
+        actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setDisplayShowHomeEnabled(true);
+
 
         TextView title = (TextView) customActionBar.findViewById(R.id.ac_title);
         FontHelper.SetFont(this, Fonts.MAIN_FONT, title, Typeface.BOLD);

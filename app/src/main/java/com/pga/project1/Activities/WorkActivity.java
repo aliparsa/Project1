@@ -1,13 +1,15 @@
 package com.pga.project1.Activities;
 
-import android.app.ActionBar;
+import android.support.v7.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,8 +25,9 @@ import com.pga.project1.Viewes.PathMapManager;
 import com.pga.project1.fragment.FragmentWorkInfo;
 import com.pga.project1.fragment.FragmentWorkReport;
 import com.pga.project1.fragment.FragmentWorkTask;
+import com.pga.project1.test.Android;
 
-public class WorkActivity extends FragmentActivity {
+public class WorkActivity extends ActionBarActivity {
 
     private Chart chart;
     private Menu menu;
@@ -48,14 +51,14 @@ public class WorkActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (getActionBar().getNavigationMode() == ActionBar.NAVIGATION_MODE_STANDARD)
-            getActionBar().setNavigationMode(
+        if (getSupportActionBar().getNavigationMode() == ActionBar.NAVIGATION_MODE_STANDARD)
+            getSupportActionBar().setNavigationMode(
                     ActionBar.NAVIGATION_MODE_TABS);
 
         this.chart = (Chart) getIntent().getSerializableExtra("chart");
         PathMapManager.push(chart);
 
-        getActionBar().setTitle(chart.getName());
+        getSupportActionBar().setTitle(chart.getName());
 
         pageType = PageType.Info;
 
@@ -74,31 +77,27 @@ public class WorkActivity extends FragmentActivity {
                 new ViewPager.SimpleOnPageChangeListener() {
                     @Override
                     public void onPageSelected(int position) {
-                        actionBar = getActionBar();
+                        actionBar = getSupportActionBar();
                         actionBar.setSelectedNavigationItem(position);
                     }
                 }
         );
         Tab.setAdapter(TabAdapter);
-        actionBar = getActionBar();
+        actionBar = getSupportActionBar();
         //Enable Tabs on Action Bar
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
 
         // Create Tabs
-        final ActionBar.Tab tab_workInfo = getActionBar().newTab();
-        ActionBar.Tab tab_workTask = getActionBar().newTab();
-        ActionBar.Tab tab_workReport = getActionBar().newTab();
+        final ActionBar.Tab tab_workInfo = getSupportActionBar().newTab();
+        ActionBar.Tab tab_workTask = getSupportActionBar().newTab();
+        ActionBar.Tab tab_workReport = getSupportActionBar().newTab();
 
         ActionBar.TabListener tabListener = new ActionBar.TabListener() {
-            @Override
-            public void onTabReselected(android.app.ActionBar.Tab tab,
-                                        FragmentTransaction ft) {
-                // TODO Auto-generated method stub
-            }
+
 
             @Override
-            public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
+            public void onTabSelected(ActionBar.Tab tab, android.support.v4.app.FragmentTransaction fragmentTransaction) {
                 Tab.setCurrentItem(tab.getPosition());
 
                 switch (tab.getPosition()) {
@@ -117,9 +116,13 @@ public class WorkActivity extends FragmentActivity {
             }
 
             @Override
-            public void onTabUnselected(android.app.ActionBar.Tab tab,
-                                        FragmentTransaction ft) {
-                // TODO Auto-generated method stub
+            public void onTabUnselected(ActionBar.Tab tab, android.support.v4.app.FragmentTransaction fragmentTransaction) {
+
+            }
+
+            @Override
+            public void onTabReselected(ActionBar.Tab tab, android.support.v4.app.FragmentTransaction fragmentTransaction) {
+
             }
         };
 
@@ -129,25 +132,25 @@ public class WorkActivity extends FragmentActivity {
         tab_workReport.setText("گزارش عملکرد").setTabListener(tabListener);
 
 
-        getActionBar().addTab(tab_workReport, false);
-        getActionBar().addTab(tab_workTask, false);
-        getActionBar().addTab(tab_workInfo, false);
+        getSupportActionBar().addTab(tab_workReport, false);
+        getSupportActionBar().addTab(tab_workTask, false);
+        getSupportActionBar().addTab(tab_workInfo, false);
 
-        this.getActionBar().selectTab(tab_workInfo);
+        this.getSupportActionBar().selectTab(tab_workInfo);
 
-        /*ActionBar.Tab tab_taskInfo = getActionBar().newTab();
-        ActionBar.Tab tab_taskInfo = getActionBar().newTab();
-        ActionBar.Tab tab_taskReport = getActionBar().newTab();
+        /*ActionBar.Tab tab_taskInfo = getSupportActionBar().newTab();
+        ActionBar.Tab tab_taskInfo = getSupportActionBar().newTab();
+        ActionBar.Tab tab_taskReport = getSupportActionBar().newTab();
 
         // Set Tab Titles
         tab_taskInfo.setText("اطلاعات").setTabListener(tabListener);
         tab_taskInfo.setText("اطلاعات").setTabListener(tabListener);
         tab_taskReport.setText("گزارش عملکرد").setTabListener(tabListener);
 
-        getActionBar().addTab(tab_taskReport);
-        getActionBar().addTab(tab_taskInfo);
+        getSupportActionBar().addTab(tab_taskReport);
+        getSupportActionBar().addTab(tab_taskInfo);
 
-        this.getActionBar().selectTab(tab_taskInfo);*/
+        this.getSupportActionBar().selectTab(tab_taskInfo);*/
 
 
     }
@@ -164,11 +167,18 @@ public class WorkActivity extends FragmentActivity {
     private void prepareActionBar() {
 
         View customActionBar = getLayoutInflater().inflate(R.layout.actionbar_back, null);
-        final ActionBar actionBar = getActionBar();
-        actionBar.setDisplayShowHomeEnabled(false);
-        actionBar.setDisplayShowTitleEnabled(false);
-        actionBar.setDisplayShowCustomEnabled(true);
+        final ActionBar actionBar = getSupportActionBar();
+
+        actionBar.setNavigationMode(android.support.v7.app.ActionBar.NAVIGATION_MODE_TABS);
         actionBar.setCustomView(customActionBar);
+
+        actionBar.setLogo(null); // forgot why this one but it helped
+
+        View homeIcon = findViewById(android.R.id.home);
+        ((View) homeIcon.getParent()).setVisibility(View.GONE);
+        ((View) homeIcon).setVisibility(View.GONE);
+        actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setDisplayShowHomeEnabled(true);
 
         TextView title = (TextView) customActionBar.findViewById(R.id.ac_title);
         FontHelper.SetFont(this, Fonts.MAIN_FONT, title, Typeface.BOLD);
@@ -257,23 +267,24 @@ public class WorkActivity extends FragmentActivity {
         }
     }*/
 
+/*
     private void setTabs(String caller) {
 
         isTabsSet = true;
 
         // Cleanup And set Tabs
-        getActionBar().removeAllTabs();
+        getSupportActionBar().removeAllTabs();
 
 
         // Force Tab Support
-        if (getActionBar().getNavigationMode() == ActionBar.NAVIGATION_MODE_STANDARD)
-            getActionBar().setNavigationMode(
+        if (getSupportActionBar().getNavigationMode() == ActionBar.NAVIGATION_MODE_STANDARD)
+            getSupportActionBar().setNavigationMode(
                     ActionBar.NAVIGATION_MODE_TABS);
 
         // Create Tabs
-        final ActionBar.Tab tab_workInfo = getActionBar().newTab();
-        ActionBar.Tab tab_workTask = getActionBar().newTab();
-        ActionBar.Tab tab_workReport = getActionBar().newTab();
+        final ActionBar.Tab tab_workInfo = getSupportActionBar().newTab();
+        ActionBar.Tab tab_workTask = getSupportActionBar().newTab();
+        ActionBar.Tab tab_workReport = getSupportActionBar().newTab();
 
         // Set Tab Titles
         tab_workInfo.setText("اطلاعات کار");
@@ -285,7 +296,8 @@ public class WorkActivity extends FragmentActivity {
             @Override
             public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
 
-           /*     if (infoFrag == null) {
+           */
+/*     if (infoFrag == null) {
 
                     currentFrag = infoFrag = new FragmentWorkInfo();
                     infoFrag.setChart(chart);
@@ -296,20 +308,27 @@ public class WorkActivity extends FragmentActivity {
                 } else if (currentFrag != infoFrag) {
                     fragmentTransaction
                             .attach(infoFrag);
-                            *//*.remove(currentFrag)
+                            *//*
+*/
+/*.remove(currentFrag)
                             .add(R.id.tab_host, infoFrag)
                             .commit();*//*
+*/
+/*
 
                     currentFrag = infoFrag;
                 }
 
-                pageType = PageType.Info;*/
+                pageType = PageType.Info;*//*
+
             }
 
             @Override
             public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
 
-              /*  fragmentTransaction.detach(currentFrag);*/
+              */
+/*  fragmentTransaction.detach(currentFrag);*//*
+
             }
 
             @Override
@@ -321,7 +340,8 @@ public class WorkActivity extends FragmentActivity {
         tab_workTask.setTabListener(new ActionBar.TabListener() {
             @Override
             public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-               /* if (taskFrag == null) {
+               */
+/* if (taskFrag == null) {
 
                     currentFrag = taskFrag = new FragmentWorkTask();
                     taskFrag.setChart(chart);
@@ -332,15 +352,20 @@ public class WorkActivity extends FragmentActivity {
                 } else if (currentFrag != taskFrag) {
                     fragmentTransaction
                             .attach(taskFrag);
-                            *//*.remove(currentFrag)
+                            *//*
+*/
+/*.remove(currentFrag)
                             .add(R.id.tab_host, taskFrag)
                             .commit();*//*
+*/
+/*
 
                     currentFrag = taskFrag;
                 }
 
                 pageType = PageType.Task;
-                showHideMenuItems(true, false);*/
+                showHideMenuItems(true, false);*//*
+
             }
 
             @Override
@@ -356,7 +381,8 @@ public class WorkActivity extends FragmentActivity {
         tab_workReport.setTabListener(new ActionBar.TabListener() {
             @Override
             public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-              /*  if (reportFrag == null) {
+              */
+/*  if (reportFrag == null) {
 
                     currentFrag = reportFrag = new FragmentWorkReport();
                     reportFrag.setChart(chart);
@@ -367,15 +393,20 @@ public class WorkActivity extends FragmentActivity {
                 } else if (currentFrag != reportFrag) {
                     fragmentTransaction
                             .attach(reportFrag);
-                            *//*.remove(currentFrag)
+                            *//*
+*/
+/*.remove(currentFrag)
                             .add(R.id.tab_host, reportFrag)
                             .commit();*//*
+*/
+/*
 
                     currentFrag = reportFrag;
                 }
 
                 pageType = PageType.Report;
-                showHideMenuItems(false, true);*/
+                showHideMenuItems(false, true);*//*
+
             }
 
             @Override
@@ -389,28 +420,29 @@ public class WorkActivity extends FragmentActivity {
             }
         });
 
-        getActionBar().addTab(tab_workReport, false);
-        getActionBar().addTab(tab_workTask, false);
-        getActionBar().addTab(tab_workInfo, false);
+        getSupportActionBar().addTab(tab_workReport, false);
+        getSupportActionBar().addTab(tab_workTask, false);
+        getSupportActionBar().addTab(tab_workInfo, false);
 
         switch (pageType) {
 
             case Info: {
-                getActionBar().selectTab(tab_workInfo);
+                getSupportActionBar().selectTab(tab_workInfo);
                 break;
             }
             case Task: {
-                getActionBar().selectTab(tab_workTask);
+                getSupportActionBar().selectTab(tab_workTask);
                 break;
             }
             case Report: {
-                getActionBar().selectTab(tab_workReport);
+                getSupportActionBar().selectTab(tab_workReport);
                 break;
             }
 
         }
 
     }
+*/
 
     @Override
     public void onBackPressed() {

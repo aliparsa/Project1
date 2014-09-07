@@ -12,6 +12,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -62,7 +63,6 @@ public class MainActivity extends Activity
                 (DrawerLayout) findViewById(R.id.drawer_layout));
 
 
-
         //  this.getFragmentManager().addOnBackStackChangedListener(new BackStackChanged(this));
 
 
@@ -88,8 +88,13 @@ public class MainActivity extends Activity
 
     private void prepareActionbar() {
 
-        View customActionBar = getLayoutInflater().inflate(R.layout.actionbar_nav, null);
+        final ViewGroup customActionBar = (ViewGroup) getLayoutInflater().inflate(
+                R.layout.actionbar_nav,
+                null);
+
+//        View customActionBar = getLayoutInflater().inflate(R.layout.actionbar_nav, null);
         final ActionBar actionBar = getActionBar();
+        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         actionBar.setDisplayShowHomeEnabled(false);
         actionBar.setDisplayShowTitleEnabled(false);
         actionBar.setDisplayShowCustomEnabled(true);
@@ -122,7 +127,7 @@ public class MainActivity extends Activity
 
         Intent intent;
 
-        switch (position){
+        switch (position) {
 
             case 0:
 
@@ -144,7 +149,6 @@ public class MainActivity extends Activity
         }
 
     }
-
 
 
     //----------------------------------------------------------------------------------------

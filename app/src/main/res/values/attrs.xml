@@ -19,7 +19,7 @@
     <declare-styleable name="Graphview">
         <attr name="percentValue" format="float" />
         <attr name="customWidth" format="integer" />
-        <attr name="background" format="color" />
+        <attr name="background_graph" format="color" />
         <attr name="color1" format="color" />
         <attr name="color2" format="color" />
         <attr name="color3" format="color" />
