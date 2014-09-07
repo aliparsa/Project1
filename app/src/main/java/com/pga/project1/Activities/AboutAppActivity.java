@@ -4,10 +4,9 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.pga.project1.R;
@@ -39,7 +38,8 @@ public class AboutAppActivity extends Activity {
         TextView title = (TextView) customActionBar.findViewById(R.id.ac_title);
         FontHelper.SetFont(this, Fonts.MAIN_FONT, title, Typeface.BOLD);
 
-        ImageView back = (ImageView) customActionBar.findViewById(R.id.ac_back);
+        //ImageView back = (ImageView) customActionBar.findViewById(R.id.ac_back);
+        LinearLayout back = (LinearLayout) customActionBar.findViewById(R.id.ac_back_layout);
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override

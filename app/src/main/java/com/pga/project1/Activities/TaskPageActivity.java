@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -78,8 +79,6 @@ public class TaskPageActivity extends ActionBarActivity {
 
         setContentView(R.layout.activity_activity_task_page);
 
-        this.pageType = PageType.Info;
-
         prepareActionBar();
 
         TabAdapter = new TaskPageTabPagerAdapter(getSupportFragmentManager(), chart);
@@ -95,8 +94,7 @@ public class TaskPageActivity extends ActionBarActivity {
         );
         Tab.setAdapter(TabAdapter);
         actionBar = getSupportActionBar();
-        //Enable Tabs on Action Bar
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+
         ActionBar.TabListener tabListener = new ActionBar.TabListener() {
 
             @Override
@@ -155,21 +153,27 @@ public class TaskPageActivity extends ActionBarActivity {
         actionBar.setLogo(null); // forgot why this one but it helped
         actionBar.setIcon(null);
 
-        View homeIcon = findViewById(android.R.id.home);
-        if(homeIcon != null && homeIcon.getParent() != null) {
-            ((View) homeIcon.getParent()).setVisibility(View.GONE);
-            ((View) homeIcon).setVisibility(View.GONE);
-        }
         actionBar.setDisplayShowTitleEnabled(false);
         actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setDisplayShowCustomEnabled(true);
         actionBar.setDisplayUseLogoEnabled(false);
+        actionBar.setDisplayHomeAsUpEnabled(false);
+        actionBar.setHomeButtonEnabled(false);
+
+        View homeIcon = findViewById(android.R.id.home);
+
+        if(homeIcon != null ) {
+            homeIcon.setVisibility(View.GONE);
+        }if(homeIcon.getParent() != null){
+            ((View) homeIcon.getParent()).setVisibility(View.GONE);
+        }
 
 
         TextView title = (TextView) customActionBar.findViewById(R.id.ac_title);
         FontHelper.SetFont(this, Fonts.MAIN_FONT, title, Typeface.BOLD);
 
-        ImageView back = (ImageView) customActionBar.findViewById(R.id.ac_back);
+        //ImageView back = (ImageView) customActionBar.findViewById(R.id.ac_back);
+        LinearLayout back = (LinearLayout) customActionBar.findViewById(R.id.ac_back_layout);
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override

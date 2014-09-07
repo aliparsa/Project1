@@ -2,7 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.pga.project1.Activities.EditReportActivity">
+    tools:context="com.pga.project1.Activities.EditReportActivity"
+    android:orientation="vertical">
 
     <com.pga.project1.Viewes.PathMapManager
         android:layout_width="match_parent"

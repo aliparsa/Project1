@@ -6,6 +6,7 @@
     android:layout_height="@dimen/actionbar_height">
 
     <LinearLayout
+        android:id="@+id/ac_back_layout"
         android:layout_height="48dp"
         android:layout_width="wrap_content"
         android:orientation="horizontal"

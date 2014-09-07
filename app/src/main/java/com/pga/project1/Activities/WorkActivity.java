@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.pga.project1.DataModel.Chart;
@@ -46,18 +47,10 @@ public class WorkActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (getSupportActionBar().getNavigationMode() == ActionBar.NAVIGATION_MODE_STANDARD)
-            getSupportActionBar().setNavigationMode(
-                    ActionBar.NAVIGATION_MODE_TABS);
-
         this.chart = (Chart) getIntent().getSerializableExtra("chart");
         PathMapManager.push(chart);
 
         getSupportActionBar().setTitle(chart.getName());
-
-        pageType = PageType.Info;
-
-        isTabsSet = false;
 
         setContentView(R.layout.activity_activity_work);
 
@@ -79,12 +72,9 @@ public class WorkActivity extends ActionBarActivity {
         );
         Tab.setAdapter(TabAdapter);
         actionBar = getSupportActionBar();
-        //Enable Tabs on Action Bar
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-
 
         // Create Tabs
-        final ActionBar.Tab tab_workInfo = getSupportActionBar().newTab();
+        ActionBar.Tab tab_workInfo = getSupportActionBar().newTab();
         ActionBar.Tab tab_workTask = getSupportActionBar().newTab();
         ActionBar.Tab tab_workReport = getSupportActionBar().newTab();
 
@@ -170,22 +160,26 @@ public class WorkActivity extends ActionBarActivity {
         actionBar.setLogo(null); // forgot why this one but it helped
         actionBar.setIcon(null);
 
-        View homeIcon = findViewById(android.R.id.home);
-
-        if(homeIcon != null && homeIcon.getParent() != null) {
-            ((View) homeIcon.getParent()).setVisibility(View.GONE);
-            ((View) homeIcon).setVisibility(View.GONE);
-        }
-
         actionBar.setDisplayShowTitleEnabled(false);
-        actionBar.setDisplayShowHomeEnabled(false);
+        actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setDisplayShowCustomEnabled(true);
         actionBar.setDisplayUseLogoEnabled(false);
+        actionBar.setDisplayHomeAsUpEnabled(false);
+        actionBar.setHomeButtonEnabled(false);
+
+        View homeIcon = findViewById(android.R.id.home);
+
+        if(homeIcon != null ) {
+            homeIcon.setVisibility(View.GONE);
+        }if(homeIcon.getParent() != null){
+            ((View) homeIcon.getParent()).setVisibility(View.GONE);
+        }
 
         TextView title = (TextView) customActionBar.findViewById(R.id.ac_title);
         FontHelper.SetFont(this, Fonts.MAIN_FONT, title, Typeface.BOLD);
 
-        ImageView back = (ImageView) customActionBar.findViewById(R.id.ac_back);
+        //ImageView back = (ImageView) customActionBar.findViewById(R.id.ac_back);
+        LinearLayout back = (LinearLayout) customActionBar.findViewById(R.id.ac_back_layout);
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override

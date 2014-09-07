@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -51,7 +52,7 @@ public class AddPersonnelToWorkActivity extends Activity {
     private Chart chart;
     private Personnel personnel;
 
-    Button saveButton;
+    ImageView saveButton;
 
 
     @Override
@@ -94,7 +95,8 @@ public class AddPersonnelToWorkActivity extends Activity {
         TextView title = (TextView) customActionBar.findViewById(R.id.ac_title);
         FontHelper.SetFont(this, Fonts.MAIN_FONT, title, Typeface.BOLD);
 
-        ImageView back = (ImageView) customActionBar.findViewById(R.id.ac_back);
+        //ImageView back = (ImageView) customActionBar.findViewById(R.id.ac_back);
+        LinearLayout back = (LinearLayout) customActionBar.findViewById(R.id.ac_back_layout);
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,8 +105,8 @@ public class AddPersonnelToWorkActivity extends Activity {
             }
         });
 
-        saveButton = (Button) customActionBar.findViewById(R.id.ac_action1);
-        saveButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_save,0, 0, 0);
+        saveButton = (ImageView) customActionBar.findViewById(R.id.ac_action1);
+        saveButton.setImageResource(R.drawable.ic_save);
 
         final Context context = this;
         saveButton.setOnClickListener(new View.OnClickListener() {

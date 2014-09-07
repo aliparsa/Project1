@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -83,7 +84,8 @@ public class PersonelPickerActivity extends Activity {
 
         FontHelper.SetFont(this, Fonts.MAIN_FONT, title, Typeface.BOLD);
 
-        ImageView back = (ImageView) customActionBar.findViewById(R.id.ac_back);
+        //ImageView back = (ImageView) customActionBar.findViewById(R.id.ac_back);
+        LinearLayout back = (LinearLayout) customActionBar.findViewById(R.id.ac_back_layout);
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
