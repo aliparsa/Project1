@@ -1,7 +1,6 @@
 package com.pga.project1.Adapters;
 
 import android.content.Context;
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -193,30 +192,30 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
             switch (chart.getType_id()) {
                 case VAZIFE:
                     holder.chartGraph.setPercent(chart.getAuto_percent());
-                    holder.chartIcon.setBitmapResource(R.drawable.vazife);
+                    holder.chartIcon.setBitmapResource(R.drawable.ic_vazife);
                     holder.chartTitle.setText(chart.getPersonnel().getFullName());
                     holder.chartDate.setText(chart.getStart_date());
-                    holder.chartIcon.setBitmapResource(R.drawable.vazife);
+                    holder.chartIcon.setBitmapResource(R.drawable.ic_vazife);
                     holder.chartSubtitle.setText(chart.getName());
                     break;
 
                 case FAALIYAT:
                     holder.chartTitle.setText(chart.getName());
-                    holder.chartIcon.setBitmapResource(R.drawable.faaliyat);
+                    holder.chartIcon.setBitmapResource(R.drawable.ic_faaliyat4);
                     holder.chartDate.setText(chart.getStart_date());
                     break;
 
                 case PROJECT:
                     holder.chartTitle.setText(chart.getName());
                     holder.chartGraph.setPercent(chart.getHand_percent());
-                    holder.chartIcon.setBitmapResource(R.drawable.project);
+                    holder.chartIcon.setBitmapResource(R.drawable.ic_project2);
                     holder.chartDate.setText(chart.getStart_date());
                     break;
 
                 case CHART:
                     holder.chartTitle.setText(chart.getName());
                     holder.chartGraph.setPercent(chart.getHand_percent());
-                    holder.chartIcon.setBitmapResource(R.drawable.chrat);
+                    holder.chartIcon.setBitmapResource(R.drawable.ic_chart);
 
                     holder.chartDate.setText(chart.getStart_date());
                     break;
@@ -293,7 +292,7 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
             holder.reportGraphview.setPercent(report.getPercent());
             item.isFirstTimeItemShowed = false;
 
-            holder.reportIcon.setBitmapResource(R.drawable.report);
+            holder.reportIcon.setBitmapResource(R.drawable.ic_report2);
 
             if (report.getImageUrls().size() > 0)
                 holder.reportAttachmentIcon.setVisibility(View.VISIBLE);

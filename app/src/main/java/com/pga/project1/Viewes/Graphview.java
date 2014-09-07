@@ -5,11 +5,8 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.RadialGradient;
 import android.graphics.Rect;
 import android.graphics.RectF;
-import android.graphics.Shader;
-import android.graphics.SweepGradient;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -124,22 +121,23 @@ public class Graphview extends View {
                 // Draw Inner Circle
                 paint.setColor(Color.WHITE);
                 paint.setStyle(Paint.Style.FILL);
-                float start_Point = this.getMeasuredWidth() * 1 / 4;
-                float end_Point = this.getMeasuredWidth() * 3 / 4;
+                float min = Math.min(this.getMeasuredWidth(), this.getMeasuredHeight());
+                float start_Point =  min * 1 / 4;
+                float end_Point = min * 3 / 4;
                 RectF innerCircle = new RectF(rectf);
-                innerCircle.set(start_Point, start_Point, end_Point, end_Point);
+                innerCircle.set(start_Point  , start_Point  , end_Point, end_Point );
                 canvas.drawArc(innerCircle, 0, 360, true, paint);
 
                 // Draw Text
                 paint.setColor(textColor);
                 paint.setStyle(Paint.Style.FILL);
-                paint.setTextSize(Math.min(this.getMeasuredWidth(), this.getMeasuredHeight()) / 5);
+                paint.setTextSize(min / 5);
 
                 paint.measureText((Math.floor(value_degree[i] * 100 / 360)) + "%");
                 String percent_text = ((int) value_degree[i] * 100 / 360) + "%";
                 Rect rect = new Rect();
                 paint.getTextBounds(percent_text, 0, percent_text.length(), rect);
-                canvas.drawText(percent_text, this.getMeasuredWidth() / 2 - (rect.width() / 2), this.getMeasuredHeight() / 2 + (rect.height() / 2), paint);
+                canvas.drawText(percent_text, min/ 2 - (rect.width() / 2), min/ 2 + (rect.height() / 2), paint);
 
 
             } else {
