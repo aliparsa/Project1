@@ -293,6 +293,8 @@ public class NewReportActivity extends Activity {
     public void onBackPressed() {
         super.onBackPressed();
         finish();
+        overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
+
     }
 
     //--------------------------------------------------------------------------------
@@ -336,6 +338,7 @@ public class NewReportActivity extends Activity {
                                 // continue with delete
                                 setResult(Activity.RESULT_OK);
                                 finish();
+                                overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
 
 
                             }
@@ -411,6 +414,7 @@ public class NewReportActivity extends Activity {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
         startActivityForResult(intent, CAMERA_REQUEST);
+        overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
 
 
 /*        Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
@@ -423,6 +427,7 @@ public class NewReportActivity extends Activity {
         Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
         photoPickerIntent.setType("image/*");
         startActivityForResult(photoPickerIntent, GALLERY_REQUEST);
+        overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
     }
 
     //--------------------------------------------------------------------------------
@@ -551,7 +556,7 @@ public class NewReportActivity extends Activity {
         Intent intent = new Intent(this, ShowImageActivity.class);
         intent.putExtra("image", (String) selectedImageView.getTag());
         startActivity(intent);
-
+        overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
     }
 
     //-----------------------------------------------------------------------

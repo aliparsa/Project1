@@ -154,6 +154,7 @@ public class FragmentTaskReport extends Fragment {
                 Intent intent = new Intent(getActivity(), NewReportActivity.class);
                 intent.putExtra("chart", chart);
                 startActivityForResult(intent, 654);
+                getActivity().overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
             }
         });
 
@@ -173,6 +174,7 @@ public class FragmentTaskReport extends Fragment {
                 Intent intent = new Intent(getActivity(), EditReportActivity.class);
                 intent.putExtra("report", (Report) tag);
                 startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
 
             } else
                 return;

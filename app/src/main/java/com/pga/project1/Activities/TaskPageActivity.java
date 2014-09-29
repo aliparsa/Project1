@@ -256,6 +256,7 @@ public class TaskPageActivity extends ActionBarActivity {
             Intent intent = new Intent(this, NewReportActivity.class);
             intent.putExtra("chart", chart);
             startActivityForResult(intent, 654);
+            overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
 
             return true;
         }
@@ -310,6 +311,8 @@ public class TaskPageActivity extends ActionBarActivity {
 
                                 setResult(RESULT_OK);
                                 finish();
+                                overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
+
                             }
 
                             @Override
@@ -335,6 +338,7 @@ public class TaskPageActivity extends ActionBarActivity {
     public void onBackPressed() {
 
         PathMapManager.pop("ActivityTaskPage");
+        overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
         super.onBackPressed();
     }
 

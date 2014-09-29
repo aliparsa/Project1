@@ -16,7 +16,11 @@
 
     <ScrollView
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_height="fill_parent"
+        android:background="@drawable/round_back_ground"
+        android:padding="5dp"
+        android:layout_margin="5dp"
+        >
 
     <LinearLayout
         android:orientation="vertical"
@@ -70,6 +74,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="New Button"
+                android:background="@drawable/login_button_background"
+                android:padding="5dp"
                 android:id="@+id/button_start_date" />
 
             <TextView
@@ -83,6 +89,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="New Button"
+                android:padding="5dp"
+                android:background="@drawable/login_button_background"
                 android:id="@+id/button_end_date" />
 
             <TextView

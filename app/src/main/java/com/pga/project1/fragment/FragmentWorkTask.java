@@ -144,6 +144,7 @@ public class FragmentWorkTask extends Fragment {
                     intent.putExtra("chart", chart);
                     intent.putExtra("personnel", personnel);
                     startActivityForResult(intent, 1200);
+                    getActivity().overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
 
                 } else {
                     Toast.makeText(getActivity(), "No personel Selected", Toast.LENGTH_SHORT).show();
@@ -327,6 +328,7 @@ public class FragmentWorkTask extends Fragment {
 
         Intent intent = new Intent(getActivity(), PersonelPickerActivity.class);
         startActivityForResult(intent, 1212);
+        getActivity().overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
     }
 
     private void prepareTasks() {
@@ -387,6 +389,7 @@ public class FragmentWorkTask extends Fragment {
                 Intent intent = new Intent(getActivity(), TaskPageActivity.class);
                 intent.putExtra("chart", chart);
                 startActivityForResult(intent, 147);
+                getActivity().overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
 
             } else
                 return;

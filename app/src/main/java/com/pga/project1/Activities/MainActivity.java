@@ -134,16 +134,19 @@ public class MainActivity extends Activity
 
                 intent = new Intent(this, TreeViewActivity.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
                 break;
 
             case 1:
                 intent = new Intent(this, AboutAppActivity.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
                 break;
 
             case 2:
                 intent = new Intent(this, AboutUsActivity.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
                 break;
 
 
@@ -284,8 +287,12 @@ public class MainActivity extends Activity
     @Override
     public void onBackPressed() {
 
-        if (TwiceBackPressed)
+        overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
+
+        if (TwiceBackPressed) {
             finish();
+            overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
+        }
         else {
             Toast.makeText(this, "جهت خروج دوبار بزنید", Toast.LENGTH_SHORT).show();
             TwiceBackPressed = true;

@@ -5,6 +5,6 @@
     <alpha
         android:fromAlpha="1"
         android:toAlpha="0"
-        android:duration="500" />
+        android:duration="200" />
     //Time in milliseconds
 </set>

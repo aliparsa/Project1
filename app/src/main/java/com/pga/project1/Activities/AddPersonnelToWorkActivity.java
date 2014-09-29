@@ -101,6 +101,7 @@ public class AddPersonnelToWorkActivity extends Activity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
                 onBackPressed();
             }
         });
@@ -136,6 +137,8 @@ public class AddPersonnelToWorkActivity extends Activity {
 
                                 setResult(Activity.RESULT_CANCELED);
                                 finish();
+                                overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
+
                             }
                         });
                 builder.show();
@@ -257,6 +260,8 @@ public class AddPersonnelToWorkActivity extends Activity {
 
                     setResult(Activity.RESULT_OK);
                     finish();
+                    overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
+
                 } else {
                     //Toast.makeText(self, "عملیات انجام نشد", Toast.LENGTH_SHORT).show();
 
@@ -274,6 +279,8 @@ public class AddPersonnelToWorkActivity extends Activity {
 
                                     setResult(Activity.RESULT_CANCELED);
                                     finish();
+                                    overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
+
                                 }
                             }
                     ).show();
@@ -300,6 +307,8 @@ public class AddPersonnelToWorkActivity extends Activity {
 
                                 setResult(Activity.RESULT_CANCELED);
                                 finish();
+                                overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
+
                             }
                         }
                 ).show();

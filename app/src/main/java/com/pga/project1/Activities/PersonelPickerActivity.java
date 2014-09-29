@@ -206,6 +206,8 @@ public class PersonelPickerActivity extends Activity {
                 returnIntent.putExtra("personnel", personnel);
                 setResult(RESULT_OK, returnIntent);
                 finish();
+                overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
+
 
             } else
                 return;
@@ -234,6 +236,7 @@ public class PersonelPickerActivity extends Activity {
         Intent returnIntent = new Intent();
         setResult(RESULT_CANCELED, returnIntent);
         finish();
+        overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
 
     }
 }

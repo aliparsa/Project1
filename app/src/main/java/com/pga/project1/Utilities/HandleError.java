@@ -1,13 +1,14 @@
 package com.pga.project1.Utilities;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.widget.Toast;
 
 import com.pga.project1.Activities.LoginActivity;
 import com.pga.project1.Intefaces.CallBackFunction;
+import com.pga.project1.R;
 
 /**
  * Created by aliparsa on 9/2/2014.
@@ -43,6 +44,7 @@ public class HandleError {
             Intent intent = new Intent(context, LoginActivity.class);
             intent.putExtra("reason", "UNAUTHORIZED");
             context.startActivity(intent);
+            ((Activity) context).overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
         }
     }
 }

@@ -22,6 +22,7 @@
             android:layout_height="48dp"
             android:text="@string/app_name"
             android:layout_toLeftOf="@+id/ac_icon"
+            android:padding="10dp"
             android:gravity="center_vertical"
 
             android:textColor="@color/actionbar_title_color"

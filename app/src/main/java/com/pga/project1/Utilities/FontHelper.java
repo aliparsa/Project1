@@ -13,7 +13,9 @@ public class FontHelper {
     public static void SetFont(Context context, Fonts font, TextView view, int typeFace){
         Typeface tf;
 
-        switch (font){
+        return;
+
+/*        switch (font){
             case MAIN_FONT:
                 tf = Typeface.createFromAsset(context.getAssets(),"fonts/BKOODB.TTF");
                 view.setTypeface(tf, typeFace);
@@ -26,13 +28,14 @@ public class FontHelper {
                 tf = Typeface.createFromAsset(context.getAssets(),"fonts/BKOODB.TTF");
                 view.setTypeface(tf, typeFace);
                 break;
-        }
+        }*/
     }
 
     public static void SetFont(Context context, Fonts font, Button view, int typeFace) {
         Typeface tf;
 
-        switch (font) {
+        return;
+/*        switch (font) {
             case MAIN_FONT:
                 tf = Typeface.createFromAsset(context.getAssets(), "fonts/BKOODB.TTF");
                 view.setTypeface(tf, typeFace);
@@ -45,7 +48,7 @@ public class FontHelper {
                 tf = Typeface.createFromAsset(context.getAssets(), "fonts/BKOODB.TTF");
                 view.setTypeface(tf, typeFace);
                 break;
-        }
+        }*/
     }
 
 

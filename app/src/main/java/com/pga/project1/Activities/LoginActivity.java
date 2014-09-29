@@ -3,7 +3,6 @@ package com.pga.project1.Activities;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,8 +18,6 @@ import android.widget.Toast;
 import com.pga.project1.Intefaces.CallBack;
 import com.pga.project1.R;
 import com.pga.project1.Utilities.Account;
-import com.pga.project1.Utilities.FontHelper;
-import com.pga.project1.Utilities.Fonts;
 import com.pga.project1.Utilities.ValidationMessage;
 import com.pga.project1.Utilities.Webservice;
 
@@ -141,6 +138,7 @@ public class LoginActivity extends Activity {
     private void callMainActivity() {
         Intent intent = new Intent(context, MainActivity.class);
         startActivity(intent);
+        overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
         this.finish();
     }
 }

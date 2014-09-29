@@ -116,6 +116,7 @@ public class FragmentWorkReport extends Fragment {
         Intent intent = new Intent(getActivity(), NewReportActivity.class);
         intent.putExtra("chart", chart);
         startActivityForResult(intent, 148);
+        getActivity().overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
     }
 
     private void prepareReport() {
@@ -148,6 +149,7 @@ public class FragmentWorkReport extends Fragment {
                         Intent intent = new Intent(getActivity(), EditReportActivity.class);
                         intent.putExtra("report", (Report) tag);
                         startActivity(intent);
+                        getActivity().overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
                     }
                 });
 

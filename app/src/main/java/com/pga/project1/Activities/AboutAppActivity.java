@@ -45,7 +45,9 @@ public class AboutAppActivity extends Activity {
             @Override
             public void onClick(View view) {
 
+                overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
                 onBackPressed();
+
             }
         });
 

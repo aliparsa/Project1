@@ -107,6 +107,7 @@ public class EditReportActivity extends Activity {
         int id = item.getItemId();
         if (id == R.id.ac_back) {
 
+            overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
             onBackPressed();
             return true;
         }
@@ -126,5 +127,13 @@ public class EditReportActivity extends Activity {
         Intent intent = new Intent(this, ShowImageActivity.class);
         intent.putExtra("image_url", (String) path);
         startActivity(intent);
+        overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
+        this.finish();
     }
 }
