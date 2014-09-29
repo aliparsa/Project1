@@ -1,16 +1,16 @@
 package com.pga.project1.fragment;
 
 
-import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -78,7 +78,7 @@ public class FragmentWorkReport extends Fragment {
 
     private void prepareActionbarButton() {
         View actionbar = getActivity().getActionBar().getCustomView();
-        Button addReport = (Button) actionbar.findViewById(R.id.ac_action2);
+        ImageView addReport = (ImageView) actionbar.findViewById(R.id.ac_action2);
         addReport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

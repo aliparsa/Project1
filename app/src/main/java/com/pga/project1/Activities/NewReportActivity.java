@@ -8,6 +8,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.AssetFileDescriptor;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -65,8 +66,8 @@ public class NewReportActivity extends Activity {
     Context context;
     Chart chart;
     private Uri imageUri;
-    private Button addPhotoButton;
-    private Button saveButton;
+    private ImageView addPhotoButton;
+    private ImageView saveButton;
 
 
     //--------------------------------------------------------------------------------
@@ -169,7 +170,8 @@ public class NewReportActivity extends Activity {
         TextView title = (TextView) customActionBar.findViewById(R.id.ac_title);
         FontHelper.SetFont(this, Fonts.MAIN_FONT, title, Typeface.BOLD);
 
-        ImageView back = (ImageView) customActionBar.findViewById(R.id.ac_back);
+        //ImageView back = (ImageView) customActionBar.findViewById(R.id.ac_back);
+        LinearLayout back = (LinearLayout) customActionBar.findViewById(R.id.ac_back_layout);
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -178,11 +180,11 @@ public class NewReportActivity extends Activity {
             }
         });
 
-        addPhotoButton = (Button) customActionBar.findViewById(R.id.ac_action2);
-        saveButton = (Button) customActionBar.findViewById(R.id.ac_action1);
+        addPhotoButton = (ImageView) customActionBar.findViewById(R.id.ac_action2);
+        saveButton = (ImageView) customActionBar.findViewById(R.id.ac_action1);
 
         //addPhotoButton.setText("تصویر");
-        addPhotoButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_camera, 0, 0, 0);
+        addPhotoButton.setImageResource(R.drawable.ic_camera);
         //addPhotoButton.setTextColor(getResources().getColor(R.color.actionbar_button_text));
         addPhotoButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -197,7 +199,7 @@ public class NewReportActivity extends Activity {
         });
 
         //saveButton.setText("ذخیره");
-        saveButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_save, 0, 0, 0);
+        saveButton.setImageResource(R.drawable.ic_save);
         // saveButton.setTextColor(getResources().getColor(R.color.actionbar_button_text));
         final Context context = this;
         saveButton.setOnClickListener(new View.OnClickListener() {
@@ -439,7 +441,16 @@ public class NewReportActivity extends Activity {
                     try {
 
                         // get photo captured by camera
-                        Bitmap photo_camera = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
+                        //Bitmap photo_camera = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
+
+                        BitmapFactory.Options options = new BitmapFactory.Options();
+                        options.inSampleSize = 4;
+
+                        AssetFileDescriptor fileDescriptor =null;
+                        fileDescriptor = getContentResolver().openAssetFileDescriptor( imageUri, "r");
+
+                        Bitmap photo_camera = BitmapFactory.decodeFileDescriptor(
+                                fileDescriptor.getFileDescriptor(), null, options);
 
 
                         //resize photo to estimated size

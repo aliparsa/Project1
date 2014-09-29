@@ -79,7 +79,9 @@
             android:screenOrientation="portrait" ></activity>
         <activity
             android:name=".Activities.AboutAppActivity"
-            android:label="درباره برنامه"></activity>
+            android:label="درباره برنامه"
+            android:screenOrientation="portrait"
+            ></activity>
     </application>
 
 </manifest>

@@ -1,22 +1,9 @@
 package com.pga.project1.Utilities;
 
-import android.content.Context;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Matrix;
-import android.graphics.Paint;
-import android.media.ExifInterface;
-import android.net.Uri;
-import android.os.Environment;
-import android.provider.MediaStore;
-import android.util.Log;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 
 /**
  * Created by aliparsa on 8/30/2014.
@@ -195,7 +182,13 @@ public class ImageHelper {
     public Bitmap resizeImage(int estimatedWidth, String path) {
         File imgFile = new File(path);
         if (imgFile.exists()) {
-            Bitmap bitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inJustDecodeBounds = false;
+            options.inPreferredConfig = Bitmap.Config.RGB_565;
+            options.inDither = true;
+
+            Bitmap bitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath(), options);
             return resizeImage(estimatedWidth, bitmap);
         }
         return null;
@@ -211,7 +204,11 @@ public class ImageHelper {
             int height = bitmap.getHeight();
 
             int measure = Math.round((bitmap.getWidth() / estimatedWidth));
-            return Bitmap.createScaledBitmap(bitmap, width / measure, height / measure, true);
+
+            Bitmap newBitMap = Bitmap.createScaledBitmap(bitmap, width / measure, height / measure, true);
+            bitmap.recycle();
+
+            return newBitMap;
 
         }
 

@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -107,7 +108,7 @@ public class MainActivity extends Activity
 
         FontHelper.SetFont(this, Fonts.MAIN_FONT, title, Typeface.BOLD);
 
-        ImageView nav = (ImageView) customActionBar.findViewById(R.id.ac_nav);
+        LinearLayout nav = (LinearLayout) customActionBar.findViewById(R.id.ac_nav_layout);
 
         nav.setOnClickListener(new View.OnClickListener() {
             @Override

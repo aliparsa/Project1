@@ -7,39 +7,52 @@
     >
 
 
-    <ImageView
-        android:id="@+id/ac_back"
-        android:background="@drawable/hit"
-
+    <LinearLayout
+        android:id="@+id/ac_back_layout"
+        android:layout_height="48dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:src="@drawable/ic_back"
-        android:layout_alignParentEnd="true"
-        android:paddingLeft="10dp"
-        />
-
-    <ImageView
-        android:id="@+id/ac_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:scaleType="center"
-        android:src="@drawable/category"
-        android:layout_toLeftOf="@+id/ac_back"
-        android:paddingLeft="@dimen/distance_between_icon_and_title"
-        />
-
-    <TextView
-        android:id="@+id/ac_title"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:text="@string/app_name"
-        android:layout_alignParentTop="true"
-        android:layout_toLeftOf="@+id/ac_icon"
+        android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:textColor="@color/actionbar_title_color"
-        android:textSize="@dimen/actionbar_title_size"
-        />
+        android:background="@drawable/hit"
+        android:clickable="true"
+        android:layout_alignParentRight="true">
+
+        <TextView
+            android:layout_centerInParent="true"
+            android:id="@+id/ac_title"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:text="@string/app_name"
+            android:layout_toLeftOf="@+id/ac_icon"
+            android:gravity="center_vertical"
+
+            android:textColor="@color/actionbar_title_color"
+            android:textSize="@dimen/actionbar_title_size" />
+
+        <ImageView
+            android:id="@+id/ac_icon"
+            android:layout_centerInParent="true"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_menu_logo_dark"
+            android:layout_toLeftOf="@+id/ac_back"
+            android:scaleType="center"
+
+            />
+
+        <ImageView
+            android:id="@+id/ac_back"
+            android:layout_width="25dp"
+            android:layout_height="48dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/ic_back"
+            android:layout_alignParentRight="true"
+            android:alpha="1"
+            android:scaleType="center"
+
+            />
+
+    </LinearLayout>
 
 
     <SearchView
@@ -48,7 +61,7 @@
         android:layout_height="fill_parent"
 
         android:layout_alignParentLeft="true"
-        android:layout_toLeftOf="@+id/ac_title"
+        android:layout_toLeftOf="@+id/ac_back_layout"
         android:iconifiedByDefault="false"
         android:background="@drawable/hit"
 
