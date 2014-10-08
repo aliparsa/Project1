@@ -14,7 +14,7 @@
         <ImageView
             android:layout_width="120dp"
             android:layout_height="120dp"
-            android:src="@drawable/clock"
+            android:src="@drawable/logo_"
 
             android:id="@+id/imageView"
             android:layout_gravity="center_horizontal" />
@@ -42,12 +42,12 @@
                 android:layout_marginRight="5dp"
                 android:layout_marginBottom="5dp"
                 android:padding="7dp"
-                android:drawableRight="@drawable/ic_action_camera"
+                android:drawableRight="@drawable/key"
                 android:textColorHint="#c2c2c2"
+
                 android:background="@drawable/user_pass_textfield_background"
                 android:gravity="center"
-                android:singleLine="true"
-                />
+                android:singleLine="true" />
 
 
             <EditText
@@ -58,13 +58,12 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:padding="7dp"
-                android:drawableRight="@drawable/ic_action_camera"
+                android:drawableRight="@drawable/key"
                 android:textColorHint="#c2c2c2"
                 android:background="@drawable/user_pass_textfield_background"
                 android:gravity="center"
                 android:password="true"
-                android:singleLine="true"
-                />
+                android:singleLine="true" />
 
             <Button
                 android:id="@+id/btn_fragmentLogin_login"

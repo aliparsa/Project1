@@ -122,44 +122,52 @@ public class FragmentWorkReport extends Fragment {
     private void prepareReport() {
 
 
-        Webservice.getReportListByWorkId(getActivity(), chart.getId(), new CallBack<ArrayList<Report>>() {
-            @Override
-            public void onSuccess(ArrayList<Report> reportList) {
+        try {
 
-                List<AdapterInputType> itemList = new ArrayList<AdapterInputType>();
-                for (Report report : reportList) {
-                    itemList.add(new AdapterInputType(report, ListViewCustomAdapter.REPORT_ITEM, report.getDate(), report.getPercent() + "", BitmapFactory.decodeResource(getResources(),
-                            R.drawable.ic_launcher)));
+            Webservice.getReportListByWorkId(getActivity(), chart.getId(), new CallBack<ArrayList<Report>>() {
+                @Override
+                public void onSuccess(ArrayList<Report> reportList) {
+
+                    if (!isAdded()) return;
+                    List<AdapterInputType> itemList = new ArrayList<AdapterInputType>();
+                    for (Report report : reportList) {
+
+                        itemList.add(new AdapterInputType(report, ListViewCustomAdapter.REPORT_ITEM, report.getDate(), report.getPercent() + "", BitmapFactory.decodeResource(getResources(),
+                                R.drawable.ic_launcher)));
+                    }
+
+                    // create adapter from data
+                    ListViewCustomAdapter adapter =
+                            new ListViewCustomAdapter(getActivity(), R.layout.fragment_layout_project_tree_view, itemList);
+
+                    // set adapter to lv
+                    lv.setAdapter(ListViewAdapterHandler.checkAdapterForNoItem(adapter));
+
+                    // set on click listener
+                    lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                            Object tag = ((ListViewCustomAdapter.DrawerItemHolder) view.getTag()).getTag();
+
+                            Intent intent = new Intent(getActivity(), EditReportActivity.class);
+                            intent.putExtra("report", (Report) tag);
+                            startActivity(intent);
+                            getActivity().overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
+                        }
+                    });
+
                 }
 
-                // create adapter from data
-                ListViewCustomAdapter adapter =
-                        new ListViewCustomAdapter(getActivity(), R.layout.fragment_layout_project_tree_view, itemList);
+                @Override
+                public void onError(String err) {
+                    Toast.makeText(getActivity(), "Error 109", Toast.LENGTH_SHORT).show();
+                }
+            });
 
-                // set adapter to lv
-                lv.setAdapter(ListViewAdapterHandler.checkAdapterForNoItem(adapter));
-
-                // set on click listener
-                lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-                        Object tag = ((ListViewCustomAdapter.DrawerItemHolder) view.getTag()).getTag();
-
-                        Intent intent = new Intent(getActivity(), EditReportActivity.class);
-                        intent.putExtra("report", (Report) tag);
-                        startActivity(intent);
-                        getActivity().overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
-                    }
-                });
-
-            }
-
-            @Override
-            public void onError(String err) {
-                Toast.makeText(getActivity(), "Error 109", Toast.LENGTH_SHORT).show();
-            }
-        });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

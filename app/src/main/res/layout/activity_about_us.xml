@@ -36,6 +36,17 @@
         android:gravity="center"
         />
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+
+        android:layout_alignTop="@+id/textView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignBottom="@+id/textView"
+
+        android:src="@drawable/logo_"
+
+        />
 
 
     <TextView

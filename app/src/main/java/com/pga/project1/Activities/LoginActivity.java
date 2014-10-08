@@ -102,7 +102,7 @@ public class LoginActivity extends Activity {
             @Override
             public void onSuccess(String token) {
 
-                Toast.makeText(context, token, Toast.LENGTH_SHORT).show();
+                // Toast.makeText(context, token, Toast.LENGTH_SHORT).show();
                 Account.getInstant(context).storeToken(token);
                 callMainActivity();
 

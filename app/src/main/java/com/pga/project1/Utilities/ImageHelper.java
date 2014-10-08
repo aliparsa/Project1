@@ -206,7 +206,7 @@ public class ImageHelper {
             int measure = Math.round((bitmap.getWidth() / estimatedWidth));
 
             Bitmap newBitMap = Bitmap.createScaledBitmap(bitmap, width / measure, height / measure, true);
-            bitmap.recycle();
+            //bitmap.recycle();
 
             return newBitMap;
 

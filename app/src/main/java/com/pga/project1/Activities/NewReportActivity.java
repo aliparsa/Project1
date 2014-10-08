@@ -227,7 +227,7 @@ public class NewReportActivity extends Activity {
 
                             }
                         });
-               builder.show();
+                builder.show();
 
 
             }
@@ -451,8 +451,8 @@ public class NewReportActivity extends Activity {
                         BitmapFactory.Options options = new BitmapFactory.Options();
                         options.inSampleSize = 4;
 
-                        AssetFileDescriptor fileDescriptor =null;
-                        fileDescriptor = getContentResolver().openAssetFileDescriptor( imageUri, "r");
+                        AssetFileDescriptor fileDescriptor = null;
+                        fileDescriptor = getContentResolver().openAssetFileDescriptor(imageUri, "r");
 
                         Bitmap photo_camera = BitmapFactory.decodeFileDescriptor(
                                 fileDescriptor.getFileDescriptor(), null, options);
@@ -495,48 +495,60 @@ public class NewReportActivity extends Activity {
                     //resize photo to estimated size
                     ImageHelper imh = new ImageHelper();
                     Bitmap lowQualityBitmap = imh.resizeImage(1024, path);
-                    String ImagePath = storeThisImage(lowQualityBitmap).getAbsolutePath();
+                    File file = storeThisImage(lowQualityBitmap);
+                    String ImagePath = "";
+                    if (file != null) {
+                        ImagePath = file.getAbsolutePath();
 
-                    // add image to linear layout
-                    Bitmap ThumbImage = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(ImagePath), 200, 200);
-                    temp_img.setImageBitmap(ThumbImage);
+                        // add image to linear layout
+                        Bitmap ThumbImage = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(ImagePath), 200, 200);
+                        temp_img.setImageBitmap(ThumbImage);
 
-                    // add image path as tag to view
-                    temp_img.setTag(ImagePath);
-                    ll_image_list.addView(temp_img);
+                        // add image path as tag to view
+                        temp_img.setTag(ImagePath);
+                        ll_image_list.addView(temp_img);
+                    } else {
+
+                        Toast.makeText(context, "تصویری به برنامه ارسال نشد", Toast.LENGTH_SHORT).show();
+
+                    }
 
 
                     break;
 
             }
-        }
 
-        temp_img.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-                final ImageView selectedImageView = (ImageView) view;
+            temp_img.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(context)
-                        .setTitle("افزودن تصویر")
-                        .setItems(new String[]{"نمایش", "حذف"},
-                                new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int item) {
-                                        switch (item) {
-                                            case 0:
-                                                ShowImage(selectedImageView);
-                                                break;
-                                            case 1:
-                                                DeleteImage(selectedImageView);
-                                                break;
+                    final ImageView selectedImageView = (ImageView) view;
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(context)
+                            .setTitle("افزودن تصویر")
+                            .setItems(new String[]{"نمایش", "حذف"},
+                                    new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int item) {
+                                            switch (item) {
+                                                case 0:
+                                                    ShowImage(selectedImageView);
+                                                    break;
+                                                case 1:
+                                                    DeleteImage(selectedImageView);
+                                                    break;
+                                            }
                                         }
                                     }
-                                }
-                        );
-                builder.show();
-            }
-        });
+                            );
+                    builder.show();
+                }
+            });
+
+        } else {
+            Toast.makeText(context, "تصویری به برنامه ارسال نشد", Toast.LENGTH_SHORT).show();
+        }
     }
 
     //-----------------------------------
