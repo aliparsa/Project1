@@ -114,7 +114,7 @@ public class FragmentWorkTask extends Fragment {
         super.onCreateOptionsMenu(menu, inflater);
     }*/
 
-    @Override
+  /*  @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         if (item.getItemId() == R.id.ac_pick_personnel) {
@@ -123,7 +123,7 @@ public class FragmentWorkTask extends Fragment {
         }
 
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 
 
     @Override

@@ -239,7 +239,7 @@ public class TaskPageActivity extends ActionBarActivity {
         super.onResume();
     }
 
-    @Override
+   /* @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         if (item.getItemId() == R.id.action_back) {
@@ -279,7 +279,7 @@ public class TaskPageActivity extends ActionBarActivity {
         }
 
         return false;
-    }
+    }*/
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

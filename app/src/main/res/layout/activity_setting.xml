@@ -20,7 +20,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ُServer Address"
+                android:text="آدرس سرور"
                 android:textAppearance="?android:attr/textAppearanceLarge"
 
                 android:layout_alignParentTop="true"
