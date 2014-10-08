@@ -149,6 +149,11 @@ public class MainActivity extends Activity
                 overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
                 break;
 
+            case 3:
+                intent = new Intent(this, SettingActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
+                break;
 
         }
 

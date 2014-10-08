@@ -12,17 +12,12 @@ import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.pga.project1.Adapters.ListViewCustomAdapter;
 import com.pga.project1.R;
@@ -92,6 +87,11 @@ public class NavigationDrawerFragment extends Fragment {
                 , "درباره ما", R.drawable.ic_aboutus);
 
         datalist.add(item3);
+
+        AdapterInputType item4 = new AdapterInputType(null, ListViewCustomAdapter.DRAWER_ITEM
+                , "تنظیمات", R.drawable.ic_settings);
+
+        datalist.add(item4);
 
         // Read in the flag indicating whether or not the user has demonstrated awareness of the
         // drawer. See PREF_USER_LEARNED_DRAWER for details.
