@@ -36,6 +36,7 @@ public class PersonelPickerActivity extends Activity {
     private ListViewCustomAdapter adapter;
     private CallBack<Personnel> callback;
     Context context;
+    private ImageView refreshButton;
 
 
     @Override
@@ -98,6 +99,18 @@ public class PersonelPickerActivity extends Activity {
         searchView = (SearchView) customActionBar.findViewById(R.id.ac_search);
         searchView.setOnQueryTextListener(new onPersonnelSearchListener());
 
+
+        refreshButton = (ImageView) customActionBar.findViewById(R.id.ac_reload);
+
+        //removeTaskButton.setText("حذف وظیفه");
+        refreshButton.setImageResource(R.drawable.ac_refresh);
+
+        refreshButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                loadPersonals("");
+            }
+        });
 
 
        // int searchButtonId = searchView.getContext().getResources().getIdentifier("android:id/search_button", null, null);
