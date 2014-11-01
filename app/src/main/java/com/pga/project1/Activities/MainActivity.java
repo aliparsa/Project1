@@ -167,8 +167,8 @@ public class MainActivity extends Activity
                 break;
 
             case 1:
-                intent = new Intent(this, PersonelPickerActivity.class);
-                startActivityForResult(intent, 1411);
+                intent = new Intent(this, FastProjectManagmentActivity.class);
+                startActivity(intent);
                 overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
                 break;
 
@@ -333,8 +333,7 @@ public class MainActivity extends Activity
         if (TwiceBackPressed) {
             finish();
             overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
-        }
-        else {
+        } else {
             Toast.makeText(this, "جهت خروج دوبار بزنید", Toast.LENGTH_SHORT).show();
             TwiceBackPressed = true;
             new Handler().postDelayed(new Runnable() {
@@ -437,158 +436,6 @@ public class MainActivity extends Activity
 
             lastSize = currentStackSize;
         }
-    }
-    //-------------------------------------------------------------------------------------
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK && requestCode == 1411) {
-            Personnel personnel = (Personnel) data.getSerializableExtra("personnel");
-            HandleFastProjectManagment(personnel);
-        }
-    }
-
-    //-------------------------------------------------------------------------------------//-------------------------------------------------------------------------------------
-    public void HandleFastProjectManagment(final Personnel personnel) {
-        new AlertDialog.Builder(context)
-                .setSingleChoiceItems(new String[]{"تبت فعالیت", "ثبت تردد"}, 0, null)
-                .setCancelable(false)
-                .setPositiveButton("انجام", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        dialog.dismiss();
-                        int selectedPosition = ((AlertDialog) dialog).getListView().getCheckedItemPosition();
-                        switch (selectedPosition) {
-                            case 0:
-                                break;
-
-                            case 1:
-                                HandleTaradod(personnel);
-                                break;
-                        }
-
-                    }
-                })
-                .setNegativeButton("لغو", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-
-                    }
-                })
-                .show();
-    }
-
-
-    //-------------------------------------------------------------------------------------
-    private void HandleTaradod(final Personnel personnel) {
-        new AlertDialog.Builder(context)
-                .setSingleChoiceItems(new String[]{"ثبت ورود", "ثبت خروج"}, 0, null)
-                .setCancelable(false)
-                .setPositiveButton("انجام", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        dialog.dismiss();
-                        int selectedPosition = ((AlertDialog) dialog).getListView().getCheckedItemPosition();
-                        switch (selectedPosition) {
-                            case 0:
-
-                                HandelIn(personnel);
-                                break;
-                            case 1:
-                                HandelOut(personnel);
-                                break;
-                        }
-
-                    }
-                })
-                .setNegativeButton("لغو", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-
-                    }
-                })
-                .show();
-    }
-
-    //---------------------------------------------------------------------
-    private void HandelIn(Personnel personnel) {
-        new AlertDialog.Builder(context)
-                .setSingleChoiceItems(new String[]{"ثبت زمان فعلی", "وارد نمودن تاریخ و ساعت"}, 0, null)
-                .setCancelable(false)
-                .setPositiveButton("انجام", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        dialog.dismiss();
-                        int selectedPosition = ((AlertDialog) dialog).getListView().getCheckedItemPosition();
-                        switch (selectedPosition) {
-                            case 0:
-
-                                //HandelIn(personnel);
-                                break;
-                            case 1:
-                                //HandelOut(personnel);
-                                break;
-                        }
-
-                    }
-                })
-                .setNegativeButton("لغو", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-
-                    }
-                })
-                .show();
-
-    }
-
-    //----------------------------------------------------------------------
-    private void HandelOut(final Personnel personnel) {
-        new AlertDialog.Builder(context)
-                .setSingleChoiceItems(new String[]{"ثبت زمان فعلی", "وارد نمودن تاریخ و ساعت"}, 0, null)
-                .setCancelable(false)
-                .setPositiveButton("انجام", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        dialog.dismiss();
-                        int selectedPosition = ((AlertDialog) dialog).getListView().getCheckedItemPosition();
-                        switch (selectedPosition) {
-                            case 0:
-
-                                Toast.makeText(context, "ذخیره شد", Toast.LENGTH_SHORT).show();
-                                break;
-                            case 1:
-                                HandleInCustomDateTime(personnel);
-                                break;
-                        }
-
-                    }
-                })
-                .setNegativeButton("لغو", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-
-                    }
-                })
-                .show();
-    }
-    //-------------------------------------------------------------------------------------
-
-    private void HandleInCustomDateTime(Personnel personnel) {
-        new AlertDialog.Builder(context)
-                .setView(new ViewDateTimePickerPersian(context))
-                .setTitle("تاریخ و ساعت را وارد نمایید")
-                .setPositiveButton("ذخیره", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        Toast.makeText(context, "ذخیره شد", Toast.LENGTH_SHORT).show();
-
-                    }
-                })
-                .setNegativeButton("لغو", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-
-                    }
-                })
-                .show();
     }
     //-------------------------------------------------------------------------------------
 

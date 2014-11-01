@@ -37,7 +37,7 @@ public class Personnel implements Serializable {
     }
 
 
-    private Personnel() {
+    public Personnel() {
 
     }
 
@@ -107,7 +107,7 @@ public class Personnel implements Serializable {
 
                 JSONObject groupJson = groupsJson.getJSONObject(j);
 
-                p.workGroups.add( JsonHelper.getStringS(groupJson, "group_name", "*") );
+                p.workGroups.add(JsonHelper.getStringS(groupJson, "group_name", "*"));
 
             }
         } catch (JSONException e) {

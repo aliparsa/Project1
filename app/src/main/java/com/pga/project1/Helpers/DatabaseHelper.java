@@ -31,16 +31,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     // Contacts table name
     private static final String TABLE_PERSONNEL = "personnel";
+    private static final String TABLE_TARADOD = "taradod";
 
 
     private static final String KEY_ID = "id";
     private static final String KEY_FIRSTNAME = "first_name";
     private static final String KEY_LASTNAME = "last_name";
     private static final String KEY_CODE = "personnel_code";
+    private static final String KEY_IN_OUT = "in_out";
+    private static final String KEY_DATE = "date";
+    private static final String KEY_SENT = "sent";
+
+    SQLiteDatabase db;
 
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+
     }
 
     // Creating Tables
@@ -57,6 +64,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                         + ")";
         db.execSQL(CREATE_PERSONNEL_TABLE);
 
+        String CREATE_TARADOD_TABLE =
+                "CREATE TABLE " + TABLE_PERSONNEL + "("
+                        + KEY_ID + " INTEGER PRIMARY KEY,"
+                        + KEY_CODE + " TEXT,"
+                        + KEY_IN_OUT + " TEXT,"
+                        + KEY_SENT + " TEXT,"
+                        + KEY_DATE + " TEXT"
+                        + ")";
+        db.execSQL(CREATE_TARADOD_TABLE);
+
 
         database = db;
     }
@@ -66,6 +83,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+
+    public void insertTaradod(Personnel personnel, String in_out, String DateTime) {
+        ContentValues values = new ContentValues();
+        values.put(KEY_CODE, personnel.getPersonnel_code());
+        values.put(KEY_IN_OUT, in_out);
+        values.put(KEY_SENT, "0");
+        values.put(KEY_DATE, DateTime);
+        this.getWritableDatabase().insert(TABLE_TARADOD, null, values);
+    }
 
     public void insertPersonnel(Personnel personnel) {
         ContentValues values = new ContentValues();
@@ -77,18 +103,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
     public ArrayList<Personnel> getAllPersonnels() {
-        final Cursor cursor = this.getReadableDatabase().rawQuery("SELECT * FROM " + TABLE_PERSONNEL, null);
+        SQLiteDatabase db = getReadableDatabase();
+        final Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_PERSONNEL, null);
         ArrayList<Personnel> personnels = new ArrayList<Personnel>();
-        Personnel personnel = null;
+
 
         if (cursor != null) {
             if (cursor.moveToFirst()) {
 
                 do {
+                    Personnel personnel = new Personnel();
                     personnel.setFirst_name(cursor.getString(cursor.getColumnIndex(KEY_FIRSTNAME)));
                     personnel.setLast_name(cursor.getString(cursor.getColumnIndex(KEY_LASTNAME)));
                     personnel.setPersonnel_code(cursor.getString(cursor.getColumnIndex(KEY_CODE)));
                     personnel.setId(Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_ID))));
+                    personnels.add(personnel);
 
                 } while (cursor.moveToNext());
 
@@ -98,6 +127,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public void emptyPersonnelTable() {
-        this.getReadableDatabase().execSQL("Delete from " + TABLE_PERSONNEL);
+        getReadableDatabase().execSQL("Delete from " + TABLE_PERSONNEL);
     }
 }

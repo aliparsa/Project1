@@ -1,0 +1,90 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:layout_margin="5dp"
+        android:background="@drawable/round_back_ground"
+        android:layout_gravity="center_vertical">
+
+        <com.pga.project1.Viewes.ImageLoaderView
+            android:id="@+id/imgv_fragmentTaskInfo_pic"
+            android:layout_width="100dp"
+            app:circleImage="true"
+            android:layout_height="100dp"
+            app:default_src="@drawable/user_photo"
+            android:layout_gravity="center_vertical" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.pga.project1.Viewes.ViewNameValue
+                android:id="@+id/txt_fragmentTaskInfo_personnelName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:name="نام و نام خانوادگی"
+                app:value=""></com.pga.project1.Viewes.ViewNameValue>
+
+
+            <com.pga.project1.Viewes.ViewNameValue
+                android:id="@+id/txt_fragmentTaskInfo_personnelPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:name="شماره تماس"
+                app:value=""></com.pga.project1.Viewes.ViewNameValue>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Noe Kar"
+            android:id="@+id/textView2" />
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinner"
+            android:layout_gravity="center_horizontal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mizan Kar"
+            android:id="@+id/textView" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/editText" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Date"
+            android:id="@+id/textView3" />
+
+
+    </LinearLayout>
+</LinearLayout>
+
+
+

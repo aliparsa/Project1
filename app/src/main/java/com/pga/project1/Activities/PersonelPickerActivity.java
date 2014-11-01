@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -44,7 +45,9 @@ public class PersonelPickerActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        context = this;
         DatabaseHelper db = new DatabaseHelper(context);
+
         PathMapManager.push(new PathObject("انتخاب پرسنل"));
 
         setContentView(R.layout.activity_personel_picker);
@@ -126,13 +129,12 @@ public class PersonelPickerActivity extends Activity {
         searchView.setOnQueryTextListener(new onPersonnelSearchListener());
 
 
-
-       // int searchButtonId = searchView.getContext().getResources().getIdentifier("android:id/search_button", null, null);
+        // int searchButtonId = searchView.getContext().getResources().getIdentifier("android:id/search_button", null, null);
         //Button searchIcon = (Button) searchView.findViewById(searchButtonId);
-       // searchIcon.setdraw//setImageResource(R.drawable.ic_search);
+        // searchIcon.setdraw//setImageResource(R.drawable.ic_search);
 
         //int searchPlateId = searchView.getContext().getResources().getIdentifier("android:id/search_plate", null, null);
-       // searchView.findViewById(searchPlateId).setBackgroundResource(R.drawable.textfield_search_selected);
+        // searchView.findViewById(searchPlateId).setBackgroundResource(R.drawable.textfield_search_selected);
 
         //int voiceSearchPlateId = searchView.getContext().getResources().getIdentifier("android:id/submit_area", null, null);
         //searchView.findViewById(voiceSearchPlateId).setBackgroundResource(R.drawable.textfield_search_right_selected);
@@ -148,6 +150,8 @@ public class PersonelPickerActivity extends Activity {
 
 
     protected void loadPersonalsFromWeb(final String str) {
+
+        db = new DatabaseHelper(context);
 
         Webservice.searchPersonnel(this, str, new CallBack<ArrayList<Personnel>>() {
             @Override
