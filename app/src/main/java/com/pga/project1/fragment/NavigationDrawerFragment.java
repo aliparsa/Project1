@@ -78,6 +78,11 @@ public class NavigationDrawerFragment extends Fragment {
 
         datalist.add(item);
 
+        AdapterInputType item0 = new AdapterInputType(null, ListViewCustomAdapter.DRAWER_ITEM
+                , "مدیریت  سریع", R.drawable.ic_projects);
+
+        datalist.add(item0);
+
         AdapterInputType item2 = new AdapterInputType(null, ListViewCustomAdapter.DRAWER_ITEM
                 , "درباره برنامه", R.drawable.ic_aboutus);
 

@@ -34,25 +34,22 @@
                 android:id="@+id/txt_fragmentTaskInfo_personnelName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:name="نام"
-                app:value=""
-                ></com.pga.project1.Viewes.ViewNameValue>
+                app:name="نام و نام خانوادگی"
+                app:value=""></com.pga.project1.Viewes.ViewNameValue>
 
             <com.pga.project1.Viewes.ViewNameValue
                 android:id="@+id/txt_fragmentTaskInfo_personnelJob"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:name="سمت"
-            app:value=""
-            ></com.pga.project1.Viewes.ViewNameValue>
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:name="نام وظیفه"
+                app:value=""></com.pga.project1.Viewes.ViewNameValue>
 
             <com.pga.project1.Viewes.ViewNameValue
                 android:id="@+id/txt_fragmentTaskInfo_personnelPhone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:name="شماره تماس"
-                app:value=""
-                ></com.pga.project1.Viewes.ViewNameValue>
+                app:value=""></com.pga.project1.Viewes.ViewNameValue>
 
         </LinearLayout>
 
@@ -64,18 +61,16 @@
         android:orientation="vertical"
         android:padding="5dp"
         android:layout_margin="5dp"
-        android:background="@drawable/round_back_ground"
-        >
+        android:background="@drawable/round_back_ground">
 
         <com.pga.project1.Viewes.ViewNameValue
             android:id="@+id/txt_fragmentTaskInfo_taskStart"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:name="شروع فعالیت"
-            app:value=""
-            >
+            app:value="">
 
-            </com.pga.project1.Viewes.ViewNameValue>
+        </com.pga.project1.Viewes.ViewNameValue>
 
         <com.pga.project1.Viewes.ViewNameValue
             android:id="@+id/txt_fragmentTaskInfo_taskEnd"
@@ -105,6 +100,6 @@
 
         </com.pga.project1.Viewes.ViewNameValue>
 
-        </LinearLayout>
+    </LinearLayout>
 
 </LinearLayout>

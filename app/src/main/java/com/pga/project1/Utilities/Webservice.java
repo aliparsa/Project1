@@ -1,6 +1,8 @@
 package com.pga.project1.Utilities;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.pga.project1.DataModel.Chart;
@@ -14,6 +16,7 @@ import com.pga.project1.Intefaces.CallBackUpload;
 import com.pga.project1.Intefaces.ProgressCallBack;
 import com.pga.project1.Intefaces.ResponseHandler;
 
+import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,14 +36,34 @@ public class Webservice {
     //this is sparta
 
 
-    final static public String SERVER_ADDRESS = "http://192.168.1.66:8099/pm";
-    final static public String SHAYAN_SERVER_ADDRESS = "http://192.168.0.79:3434/index.php/webservice?";
+    private static String SERVER_ADDRESS = "http://192.168.0.79:3434";
+    private static String SERVER_ADDRESS_POSTFIX = "/index.php/webservice?";
+    private static String WEBSERVICE_ADDRESS = SERVER_ADDRESS + SERVER_ADDRESS_POSTFIX;
+    //-----------------------------------------------------------------------------
 
+    public static void prepareServerAddress(Context context) {
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+
+        String server_address = preferences.getString("server_address", null);
+
+        if (server_address != null) {
+            SERVER_ADDRESS = server_address;
+        } else {
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putString("server_address", SERVER_ADDRESS);
+            editor.apply();
+        }
+
+
+    }
 
     //-----------------------------------------------------------------------------
     public static void getProjects(Context context, final CallBack<ArrayList<Chart>> callBack) {
 
-        HttpHelper helper = new HttpHelper(context, SHAYAN_SERVER_ADDRESS, false, 0);
+        prepareServerAddress(context);
+
+        HttpHelper helper = new HttpHelper(context, WEBSERVICE_ADDRESS, false, 0);
         //HttpHelper helper = new HttpHelper(context, SERVER_ADDRESS, false, 0);
 
 
@@ -89,8 +112,8 @@ public class Webservice {
     // DONE
     //-----------------------------------------------------------------------------
     public static void GetChildOfID(Context context, final int id, final CallBack callBack) {
-
-        HttpHelper helper = new HttpHelper(context, SHAYAN_SERVER_ADDRESS, false, 0);
+        prepareServerAddress(context);
+        HttpHelper helper = new HttpHelper(context, WEBSERVICE_ADDRESS, false, 0);
         //HttpHelper helper = new HttpHelper(context, SERVER_ADDRESS, false, 0);
 
         BasicNameValuePair[] arr = {
@@ -140,8 +163,8 @@ public class Webservice {
     //------------------------------------------------------------------------
     public static void Login(Context context, String username, String password, final CallBack callback) {
 
-
-        HttpHelper helper = new HttpHelper(context, SHAYAN_SERVER_ADDRESS, false, 0);
+        prepareServerAddress(context);
+        HttpHelper helper = new HttpHelper(context, WEBSERVICE_ADDRESS, false, 0);
         //HttpHelper helper = new HttpHelper(context, SERVER_ADDRESS, false, 0);
 
         BasicNameValuePair[] arr = {
@@ -199,8 +222,8 @@ public class Webservice {
     // DONE
     //-------------------------------------------------------------------------------
     public static void getTaskListByWorkId(Context context, final int id, final CallBack callBack) {
-
-        HttpHelper helper = new HttpHelper(context, SHAYAN_SERVER_ADDRESS, false, 0);
+        prepareServerAddress(context);
+        HttpHelper helper = new HttpHelper(context, WEBSERVICE_ADDRESS, false, 0);
 
         BasicNameValuePair[] arr = {
                 new BasicNameValuePair("tag", "get_task_of_id"),
@@ -244,8 +267,8 @@ public class Webservice {
     // DONE
     //-------------------------------------------------------------------------------
     public static void searchPersonnel(Context context, String str, final CallBack<ArrayList<Personnel>> callBack) {
-
-        HttpHelper helper = new HttpHelper(context, SHAYAN_SERVER_ADDRESS, false, 0);
+        prepareServerAddress(context);
+        HttpHelper helper = new HttpHelper(context, WEBSERVICE_ADDRESS, false, 0);
 
         BasicNameValuePair[] arr = {
                 new BasicNameValuePair("tag", "search_personnel"),
@@ -271,7 +294,6 @@ public class Webservice {
                     }
 
 
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -288,7 +310,8 @@ public class Webservice {
     // DONE with error
     //-------------------------------------------------------------------------------
     public static void getReportListByWorkId(Context context, int id, final CallBack callBack) {
-        HttpHelper helper = new HttpHelper(context, SHAYAN_SERVER_ADDRESS, false, 0);
+        prepareServerAddress(context);
+        HttpHelper helper = new HttpHelper(context, WEBSERVICE_ADDRESS, false, 0);
 
         BasicNameValuePair[] arr = {
                 new BasicNameValuePair("tag", "get_report_of_id"),
@@ -314,7 +337,6 @@ public class Webservice {
                     }
 
 
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -333,7 +355,8 @@ public class Webservice {
     // DONE
     //-------------------------------------------------------------------------------
     public static void addPersonnelToWork(Context context, int personnelId, int workId, Task task, final CallBack<ServerResponse> callBack) {
-        HttpHelper helper = new HttpHelper(context, SHAYAN_SERVER_ADDRESS, false, 0);
+        prepareServerAddress(context);
+        HttpHelper helper = new HttpHelper(context, WEBSERVICE_ADDRESS, false, 0);
 
         BasicNameValuePair[] arr = {
                 new BasicNameValuePair("tag", "add_personnel_to_work"),
@@ -364,6 +387,10 @@ public class Webservice {
                             callBack.onSuccess(response);
                             break;
                         }
+                        case SC_BAD_REQUEST: {
+                            callBack.onError("DateOrPeopleInvalid");
+                            break;
+                        }
                     }
 
 
@@ -387,7 +414,8 @@ public class Webservice {
     // DONE
     //-------------------------------------------------------------------------------
     public static void saveWorkReport(Context context, final Report report, final String[] imagePaths, final ProgressCallBack callBack) {
-        final HttpHelper helper = new HttpHelper(context, SHAYAN_SERVER_ADDRESS, false, 0);
+        prepareServerAddress(context);
+        final HttpHelper helper = new HttpHelper(context, WEBSERVICE_ADDRESS, false, 0);
 
         if (imagePaths != null) {
 
@@ -549,7 +577,8 @@ public class Webservice {
 
     //-------------------------------------------------------------------------------
     public static void getWorkUnitList(Context context, final CallBack<ArrayList<WorkUnit>> callBack) {
-        HttpHelper helper = new HttpHelper(context, SHAYAN_SERVER_ADDRESS, false, 0);
+        prepareServerAddress(context);
+        HttpHelper helper = new HttpHelper(context, WEBSERVICE_ADDRESS, false, 0);
 
         BasicNameValuePair[] arr = {
                 new BasicNameValuePair("tag", "work_units")
@@ -575,7 +604,6 @@ public class Webservice {
                     }
 
 
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                     callBack.onError("Exception");
@@ -596,7 +624,8 @@ public class Webservice {
     // DONE
     //------------------------------------------------------------------------------
     public static void removeTask(Context context, int task_id, final CallBack<ServerResponse> callBack) {
-        HttpHelper helper = new HttpHelper(context, SHAYAN_SERVER_ADDRESS, false, 0);
+        prepareServerAddress(context);
+        HttpHelper helper = new HttpHelper(context, WEBSERVICE_ADDRESS, false, 0);
 
         BasicNameValuePair[] arr = {
                 new BasicNameValuePair("tag", "remove_task"),
@@ -641,7 +670,8 @@ public class Webservice {
     // DONE
     //-------------------------------------------------------------------------------
     public static void uploadFile(Context context, String filePath, final CallBackUpload callBack, final String tag) {
-        HttpHelper helper = new HttpHelper(context, SHAYAN_SERVER_ADDRESS, false, 0);
+        prepareServerAddress(context);
+        HttpHelper helper = new HttpHelper(context, SERVER_ADDRESS, false, 0);
 
         helper.upload(filePath, new ResponseHandler() {
             @Override
@@ -678,4 +708,65 @@ public class Webservice {
         });
     }
 
+    public static String getServerAddress() {
+        return SERVER_ADDRESS;
+    }
+
+    public static void modifyServerAddress(String serverAddress, Context context) {
+        SERVER_ADDRESS = serverAddress;
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        String server_address = preferences.getString("server_address", null);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("server_address", SERVER_ADDRESS);
+        editor.apply();
+    }
+
+    //--------------------------------------------------------------------------------
+    public static void getHomePageInfo(Context context, final CallBack<JSONArray> callBack) {
+
+        prepareServerAddress(context);
+
+        HttpHelper helper = new HttpHelper(context, WEBSERVICE_ADDRESS, false, 0);
+
+        BasicNameValuePair[] arr = {
+                new BasicNameValuePair("tag", "get_home_info")
+        };
+        helper.postHttp(arr, new ResponseHandler() {
+            @Override
+            public void handleResponse(ServerResponse response) {
+
+                try {
+
+
+                    switch (response.getStatusCode()) {
+                        case SC_UNAUTHORIZED: {
+                            callBack.onError("UNAUTHORIZED");
+                            break;
+                        }
+                        case SC_OK: {
+                            JSONArray jsonArray = new JSONArray(response.getResult());
+                            //ArrayList<Chart> chartList = Chart.getArrayFromJson(jsonArray);
+                            callBack.onSuccess(jsonArray);
+                            break;
+                        }
+
+
+                    }
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    callBack.onError("exception getProjects");
+                }
+
+            }
+
+            @Override
+            public void error(String err) {
+
+                Log.d("ali", "Error");
+                callBack.onError(err);
+            }
+        });
+    }
 }

@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.pga.project1.Adapters.ListViewCustomAdapter;
 import com.pga.project1.DataModel.PathObject;
 import com.pga.project1.DataModel.Personnel;
+import com.pga.project1.Helpers.DatabaseHelper;
 import com.pga.project1.Intefaces.CallBack;
 import com.pga.project1.R;
 import com.pga.project1.Structures.AdapterInputType;
@@ -36,13 +37,14 @@ public class PersonelPickerActivity extends Activity {
     private ListViewCustomAdapter adapter;
     private CallBack<Personnel> callback;
     Context context;
+    DatabaseHelper db;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
+        DatabaseHelper db = new DatabaseHelper(context);
         PathMapManager.push(new PathObject("انتخاب پرسنل"));
 
         setContentView(R.layout.activity_personel_picker);
@@ -50,7 +52,6 @@ public class PersonelPickerActivity extends Activity {
 
         context = this;
 
-        //searchView = (SearchView) findViewById(R.id.srchv_searchPersonnel_searchName);
         listView = (ListView) findViewById(R.id.lv_searchPersonnel_results);
         listView.setAdapter(ListViewAdapterHandler.getLoadingAdapter(this));
 
@@ -58,14 +59,40 @@ public class PersonelPickerActivity extends Activity {
                 R.layout.drawer_item, new ArrayList<AdapterInputType>());
 
 
-        loadPersonals("");
+        ArrayList<Personnel> personnels = db.getAllPersonnels();
 
-        // listView.setAdapter(adapter);
 
-        //searchView.setOnQueryTextListener(new onPersonnelSearchListener());
+        if (personnels.size() == 0) {
+            loadPersonalsFromWeb("");
+        } else {
+            loadPersonalsFromLocal("");
+        }
 
 
         prepareActionbar();
+    }
+
+    private void loadPersonalsFromLocal(String s) {
+        ArrayList<AdapterInputType> listItem = new ArrayList<AdapterInputType>();
+        DatabaseHelper db = new DatabaseHelper(context);
+        ArrayList<Personnel> personnels = db.getAllPersonnels();
+        for (Personnel person : personnels) {
+
+            AdapterInputType adapterInputType = new AdapterInputType(
+                    person, ListViewCustomAdapter.PERSONNEL_ITEM,
+                    person.getFirst_name() + " " + person.getLast_name(),
+                    person.getPhone_number(), person.getGroupsString(), person.getPersonnel_image()
+            );
+
+            listItem.add(adapterInputType);
+        }
+
+        adapter = new ListViewCustomAdapter(context,
+                R.layout.drawer_item, listItem);
+
+        listView.setAdapter(ListViewAdapterHandler.checkAdapterForNoItem(adapter));
+        listView.setOnItemClickListener(new onPersonnelClickListener());
+
     }
 
 
@@ -120,35 +147,22 @@ public class PersonelPickerActivity extends Activity {
     }
 
 
-   /* @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.personel_picker, menu);
-        return true;
-    }*/
-
-    /*  @Override
-      public boolean onOptionsItemSelected(MenuItem item) {
-          // Handle action bar item clicks here. The action bar will
-          // automatically handle clicks on the Home/Up button, so long
-          // as you specify a parent activity in AndroidManifest.xml.
-          int id = item.getItemId();
-          if (id == R.id.ac_back_in_personnel_picker) {
-              onBackPressed();
-              return true;
-          }
-          return super.onOptionsItemSelected(item);
-      }
-  */
-    protected void loadPersonals(final String str) {
+    protected void loadPersonalsFromWeb(final String str) {
 
         Webservice.searchPersonnel(this, str, new CallBack<ArrayList<Personnel>>() {
             @Override
             public void onSuccess(ArrayList<Personnel> result) {
 
+                if (result != null) {
+                    db.emptyPersonnelTable();
+                }
+
                 ArrayList<AdapterInputType> listItem = new ArrayList<AdapterInputType>();
 
                 for (Personnel person : result) {
+
+                    // insert to db
+                    db.insertPersonnel(person);
 
                     AdapterInputType adapterInputType = new AdapterInputType(
                             person, ListViewCustomAdapter.PERSONNEL_ITEM,
@@ -179,7 +193,7 @@ public class PersonelPickerActivity extends Activity {
 
         @Override
         public boolean onQueryTextSubmit(String s) {
-            loadPersonals(s);
+            loadPersonalsFromWeb(s);
             searchView.clearFocus();
             return true;
         }

@@ -136,7 +136,7 @@ public class FragmentWorkTask extends Fragment {
             case 1212: {
                 if (resultCode == Activity.RESULT_OK) {
                     Personnel personnel = (Personnel) data.getSerializableExtra("personnel");
-                   // addPersonnelToWork(personnel);
+                    // addPersonnelToWork(personnel);
 //                    Toast.makeText(getActivity(), "Personel id is > " + personnel.getFirst_name(), Toast.LENGTH_SHORT).show();
 
                     Intent intent = new Intent(getActivity(), AddPersonnelToWorkActivity.class);
@@ -159,9 +159,9 @@ public class FragmentWorkTask extends Fragment {
                 }
                 break;
             }
-            case 1200:{
+            case 1200: {
 
-                if(resultCode == Activity.RESULT_OK){
+                if (resultCode == Activity.RESULT_OK) {
                     prepareTasks();
                 }
 
@@ -323,7 +323,6 @@ public class FragmentWorkTask extends Fragment {
 
     }
 
-
     public void pickPersonnel() {
 
         Intent intent = new Intent(getActivity(), PersonelPickerActivity.class);
@@ -366,7 +365,6 @@ public class FragmentWorkTask extends Fragment {
         });
 
     }
-
 
     public void setChart(Chart chart) {
         this.chart = chart;
