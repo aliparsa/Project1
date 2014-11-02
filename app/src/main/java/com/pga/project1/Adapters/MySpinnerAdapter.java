@@ -1,6 +1,7 @@
 package com.pga.project1.Adapters;
 
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -8,6 +9,7 @@ import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
 import com.pga.project1.DataModel.Work;
+import com.pga.project1.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,9 +49,12 @@ public class MySpinnerAdapter extends BaseAdapter implements SpinnerAdapter {
 
     @Override
     public View getView(int aPosition, View aView, ViewGroup aParent) {
-        TextView text = new TextView(context);
+        TextView text;
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        text = (TextView) inflater.inflate(R.layout.spiner_item, null);
+
         if (aPosition == 0) {
-            text.setText("انتخاب نمایید"); // text for first dummy item
+            text.setText("نوع کار"); // text for first dummy item
         } else {
             text.setText(items.get(aPosition).getName());
             // or use whatever model attribute you'd like displayed instead of toString()

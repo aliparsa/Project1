@@ -2,7 +2,9 @@ package com.pga.project1.Activities;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,6 +12,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -24,7 +28,9 @@ import com.pga.project1.Intefaces.CallBack;
 import com.pga.project1.R;
 import com.pga.project1.Utilities.FontHelper;
 import com.pga.project1.Utilities.Fonts;
+import com.pga.project1.Utilities.PersianCalendar;
 import com.pga.project1.Utilities.Webservice;
+import com.pga.project1.Viewes.ViewDateTimePickerPersian;
 import com.pga.project1.Viewes.ViewNameValue;
 
 import java.util.ArrayList;
@@ -32,6 +38,8 @@ import java.util.ArrayList;
 public class FastAddPersonnelToWork extends Activity {
     Personnel personnel;
     private Context context;
+    private PersianCalendar selectedDateTime;
+    private Button timePicker;
 
 
     @Override
@@ -89,7 +97,8 @@ public class FastAddPersonnelToWork extends Activity {
                 } else {
                     Log.d(getClass().getName(), "Handling selection of actual list item...");
                     // TODO: insert code to handle selection
-                    resetSelection(mySpinner);
+                    //resetSelection(mySpinner);
+
                 }
             }
 
@@ -98,12 +107,36 @@ public class FastAddPersonnelToWork extends Activity {
                 // do nothing
             }
         });
+        EditText mizanKar = (EditText) findViewById(R.id.editText_MizanKar);
 
-    }
+        timePicker = (Button) findViewById(R.id.timePicker);
+        timePicker.setText(new PersianCalendar().getIranianDateTime());
 
-    protected void resetSelection(Spinner spinner) {
-        Log.d(getClass().getName(), "Resetting selection to 0 (i.e. 'please select' item).");
-        spinner.setSelection(0);
+        selectedDateTime = new PersianCalendar();
+        timePicker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                final ViewDateTimePickerPersian dp;
+                if (selectedDateTime == null)
+                    dp = new ViewDateTimePickerPersian(context);
+                else
+                    dp = new ViewDateTimePickerPersian(context, selectedDateTime);
+
+                new AlertDialog.Builder(context)
+                        .setTitle("انتخاب زمان و تاریخ")
+                        .setCancelable(false)
+                        .setView(dp)
+                        .setPositiveButton("تایید", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        selectedDateTime = dp.getDate();
+                                        timePicker.setText(selectedDateTime.getIranianDateTime());
+                                    }
+                                }
+                        )
+                        .show();
+            }
+        });
     }
 
 

@@ -159,7 +159,7 @@ public class FastProjectManagmentActivity extends Activity {
     public void HandleFastProjectManagement(final Personnel personnel) {
         new AlertDialog.Builder(context)
                 .setTitle("انتخاب نمایید")
-                .setItems(new String[]{"تبت فعالیت", "ثبت تردد"}, new DialogInterface.OnClickListener() {
+                .setItems(new String[]{"ثبت فعالیت", "ثبت تردد"}, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         dialogInterface.dismiss();
