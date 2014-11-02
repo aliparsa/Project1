@@ -11,6 +11,7 @@ import com.pga.project1.DataModel.Report;
 import com.pga.project1.DataModel.ServerResponse;
 import com.pga.project1.DataModel.Taradod;
 import com.pga.project1.DataModel.Task;
+import com.pga.project1.DataModel.Work;
 import com.pga.project1.DataModel.WorkUnit;
 import com.pga.project1.Intefaces.CallBack;
 import com.pga.project1.Intefaces.CallBackUpload;
@@ -819,4 +820,58 @@ public class Webservice {
             }
         });
     }
+
+    //---------------------------------------------------------------------
+    //-----------------------------------------------------------------------------
+    public static void getWorks(Context context, final CallBack<ArrayList<Work>> callBack) {
+
+        prepareServerAddress(context);
+
+        HttpHelper helper = new HttpHelper(context, WEBSERVICE_ADDRESS, false, 0);
+        //HttpHelper helper = new HttpHelper(context, SERVER_ADDRESS, false, 0);
+
+
+        BasicNameValuePair[] arr = {
+                new BasicNameValuePair("tag", "activity")
+        };
+        helper.postHttp(arr, new ResponseHandler() {
+            @Override
+            public void handleResponse(ServerResponse response) {
+
+                try {
+
+
+                    switch (response.getStatusCode()) {
+                        case SC_UNAUTHORIZED: {
+                            callBack.onError("UNAUTHORIZED");
+                            break;
+                        }
+                        case SC_OK: {
+                            JSONArray jsonArray = new JSONArray(response.getResult());
+                            ArrayList<Work> works = Work.getArrayFromJson(jsonArray);
+                            callBack.onSuccess(works);
+                            break;
+                        }
+
+
+                    }
+
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    callBack.onError("exception getProjects");
+                }
+
+            }
+
+            @Override
+            public void error(String err) {
+
+                Log.d("ali", "Error");
+                callBack.onError(err);
+            }
+        });
+    }
+
+    // DONE
 }
