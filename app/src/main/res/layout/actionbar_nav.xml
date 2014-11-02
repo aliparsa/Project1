@@ -82,5 +82,14 @@
             android:background="@drawable/hit"
             android:alpha="1" />
 
+        <ImageView
+            android:id="@+id/ac_action3"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:scaleType="center"
+            android:textColor="@color/actionbar_button_text"
+            android:background="@drawable/hit"
+            android:alpha="1" />
+
     </LinearLayout>
 </RelativeLayout>

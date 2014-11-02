@@ -1,28 +1,45 @@
 package com.pga.project1.Activities;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pga.project1.DataModel.Personnel;
 import com.pga.project1.Helpers.DatabaseHelper;
 import com.pga.project1.R;
+import com.pga.project1.Utilities.FontHelper;
+import com.pga.project1.Utilities.Fonts;
 import com.pga.project1.Viewes.ViewDateTimePickerPersian;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class FastProjectManagmentActivity extends Activity {
+public class FastProjectManagmentActivity extends ActionBarActivity {
 
     boolean isFirstTime = true;
     private Context context;
     Personnel personnel;
     private ImageView saveButton;
+    private ImageView attendance;
+    private ImageView faliat;
+    private ImageView synch;
+
+
+    ViewPager Tab;
+    FastProjectManTabPageAdapter TabAdapter;
+    ActionBar actionBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +48,118 @@ public class FastProjectManagmentActivity extends Activity {
         setContentView(R.layout.activity_fast_project_managment);
         //personnel_name.setNameValue("تلفن",personnel.get());
 
+
+        //Add New Tab
+
+        // actionBar.addTab(actionBar.newTab().setText("گزارش عملکرد").setTabListener(tabListener),false);
+        // actionBar.addTab(actionBar.newTab().setText("اطلاعات").setTabListener(tabListener),false);
+        //
+
+        TabAdapter = new FastProjectManTabPageAdapter(getSupportFragmentManager());
+        Tab = (ViewPager) findViewById(R.id.pager);
+        Tab.setOnPageChangeListener(
+                new ViewPager.SimpleOnPageChangeListener() {
+                    @Override
+                    public void onPageSelected(int position) {
+                        actionBar = getSupportActionBar();
+                        actionBar.setSelectedNavigationItem(position);
+                    }
+                }
+        );
+        Tab.setAdapter(TabAdapter);
+        actionBar = getSupportActionBar();
+
+        ActionBar.TabListener tabListener = new ActionBar.TabListener() {
+
+            @Override
+            public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+                Tab.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+
+            }
+
+            @Override
+            public void onTabReselected(android.support.v7.app.ActionBar.Tab tab, android.support.v4.app.FragmentTransaction fragmentTransaction) {
+
+            }
+        };
+
+        android.support.v7.app.ActionBar.Tab tab_taskInfo = getSupportActionBar().newTab();
+        android.support.v7.app.ActionBar.Tab tab_taskReport = getSupportActionBar().newTab();
+
+        // Set Tab Titles
+        tab_taskInfo.setText("اطلاعات").setTabListener(tabListener);
+        tab_taskReport.setText("گزارش عملکرد").setTabListener(tabListener);
+
+        getSupportActionBar().addTab(tab_taskReport);
+        getSupportActionBar().addTab(tab_taskInfo);
+
+        this.getSupportActionBar().selectTab(tab_taskInfo);
+
+        prepareActionBar();
+    }
+
+    private void prepareActionBar() {
+
+        View customActionBar = getLayoutInflater().inflate(R.layout.actionbar_back, null);
+        final ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayShowHomeEnabled(false);
+        actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setCustomView(customActionBar);
+
+        TextView title = (TextView) customActionBar.findViewById(R.id.ac_title);
+        FontHelper.SetFont(this, Fonts.MAIN_FONT, title, Typeface.BOLD);
+
+        //ImageView back = (ImageView) customActionBar.findViewById(R.id.ac_back);
+        LinearLayout back = (LinearLayout) customActionBar.findViewById(R.id.ac_back_layout);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+
+        synch = (ImageView) customActionBar.findViewById(R.id.ac_action3);
+        attendance = (ImageView) customActionBar.findViewById(R.id.ac_action2);
+        faliat = (ImageView) customActionBar.findViewById(R.id.ac_action1);
+
+        //addPhotoButton.setText("تصویر");
+        attendance.setImageResource(R.drawable.ic_action_attendance);
+        //addPhotoButton.setTextColor(getResources().getColor(R.color.actionbar_button_text));
+        attendance.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        //saveButton.setText("ذخیره");
+        faliat.setImageResource(R.drawable.ic_action_faaliyat);
+        // saveButton.setTextColor(getResources().getColor(R.color.actionbar_button_text));
+        final Context context = this;
+        faliat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+
+            }
+        });
+
+        synch.setImageResource(R.drawable.ic_action_synch);
+        synch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+
+            }
+        });
     }
 
 
@@ -45,25 +174,6 @@ public class FastProjectManagmentActivity extends Activity {
         }
         isFirstTime = false;
     }
-
-/*    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.fast_project_managment, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }*/
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
