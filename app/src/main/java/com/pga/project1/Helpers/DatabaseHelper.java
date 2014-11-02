@@ -5,13 +5,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.location.Location;
-import android.os.Bundle;
-import android.util.Log;
-
 
 import com.pga.project1.DataModel.Personnel;
-
+import com.pga.project1.DataModel.Taradod;
 
 import java.util.ArrayList;
 
@@ -128,5 +124,37 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public void emptyPersonnelTable() {
         getReadableDatabase().execSQL("Delete from " + TABLE_PERSONNEL);
+    }
+
+    public ArrayList<Taradod> getAllUnsentTaradod(){
+
+        ArrayList<Taradod> taradods = new ArrayList<Taradod>();
+
+        SQLiteDatabase db = getReadableDatabase();
+        final Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_TARADOD + " WHERE " + KEY_IN_OUT + " = 0;", null);
+
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+
+                do {
+
+                   Taradod taradod = new Taradod(
+                           cursor.getInt(cursor.getColumnIndex(KEY_ID)),
+                           cursor.getString(cursor.getColumnIndex(KEY_CODE)),
+                           cursor.getString(cursor.getColumnIndex(KEY_IN_OUT)),
+                           cursor.getInt(cursor.getColumnIndex(KEY_SENT)),
+                           cursor.getString(cursor.getColumnIndex(KEY_ID))
+                           );
+
+                    taradods.add(taradod);
+
+                } while (cursor.moveToNext());
+
+            }
+        }
+
+
+        return taradods;
+
     }
 }

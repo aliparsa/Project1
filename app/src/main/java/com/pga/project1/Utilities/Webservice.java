@@ -9,6 +9,7 @@ import com.pga.project1.DataModel.Chart;
 import com.pga.project1.DataModel.Personnel;
 import com.pga.project1.DataModel.Report;
 import com.pga.project1.DataModel.ServerResponse;
+import com.pga.project1.DataModel.Taradod;
 import com.pga.project1.DataModel.Task;
 import com.pga.project1.DataModel.WorkUnit;
 import com.pga.project1.Intefaces.CallBack;
@@ -16,7 +17,6 @@ import com.pga.project1.Intefaces.CallBackUpload;
 import com.pga.project1.Intefaces.ProgressCallBack;
 import com.pga.project1.Intefaces.ResponseHandler;
 
-import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,6 +25,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -630,6 +631,53 @@ public class Webservice {
         BasicNameValuePair[] arr = {
                 new BasicNameValuePair("tag", "remove_task"),
                 new BasicNameValuePair("id", task_id + ""),
+        };
+        helper.postHttp(arr, new ResponseHandler() {
+            @Override
+            public void handleResponse(ServerResponse response) {
+
+                try {
+
+                    switch (response.getStatusCode()) {
+                        case SC_UNAUTHORIZED: {
+                            callBack.onError("UNAUTHORIZED");
+                            break;
+                        }
+                        case SC_OK: {
+                            JSONObject jsonObject = new JSONObject(response.getResult());
+                            callBack.onSuccess(response);
+                            break;
+                        }
+                    }
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+
+                    callBack.onError("Exception");
+                }
+
+            }
+
+            @Override
+            public void error(String err) {
+                Log.e("ali", " webservice / addPersonnelToWork ");
+                callBack.onError(err);
+            }
+        });
+
+    }
+
+
+    // NOT DONE
+    //------------------------------------------------------------------------------
+    public static void sendTradods(Context context, List<Taradod> taradodList, final CallBack<ServerResponse> callBack) {
+        prepareServerAddress(context);
+        HttpHelper helper = new HttpHelper(context, WEBSERVICE_ADDRESS, false, 0);
+
+        BasicNameValuePair[] arr = {
+                new BasicNameValuePair("tag", "send_taradod"),
+                new BasicNameValuePair("id",  ""),
         };
         helper.postHttp(arr, new ResponseHandler() {
             @Override

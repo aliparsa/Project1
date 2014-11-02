@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -18,6 +17,7 @@ import android.widget.TextView;
 import com.pga.project1.Adapters.ListViewCustomAdapter;
 import com.pga.project1.DataModel.PathObject;
 import com.pga.project1.DataModel.Personnel;
+import com.pga.project1.Helpers.DatabaseHelper;
 import com.pga.project1.Intefaces.CallBack;
 import com.pga.project1.R;
 import com.pga.project1.Structures.AdapterInputType;
@@ -138,7 +138,7 @@ public class PersonelPickerActivity extends Activity {
         refreshButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                loadPersonals("");
+                loadPersonalsFromWeb("");
             }
         });
 
@@ -167,8 +167,6 @@ public class PersonelPickerActivity extends Activity {
 
         db = new DatabaseHelper(context);
 
-    protected void loadPersonals(final String str) {
-
         Webservice.searchPersonnel(this, str, new CallBack<ArrayList<Personnel>>() {
             @Override
             public void onSuccess(ArrayList<Personnel> result) {
@@ -182,7 +180,8 @@ public class PersonelPickerActivity extends Activity {
                 for (Personnel person : result) {
 
                     // insert to db
-                    db.insertPersonnel(person);
+                    if(str == null || str.equals(""))
+                        db.insertPersonnel(person);
 
                     AdapterInputType adapterInputType = new AdapterInputType(
                             person, ListViewCustomAdapter.PERSONNEL_ITEM,
