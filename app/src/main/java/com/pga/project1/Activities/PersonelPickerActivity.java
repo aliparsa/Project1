@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -170,7 +169,6 @@ public class PersonelPickerActivity extends Activity {
 
         db = new DatabaseHelper(context);
 
-
         Webservice.searchPersonnel(this, str, new CallBack<ArrayList<Personnel>>() {
             @Override
             public void onSuccess(ArrayList<Personnel> result) {
@@ -184,7 +182,8 @@ public class PersonelPickerActivity extends Activity {
                 for (Personnel person : result) {
 
                     // insert to db
-                    db.insertPersonnel(person);
+                    if(str == null || str.equals(""))
+                        db.insertPersonnel(person);
 
                     AdapterInputType adapterInputType = new AdapterInputType(
                             person, ListViewCustomAdapter.PERSONNEL_ITEM,
