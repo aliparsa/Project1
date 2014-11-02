@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.pga.project1.Adapters.ListViewCustomAdapter;
 import com.pga.project1.DataModel.PathObject;
 import com.pga.project1.DataModel.Personnel;
+import com.pga.project1.Helpers.DatabaseHelper;
 import com.pga.project1.Intefaces.CallBack;
 import com.pga.project1.R;
 import com.pga.project1.Structures.AdapterInputType;
@@ -140,7 +141,7 @@ public class PersonelPickerActivity extends Activity {
         refreshButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                loadPersonals("");
+                loadPersonalsFromWeb("");
             }
         });
 
@@ -169,7 +170,6 @@ public class PersonelPickerActivity extends Activity {
 
         db = new DatabaseHelper(context);
 
-    protected void loadPersonals(final String str) {
 
         Webservice.searchPersonnel(this, str, new CallBack<ArrayList<Personnel>>() {
             @Override
