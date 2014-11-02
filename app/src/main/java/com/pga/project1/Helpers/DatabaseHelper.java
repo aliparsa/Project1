@@ -162,7 +162,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                            cursor.getString(cursor.getColumnIndex(KEY_CODE)),
                            cursor.getString(cursor.getColumnIndex(KEY_IN_OUT)),
                            cursor.getInt(cursor.getColumnIndex(KEY_SENT)),
-                           cursor.getString(cursor.getColumnIndex(KEY_ID))
+                           cursor.getString(cursor.getColumnIndex(KEY_DATE))
                            );
 
                     taradods.add(taradod);
