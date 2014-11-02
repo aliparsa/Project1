@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -76,6 +77,8 @@ public class PersonelPickerActivity extends Activity {
 
 
         prepareActionbar();
+
+        listView.requestFocus();
     }
 
     private void loadPersonalsFromLocal(String s) {
@@ -137,6 +140,7 @@ public class PersonelPickerActivity extends Activity {
         //removeTaskButton.setText("حذف وظیفه");
         refreshButton.setImageResource(R.drawable.ac_refresh);
 
+
         refreshButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -162,6 +166,10 @@ public class PersonelPickerActivity extends Activity {
         searchTextView.setHintTextColor(getResources().getColor(R.color.actionbar_search_hint));
         //searchTextView.setTextSize(R.dimen.actionbar_search_font_size);
 
+        // clear keyboard on start
+
+
+
     }
 
 
@@ -173,7 +181,7 @@ public class PersonelPickerActivity extends Activity {
             @Override
             public void onSuccess(ArrayList<Personnel> result) {
 
-                if (result != null) {
+                if (result != null && (str == null || str.equals(""))) {
                     db.emptyPersonnelTable();
                 }
 

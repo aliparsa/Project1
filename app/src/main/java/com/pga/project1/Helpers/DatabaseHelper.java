@@ -48,6 +48,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String KEY_PRICE = "price";
     private static final String KEY_WORK_CODE = "work_id";
     private static final String KEY_AMOUNT = "amount";
+    private static final String KEY_PHONE = "phone";
 
 
     SQLiteDatabase db;
@@ -70,7 +71,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                         + KEY_FIRSTNAME + " TEXT,"
                         + KEY_LASTNAME + " TEXT,"
                         + KEY_IMAGE + " TEXT,"
-                        + KEY_NUMBER + " TEXT,"
+                        + KEY_PHONE + " TEXT,"
                         + KEY_CODE + " TEXT"
                         + ")";
         db.execSQL(CREATE_PERSONNEL_TABLE);
@@ -126,9 +127,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public void insertPersonnel(Personnel personnel) {
         ContentValues values = new ContentValues();
+        values.put(KEY_ID, personnel.getId());
         values.put(KEY_FIRSTNAME, personnel.getFirst_name());
         values.put(KEY_LASTNAME, personnel.getLast_name());
         values.put(KEY_CODE, personnel.getPersonnel_code());
+        values.put(KEY_IMAGE, personnel.getPersonnel_image());
+        values.put(KEY_PHONE, personnel.getPhone_number());
         this.getWritableDatabase().insert(TABLE_PERSONNEL, null, values);
     }
 
@@ -144,10 +148,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
                 do {
                     Personnel personnel = new Personnel();
+                    personnel.setId(cursor.getInt(cursor.getColumnIndex(KEY_ID)));
                     personnel.setFirst_name(cursor.getString(cursor.getColumnIndex(KEY_FIRSTNAME)));
                     personnel.setLast_name(cursor.getString(cursor.getColumnIndex(KEY_LASTNAME)));
                     personnel.setPersonnel_code(cursor.getString(cursor.getColumnIndex(KEY_CODE)));
-                    personnel.setId(Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_ID))));
+                    personnel.setPersonnel_image((cursor.getString(cursor.getColumnIndex(KEY_IMAGE))));
+                    personnel.setPhone_number((cursor.getString(cursor.getColumnIndex(KEY_PHONE))));
+
                     personnels.add(personnel);
 
                 } while (cursor.moveToNext());
