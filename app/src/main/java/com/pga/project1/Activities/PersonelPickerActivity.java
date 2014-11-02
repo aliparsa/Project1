@@ -48,6 +48,8 @@ public class PersonelPickerActivity extends Activity {
         context = this;
         DatabaseHelper db = new DatabaseHelper(context);
 
+        //db.emptyPersonnelTable();
+
         PathMapManager.push(new PathObject("انتخاب پرسنل"));
 
         setContentView(R.layout.activity_personel_picker);
