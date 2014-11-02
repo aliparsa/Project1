@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.pga.project1.Adapters.WorkPageTabPagerAdapter;
 import com.pga.project1.DataModel.Chart;
 import com.pga.project1.R;
 import com.pga.project1.Utilities.FontHelper;
@@ -169,9 +170,10 @@ public class WorkActivity extends ActionBarActivity {
 
         View homeIcon = findViewById(android.R.id.home);
 
-        if(homeIcon != null ) {
+        if (homeIcon != null) {
             homeIcon.setVisibility(View.GONE);
-        }if(homeIcon.getParent() != null){
+        }
+        if (homeIcon.getParent() != null) {
             ((View) homeIcon.getParent()).setVisibility(View.GONE);
         }
 

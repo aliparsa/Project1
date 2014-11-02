@@ -1,4 +1,4 @@
-package com.pga.project1.Activities;
+package com.pga.project1.Adapters;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

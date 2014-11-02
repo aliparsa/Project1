@@ -1,4 +1,4 @@
-package com.pga.project1.Activities;
+package com.pga.project1.Adapters;
 
 /**
  * Created by aliparsa on 9/1/2014.

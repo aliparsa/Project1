@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.pga.project1.Adapters.FastProjectManTabPageAdapter;
 import com.pga.project1.DataModel.Personnel;
 import com.pga.project1.Helpers.DatabaseHelper;
 import com.pga.project1.R;
@@ -28,7 +29,6 @@ import java.util.Date;
 
 public class FastProjectManagmentActivity extends ActionBarActivity {
 
-    boolean isFirstTime = true;
     private Context context;
     Personnel personnel;
     private ImageView saveButton;
@@ -91,8 +91,8 @@ public class FastProjectManagmentActivity extends ActionBarActivity {
         android.support.v7.app.ActionBar.Tab tab_taskReport = getSupportActionBar().newTab();
 
         // Set Tab Titles
-        tab_taskInfo.setText("اطلاعات").setTabListener(tabListener);
-        tab_taskReport.setText("گزارش عملکرد").setTabListener(tabListener);
+        tab_taskInfo.setText("تردد").setTabListener(tabListener);
+        tab_taskReport.setText("عملکرد").setTabListener(tabListener);
 
         getSupportActionBar().addTab(tab_taskReport);
         getSupportActionBar().addTab(tab_taskInfo);
@@ -105,13 +105,29 @@ public class FastProjectManagmentActivity extends ActionBarActivity {
     private void prepareActionBar() {
 
         View customActionBar = getLayoutInflater().inflate(R.layout.actionbar_back, null);
-        final ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayShowHomeEnabled(false);
-        actionBar.setDisplayShowTitleEnabled(false);
-        actionBar.setDisplayShowCustomEnabled(true);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setNavigationMode(android.support.v7.app.ActionBar.NAVIGATION_MODE_TABS);
         actionBar.setCustomView(customActionBar);
 
-        actionBar.setNavigationMode(android.app.ActionBar.NAVIGATION_MODE_TABS);
+        actionBar.setLogo(null); // forgot why this one but it helped
+        actionBar.setIcon(null);
+
+        actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setDisplayShowHomeEnabled(true);
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setDisplayUseLogoEnabled(false);
+        actionBar.setDisplayHomeAsUpEnabled(false);
+        actionBar.setHomeButtonEnabled(false);
+
+        View homeIcon = findViewById(android.R.id.home);
+
+        if (homeIcon != null) {
+            homeIcon.setVisibility(View.GONE);
+        }
+        if (homeIcon.getParent() != null) {
+            ((View) homeIcon.getParent()).setVisibility(View.GONE);
+        }
+
 
         TextView title = (TextView) customActionBar.findViewById(R.id.ac_title);
         FontHelper.SetFont(this, Fonts.MAIN_FONT, title, Typeface.BOLD);
@@ -137,6 +153,8 @@ public class FastProjectManagmentActivity extends ActionBarActivity {
             @Override
             public void onClick(View view) {
 
+                Intent intent = new Intent(context, PersonelPickerActivity.class);
+                startActivityForResult(intent, 1412);
             }
         });
 
@@ -148,7 +166,8 @@ public class FastProjectManagmentActivity extends ActionBarActivity {
             @Override
             public void onClick(View view) {
 
-
+                Intent intent = new Intent(context, PersonelPickerActivity.class);
+                startActivityForResult(intent, 1413);
 
             }
         });
@@ -158,6 +177,7 @@ public class FastProjectManagmentActivity extends ActionBarActivity {
             @Override
             public void onClick(View view) {
 
+                // TODO SYNCH BUTTON HERE
 
 
             }
@@ -170,20 +190,23 @@ public class FastProjectManagmentActivity extends ActionBarActivity {
     protected void onStart() {
         super.onStart();
 
-        if (isFirstTime) {
-            Intent intent = new Intent(this, PersonelPickerActivity.class);
-            startActivityForResult(intent, 1411);
-        }
-        isFirstTime = false;
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (resultCode == RESULT_OK && requestCode == 1411) {
+        if (resultCode == RESULT_OK && requestCode == 1412) {
             personnel = (Personnel) data.getSerializableExtra("personnel");
-            HandleFastProjectManagement(personnel);
+            HandleTaradod(personnel);
+        }
+
+        if (resultCode == RESULT_OK && requestCode == 1413) {
+            personnel = (Personnel) data.getSerializableExtra("personnel");
+
+            Intent intent = new Intent(context, FastAddPersonnelToWork.class);
+            intent.putExtra("personnel", personnel);
+            startActivity(intent);
         }
     }
 
@@ -292,8 +315,8 @@ public class FastProjectManagmentActivity extends ActionBarActivity {
                 })
                 .show();
     }
-    //-------------------------------------------------------------------------------------
 
+    //-------------------------------------------------------------------------------------
     private void InOutCustomTime(final Personnel personnel, final String in_out) {
         final ViewDateTimePickerPersian pickerPersian = new ViewDateTimePickerPersian(context);
         new AlertDialog.Builder(context)
