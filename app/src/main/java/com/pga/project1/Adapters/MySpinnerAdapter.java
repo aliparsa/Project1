@@ -59,6 +59,7 @@ public class MySpinnerAdapter extends BaseAdapter implements SpinnerAdapter {
             text.setText(items.get(aPosition).getName());
             // or use whatever model attribute you'd like displayed instead of toString()
         }
+        text.setTag(items.get(aPosition));
         return text;
     }
 }

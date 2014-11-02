@@ -22,6 +22,15 @@ public class Faliat {
         this.date = date;
     }
 
+    public Faliat(String personnelCode, String workId, String amount, String date) {
+
+
+        this.personnelCode = personnelCode;
+        this.workId = workId;
+        this.amount = amount;
+        this.date = date;
+    }
+
     public int getId() {
         return id;
     }

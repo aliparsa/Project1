@@ -9,6 +9,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,8 +17,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.pga.project1.Adapters.MySpinnerAdapter;
+import com.pga.project1.DataModel.Faliat;
 import com.pga.project1.DataModel.Personnel;
 import com.pga.project1.DataModel.Work;
 import com.pga.project1.Helpers.DatabaseHelper;
@@ -38,6 +41,8 @@ public class FastAddPersonnelToWork extends Activity {
     private PersianCalendar selectedDateTime;
     private Button timePicker;
     private ImageView saveButton;
+    private EditText mizanKar;
+    private Work selectedWork;
 
 
     @Override
@@ -79,6 +84,7 @@ public class FastAddPersonnelToWork extends Activity {
 
 
         personnel_name.setNameValue("نام و نام خانوادگی", personnel.getFullName());
+        personnel_phone.setNameValue("شماره تماس", personnel.getPhone_number());
 
 
         DatabaseHelper db = new DatabaseHelper(context);
@@ -94,8 +100,8 @@ public class FastAddPersonnelToWork extends Activity {
                     Log.d(getClass().getName(), "Ignoring selection of dummy list item...");
                 } else {
                     Log.d(getClass().getName(), "Handling selection of actual list item...");
-                    // TODO: insert code to handle selection
-                    //resetSelection(mySpinner);
+                    selectedWork = (Work) aView.getTag();
+                    int a = 10;
 
                 }
             }
@@ -105,7 +111,7 @@ public class FastAddPersonnelToWork extends Activity {
                 // do nothing
             }
         });
-        EditText mizanKar = (EditText) findViewById(R.id.editText_MizanKar);
+        mizanKar = (EditText) findViewById(R.id.editText_MizanKar);
 
         timePicker = (Button) findViewById(R.id.timePicker);
         timePicker.setText(new PersianCalendar().getIranianDateTime());
@@ -172,14 +178,11 @@ public class FastAddPersonnelToWork extends Activity {
             public void onClick(View view) {
 
                 //validation
-               /* if(task_name.getText().toString().length() == 0) {
-
+                if (personnel == null || selectedWork == null || selectedDateTime == null || mizanKar.length() < 1) {
                     saveButton.startAnimation(AnimationUtils.loadAnimation(context, R.anim.view_not_valid));
-                    task_name.startAnimation(AnimationUtils.loadAnimation(context, R.anim.view_not_valid));
-                    Toast.makeText(context, "نام وظیفه باید پر شود", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "اطلاعات تکمیل نیست", Toast.LENGTH_SHORT).show();
                     return;
-                }*/
-
+                }
 
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(context)
@@ -188,16 +191,13 @@ public class FastAddPersonnelToWork extends Activity {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
 
-                                //addFaliat();
+                                addFaliat();
 
                             }
                         }).setNegativeButton("خیر", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
 
-                                setResult(Activity.RESULT_CANCELED);
-                                finish();
-                                overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
 
                             }
                         });
@@ -210,26 +210,12 @@ public class FastAddPersonnelToWork extends Activity {
 
     private void addFaliat() {
 
-        //Faliat faliat = new Faliat()
+
+        Faliat faliat = new Faliat(personnel.getPersonnel_code() + "", selectedWork.getId() + "", mizanKar.getText().toString(), selectedDateTime.getGregorianDate() + "");
+        DatabaseHelper db = new DatabaseHelper(context);
+        db.insertFaliat(faliat);
+        finish();
     }
 
-   /* @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.fast_add_personnel_to_work, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }*/
 
 }
