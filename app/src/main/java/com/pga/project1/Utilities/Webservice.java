@@ -675,9 +675,11 @@ public class Webservice {
         prepareServerAddress(context);
         HttpHelper helper = new HttpHelper(context, WEBSERVICE_ADDRESS, false, 0);
 
+        String taradodJSON = Taradod.convertArrayToJson(taradodList).toString();
+
         BasicNameValuePair[] arr = {
                 new BasicNameValuePair("tag", "send_taradod"),
-                new BasicNameValuePair("id",  ""),
+                new BasicNameValuePair("id", taradodJSON)
         };
         helper.postHttp(arr, new ResponseHandler() {
             @Override
