@@ -1,12 +1,20 @@
 package com.pga.project1.Activities;
 
+import android.app.ActionBar;
 import android.app.Activity;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.pga.project1.DataModel.Personnel;
 import com.pga.project1.R;
+import com.pga.project1.Utilities.FontHelper;
+import com.pga.project1.Utilities.Fonts;
 import com.pga.project1.Viewes.ViewNameValue;
 
 public class FastAddPersonnelToWork extends Activity {
@@ -18,6 +26,7 @@ public class FastAddPersonnelToWork extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fast_add_personnel_to_work);
         //
+
 
         personnel = (Personnel) getIntent().getSerializableExtra("personnel");
 
@@ -48,4 +57,5 @@ public class FastAddPersonnelToWork extends Activity {
         }
         return super.onOptionsItemSelected(item);
     }
+
 }

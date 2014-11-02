@@ -37,6 +37,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String KEY_IN_OUT = "in_out";
     private static final String KEY_DATE = "date";
     private static final String KEY_SENT = "sent";
+    private static final String KEY_IMAGE = "image";
+    private static final String KEY_NUMBER = "number";
+
 
     SQLiteDatabase db;
 
@@ -56,12 +59,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                         + KEY_ID + " INTEGER PRIMARY KEY,"
                         + KEY_FIRSTNAME + " TEXT,"
                         + KEY_LASTNAME + " TEXT,"
+                        + KEY_IMAGE + " TEXT,"
+                        + KEY_NUMBER + " TEXT,"
                         + KEY_CODE + " TEXT"
                         + ")";
         db.execSQL(CREATE_PERSONNEL_TABLE);
 
         String CREATE_TARADOD_TABLE =
-                "CREATE TABLE " + TABLE_PERSONNEL + "("
+                "CREATE TABLE " + TABLE_TARADOD + "("
                         + KEY_ID + " INTEGER PRIMARY KEY,"
                         + KEY_CODE + " TEXT,"
                         + KEY_IN_OUT + " TEXT,"
