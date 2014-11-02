@@ -49,17 +49,13 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:padding="5dp"
+        android:gravity="right"
         android:layout_margin="5dp"
         android:background="@drawable/round_back_ground"
         android:layout_gravity="center_vertical">
 
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Noe Kar"
-            android:id="@+id/textView2" />
 
         <Spinner
             android:layout_width="match_parent"
@@ -70,7 +66,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Mizan Kar"
+            android:text="میزان کار"
             android:id="@+id/textView" />
 
         <EditText
@@ -78,13 +74,18 @@
             android:layout_height="wrap_content"
             android:inputType="number"
             android:ems="10"
-            android:id="@+id/editText" />
+            android:id="@+id/editText_MizanKar" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Date"
-            android:id="@+id/textView3" />
+            android:text="تاریخ"
+            android:id="@+id/textView" />
+
+        <Button
+            android:id="@+id/timePicker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
 
     </LinearLayout>
