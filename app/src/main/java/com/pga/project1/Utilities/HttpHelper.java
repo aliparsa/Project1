@@ -102,7 +102,7 @@ public class HttpHelper {
                                     EntityUtils.toString(response.getEntity(), HTTP.UTF_8),
                                     HttpStatusCode.get(response.getStatusLine().getStatusCode()));
 
-                                    return result;
+                            return result;
 
                         } else if (response.getStatusLine().getStatusCode() == HttpStatusCode.SC_FORBIDDEN.getCode()) {
 
@@ -212,11 +212,12 @@ public class HttpHelper {
                         HttpResponse response = client.execute(post);
 
 
-                        //Close the connection
-                        client.getConnectionManager().shutdown();
-
                         ServerResponse result = new ServerResponse("", EntityUtils.toString(response.getEntity(), HTTP.UTF_8),
                                 HttpStatusCode.get(response.getStatusLine().getStatusCode()));
+
+
+                        //Close the connection
+                        client.getConnectionManager().shutdown();
 
                         return result;
 

@@ -78,7 +78,7 @@ public class ViewDateTimePickerPersian extends LinearLayout {
         setDate(date.getIranianYear(), date.getIranianMonth(), date.getIranianDay(), date.getHour(), date.getMinute());
     }
 
-    private void findAndSetViews(){
+    private void findAndSetViews() {
 
         hourPicker = (NumberPicker) findViewById(R.id.numPic_datepicker_hour);
         minutePicker = (NumberPicker) findViewById(R.id.numPic_datepicker_minute);
@@ -143,23 +143,25 @@ public class ViewDateTimePickerPersian extends LinearLayout {
         requestLayout();
     }
 
-
     private void setDayPicker() {
 
         dayPicker.setMinValue(1);
         dayPicker.setMaxValue(31);
 
     }
+
     private void setMonthPicker() {
 
         monthPicker.setMinValue(1);
         monthPicker.setMaxValue(12);
     }
+
     private void setYearPicker() {
 
         yearPicker.setMinValue(1300);
         yearPicker.setMaxValue(1500);
     }
+
     private void setHourPicker() {
 
         hourPicker.setMinValue(0);
@@ -171,6 +173,7 @@ public class ViewDateTimePickerPersian extends LinearLayout {
                 "20", "21", "22", "23",
         });
     }
+
     private void setMinutePicker() {
 
         minutePicker.setMinValue(0);
@@ -228,11 +231,12 @@ public class ViewDateTimePickerPersian extends LinearLayout {
         return this.minutePicker.getValue();
     }
 
-    public PersianCalendar getDate(){
+    public PersianCalendar getDate() {
 
         PersianCalendar pc = new PersianCalendar();
         pc.setIranianDate(getYear(), getMonth(), getDay());
         pc.setTime(getHour(), getMinute(), 0);
+
 
         return pc;
     }

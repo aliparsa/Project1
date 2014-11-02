@@ -1,12 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="wrap_content"
-    android:layout_height="match_parent"
+    android:layout_height="match_parent">
 
-    >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -37,12 +34,6 @@
                 app:name="نام و نام خانوادگی"
                 app:value=""></com.pga.project1.Viewes.ViewNameValue>
 
-            <com.pga.project1.Viewes.ViewNameValue
-                android:id="@+id/txt_fragmentTaskInfo_personnelJob"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:name="نام وظیفه"
-                app:value=""></com.pga.project1.Viewes.ViewNameValue>
 
             <com.pga.project1.Viewes.ViewNameValue
                 android:id="@+id/txt_fragmentTaskInfo_personnelPhone"
@@ -56,50 +47,44 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="5dp"
-        android:layout_margin="5dp"
-        android:background="@drawable/round_back_ground">
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
 
-        <com.pga.project1.Viewes.ViewNameValue
-            android:id="@+id/txt_fragmentTaskInfo_taskStart"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Noe Kar"
+            android:id="@+id/textView2" />
+
+        <Spinner
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:name="شروع فعالیت"
-            app:value="">
+            android:id="@+id/spinner"
+            android:layout_gravity="center_horizontal" />
 
-        </com.pga.project1.Viewes.ViewNameValue>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mizan Kar"
+            android:id="@+id/textView" />
 
-        <com.pga.project1.Viewes.ViewNameValue
-            android:id="@+id/txt_fragmentTaskInfo_taskEnd"
+        <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:name="پایان فعالیت"
-            app:value="">
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/editText" />
 
-        </com.pga.project1.Viewes.ViewNameValue>
-
-        <com.pga.project1.Viewes.ViewNameValue
-            android:id="@+id/txt_fragmentTaskInfo_taskPercent"
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:name="درصد انجام"
-            app:value="">
+            android:text="Date"
+            android:id="@+id/textView3" />
 
-        </com.pga.project1.Viewes.ViewNameValue>
-
-        <com.pga.project1.Viewes.ViewNameValue
-            android:id="@+id/txt_fragmentTaskInfo_dayWorked"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:name="روز های کار کرد"
-            app:value=""
-            android:visibility="gone">
-
-        </com.pga.project1.Viewes.ViewNameValue>
 
     </LinearLayout>
-
 </LinearLayout>
+
+
+

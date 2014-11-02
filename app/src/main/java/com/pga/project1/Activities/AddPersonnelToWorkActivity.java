@@ -247,6 +247,11 @@ public class AddPersonnelToWorkActivity extends Activity {
                 editText_tozihat.getText().toString()
         );
 
+        String startChart = chart.getStart_date();
+        String endChart = chart.getEnd_date();
+        String startTask = selectedStartDateTime.getIranianDateTime();
+        String endTask = selectedEndDateTime.getIranianDateTime();
+
         final ProgressDialog pg = new ProgressDialog(this);
         pg.setMessage("در حال ارسال");
         pg.show();
@@ -296,6 +301,7 @@ public class AddPersonnelToWorkActivity extends Activity {
                 new AlertDialog.Builder(self)
                         .setTitle("عملیات انجام نشد")
                         .setCancelable(false)
+                        .setMessage(err.equals("DateOrPeopleInvalid") ? "خطای در انتخاب زمان و یا کاربر تکراری" : "")
                         .setPositiveButton("تلاش مجدد", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
 

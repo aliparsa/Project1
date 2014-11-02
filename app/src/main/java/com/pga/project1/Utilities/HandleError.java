@@ -15,7 +15,7 @@ import com.pga.project1.R;
  */
 public class HandleError {
 
-    public static void HandleError(Context context, String err, final CallBackFunction callback) {
+    public static void HandleError(final Context context, String err, final CallBackFunction callback) {
 
         // toast error
         // Toast.makeText(context, err, Toast.LENGTH_SHORT).show();
@@ -29,6 +29,12 @@ public class HandleError {
                     .setPositiveButton("تلاش مجدد", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
                                     callback.execute();
+                                }
+                            }
+                    )
+                    .setNegativeButton("لغو", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+
                                 }
                             }
                     )

@@ -100,7 +100,7 @@ public class FragmentWorkReport extends Fragment {
         super.onCreateOptionsMenu(menu, inflater);
     }*/
 
-    @Override
+   /* @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         if (item.getItemId() == R.id.ac_new_work_report) {
@@ -109,7 +109,7 @@ public class FragmentWorkReport extends Fragment {
         }
 
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 
 
     public void newWorkReport() {

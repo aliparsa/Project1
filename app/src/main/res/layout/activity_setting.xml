@@ -12,6 +12,7 @@
         android:layout_height="fill_parent">
 
         <RelativeLayout
+            android:id="@+id/option_server_address"
             android:layout_width="fill_parent"
             android:layout_height="85dp"
             android:padding="15dp"
@@ -20,7 +21,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ُServer Address"
+                android:text="آدرس سرور"
                 android:textAppearance="?android:attr/textAppearanceLarge"
 
                 android:layout_alignParentTop="true"
@@ -29,11 +30,12 @@
                 android:id="@+id/textView2" />
 
             <TextView
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="Curent web server url"
-                android:id="@+id/textView"
+                android:id="@+id/textview_current_server_address"
                 android:layout_below="@+id/textView2"
                 android:layout_alignRight="@+id/textView2"
                 android:layout_alignEnd="@+id/textView2" />
