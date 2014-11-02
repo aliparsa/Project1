@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.pga.project1.DataModel.Faliat;
 import com.pga.project1.DataModel.Personnel;
 import com.pga.project1.DataModel.Taradod;
 import com.pga.project1.DataModel.Work;
@@ -30,6 +31,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String TABLE_PERSONNEL = "personnel";
     private static final String TABLE_TARADOD = "taradod";
     private static final String TABLE_WORK = "work";
+    private static final String TABLE_FALIAT = "faliat";
 
 
     private static final String KEY_ID = "id";
@@ -44,9 +46,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String KEY_NAME = "name";
     private static final String KEY_TYPE = "type";
     private static final String KEY_PRICE = "price";
+    private static final String KEY_WORK_CODE = "work_id";
+    private static final String KEY_AMOUNT = "amount";
 
 
     SQLiteDatabase db;
+
 
 
     public DatabaseHelper(Context context) {
@@ -88,6 +93,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                         + KEY_PRICE + " TEXT"
                         + ")";
         db.execSQL(CREATE_WORK_TABLE);
+
+
+        String CREATE_FALIAT_TABLE =
+                "CREATE TABLE " + TABLE_FALIAT + "("
+                        + KEY_ID + " INTEGER PRIMARY KEY,"
+                        + KEY_CODE + " TEXT,"
+                        + KEY_WORK_CODE + " TEXT,"
+                        + KEY_AMOUNT + " TEXT,"
+                        + KEY_DATE + " TEXT"
+                        + ")";
+        db.execSQL(CREATE_FALIAT_TABLE);
 
 
         database = db;
@@ -210,5 +226,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             }
         }
         return works;
+    }
+
+    public void insertFaliat(Faliat faliat) {
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_ID, faliat.getId());
+        values.put(KEY_CODE, faliat.getPersonnelCode());
+        values.put(KEY_WORK_CODE, faliat.getWorkId());
+        values.put(KEY_AMOUNT, faliat.getAmount());
+        values.put(KEY_DATE, faliat.getDate());
+        this.getWritableDatabase().insert(TABLE_FALIAT, null, values);
+
     }
 }
