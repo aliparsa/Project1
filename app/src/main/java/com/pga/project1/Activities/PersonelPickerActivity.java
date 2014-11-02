@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -19,7 +18,6 @@ import android.widget.TextView;
 import com.pga.project1.Adapters.ListViewCustomAdapter;
 import com.pga.project1.DataModel.PathObject;
 import com.pga.project1.DataModel.Personnel;
-import com.pga.project1.Helpers.DatabaseHelper;
 import com.pga.project1.Intefaces.CallBack;
 import com.pga.project1.R;
 import com.pga.project1.Structures.AdapterInputType;
@@ -39,6 +37,7 @@ public class PersonelPickerActivity extends Activity {
     private CallBack<Personnel> callback;
     Context context;
     DatabaseHelper db;
+    private ImageView refreshButton;
 
 
     @Override
@@ -57,6 +56,7 @@ public class PersonelPickerActivity extends Activity {
 
         context = this;
 
+        //searchView = (SearchView) findViewById(R.id.srchv_searchPersonnel_searchName);
         listView = (ListView) findViewById(R.id.lv_searchPersonnel_results);
         listView.setAdapter(ListViewAdapterHandler.getLoadingAdapter(this));
 
@@ -66,6 +66,7 @@ public class PersonelPickerActivity extends Activity {
 
         ArrayList<Personnel> personnels = db.getAllPersonnels();
 
+        // listView.setAdapter(adapter);
 
         if (personnels.size() == 0) {
             loadPersonalsFromWeb("");
@@ -131,12 +132,25 @@ public class PersonelPickerActivity extends Activity {
         searchView.setOnQueryTextListener(new onPersonnelSearchListener());
 
 
-        // int searchButtonId = searchView.getContext().getResources().getIdentifier("android:id/search_button", null, null);
+        refreshButton = (ImageView) customActionBar.findViewById(R.id.ac_reload);
+
+        //removeTaskButton.setText("حذف وظیفه");
+        refreshButton.setImageResource(R.drawable.ac_refresh);
+
+        refreshButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                loadPersonals("");
+            }
+        });
+
+
+       // int searchButtonId = searchView.getContext().getResources().getIdentifier("android:id/search_button", null, null);
         //Button searchIcon = (Button) searchView.findViewById(searchButtonId);
-        // searchIcon.setdraw//setImageResource(R.drawable.ic_search);
+       // searchIcon.setdraw//setImageResource(R.drawable.ic_search);
 
         //int searchPlateId = searchView.getContext().getResources().getIdentifier("android:id/search_plate", null, null);
-        // searchView.findViewById(searchPlateId).setBackgroundResource(R.drawable.textfield_search_selected);
+       // searchView.findViewById(searchPlateId).setBackgroundResource(R.drawable.textfield_search_selected);
 
         //int voiceSearchPlateId = searchView.getContext().getResources().getIdentifier("android:id/submit_area", null, null);
         //searchView.findViewById(voiceSearchPlateId).setBackgroundResource(R.drawable.textfield_search_right_selected);
@@ -154,6 +168,8 @@ public class PersonelPickerActivity extends Activity {
     protected void loadPersonalsFromWeb(final String str) {
 
         db = new DatabaseHelper(context);
+
+    protected void loadPersonals(final String str) {
 
         Webservice.searchPersonnel(this, str, new CallBack<ArrayList<Personnel>>() {
             @Override

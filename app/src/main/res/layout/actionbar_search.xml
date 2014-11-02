@@ -3,7 +3,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_height="fill_parent"
+    android:background="@color/NaviDrawerItem_subtitle">
 
 
     <LinearLayout
@@ -53,20 +54,36 @@
 
     </LinearLayout>
 
-
-    <SearchView
-        android:id="@+id/ac_search"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_height="fill_parent"
-
-        android:layout_alignParentLeft="true"
+        android:layout_width="wrap_content"
         android:layout_toLeftOf="@+id/ac_back_layout"
-        android:iconifiedByDefault="false"
-        android:background="@drawable/hit"
+        android:layout_alignParentLeft="true"
+        >
 
-        android:queryHint="اینجا جستجو کنید"
+        <ImageView
+            android:id="@+id/ac_reload"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:alpha="1"
+            android:layout_centerInParent="true"
+            android:background="@drawable/hit"
+            android:textColor="@color/actionbar_button_text"
+            android:scaleType="center"
+            />
+
+        <SearchView
+            android:id="@+id/ac_search"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:iconifiedByDefault="false"
+            android:background="@drawable/hit"
+            android:queryHint="اینجا جستجو کنید"
+            ></SearchView>
 
 
-        ></SearchView>
+
+        </LinearLayout>
 
 </RelativeLayout>
