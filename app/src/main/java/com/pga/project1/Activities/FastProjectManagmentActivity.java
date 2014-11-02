@@ -1,24 +1,17 @@
 package com.pga.project1.Activities;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pga.project1.DataModel.Personnel;
 import com.pga.project1.Helpers.DatabaseHelper;
 import com.pga.project1.R;
-import com.pga.project1.Utilities.FontHelper;
-import com.pga.project1.Utilities.Fonts;
 import com.pga.project1.Viewes.ViewDateTimePickerPersian;
 
 import java.text.SimpleDateFormat;
@@ -38,82 +31,9 @@ public class FastProjectManagmentActivity extends Activity {
         setContentView(R.layout.activity_fast_project_managment);
         //personnel_name.setNameValue("تلفن",personnel.get());
 
-        prepareActionBar();
-
     }
 
-    private void prepareActionBar() {
 
-        View customActionBar = getLayoutInflater().inflate(R.layout.actionbar_back, null);
-        final ActionBar actionBar = getActionBar();
-        actionBar.setDisplayShowHomeEnabled(false);
-        actionBar.setDisplayShowTitleEnabled(false);
-        actionBar.setDisplayShowCustomEnabled(true);
-        actionBar.setCustomView(customActionBar);
-
-        TextView title = (TextView) customActionBar.findViewById(R.id.ac_title);
-        FontHelper.SetFont(this, Fonts.MAIN_FONT, title, Typeface.BOLD);
-
-        //ImageView back = (ImageView) customActionBar.findViewById(R.id.ac_back);
-        LinearLayout back = (LinearLayout) customActionBar.findViewById(R.id.ac_back_layout);
-
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
-                onBackPressed();
-            }
-        });
-
-        saveButton = (ImageView) customActionBar.findViewById(R.id.ac_action1);
-        saveButton.setImageResource(R.drawable.ic_save);
-
-        final Context context = this;
-        saveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                //validation
-               /* if(task_name.getText().toString().length() == 0) {
-
-                    saveButton.startAnimation(AnimationUtils.loadAnimation(context, R.anim.view_not_valid));
-                    task_name.startAnimation(AnimationUtils.loadAnimation(context, R.anim.view_not_valid));
-                    Toast.makeText(context, "نام وظیفه باید پر شود", Toast.LENGTH_SHORT).show();
-                    return;
-                }*/
-
-
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(context)
-                        .setTitle("آیا فعالیت ثبت شود؟")
-                        .setPositiveButton("بله", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-
-                                addFaliat();
-
-                            }
-                        }).setNegativeButton("خیر", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-
-                                setResult(Activity.RESULT_CANCELED);
-                                finish();
-                                overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
-
-                            }
-                        });
-                builder.show();
-
-
-            }
-        });
-    }
-
-    private void addFaliat() {
-
-        //Faliat faliat = new Faliat()
-    }
 
     @Override
     protected void onStart() {
