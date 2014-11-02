@@ -111,6 +111,8 @@ public class FastProjectManagmentActivity extends ActionBarActivity {
         actionBar.setDisplayShowCustomEnabled(true);
         actionBar.setCustomView(customActionBar);
 
+        actionBar.setNavigationMode(android.app.ActionBar.NAVIGATION_MODE_TABS);
+
         TextView title = (TextView) customActionBar.findViewById(R.id.ac_title);
         FontHelper.SetFont(this, Fonts.MAIN_FONT, title, Typeface.BOLD);
 
