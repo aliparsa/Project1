@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.pga.project1.DataModel.Personnel;
 import com.pga.project1.DataModel.Taradod;
+import com.pga.project1.DataModel.Work;
 
 import java.util.ArrayList;
 
@@ -28,6 +29,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // Contacts table name
     private static final String TABLE_PERSONNEL = "personnel";
     private static final String TABLE_TARADOD = "taradod";
+    private static final String TABLE_WORK = "work";
 
 
     private static final String KEY_ID = "id";
@@ -39,6 +41,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String KEY_SENT = "sent";
     private static final String KEY_IMAGE = "image";
     private static final String KEY_NUMBER = "number";
+    private static final String KEY_NAME = "name";
+    private static final String KEY_TYPE = "type";
+    private static final String KEY_PRICE = "price";
 
 
     SQLiteDatabase db;
@@ -74,6 +79,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                         + KEY_DATE + " TEXT"
                         + ")";
         db.execSQL(CREATE_TARADOD_TABLE);
+
+        String CREATE_WORK_TABLE =
+                "CREATE TABLE " + TABLE_WORK + "("
+                        + KEY_ID + " INTEGER PRIMARY KEY,"
+                        + KEY_NAME + " TEXT,"
+                        + KEY_TYPE + " TEXT,"
+                        + KEY_PRICE + " TEXT"
+                        + ")";
+        db.execSQL(CREATE_WORK_TABLE);
 
 
         database = db;
@@ -161,5 +175,40 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return taradods;
 
+    }
+
+
+    public void emptyWorkTable() {
+        getReadableDatabase().execSQL("Delete from " + TABLE_WORK);
+    }
+
+    public void insertWork(Work work) {
+        ContentValues values = new ContentValues();
+        values.put(KEY_ID, work.getId());
+        values.put(KEY_NAME, work.getName());
+        values.put(KEY_TYPE, work.getType());
+        values.put(KEY_PRICE, work.getPrice());
+        this.getWritableDatabase().insert(TABLE_WORK, null, values);
+    }
+
+    public ArrayList<Work> getAllWorks() {
+        SQLiteDatabase db = getReadableDatabase();
+        final Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_WORK, null);
+        ArrayList<Work> works = new ArrayList<Work>();
+
+
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                do {
+                    Work work = new Work();
+                    work.setId(cursor.getInt(cursor.getColumnIndex(KEY_ID)));
+                    work.setName(cursor.getString(cursor.getColumnIndex(KEY_NAME)));
+                    work.setType(cursor.getString(cursor.getColumnIndex(KEY_TYPE)));
+                    work.setPrice(cursor.getInt(cursor.getColumnIndex(KEY_PRICE)));
+                    works.add(work);
+                } while (cursor.moveToNext());
+            }
+        }
+        return works;
     }
 }
