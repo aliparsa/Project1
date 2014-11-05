@@ -236,20 +236,34 @@ public class FastProjectManagmentActivity extends ActionBarActivity {
 
     //-------------------------------------------------------------------------------------
     private void HandleTaradod(final Personnel personnel) {
+
+        String[] items = new String[]{"ثبت ورود", "ثبت خروج"};
+        DatabaseHelper db = new DatabaseHelper(context);
+        final String in_out = db.getPersonnelInOrOut(personnel);
+
+
+
         new AlertDialog.Builder(context)
                 .setTitle("ثبت تردد")
-                .setItems(new String[]{"ثبت ورود", "ثبت خروج"}, new DialogInterface.OnClickListener() {
+                .setItems(items, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
                         dialogInterface.dismiss();
                         switch (i) {
                             case 0:
-
+                                if (in_out != null && in_out.equals("in")) {
+                                    Toast.makeText(context, "این پرسنل قبلا وارد شده است", Toast.LENGTH_LONG).show();
+                                    return;
+                                }
                                 HandelIn(personnel);
 
                                 break;
                             case 1:
+                                if (in_out == null || in_out.equals("out")) {
+                                    Toast.makeText(context, "این پرسنل هنوز وارد نشده", Toast.LENGTH_LONG).show();
+                                    return;
+                                }
                                 HandelOut(personnel);
                                 break;
                         }

@@ -2,7 +2,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ff0003ff"
     tools:context=".fragment.FaliatFragment">
 
     <ListView
@@ -17,7 +16,6 @@
         android:scrollingCache="false"
         android:cacheColorHint="@android:color/transparent"
         android:divider="@null"
-        android:background="#ffff00b3"
         android:layout_alignParentBottom="true" />
 
 </FrameLayout>

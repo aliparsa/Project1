@@ -116,7 +116,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-
     public void insertTaradod(Personnel personnel, String in_out, String DateTime) {
         ContentValues values = new ContentValues();
         values.put(KEY_CODE, personnel.getPersonnel_code());
@@ -136,7 +135,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(KEY_PHONE, personnel.getPhone_number());
         this.getWritableDatabase().insert(TABLE_PERSONNEL, null, values);
     }
-
 
     public ArrayList<Personnel> getAllPersonnels() {
         SQLiteDatabase db = getReadableDatabase();
@@ -201,7 +199,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-
     public void emptyWorkTable() {
         getReadableDatabase().execSQL("Delete from " + TABLE_WORK);
     }
@@ -239,7 +236,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void insertFaliat(Faliat faliat) {
 
         ContentValues values = new ContentValues();
-        values.put(KEY_ID, faliat.getId());
+
         values.put(KEY_CODE, faliat.getPersonnelCode());
         values.put(KEY_WORK_CODE, faliat.getWorkId());
         values.put(KEY_AMOUNT, faliat.getAmount());
@@ -248,14 +245,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public ArrayList<Taradod> GetAllTaradodsWithPersonnel(){
+    public ArrayList<Taradod> getAllTaradodsWithPersonnel() {
 
         ArrayList<Taradod> taradods = new ArrayList<Taradod>();
 
         SQLiteDatabase db = getReadableDatabase();
 
-        String query = "SELECT * FROM " + TABLE_TARADOD + ", " + TABLE_PERSONNEL +
-                " WHERE " + TABLE_TARADOD +"."+KEY_CODE+" = " +TABLE_PERSONNEL+"." + KEY_ID;
+        String query = "SELECT * FROM " + TABLE_TARADOD + " t, " + TABLE_PERSONNEL + " p" +
+                " WHERE t." + KEY_CODE + " = p." + KEY_CODE + " order by t.id desc";
 
         Log.i("ali", query);
 
@@ -293,7 +290,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return taradods;
     }
 
-
     public ArrayList<Faliat> getAllFaliatsWithPersonnelAndWork(){
 
         ArrayList<Faliat> faliats = new ArrayList<Faliat>();
@@ -302,7 +298,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         String query = "SELECT * FROM " + TABLE_FALIAT + " f , " + TABLE_PERSONNEL + " p, " + TABLE_WORK + " w" +
                 " WHERE f."+KEY_CODE+" = p." + KEY_CODE +
-                " AND f."+KEY_WORK_CODE+" = w." + KEY_ID  ;
+                " AND f." + KEY_WORK_CODE + " = w." + KEY_ID + " order by f.id desc";
 
         final Cursor cursor = db.rawQuery(query, null);
 
@@ -345,5 +341,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return faliats;
 
+    }
+
+    public String getPersonnelInOrOut(Personnel personnel) {
+        SQLiteDatabase db = getReadableDatabase();
+
+        String query = "SELECT * FROM " + TABLE_TARADOD + " WHERE " + KEY_CODE + "=\"" + personnel.getPersonnel_code() + "\"" + " order by " + KEY_ID + " desc limit 1";
+
+        final Cursor cursor = db.rawQuery(query, null);
+
+        String in_out = null;
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                in_out = cursor.getString(cursor.getColumnIndex(KEY_IN_OUT));
+            }
+        }
+
+        return in_out;
     }
 }

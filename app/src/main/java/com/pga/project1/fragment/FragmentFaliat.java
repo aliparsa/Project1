@@ -61,9 +61,6 @@ public class FragmentFaliat extends Fragment {
 
         ListViewCustomAdapter adapter = new ListViewCustomAdapter(this.getActivity(), 0, items);
 
-   //     lvFaliats.setAdapter(adapter);
-        TextView textView = new TextView(getActivity());
-                textView.setText("ali ali ali ali ali ali lai laakff fd dfg g g ");
-        lvFaliats.addHeaderView(textView);
+        lvFaliats.setAdapter(adapter);
     }
 }
