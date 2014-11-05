@@ -2,12 +2,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ff0003ff"
     tools:context=".fragment.FaliatFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <ListView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/lv_faliatListView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="false"
+        android:layout_alignParentRight="true"
+        android:dividerHeight="0dp"
+        android:scrollingCache="false"
+        android:cacheColorHint="@android:color/transparent"
+        android:divider="@null"
+        android:background="#ffff00b3"
+        android:layout_alignParentBottom="true" />
 
 </FrameLayout>

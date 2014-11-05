@@ -18,6 +18,8 @@ public class Taradod {
     private String date;
     private int personnelId;
 
+    private Personnel personnel;
+
     /*TABLE_PERSONNEL + "("
             + KEY_ID + " INTEGER PRIMARY KEY,"
             + KEY_CODE + " TEXT,"
@@ -113,5 +115,13 @@ public class Taradod {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public Personnel getPersonnel() {
+        return personnel;
+    }
+
+    public void setPersonnel(Personnel personnel) {
+        this.personnel = personnel;
     }
 }

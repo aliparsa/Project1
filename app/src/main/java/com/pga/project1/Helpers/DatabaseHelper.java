@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.pga.project1.DataModel.Faliat;
 import com.pga.project1.DataModel.Personnel;
@@ -244,6 +245,105 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(KEY_AMOUNT, faliat.getAmount());
         values.put(KEY_DATE, faliat.getDate());
         this.getWritableDatabase().insert(TABLE_FALIAT, null, values);
+
+    }
+
+    public ArrayList<Taradod> GetAllTaradodsWithPersonnel(){
+
+        ArrayList<Taradod> taradods = new ArrayList<Taradod>();
+
+        SQLiteDatabase db = getReadableDatabase();
+
+        String query = "SELECT * FROM " + TABLE_TARADOD + ", " + TABLE_PERSONNEL +
+                " WHERE " + TABLE_TARADOD +"."+KEY_CODE+" = " +TABLE_PERSONNEL+"." + KEY_ID;
+
+        Log.i("ali", query);
+
+        final Cursor cursor = db.rawQuery(query, null);
+
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+
+                do {
+
+                    Taradod taradod = new Taradod(
+                            cursor.getInt(cursor.getColumnIndex(TABLE_TARADOD +"."+ KEY_ID)),
+                            cursor.getString(cursor.getColumnIndex(TABLE_TARADOD +"."+KEY_CODE)),
+                            cursor.getString(cursor.getColumnIndex(KEY_IN_OUT)),
+                            cursor.getInt(cursor.getColumnIndex(KEY_SENT)),
+                            cursor.getString(cursor.getColumnIndex(KEY_DATE))
+                    );
+
+                    Personnel personnel = new Personnel();
+                    personnel.setId(cursor.getInt(cursor.getColumnIndex(TABLE_PERSONNEL +"."+ KEY_ID)));
+                    personnel.setFirst_name(cursor.getString(cursor.getColumnIndex(KEY_FIRSTNAME)));
+                    personnel.setLast_name(cursor.getString(cursor.getColumnIndex(KEY_LASTNAME)));
+                    personnel.setPersonnel_code(cursor.getString(cursor.getColumnIndex(TABLE_PERSONNEL +"."+KEY_CODE)));
+                    personnel.setPersonnel_image((cursor.getString(cursor.getColumnIndex(KEY_IMAGE))));
+                    personnel.setPhone_number((cursor.getString(cursor.getColumnIndex(KEY_PHONE))));
+
+                    taradod.setPersonnel(personnel);
+
+                    taradods.add(taradod);
+
+                } while (cursor.moveToNext());
+            }
+        }
+
+        return taradods;
+    }
+
+
+    public ArrayList<Faliat> getAllFaliatsWithPersonnelAndWork(){
+
+        ArrayList<Faliat> faliats = new ArrayList<Faliat>();
+
+        SQLiteDatabase db = getReadableDatabase();
+
+        String query = "SELECT * FROM " + TABLE_FALIAT + " f , " + TABLE_PERSONNEL + " p, " + TABLE_WORK + " w" +
+                " WHERE f."+KEY_CODE+" = p." + KEY_CODE +
+                " AND f."+KEY_WORK_CODE+" = w." + KEY_ID  ;
+
+        final Cursor cursor = db.rawQuery(query, null);
+
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+
+                do {
+
+                    Faliat faliat = new Faliat(
+                            cursor.getInt(cursor.getColumnIndex(TABLE_FALIAT +"."+ KEY_ID)),
+                            cursor.getString(cursor.getColumnIndex(TABLE_FALIAT +"."+ KEY_CODE)),
+                            cursor.getString(cursor.getColumnIndex(TABLE_FALIAT +"."+ KEY_WORK_CODE)),
+                            cursor.getString(cursor.getColumnIndex(KEY_AMOUNT)),
+                            cursor.getString(cursor.getColumnIndex(KEY_DATE))
+                    );
+
+                    Personnel personnel = new Personnel();
+                    personnel.setId(cursor.getInt(cursor.getColumnIndex(TABLE_PERSONNEL +"."+ KEY_ID)));
+                    personnel.setFirst_name(cursor.getString(cursor.getColumnIndex(KEY_FIRSTNAME)));
+                    personnel.setLast_name(cursor.getString(cursor.getColumnIndex(KEY_LASTNAME)));
+                    personnel.setPersonnel_code(cursor.getString(cursor.getColumnIndex(TABLE_PERSONNEL +"."+KEY_CODE)));
+                    personnel.setPersonnel_image((cursor.getString(cursor.getColumnIndex(KEY_IMAGE))));
+                    personnel.setPhone_number((cursor.getString(cursor.getColumnIndex(KEY_PHONE))));
+
+                    faliat.setPersonnel(personnel);
+
+                    Work work = new Work();
+                    work.setId(cursor.getInt(cursor.getColumnIndex(TABLE_WORK +"."+KEY_ID)));
+                    work.setName(cursor.getString(cursor.getColumnIndex(KEY_NAME)));
+                    work.setType(cursor.getString(cursor.getColumnIndex(KEY_TYPE)));
+                    work.setPrice(cursor.getInt(cursor.getColumnIndex(KEY_PRICE)));
+
+                    faliat.setWork(work);
+
+                    faliats.add(faliat);
+
+                } while (cursor.moveToNext());
+            }
+        }
+
+        return faliats;
 
     }
 }

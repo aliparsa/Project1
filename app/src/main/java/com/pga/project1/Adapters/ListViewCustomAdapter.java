@@ -12,7 +12,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.pga.project1.DataModel.Chart;
+import com.pga.project1.DataModel.Faliat;
 import com.pga.project1.DataModel.Report;
+import com.pga.project1.DataModel.Taradod;
 import com.pga.project1.R;
 import com.pga.project1.Structures.AdapterInputType;
 import com.pga.project1.Viewes.Graphview;
@@ -31,6 +33,8 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
     public static String NOITEM_ITEM = "no item item";
     public static String DRAWER_ITEM = "drawer item";
     public static String REPORT_ITEM = "report item";
+    public static String TRADOD_ITEM = "taradod item";
+    public static String FALIAT_ITEM = "faliat item";
 
     public final static int SHERKAT = 1;
     public final static int TAMIN_KONANDE = 2;
@@ -58,6 +62,8 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
     LinearLayout ll_loading;
     LinearLayout ll_drawer;
     LinearLayout ll_report;
+    LinearLayout ll_faliat;
+    LinearLayout ll_taradod;
 
 
     public ListViewCustomAdapter(Context context, int layoutResourceID,
@@ -96,6 +102,9 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
             ll_loading = (LinearLayout) view.findViewById(R.id.ll_loading);
             ll_drawer = (LinearLayout) view.findViewById(R.id.ll_drawer_item);
             ll_report = (LinearLayout) view.findViewById(R.id.ll_report);
+            ll_faliat = (LinearLayout) view.findViewById(R.id.ll_faliat);
+            ll_taradod = (LinearLayout) view.findViewById(R.id.ll_taradod);
+
         }
 
 
@@ -145,8 +154,27 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
 
         }
 
+        //Report item
+        if (itemList.get(position).type.equals(FALIAT_ITEM)) {
+
+            OnlyShow(ll_faliat);
+            getFaliatItem(holder, item);
+
+        }
+
+        //Report item
+        if (itemList.get(position).type.equals(TRADOD_ITEM)) {
+
+            OnlyShow(ll_taradod);
+            getTaradodItem(holder, item);
+
+        }
+
         return view;
     }
+
+
+
 
     public void OnlyShow(LinearLayout lv) {
 
@@ -156,6 +184,8 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
         if (ll_loading != null) ll_loading.setVisibility(LinearLayout.GONE);
         if (ll_drawer != null) ll_drawer.setVisibility(LinearLayout.GONE);
         if (ll_report != null) ll_report.setVisibility(LinearLayout.GONE);
+        if (ll_faliat != null) ll_faliat.setVisibility(LinearLayout.GONE);
+        if (ll_taradod != null) ll_taradod.setVisibility(LinearLayout.GONE);
 
         lv.setVisibility(LinearLayout.VISIBLE);
     }
@@ -317,9 +347,46 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
 
         holder.drawerTitle.setText(item.getDrawerTitle());
         holder.drawerIcon.setImageResource(item.getDrawerIconResource());
+    }
 
+    private void getFaliatItem(DrawerItemHolder holder, AdapterInputType item) {
 
+        if (holder.faliatFullName == null)
+            holder.faliatFullName = (TextView) ll_faliat.findViewById(R.id.faliat_fullname);
 
+        if (holder.faliatAmount == null)
+            holder.faliatAmount = (TextView) ll_faliat.findViewById(R.id.faliat_amount);
+
+        if (holder.faliatWork == null)
+            holder.faliatWork = (TextView) ll_faliat.findViewById(R.id.faliat_work);
+
+        if (holder.faliatDate == null)
+            holder.faliatDate = (TextView) ll_faliat.findViewById(R.id.faliat_date);
+
+        Faliat faliat = ((Faliat) item.getTag());
+
+        holder.faliatFullName.setText(faliat.getPersonnel().getFullName());
+        holder.faliatAmount.setText(faliat.getAmount());
+        holder.faliatWork.setText(faliat.getWork().getName());
+        holder.faliatDate.setText(faliat.getDate());
+    }
+
+    private void getTaradodItem(DrawerItemHolder holder, AdapterInputType item) {
+
+        if (holder.taradodFullName == null)
+            holder.taradodFullName = (TextView) ll_taradod.findViewById(R.id.taradod_fullname);
+
+        if (holder.taradodDate == null)
+            holder.taradodDate = (TextView) ll_taradod.findViewById(R.id.taradod_date);
+
+        if (holder.taradodInOut == null)
+            holder.taradodInOut = (TextView) ll_taradod.findViewById(R.id.taradod_inout);
+
+        Taradod taradod = ((Taradod) item.getTag());
+
+        holder.taradodFullName.setText(taradod.getPersonnel().getFullName());
+        holder.taradodDate.setText(taradod.getDate());
+        holder.taradodInOut.setText(taradod.getInOut().equals("in") ? "ورود" : "خروج");
     }
 
     public static class DrawerItemHolder {
@@ -359,6 +426,18 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
         TextView reportDate;
         ImageView reportAttachmentIcon;
         ///------------------------
+
+        //Faliat Item --------------
+        TextView faliatFullName;
+        TextView faliatAmount;
+        TextView faliatWork;
+        TextView faliatDate;
+
+
+        //Taradod
+        TextView taradodFullName;
+        TextView taradodDate;
+        TextView taradodInOut;
 
         public Object getTag() {
             return tag;

@@ -12,6 +12,9 @@ public class Faliat {
     private String amount;
     private String date;
 
+    private Personnel personnel;
+    private Work work;
+
     public Faliat(int id, String personnelCode, String workId, String amount, String date){
 
 
@@ -69,5 +72,21 @@ public class Faliat {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public Personnel getPersonnel() {
+        return personnel;
+    }
+
+    public void setPersonnel(Personnel personnel) {
+        this.personnel = personnel;
+    }
+
+    public Work getWork() {
+        return work;
+    }
+
+    public void setWork(Work work) {
+        this.work = work;
     }
 }

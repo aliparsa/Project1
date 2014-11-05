@@ -8,8 +8,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.pga.project1.fragment.FaliatFragment;
-import com.pga.project1.fragment.TaradodFragment;
+import com.pga.project1.fragment.FragmentFaliat;
+import com.pga.project1.fragment.FragmentTaradod;
 
 
 public class FastProjectManTabPageAdapter extends FragmentStatePagerAdapter {
@@ -24,13 +24,13 @@ public class FastProjectManTabPageAdapter extends FragmentStatePagerAdapter {
         switch (i) {
             case 0:
                 //Fragment for Ios Tab
-                FaliatFragment f2 = new FaliatFragment();
+                FragmentFaliat f2 = new FragmentFaliat();
                 return f2;
 
 
             case 1:
                 //Fragement for Android Tab
-                TaradodFragment f1 = new TaradodFragment();
+                FragmentTaradod f1 = new FragmentTaradod();
                 return f1;
         }
         return null;
