@@ -1,5 +1,7 @@
 package com.pga.project1.DataModel;
 
+import com.pga.project1.Utilities.PersianCalendar;
+
 /**
  * Created by ashkan on 2014-11-02.
  */
@@ -72,6 +74,11 @@ public class Faliat {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getPersianDate() {
+        PersianCalendar pc = new PersianCalendar(getDate());
+        return pc.getIranianDateTime();
     }
 
     public Personnel getPersonnel() {

@@ -54,6 +54,30 @@ public class PersianCalendar {
                 calendar.get(Calendar.DAY_OF_MONTH));
     }
 
+
+
+    /**
+     * JavaSource_Calendar:
+     * The default constructor uses the current Gregorian date to initialize the
+     * other private memebers of the class (Iranian and Julian dates).
+     *                                  1234567890123456
+     * @param date  String in format of yyyy-mm-DD hh-MM
+     */
+    public PersianCalendar(String date) {
+
+        int year = Integer.parseInt(date.substring(0,4));
+        int month = Integer.parseInt(date.substring(6,7));
+        int day = Integer.parseInt(date.substring(9,10));
+
+        int hour = Integer.parseInt(date.substring(12,13));
+        int min = Integer.parseInt(date.substring(15,16));
+
+        Calendar calendar = new GregorianCalendar(year,month,day,hour,min);
+        setGregorianDate(calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH) + 1,
+                calendar.get(Calendar.DAY_OF_MONTH));
+    }
+
     /**
      * JavaSource_Calendar:
      * This constructor receives a Gregorian date and initializes the other private

@@ -1,5 +1,7 @@
 package com.pga.project1.DataModel;
 
+import com.pga.project1.Utilities.PersianCalendar;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -111,6 +113,11 @@ public class Taradod {
 
     public String getDate() {
         return date;
+    }
+
+    public String getPersianDate() {
+        PersianCalendar pc = new PersianCalendar(getDate());
+        return pc.getIranianDateTime();
     }
 
     public void setDate(String date) {

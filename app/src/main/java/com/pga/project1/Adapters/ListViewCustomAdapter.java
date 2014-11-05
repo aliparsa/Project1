@@ -368,7 +368,7 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
         holder.faliatFullName.setText(faliat.getPersonnel().getFullName());
         holder.faliatAmount.setText(faliat.getAmount());
         holder.faliatWork.setText(faliat.getWork().getName());
-        holder.faliatDate.setText(faliat.getDate());
+        holder.faliatDate.setText(faliat.getPersianDate());
     }
 
     private void getTaradodItem(DrawerItemHolder holder, AdapterInputType item) {
@@ -385,7 +385,7 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
         Taradod taradod = ((Taradod) item.getTag());
 
         holder.taradodFullName.setText(taradod.getPersonnel().getFullName());
-        holder.taradodDate.setText(taradod.getDate());
+        holder.taradodDate.setText(taradod.getPersianDate());
         holder.taradodInOut.setText(taradod.getInOut().equals("in") ? "ورود" : "خروج");
     }
 
