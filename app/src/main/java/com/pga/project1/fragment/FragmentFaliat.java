@@ -35,6 +35,7 @@ public class FragmentFaliat extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_faliat, container, false);
     }
@@ -42,8 +43,19 @@ public class FragmentFaliat extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         lvFaliats = (ListView) view.findViewById(R.id.lv_faliatListView);
+
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        loadFaaliat();
+    }
+
+    public void loadFaaliat() {
+
 
         DatabaseHelper db = new DatabaseHelper(this.getActivity());
 

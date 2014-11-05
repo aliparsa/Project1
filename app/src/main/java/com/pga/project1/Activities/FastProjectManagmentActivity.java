@@ -304,6 +304,9 @@ public class FastProjectManagmentActivity extends ActionBarActivity {
             db.insertTaradod(personnel, in_out, currentDateandTime);
             Toast.makeText(context, "ذخیره شد", Toast.LENGTH_SHORT).show();
 
+            Tab.setAdapter(TabAdapter);
+            Tab.setCurrentItem(1);
+
         } catch (Exception e) {
             Toast.makeText(context, "عملیات با خطا مواجه شد", Toast.LENGTH_SHORT).show();
         }
@@ -354,6 +357,8 @@ public class FastProjectManagmentActivity extends ActionBarActivity {
                                     db.insertTaradod(personnel, in_out, date);
 
                                     Toast.makeText(context, "ذخیره شد", Toast.LENGTH_SHORT).show();
+                                    Tab.setAdapter(TabAdapter);
+                                    Tab.setCurrentItem(1);
                                 } catch (Exception e) {
                                     Toast.makeText(context, "عملیات با خطا مواجه شد", Toast.LENGTH_SHORT).show();
 

@@ -44,6 +44,17 @@ public class FragmentTaradod extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         lvTaradod = (ListView) view.findViewById(R.id.lv_taradodListView);
 
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        loadTaradod();
+    }
+
+
+    public void loadTaradod() {
         DatabaseHelper db = new DatabaseHelper(this.getActivity());
 
         List<Taradod> taradods = db.getAllTaradodsWithPersonnel();
