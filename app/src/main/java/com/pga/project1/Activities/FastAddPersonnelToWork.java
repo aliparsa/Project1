@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pga.project1.Adapters.MySpinnerAdapter;
+import com.pga.project1.DataModel.Chart;
 import com.pga.project1.DataModel.Faliat;
 import com.pga.project1.DataModel.Personnel;
 import com.pga.project1.DataModel.Work;
@@ -43,6 +44,7 @@ public class FastAddPersonnelToWork extends Activity {
     private ImageView saveButton;
     private EditText mizanKar;
     private Work selectedWork;
+    private Chart chart;
 
 
     @Override
@@ -53,6 +55,8 @@ public class FastAddPersonnelToWork extends Activity {
 
 
         context = this;
+
+        chart = (Chart) getIntent().getSerializableExtra("chart");
 
 
         Webservice.getWorks(context, new CallBack<ArrayList<Work>>() {
@@ -211,7 +215,7 @@ public class FastAddPersonnelToWork extends Activity {
     private void addFaliat() {
 
 
-        Faliat faliat = new Faliat(personnel.getPersonnel_code() + "", selectedWork.getId() + "", mizanKar.getText().toString(), selectedDateTime.getGregorianDate() + "");
+        Faliat faliat = new Faliat(personnel.getPersonnel_code() + "", selectedWork.getId() + "", mizanKar.getText().toString(), selectedDateTime.getGregorianDate() + "", 0, chart.getId() + "");
         DatabaseHelper db = new DatabaseHelper(context);
         db.insertFaliat(faliat);
         finish();

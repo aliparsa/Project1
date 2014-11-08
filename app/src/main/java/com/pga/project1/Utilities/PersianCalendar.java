@@ -207,7 +207,14 @@ public class PersianCalendar {
      * @return String
      */
     public String getIranianDateTime() {
-        return (irYear + "/" + irMonth + "/" + irDay+ " " + getHour() + ":" + getMinute());
+        return (irYear
+                + "/" +
+                ((irMonth < 10) ? ("0" + irMonth) : irMonth)
+                + "/" +
+                ((irDay < 10) ? ("0" + irDay) : irDay) + " " +
+                ((getHour() < 10) ? ("0" + getHour()) : getHour())
+                + ":" +
+                ((getMinute() < 10) ? ("0" + getMinute()) : getMinute()));
     }
 
     /**
@@ -217,7 +224,11 @@ public class PersianCalendar {
      * @return String
      */
     public String getGregorianDate() {
-        return (gYear + "/" + gMonth + "/" + gDay);
+        return (gYear
+                + "/" +
+                ((gMonth < 10) ? ("0" + gMonth) : gMonth)
+                + "/" +
+                ((gDay < 10) ? ("0" + gDay) : gDay));
     }
 
     /**
@@ -639,6 +650,7 @@ public class PersianCalendar {
     }
 
     public int getMinute() {
+
         return minute;
     }
 

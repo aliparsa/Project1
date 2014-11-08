@@ -19,6 +19,8 @@ public class Taradod {
     private int sent;
     private String date;
     private int personnelId;
+    private String projectID;
+
 
     private Personnel personnel;
 
@@ -30,22 +32,24 @@ public class Taradod {
             + KEY_DATE + " TEXT"*/
 
 
-
-
-    public Taradod(int id, String personnelCode, String inOut, int sent, String date) {
+    public Taradod(int id, String personnelCode, String inOut, int sent, String date, String projectID) {
         this.id = id;
         this.personnelCode = personnelCode;
         this.inOut = inOut;
         this.sent = sent;
         this.date = date;
         this.personnelId = personnelId;
+        this.projectID = projectID;
     }
 
-    public Taradod(String personnelCode, String inOut, int sent, String date) {
+    public Taradod(String personnelCode, String inOut, int sent, String date, String projectID) {
         this.personnelCode = personnelCode;
         this.inOut = inOut;
         this.sent = sent;
         this.personnelId = personnelId;
+        this.projectID = projectID;
+        this.date = date;
+
     }
 
     public int getId() {
@@ -130,5 +134,13 @@ public class Taradod {
 
     public void setPersonnel(Personnel personnel) {
         this.personnel = personnel;
+    }
+
+    public String getProjectID() {
+        return projectID;
+    }
+
+    public void setProjectID(String projectID) {
+        this.projectID = projectID;
     }
 }

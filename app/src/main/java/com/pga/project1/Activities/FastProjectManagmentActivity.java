@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Path;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
@@ -21,6 +22,7 @@ import com.pga.project1.Adapters.FastProjectManTabPageAdapter;
 import com.pga.project1.DataModel.Chart;
 import com.pga.project1.DataModel.PathObject;
 import com.pga.project1.DataModel.Personnel;
+import com.pga.project1.DataModel.Taradod;
 import com.pga.project1.Helpers.DatabaseHelper;
 import com.pga.project1.Intefaces.CallBack;
 import com.pga.project1.R;
@@ -44,7 +46,7 @@ public class FastProjectManagmentActivity extends ActionBarActivity {
     private ImageView faliat;
     private ImageView synch;
 
-    Chart chart;
+    public Chart chart;
     private PathMapManager pathManager;
 
     ViewPager Tab;
@@ -56,6 +58,8 @@ public class FastProjectManagmentActivity extends ActionBarActivity {
         context = this;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fast_project_managment);
+
+
         //personnel_name.setNameValue("تلفن",personnel.get(
         //
         // ));
@@ -68,38 +72,6 @@ public class FastProjectManagmentActivity extends ActionBarActivity {
         PathMapManager.push(new PathObject("مدیرییت سریع"));
         PathMapManager.push(chart);
         pathManager.refresh();
-
-
-        // try to get Projects List
-
-        final DatabaseHelper db = new DatabaseHelper(context);
-        ArrayList<Chart> projects = db.getProjects();
-        if (projects.size() < 1)
-            Webservice.getProjects(context, new CallBack<ArrayList<Chart>>() {
-                @Override
-                public void onSuccess(ArrayList<Chart> result) {
-                    db.emptyProjectsTable();
-                    for (Chart chart : result) {
-                        db.insertProject(chart);
-                    }
-
-                }
-
-                @Override
-                public void onError(String errorMessage) {
-                    if (errorMessage.equals("UNAUTHORIZED")) {
-
-                        // clear token
-                        Account.getInstant(context).clearToken();
-
-                        // pass user to login page
-                        Intent intent = new Intent(context, LoginActivity.class);
-                        intent.putExtra("reason", "UNAUTHORIZED");
-                        context.startActivity(intent);
-                        ((Activity) context).overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
-                    }
-                }
-            });
 
 
         //Add New Tab
@@ -206,7 +178,10 @@ public class FastProjectManagmentActivity extends ActionBarActivity {
             @Override
             public void onClick(View view) {
 
+                PathMapManager.push(new PathObject("ثبت تردد"));
+
                 Intent intent = new Intent(context, PersonelPickerActivity.class);
+
                 startActivityForResult(intent, 1412);
             }
         });
@@ -219,6 +194,7 @@ public class FastProjectManagmentActivity extends ActionBarActivity {
             @Override
             public void onClick(View view) {
 
+                PathMapManager.push(new PathObject("ثبت فعالیت"));
                 Intent intent = new Intent(context, PersonelPickerActivity.class);
                 startActivityForResult(intent, 1413);
 
@@ -238,7 +214,6 @@ public class FastProjectManagmentActivity extends ActionBarActivity {
     }
 
 
-
     @Override
     protected void onStart() {
         super.onStart();
@@ -251,41 +226,25 @@ public class FastProjectManagmentActivity extends ActionBarActivity {
 
         if (resultCode == RESULT_OK && requestCode == 1412) {
             personnel = (Personnel) data.getSerializableExtra("personnel");
+            PathMapManager.pop("FastProj onActivityResult 1412");
             HandleTaradod(personnel);
         }
 
         if (resultCode == RESULT_OK && requestCode == 1413) {
             personnel = (Personnel) data.getSerializableExtra("personnel");
-
+            PathMapManager.pop("FastProj onActivityResult 1413");
             Intent intent = new Intent(context, FastAddPersonnelToWork.class);
             intent.putExtra("personnel", personnel);
+            intent.putExtra("chart", chart);
             startActivity(intent);
+        }
+
+
+        if (resultCode == RESULT_CANCELED) {
+            PathMapManager.pop("FastProj onActivityResult RESULT_CANCELED");
         }
     }
 
-    //-------------------------------------------------------------------------------------//-------------------------------------------------------------------------------------
-    public void HandleFastProjectManagement(final Personnel personnel) {
-        new AlertDialog.Builder(context)
-                .setTitle("انتخاب نمایید")
-                .setItems(new String[]{"ثبت فعالیت", "ثبت تردد"}, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
-                        switch (i) {
-                            case 0:
-                                Intent intent = new Intent(context, FastAddPersonnelToWork.class);
-                                intent.putExtra("personnel", personnel);
-                                startActivity(intent);
-                                break;
-
-                            case 1:
-                                HandleTaradod(personnel);
-                                break;
-                        }
-                    }
-                })
-                .show();
-    }
 
     //-------------------------------------------------------------------------------------
     private void HandleTaradod(final Personnel personnel) {
@@ -293,7 +252,6 @@ public class FastProjectManagmentActivity extends ActionBarActivity {
         String[] items = new String[]{"ثبت ورود", "ثبت خروج"};
         DatabaseHelper db = new DatabaseHelper(context);
         final String in_out = db.getPersonnelInOrOut(personnel);
-
 
 
         new AlertDialog.Builder(context)
@@ -354,7 +312,8 @@ public class FastProjectManagmentActivity extends ActionBarActivity {
             DatabaseHelper db = new DatabaseHelper(context);
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH-mm");
             String currentDateandTime = sdf.format(new Date());
-            db.insertTaradod(personnel, in_out, currentDateandTime);
+            Taradod taradod = new Taradod(personnel.getPersonnel_code(), in_out, 0, currentDateandTime, chart.getId() + "");
+            db.insertTaradod(taradod);
             Toast.makeText(context, "ذخیره شد", Toast.LENGTH_SHORT).show();
 
             Tab.setAdapter(TabAdapter);
@@ -402,12 +361,13 @@ public class FastProjectManagmentActivity extends ActionBarActivity {
 
 
                                     String date = pickerPersian.getDate().getGregorianDate();
-                                    int hour = pickerPersian.getHour();
-                                    int minute = pickerPersian.getMinute();
+                                    String hour = pickerPersian.getHour() < 10 ? "0" + pickerPersian.getHour() : pickerPersian.getHour() + "";
+                                    String minute = pickerPersian.getMinute() < 10 ? "0" + pickerPersian.getMinute() : pickerPersian.getMinute() + "";
                                     date += " " + hour + "-" + minute;
 
                                     DatabaseHelper db = new DatabaseHelper(context);
-                                    db.insertTaradod(personnel, in_out, date);
+                                    Taradod taradod = new Taradod(personnel.getPersonnel_code(), in_out, 0, date, chart.getId() + "");
+                                    db.insertTaradod(taradod);
 
                                     Toast.makeText(context, "ذخیره شد", Toast.LENGTH_SHORT).show();
                                     Tab.setAdapter(TabAdapter);
