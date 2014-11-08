@@ -470,4 +470,46 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return faliats;
     }
+
+    public void markAsSentFaliat(ArrayList<Faliat> faliats){
+
+        String idIn = "(";
+
+        if(faliats.size() < 0)
+            return;
+
+        idIn += faliats.get(0).getId();
+
+        for (int i = 1; i < faliats.size(); i++) {
+
+            idIn += ", " + faliats.get(i).getId();
+        }
+
+        idIn += ")";
+
+        SQLiteDatabase db = getWritableDatabase();
+        final Cursor cursor = db.rawQuery("Delete from " + TABLE_FALIAT + " Where " + KEY_ID + " In " + idIn + ";", null);
+
+    }
+
+    public void markAsSentTaradod(ArrayList<Taradod> taradods){
+
+        String idIn = "(";
+
+        if(taradods.size() < 0)
+            return;
+
+        idIn += taradods.get(0).getId();
+
+        for (int i = 1; i < taradods.size(); i++) {
+
+            idIn += ", " + taradods.get(i).getId();
+        }
+
+        idIn += ")";
+
+        SQLiteDatabase db = getWritableDatabase();
+        final Cursor cursor = db.rawQuery("Delete from " + TABLE_TARADOD + " Where " + KEY_ID + " In " + idIn + ";", null);
+
+    }
 }
