@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.pga.project1.DataModel.Chart;
 import com.pga.project1.DataModel.Faliat;
 import com.pga.project1.DataModel.Personnel;
 import com.pga.project1.DataModel.Taradod;
@@ -33,6 +34,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String TABLE_TARADOD = "taradod";
     private static final String TABLE_WORK = "work";
     private static final String TABLE_FALIAT = "faliat";
+    private static final String TABLE_PROJECTS = "projects";
 
 
     private static final String KEY_ID = "id";
@@ -53,6 +55,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
     SQLiteDatabase db;
+    private String KEY_TYPE_ID = "type_id";
+    private String KEY_PERSONAL_ID = "personnel_id";
+    private String KEY_PERSONAL = "personnel";
+    private String KEY_START_DATE = "start_date";
+    private String KEY_END_DATE = "end_date";
+    private String KEY_CREATED_AT = "created_at";
+    private String KEY_UPDATED_AT = "updated_at";
 
 
 
@@ -107,6 +116,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                         + ")";
         db.execSQL(CREATE_FALIAT_TABLE);
 
+        String CREATE_PROJECTS_TABLE =
+                "CREATE TABLE " + TABLE_PROJECTS + "("
+                        + KEY_ID + " INTEGER PRIMARY KEY,"
+                        + KEY_NAME + " TEXT,"
+                        + KEY_TYPE_ID + " TEXT,"
+                        + KEY_TYPE + " TEXT,"
+                        + KEY_PERSONAL_ID + " TEXT,"
+                        + KEY_PERSONAL + " TEXT,"
+                        + KEY_START_DATE + " TEXT,"
+                        + KEY_END_DATE + " TEXT,"
+                        + KEY_PRICE + " TEXT,"
+                        + KEY_CREATED_AT + " TEXT,"
+                        + KEY_UPDATED_AT + " TEXT"
+                        + ")";
+        db.execSQL(CREATE_PROJECTS_TABLE);
+
 
         database = db;
     }
@@ -123,6 +148,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(KEY_SENT, "0");
         values.put(KEY_DATE, DateTime);
         this.getWritableDatabase().insert(TABLE_TARADOD, null, values);
+    }
+
+    public void insertProject(Chart chart) {
+        ContentValues values = new ContentValues();
+        values.put(KEY_ID, chart.getId());
+        values.put(KEY_NAME, chart.getName());
+        values.put(KEY_TYPE_ID, chart.getType_id());
+        values.put(KEY_TYPE, chart.getType());
+        values.put(KEY_PERSONAL_ID, chart.getPersonnel_id());
+        values.put(KEY_PERSONAL, "");
+        values.put(KEY_START_DATE, chart.getStart_date());
+        values.put(KEY_END_DATE, chart.getEnd_date());
+        values.put(KEY_PRICE, chart.getPrice());
+
+        this.getWritableDatabase().insert(TABLE_PROJECTS, null, values);
     }
 
     public void insertPersonnel(Personnel personnel) {
@@ -358,5 +398,32 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
 
         return in_out;
+    }
+
+    public ArrayList<Chart> getProjects() {
+        SQLiteDatabase db = getReadableDatabase();
+        final Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_PROJECTS, null);
+        ArrayList<Chart> charts = new ArrayList<Chart>();
+
+
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                do {
+                    Chart chart = new Chart();
+                    chart.setId(cursor.getInt(cursor.getColumnIndex(KEY_ID)));
+                    chart.setName(cursor.getString(cursor.getColumnIndex(KEY_NAME)));
+                    chart.setType_id(Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_TYPE))));
+                    chart.setStart_date((cursor.getString(cursor.getColumnIndex(KEY_START_DATE))));
+                    chart.setEnd_date((cursor.getString(cursor.getColumnIndex(KEY_END_DATE))));
+                    chart.setPrice(cursor.getString(cursor.getColumnIndex(KEY_PRICE)));
+                    charts.add(chart);
+                } while (cursor.moveToNext());
+            }
+        }
+        return charts;
+    }
+
+    public void emptyProjectsTable() {
+        getReadableDatabase().execSQL("Delete from " + TABLE_PROJECTS);
     }
 }

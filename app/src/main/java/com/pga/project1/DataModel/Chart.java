@@ -28,6 +28,51 @@ public class Chart implements PathMapObject, Serializable {
     private String is_pay;
     private String root_id;
     private String work_unit;
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setType_id(int type_id) {
+        this.type_id = type_id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setStart_date(String start_date) {
+        this.start_date = start_date;
+    }
+
+    public void setEnd_date(String end_date) {
+        this.end_date = end_date;
+    }
+
+    public void setAllow_delay(String allow_delay) {
+        this.allow_delay = allow_delay;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+    public void setIs_pay(String is_pay) {
+        this.is_pay = is_pay;
+    }
+
+    public void setRoot_id(String root_id) {
+        this.root_id = root_id;
+    }
+
+    public void setWork_unit(String work_unit) {
+        this.work_unit = work_unit;
+    }
+
     private int auto_percent;
     private int hand_percent;
     private ArrayList<Feature> featureList;
@@ -58,6 +103,10 @@ public class Chart implements PathMapObject, Serializable {
         this.hand_percent = hand_percent;
         this.featureList = featureList;
         this.image = image;
+    }
+
+    public Chart() {
+
     }
 
 

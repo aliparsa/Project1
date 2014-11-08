@@ -17,14 +17,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pga.project1.Adapters.FastProjectManTabPageAdapter;
+import com.pga.project1.DataModel.Chart;
 import com.pga.project1.DataModel.Personnel;
 import com.pga.project1.Helpers.DatabaseHelper;
+import com.pga.project1.Intefaces.CallBack;
 import com.pga.project1.R;
 import com.pga.project1.Utilities.FontHelper;
 import com.pga.project1.Utilities.Fonts;
+import com.pga.project1.Utilities.Webservice;
 import com.pga.project1.Viewes.ViewDateTimePickerPersian;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class FastProjectManagmentActivity extends ActionBarActivity {
@@ -46,7 +50,30 @@ public class FastProjectManagmentActivity extends ActionBarActivity {
         context = this;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fast_project_managment);
-        //personnel_name.setNameValue("تلفن",personnel.get());
+        //personnel_name.setNameValue("تلفن",personnel.get(
+        //
+        // ));
+
+        // try to get Projects List
+
+        final DatabaseHelper db = new DatabaseHelper(context);
+        ArrayList<Chart> projects = db.getProjects();
+        if (projects.size() < 1)
+            Webservice.getProjects(context, new CallBack<ArrayList<Chart>>() {
+                @Override
+                public void onSuccess(ArrayList<Chart> result) {
+                    db.emptyProjectsTable();
+                    for (Chart chart : result) {
+                        db.insertProject(chart);
+                    }
+
+                }
+
+                @Override
+                public void onError(String errorMessage) {
+
+                }
+            });
 
 
         //Add New Tab
