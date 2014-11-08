@@ -65,14 +65,18 @@ public class PersianCalendar {
      */
     public PersianCalendar(String date) {
 
-        int year = Integer.parseInt(date.substring(0,4));
-        int month = Integer.parseInt(date.substring(6,7));
-        int day = Integer.parseInt(date.substring(9,10));
+        int year = Integer.parseInt(date.substring(0, 4));
+        int month = Integer.parseInt(date.substring(5, 7));
+        int day = Integer.parseInt(date.substring(8, 10));
+        int hour = 0;
+        int min = 0;
+        if (date.length() > 10) {
+            hour = Integer.parseInt(date.substring(11, 13));
+            min = Integer.parseInt(date.substring(14, 16));
+        }
 
-        int hour = Integer.parseInt(date.substring(12,13));
-        int min = Integer.parseInt(date.substring(15,16));
 
-        Calendar calendar = new GregorianCalendar(year,month,day,hour,min);
+        Calendar calendar = new GregorianCalendar(year, month, day, hour, min);
         setGregorianDate(calendar.get(Calendar.YEAR),
                 calendar.get(Calendar.MONTH) + 1,
                 calendar.get(Calendar.DAY_OF_MONTH));
