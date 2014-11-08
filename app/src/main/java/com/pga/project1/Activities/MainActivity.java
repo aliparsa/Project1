@@ -2,20 +2,15 @@ package com.pga.project1.Activities;
 
 import android.app.ActionBar;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.FragmentManager;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -24,7 +19,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pga.project1.DataModel.Chart;
-import com.pga.project1.DataModel.Personnel;
 import com.pga.project1.Intefaces.CallBack;
 import com.pga.project1.Intefaces.CallBackFunction;
 import com.pga.project1.R;
@@ -32,13 +26,9 @@ import com.pga.project1.Utilities.FontHelper;
 import com.pga.project1.Utilities.Fonts;
 import com.pga.project1.Utilities.HandleError;
 import com.pga.project1.Utilities.Webservice;
-import com.pga.project1.Viewes.ViewDateTimePickerPersian;
 import com.pga.project1.fragment.NavigationDrawerFragment;
 
-import org.apache.http.NameValuePair;
 import org.json.JSONArray;
-
-import java.util.ArrayList;
 
 
 public class MainActivity extends Activity
@@ -175,7 +165,7 @@ public class MainActivity extends Activity
                 break;
 
             case 1:
-                intent = new Intent(this, FastProjectManagmentActivity.class);
+                intent = new Intent(this, ProjectPickerActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
                 break;

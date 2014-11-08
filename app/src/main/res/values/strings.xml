@@ -35,5 +35,6 @@
     <string name="title_activity_setting">تنظیمات</string>
     <string name="title_activity_fast_project_managment">مدیریت پروژه سریع</string>
     <string name="title_activity_fast_add_personnel_to_work">اثبت عملکرد پرسنل</string>
+    <string name="title_activity_project_picker">ProjectPickerActivity</string>
 
 </resources>
