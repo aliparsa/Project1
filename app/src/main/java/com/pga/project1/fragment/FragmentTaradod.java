@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import com.pga.project1.Activities.FastProjectManagmentActivity;
 import com.pga.project1.Adapters.ListViewCustomAdapter;
 import com.pga.project1.DataModel.Faliat;
 import com.pga.project1.DataModel.Taradod;
@@ -56,8 +57,8 @@ public class FragmentTaradod extends Fragment {
 
     public void loadTaradod() {
         DatabaseHelper db = new DatabaseHelper(this.getActivity());
-
-        List<Taradod> taradods = db.getAllTaradodsWithPersonnel();
+        int projectID = ((FastProjectManagmentActivity) getActivity()).chart.getId();
+        List<Taradod> taradods = db.getAllTaradodsWithPersonnel(projectID + "");
 
         List<AdapterInputType> items = new ArrayList<AdapterInputType>();
 

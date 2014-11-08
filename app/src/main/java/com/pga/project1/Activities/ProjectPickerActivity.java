@@ -112,6 +112,7 @@ public class ProjectPickerActivity extends Activity {
         TextView title = (TextView) customActionBar.findViewById(R.id.ac_title);
         FontHelper.SetFont(this, Fonts.MAIN_FONT, title, Typeface.BOLD);
 
+        title.setText("یک پروژه انتخاب نمایید");
         //ImageView back = (ImageView) customActionBar.findViewById(R.id.ac_back);
         LinearLayout back = (LinearLayout) customActionBar.findViewById(R.id.ac_back_layout);
 
@@ -130,6 +131,10 @@ public class ProjectPickerActivity extends Activity {
 
         List<AdapterInputType> itemList = new ArrayList<AdapterInputType>();
 
+        DatabaseHelper db = new DatabaseHelper(context);
+
+        projects = db.getProjects();
+
         for (Chart chart : projects) {
 
             itemList.add(new AdapterInputType(chart, ListViewCustomAdapter.CHART_ITEM, chart.getName(), chart.getStart_date(), BitmapFactory.decodeResource(getResources(),
@@ -142,9 +147,6 @@ public class ProjectPickerActivity extends Activity {
 
         // set on click listener
         lv.setOnItemClickListener(new onTreeViewClickListener());
-
-
-
 
 
     }

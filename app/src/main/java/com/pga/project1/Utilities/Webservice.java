@@ -6,6 +6,7 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.pga.project1.DataModel.Chart;
+import com.pga.project1.DataModel.Faliat;
 import com.pga.project1.DataModel.Personnel;
 import com.pga.project1.DataModel.Report;
 import com.pga.project1.DataModel.ServerResponse;
@@ -672,14 +673,14 @@ public class Webservice {
 
     // NOT DONE
     //------------------------------------------------------------------------------
-    public static void sendTradods(Context context, List<Taradod> taradodList, final CallBack<ServerResponse> callBack) {
+    public static void sendTaradod(Context context, List<Taradod> taradodList, final CallBack<ServerResponse> callBack) {
         prepareServerAddress(context);
         HttpHelper helper = new HttpHelper(context, WEBSERVICE_ADDRESS, false, 0);
 
         String taradodJSON = Taradod.convertArrayToJson(taradodList).toString();
 
         BasicNameValuePair[] arr = {
-                new BasicNameValuePair("tag", "send_taradod"),
+                new BasicNameValuePair("tag", "taradod"),
                 new BasicNameValuePair("id", taradodJSON)
         };
         helper.postHttp(arr, new ResponseHandler() {
@@ -711,7 +712,54 @@ public class Webservice {
 
             @Override
             public void error(String err) {
-                Log.e("ali", " webservice / addPersonnelToWork ");
+                Log.e("ali", " webservice / send Taradod ");
+                callBack.onError(err);
+            }
+        });
+
+    }
+
+    //-------------------------------------------------------------------------------
+    public static void sendFaliat(Context context, List<Faliat> faliats, final CallBack<ServerResponse> callBack) {
+        prepareServerAddress(context);
+        HttpHelper helper = new HttpHelper(context, WEBSERVICE_ADDRESS, false, 0);
+
+        String faliatJSON = Faliat.convertArrayToJson(faliats).toString();
+
+        BasicNameValuePair[] arr = {
+                new BasicNameValuePair("tag", "faaliat"),
+                new BasicNameValuePair("id", faliatJSON)
+        };
+        helper.postHttp(arr, new ResponseHandler() {
+            @Override
+            public void handleResponse(ServerResponse response) {
+
+                try {
+
+                    switch (response.getStatusCode()) {
+                        case SC_UNAUTHORIZED: {
+                            callBack.onError("UNAUTHORIZED");
+                            break;
+                        }
+                        case SC_OK: {
+                            JSONObject jsonObject = new JSONObject(response.getResult());
+                            callBack.onSuccess(response);
+                            break;
+                        }
+                    }
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+
+                    callBack.onError("Exception");
+                }
+
+            }
+
+            @Override
+            public void error(String err) {
+                Log.e("ali", " webservice / send Faaliat ");
                 callBack.onError(err);
             }
         });

@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.pga.project1.Activities.FastProjectManagmentActivity;
 import com.pga.project1.Adapters.ListViewCustomAdapter;
 import com.pga.project1.DataModel.Faliat;
 import com.pga.project1.Helpers.DatabaseHelper;
@@ -58,8 +59,9 @@ public class FragmentFaliat extends Fragment {
 
 
         DatabaseHelper db = new DatabaseHelper(this.getActivity());
+        int projectID = ((FastProjectManagmentActivity) getActivity()).chart.getId();
 
-        List<Faliat> faliats = db.getAllFaliatsWithPersonnelAndWork();
+        List<Faliat> faliats = db.getAllFaliatsWithPersonnelAndWork(projectID + "");
 
         List<AdapterInputType> items = new ArrayList<AdapterInputType>();
 
