@@ -1,5 +1,6 @@
 package com.pga.project1.Activities;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -21,9 +22,12 @@ import com.pga.project1.DataModel.Chart;
 import com.pga.project1.DataModel.Personnel;
 import com.pga.project1.Helpers.DatabaseHelper;
 import com.pga.project1.Intefaces.CallBack;
+import com.pga.project1.Intefaces.CallBackFunction;
 import com.pga.project1.R;
+import com.pga.project1.Utilities.Account;
 import com.pga.project1.Utilities.FontHelper;
 import com.pga.project1.Utilities.Fonts;
+import com.pga.project1.Utilities.HandleError;
 import com.pga.project1.Utilities.Webservice;
 import com.pga.project1.Viewes.ViewDateTimePickerPersian;
 
@@ -71,7 +75,17 @@ public class FastProjectManagmentActivity extends ActionBarActivity {
 
                 @Override
                 public void onError(String errorMessage) {
+                    if (errorMessage.equals("UNAUTHORIZED")) {
 
+                        // clear token
+                        Account.getInstant(context).clearToken();
+
+                        // pass user to login page
+                        Intent intent = new Intent(context, LoginActivity.class);
+                        intent.putExtra("reason", "UNAUTHORIZED");
+                        context.startActivity(intent);
+                        ((Activity) context).overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
+                    }
                 }
             });
 
