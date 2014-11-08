@@ -157,6 +157,7 @@ public class FastProjectManagmentActivity extends ActionBarActivity {
         TextView title = (TextView) customActionBar.findViewById(R.id.ac_title);
         FontHelper.SetFont(this, Fonts.MAIN_FONT, title, Typeface.BOLD);
 
+        title.setText("مدیریت پروژه سریع");
         //ImageView back = (ImageView) customActionBar.findViewById(R.id.ac_back);
         LinearLayout back = (LinearLayout) customActionBar.findViewById(R.id.ac_back_layout);
 
