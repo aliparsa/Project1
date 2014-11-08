@@ -17,14 +17,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pga.project1.Adapters.FastProjectManTabPageAdapter;
-import com.pga.project1.DataModel.Chart;
-import com.pga.project1.DataModel.PathObject;
 import com.pga.project1.DataModel.Personnel;
 import com.pga.project1.Helpers.DatabaseHelper;
 import com.pga.project1.R;
 import com.pga.project1.Utilities.FontHelper;
 import com.pga.project1.Utilities.Fonts;
-import com.pga.project1.Viewes.PathMapManager;
 import com.pga.project1.Viewes.ViewDateTimePickerPersian;
 
 import java.text.SimpleDateFormat;
@@ -40,13 +37,9 @@ public class FastProjectManagmentActivity extends ActionBarActivity {
     private ImageView synch;
 
 
-    Chart chart;
-
     ViewPager Tab;
     FastProjectManTabPageAdapter TabAdapter;
     ActionBar actionBar;
-
-    private PathMapManager pathManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,15 +48,6 @@ public class FastProjectManagmentActivity extends ActionBarActivity {
         setContentView(R.layout.activity_fast_project_managment);
         //personnel_name.setNameValue("تلفن",personnel.get());
 
-
-        this.chart = (Chart) getIntent().getSerializableExtra("chart");
-        pathManager = (PathMapManager) findViewById(R.id.pmm);
-
-
-        pathManager.clear();
-        PathMapManager.push(new PathObject("مدیرییت سریع"));
-        PathMapManager.push(chart);
-        pathManager.refresh();
 
         //Add New Tab
 
@@ -163,11 +147,12 @@ public class FastProjectManagmentActivity extends ActionBarActivity {
         faliat = (ImageView) customActionBar.findViewById(R.id.ac_action1);
 
         //addPhotoButton.setText("تصویر");
-        attendance.setImageResource(R.drawable.ac_walking);
+        attendance.setImageResource(R.drawable.ic_action_attendance);
         //addPhotoButton.setTextColor(getResources().getColor(R.color.actionbar_button_text));
         attendance.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Intent intent = new Intent(context, PersonelPickerActivity.class);
                 startActivityForResult(intent, 1412);
             }
