@@ -1,6 +1,7 @@
 package com.pga.project1.Adapters;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -387,6 +388,11 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
         holder.taradodFullName.setText(taradod.getPersonnel().getFullName());
         holder.taradodDate.setText(taradod.getPersianDate());
         holder.taradodInOut.setText(taradod.getInOut().equals("in") ? "ورود" : "خروج");
+
+        if(taradod.getInOut().equals("in"))
+            holder.taradodInOut.setTextColor(Color.GREEN);
+        else
+            holder.taradodInOut.setTextColor(Color.RED);
     }
 
     public static class DrawerItemHolder {
