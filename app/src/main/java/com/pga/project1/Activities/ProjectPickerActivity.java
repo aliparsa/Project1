@@ -16,10 +16,12 @@ import android.widget.TextView;
 import com.pga.project1.Adapters.ListViewCustomAdapter;
 import com.pga.project1.DataModel.Chart;
 import com.pga.project1.DataModel.PathObject;
+import com.pga.project1.Helpers.DatabaseHelper;
 import com.pga.project1.Intefaces.CallBack;
 import com.pga.project1.Intefaces.CallBackFunction;
 import com.pga.project1.R;
 import com.pga.project1.Structures.AdapterInputType;
+import com.pga.project1.Utilities.Account;
 import com.pga.project1.Utilities.FontHelper;
 import com.pga.project1.Utilities.Fonts;
 import com.pga.project1.Utilities.HandleError;
@@ -43,6 +45,8 @@ public class ProjectPickerActivity extends Activity {
     private PathMapManager pathManager;
     private boolean TwiceBackPressed = false;
 
+    ArrayList<Chart> projects;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,7 +65,39 @@ public class ProjectPickerActivity extends Activity {
 
         prepareActionBar();
 
-        loadProjects();
+
+        // load projects
+        final DatabaseHelper db = new DatabaseHelper(context);
+        projects = db.getProjects();
+        if (projects.size() < 1)
+            Webservice.getProjects(context, new CallBack<ArrayList<Chart>>() {
+                @Override
+                public void onSuccess(ArrayList<Chart> result) {
+                    db.emptyProjectsTable();
+                    for (Chart chart : result) {
+                        db.insertProject(chart);
+                    }
+                    loadProjects();
+
+                }
+
+                @Override
+                public void onError(String errorMessage) {
+                    if (errorMessage.equals("UNAUTHORIZED")) {
+
+                        // clear token
+                        Account.getInstant(context).clearToken();
+
+                        // pass user to login page
+                        Intent intent = new Intent(context, LoginActivity.class);
+                        intent.putExtra("reason", "UNAUTHORIZED");
+                        context.startActivity(intent);
+                        ((Activity) context).overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
+                    }
+                }
+            });
+        else
+            loadProjects();
     }
 
     private void prepareActionBar() {
@@ -91,45 +127,26 @@ public class ProjectPickerActivity extends Activity {
 
         pathManager.refresh();
 
-        Webservice.getProjects(this, new CallBack<ArrayList<Chart>>() {
-            @Override
-            public void onSuccess(ArrayList<Chart> result) {
-                //TODO Create Adapter
 
-                List<AdapterInputType> itemList = new ArrayList<AdapterInputType>();
+        List<AdapterInputType> itemList = new ArrayList<AdapterInputType>();
 
-                for (Chart chart : result) {
+        for (Chart chart : projects) {
 
-                    itemList.add(new AdapterInputType(chart, ListViewCustomAdapter.CHART_ITEM, chart.getName(), chart.getStart_date(), BitmapFactory.decodeResource(getResources(),
-                            R.drawable.ic_launcher), chart.getId()));
+            itemList.add(new AdapterInputType(chart, ListViewCustomAdapter.CHART_ITEM, chart.getName(), chart.getStart_date(), BitmapFactory.decodeResource(getResources(),
+                    R.drawable.ic_launcher), chart.getId()));
 
-                }
+        }
 
-                adapter = new ListViewCustomAdapter(context, R.layout.fragment_layout_project_tree_view, itemList);
-                lv.setAdapter(ListViewAdapterHandler.checkAdapterForNoItem(adapter));
+        adapter = new ListViewCustomAdapter(context, R.layout.fragment_layout_project_tree_view, itemList);
+        lv.setAdapter(ListViewAdapterHandler.checkAdapterForNoItem(adapter));
 
-                // set on click listener
-                lv.setOnItemClickListener(new onTreeViewClickListener());
-
-            }
-
-            @Override
-            public void onError(String err) {
-                //TODO Show Error
+        // set on click listener
+        lv.setOnItemClickListener(new onTreeViewClickListener());
 
 
-                HandleError.HandleError(context, err, new CallBackFunction() {
-                    @Override
-                    public void execute() {
-                        loadProjects();
-                    }
-                });
 
 
-            }
 
-
-        });
     }
 
     @Override

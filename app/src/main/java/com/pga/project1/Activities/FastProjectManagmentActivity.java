@@ -60,35 +60,6 @@ public class FastProjectManagmentActivity extends ActionBarActivity {
 
         // try to get Projects List
 
-        final DatabaseHelper db = new DatabaseHelper(context);
-        ArrayList<Chart> projects = db.getProjects();
-        if (projects.size() < 1)
-            Webservice.getProjects(context, new CallBack<ArrayList<Chart>>() {
-                @Override
-                public void onSuccess(ArrayList<Chart> result) {
-                    db.emptyProjectsTable();
-                    for (Chart chart : result) {
-                        db.insertProject(chart);
-                    }
-
-                }
-
-                @Override
-                public void onError(String errorMessage) {
-                    if (errorMessage.equals("UNAUTHORIZED")) {
-
-                        // clear token
-                        Account.getInstant(context).clearToken();
-
-                        // pass user to login page
-                        Intent intent = new Intent(context, LoginActivity.class);
-                        intent.putExtra("reason", "UNAUTHORIZED");
-                        context.startActivity(intent);
-                        ((Activity) context).overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
-                    }
-                }
-            });
-
 
         //Add New Tab
 
@@ -226,7 +197,6 @@ public class FastProjectManagmentActivity extends ActionBarActivity {
     }
 
 
-
     @Override
     protected void onStart() {
         super.onStart();
@@ -281,7 +251,6 @@ public class FastProjectManagmentActivity extends ActionBarActivity {
         String[] items = new String[]{"ثبت ورود", "ثبت خروج"};
         DatabaseHelper db = new DatabaseHelper(context);
         final String in_out = db.getPersonnelInOrOut(personnel);
-
 
 
         new AlertDialog.Builder(context)

@@ -412,7 +412,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     Chart chart = new Chart();
                     chart.setId(cursor.getInt(cursor.getColumnIndex(KEY_ID)));
                     chart.setName(cursor.getString(cursor.getColumnIndex(KEY_NAME)));
-                    chart.setType_id(Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_TYPE))));
+                    chart.setType_id(Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_TYPE_ID))));
                     chart.setStart_date((cursor.getString(cursor.getColumnIndex(KEY_START_DATE))));
                     chart.setEnd_date((cursor.getString(cursor.getColumnIndex(KEY_END_DATE))));
                     chart.setPrice(cursor.getString(cursor.getColumnIndex(KEY_PRICE)));
