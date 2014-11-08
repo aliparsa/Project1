@@ -104,6 +104,7 @@ public class Taradod {
                 json.put("personnel_code", tar.getPersonnelCode());
                 json.put("in_out", tar.inOut);
                 json.put("date", tar.getDate());
+                json.put("project_id", tar.getProjectID());
 
                 taradodsJson.put(json);
             } catch (JSONException e) {

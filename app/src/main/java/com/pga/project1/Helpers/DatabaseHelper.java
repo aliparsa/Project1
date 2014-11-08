@@ -216,7 +216,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ArrayList<Taradod> taradods = new ArrayList<Taradod>();
 
         SQLiteDatabase db = getReadableDatabase();
-        final Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_TARADOD + " WHERE " + KEY_SENT + " = 0;", null);
+        final Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_TARADOD + " WHERE " + KEY_SENT + " = \"0\";", null);
 
         if (cursor != null) {
             if (cursor.moveToFirst()) {
@@ -287,6 +287,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(KEY_AMOUNT, faliat.getAmount());
         values.put(KEY_DATE, faliat.getDate());
         values.put(KEY_PROJECT_ID, faliat.getProjectID());
+        values.put(KEY_SENT, 0);
         this.getWritableDatabase().insert(TABLE_FALIAT, null, values);
 
     }
@@ -442,7 +443,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ArrayList<Faliat> faliats = new ArrayList<Faliat>();
 
         SQLiteDatabase db = getReadableDatabase();
-        final Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_FALIAT + " WHERE " + KEY_SENT + " = 0;", null);
+        final Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_FALIAT + " WHERE " + KEY_SENT + " = \"0\" ;", null);
 
         if (cursor != null) {
             if (cursor.moveToFirst()) {

@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pga.project1.DataModel.Chart;
+import com.pga.project1.Helpers.FastProjectSyncHelper;
 import com.pga.project1.Intefaces.CallBack;
 import com.pga.project1.Intefaces.CallBackFunction;
 import com.pga.project1.R;
@@ -71,6 +72,13 @@ public class MainActivity extends Activity
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
 
+
+        // load needed data
+        FastProjectSyncHelper.SyncWork(context);
+        FastProjectSyncHelper.SyncProject(context);
+
+        FastProjectSyncHelper.SyncTaradod(context);
+        FastProjectSyncHelper.SyncFaliat(context);
 
         //  this.getFragmentManager().addOnBackStackChangedListener(new BackStackChanged(this));
 

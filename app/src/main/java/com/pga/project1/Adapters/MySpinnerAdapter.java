@@ -56,7 +56,7 @@ public class MySpinnerAdapter extends BaseAdapter implements SpinnerAdapter {
         if (aPosition == 0) {
             text.setText("نوع کار"); // text for first dummy item
         } else {
-            text.setText(items.get(aPosition).getName());
+            text.setText(items.get(aPosition).getName() + " ---  (" + items.get(aPosition).getType() + ")");
             // or use whatever model attribute you'd like displayed instead of toString()
         }
         text.setTag(items.get(aPosition));
