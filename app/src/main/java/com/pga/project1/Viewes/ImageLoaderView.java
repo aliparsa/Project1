@@ -47,8 +47,6 @@ public class ImageLoaderView extends RelativeLayout {
         configure();
 
         if (isZoomAllowed) {
-            // mainImageView.setClickable(false);
-
             this.setOnTouchListener(new OnPinchListener(mainImageView));
         }
 
@@ -88,7 +86,10 @@ public class ImageLoaderView extends RelativeLayout {
         this.fakeImageView = (ImageView) findViewById(R.id.imv_fake);
         this.mainImageView = (ImageView) findViewById(R.id.imv_main);
 
-        fakeImageView.setImageResource(this.defaultImageID);
+        if(this.defaultImageID != 0) {
+            fakeImageView.setImageResource(this.defaultImageID);
+            progressBar.setVisibility(GONE);
+        }
 
         this.progressBar = (ProgressBar) findViewById(R.id.progressBar);
         progressBar.setMax(100);
@@ -146,9 +147,9 @@ public class ImageLoaderView extends RelativeLayout {
 
                 @Override
                 public void onError(String err) {
-                    //TODO broken image
 
-                    mainImageView.setImageResource(R.drawable.image_error);
+                    if(defaultImageID == 0)
+                        mainImageView.setImageResource(R.drawable.image_error);
 
                     progressBar.setVisibility(GONE);
                 }
