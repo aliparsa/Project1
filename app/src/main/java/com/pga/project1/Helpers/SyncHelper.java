@@ -21,17 +21,19 @@ import java.util.ArrayList;
 /**
  * Created by aliparsa on 11/8/2014.
  */
-public class FastProjectSyncHelper {
+public class SyncHelper {
 
 
-    public static void SyncTaradod(Context context) {
+    public static void SyncTaradod(final Context context) {
         DatabaseHelper db = new DatabaseHelper(context);
-        ArrayList<Taradod> taradods = db.getAllUnsentTaradod();
+        final ArrayList<Taradod> taradods = db.getAllUnsentTaradod();
         if (taradods.size() > 0)
             Webservice.sendTaradod(context, taradods, new CallBack<ServerResponse>() {
                 @Override
                 public void onSuccess(ServerResponse result) {
                     // TODO MAKE RECORDS SEND FLAG TRUE
+                    DatabaseHelper db = new DatabaseHelper(context);
+                    //     db.markAsSentTaradod(taradods);
                 }
 
                 @Override
@@ -41,14 +43,16 @@ public class FastProjectSyncHelper {
             });
     }
 
-    public static void SyncFaliat(Context context) {
+    public static void SyncFaliat(final Context context) {
         DatabaseHelper db = new DatabaseHelper(context);
-        ArrayList<Faliat> faliats = db.getAllUnsentFaliat();
+        final ArrayList<Faliat> faliats = db.getAllUnsentFaliat();
         if (faliats.size() > 0)
             Webservice.sendFaliat(context, faliats, new CallBack<ServerResponse>() {
                 @Override
                 public void onSuccess(ServerResponse result) {
                     // TODO MAKE RECORDS SEND FLAG TRUE
+                    DatabaseHelper db = new DatabaseHelper(context);
+                    //  db.markAsSentFaliat(faliats);
                 }
 
                 @Override

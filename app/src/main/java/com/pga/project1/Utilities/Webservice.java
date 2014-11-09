@@ -681,7 +681,7 @@ public class Webservice {
 
         BasicNameValuePair[] arr = {
                 new BasicNameValuePair("tag", "taradod"),
-                new BasicNameValuePair("id", taradodJSON)
+                new BasicNameValuePair("value", taradodJSON)
         };
         helper.postHttp(arr, new ResponseHandler() {
             @Override
@@ -728,7 +728,7 @@ public class Webservice {
 
         BasicNameValuePair[] arr = {
                 new BasicNameValuePair("tag", "faaliat"),
-                new BasicNameValuePair("id", faliatJSON)
+                new BasicNameValuePair("value", faliatJSON)
         };
         helper.postHttp(arr, new ResponseHandler() {
             @Override

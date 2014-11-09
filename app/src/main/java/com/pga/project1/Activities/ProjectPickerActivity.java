@@ -9,6 +9,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -46,6 +47,7 @@ public class ProjectPickerActivity extends Activity {
     private boolean TwiceBackPressed = false;
 
     ArrayList<Chart> projects;
+    private ImageView reload;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +62,7 @@ public class ProjectPickerActivity extends Activity {
 
         pathManager = (PathMapManager) findViewById(R.id.pmm);
         pathManager.clear();
-        PathMapManager.push(new PathObject("مدیرییت سریع"));
+        PathMapManager.push(new PathObject("مدیریت سریع"));
         pathManager.refresh();
 
         prepareActionBar();
@@ -120,6 +122,47 @@ public class ProjectPickerActivity extends Activity {
             @Override
             public void onClick(View view) {
                 onBackPressed();
+            }
+        });
+
+
+        reload = (ImageView) customActionBar.findViewById(R.id.ac_action1);
+
+        //addPhotoButton.setText("تصویر");
+        reload.setImageResource(R.drawable.ac_refresh);
+        //addPhotoButton.setTextColor(getResources().getColor(R.color.actionbar_button_text));
+        reload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                final DatabaseHelper db = new DatabaseHelper(context);
+
+                Webservice.getProjects(context, new CallBack<ArrayList<Chart>>() {
+                    @Override
+                    public void onSuccess(ArrayList<Chart> result) {
+                        db.emptyProjectsTable();
+                        for (Chart chart : result) {
+                            db.insertProject(chart);
+                        }
+                        loadProjects();
+
+                    }
+
+                    @Override
+                    public void onError(String errorMessage) {
+                        if (errorMessage.equals("UNAUTHORIZED")) {
+
+                            // clear token
+                            Account.getInstant(context).clearToken();
+
+                            // pass user to login page
+                            Intent intent = new Intent(context, LoginActivity.class);
+                            intent.putExtra("reason", "UNAUTHORIZED");
+                            context.startActivity(intent);
+                            ((Activity) context).overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
+                        }
+                    }
+                });
             }
         });
     }

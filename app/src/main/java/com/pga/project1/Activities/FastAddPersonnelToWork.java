@@ -215,7 +215,7 @@ public class FastAddPersonnelToWork extends Activity {
     private void addFaliat() {
 
 
-        Faliat faliat = new Faliat(personnel.getPersonnel_code() + "", selectedWork.getId() + "", mizanKar.getText().toString(), selectedDateTime.getGregorianDate() + "", 0, chart.getId() + "");
+        Faliat faliat = new Faliat(personnel.getId() + "", selectedWork.getId() + "", mizanKar.getText().toString(), selectedDateTime.getGregorianDate() + "", 0, chart.getId() + "");
         DatabaseHelper db = new DatabaseHelper(context);
         db.insertFaliat(faliat);
         finish();

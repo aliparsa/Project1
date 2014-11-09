@@ -19,7 +19,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pga.project1.DataModel.Chart;
-import com.pga.project1.Helpers.FastProjectSyncHelper;
+import com.pga.project1.Helpers.DatabaseHelper;
+import com.pga.project1.Helpers.SyncHelper;
 import com.pga.project1.Intefaces.CallBack;
 import com.pga.project1.Intefaces.CallBackFunction;
 import com.pga.project1.R;
@@ -74,11 +75,13 @@ public class MainActivity extends Activity
 
 
         // load needed data
-        FastProjectSyncHelper.SyncWork(context);
-        FastProjectSyncHelper.SyncProject(context);
+        SyncHelper.SyncWork(context);
+        SyncHelper.SyncProject(context);
+        SyncHelper.SyncTaradod(context);
+        SyncHelper.SyncFaliat(context);
 
-        FastProjectSyncHelper.SyncTaradod(context);
-        FastProjectSyncHelper.SyncFaliat(context);
+        DatabaseHelper db = new DatabaseHelper(context);
+        db.cleanOldData(7);
 
         //  this.getFragmentManager().addOnBackStackChangedListener(new BackStackChanged(this));
 
