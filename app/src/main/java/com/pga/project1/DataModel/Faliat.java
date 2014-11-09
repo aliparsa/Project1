@@ -118,11 +118,13 @@ public class Faliat {
         for (Faliat faliat : faliats) {
             try {
                 JSONObject json = new JSONObject();
-                json.put("id", 0);
+                json.put("id", faliat.getId());
                 json.put("work_code", faliat.getWorkId());
                 json.put("personnel_code", faliat.getPersonnelCode());
                 json.put("amount", faliat.getAmount());
                 json.put("date", faliat.getDate());
+                json.put("project_id", faliat.getProjectID());
+
 
                 faliatJson.put(json);
             } catch (JSONException e) {

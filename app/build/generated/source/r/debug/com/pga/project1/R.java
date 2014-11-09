@@ -1312,8 +1312,8 @@ containing a value of this type.
         public static final int etxt_fragmentLogin_username=0x7f08006e;
         public static final int expand_activities_button=0x7f080026;
         public static final int expanded_menu=0x7f08002c;
-        public static final int faliat_amount=0x7f0800a3;
-        public static final int faliat_date=0x7f0800a5;
+        public static final int faliat_amount=0x7f0800a5;
+        public static final int faliat_date=0x7f0800a3;
         public static final int faliat_fullname=0x7f0800a2;
         public static final int faliat_work=0x7f0800a4;
         public static final int home=0x7f080017;
