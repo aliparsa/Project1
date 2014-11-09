@@ -19,7 +19,7 @@ public class Taradod {
     private int sent;
     private String date;
     private String projectID;
-    private int has_error;
+    private String has_error;
 
 
     private Personnel personnel;
@@ -32,13 +32,14 @@ public class Taradod {
             + KEY_DATE + " TEXT"*/
 
 
-    public Taradod(int id, String personnelId, String inOut, int sent, String date, String projectID) {
+    public Taradod(int id, String personnelId, String inOut, int sent, String date, String projectID, String has_error) {
         this.id = id;
         this.inOut = inOut;
         this.sent = sent;
         this.date = date;
         this.personnelID = personnelId;
         this.projectID = projectID;
+        this.has_error = has_error;
     }
 
     public Taradod(String personnelId, String inOut, int sent, String date, String projectID) {
@@ -142,11 +143,11 @@ public class Taradod {
         this.personnelID = personnelID;
     }
 
-    public int getHas_error() {
+    public String getHas_error() {
         return has_error;
     }
 
-    public void setHas_error(int has_error) {
+    public void setHas_error(String has_error) {
         this.has_error = has_error;
     }
 }

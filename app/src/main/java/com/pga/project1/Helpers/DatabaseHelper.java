@@ -156,7 +156,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(KEY_CODE, taradod.getPersonnelID());
         values.put(KEY_IN_OUT, taradod.getInOut());
         values.put(KEY_SENT, "0");
-        values.put(KEY_SENT, "0");
+        values.put(KEY_HAS_ERROR, "0");
         values.put(KEY_DATE, taradod.getDate());
         values.put(KEY_PROJECT_ID, taradod.getProjectID());
         this.getWritableDatabase().insert(TABLE_TARADOD, null, values);
@@ -237,7 +237,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                            cursor.getString(cursor.getColumnIndex(KEY_IN_OUT)),
                            cursor.getInt(cursor.getColumnIndex(KEY_SENT)),
                            cursor.getString(cursor.getColumnIndex(KEY_DATE)),
-                           cursor.getString(cursor.getColumnIndex(KEY_PROJECT_ID))
+                           cursor.getString(cursor.getColumnIndex(KEY_PROJECT_ID)),
+                           cursor.getString(cursor.getColumnIndex(KEY_HAS_ERROR))
                            );
 
                     taradods.add(taradod);
@@ -319,12 +320,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 do {
 
                     Taradod taradod = new Taradod(
-                            cursor.getInt(cursor.getColumnIndex("t." + KEY_ID)),
-                            cursor.getString(cursor.getColumnIndex("t." + KEY_CODE)),
+                            cursor.getInt(cursor.getColumnIndex(TABLE_TARADOD + "." + KEY_ID)),
+                            cursor.getString(cursor.getColumnIndex(TABLE_TARADOD + "." + KEY_CODE)),
                             cursor.getString(cursor.getColumnIndex(KEY_IN_OUT)),
                             cursor.getInt(cursor.getColumnIndex(KEY_SENT)),
                             cursor.getString(cursor.getColumnIndex(KEY_DATE)),
-                            cursor.getString(cursor.getColumnIndex(KEY_PROJECT_ID))
+                            cursor.getString(cursor.getColumnIndex(KEY_PROJECT_ID)),
+                            cursor.getString(cursor.getColumnIndex(KEY_HAS_ERROR))
                     );
 
                     Personnel personnel = new Personnel();

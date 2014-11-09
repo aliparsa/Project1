@@ -39,13 +39,11 @@ public class SyncHelper {
                     try {
                         // TODO MAKE RECORDS SEND FLAG TRUE
                         JSONObject jsonObject = new JSONObject(result.getResult());
+                        DatabaseHelper db = new DatabaseHelper(context);
+                        db.markAsSentTaradod(taradods);
 
-                        if (!jsonObject.has("uids")) {
-                            DatabaseHelper db = new DatabaseHelper(context);
-                            db.markAsSentTaradod(taradods);
-                        } else {
+                        if (jsonObject.has("uids")) {
                             JSONArray jsonArray = jsonObject.getJSONArray("uids");
-                            DatabaseHelper db = new DatabaseHelper(context);
                             db.makeHasErrorTrue(jsonArray);
                         }
 

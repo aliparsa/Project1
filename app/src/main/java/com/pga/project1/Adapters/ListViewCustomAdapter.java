@@ -405,10 +405,21 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
         else
             holder.taradodInOut.setTextColor(Color.RED);
 
-        if (taradod.getSent() == 1)
-            holder.taradodFlag.setVisibility(View.VISIBLE);
-        else
-            holder.taradodFlag.setVisibility(View.GONE);
+
+        if (taradod.getSent() == 0) {
+            holder.taradodFlag.setText("");
+        }
+        if (taradod.getSent() == 1) {
+            holder.taradodFlag.setTextColor(Color.GREEN);
+            holder.taradodFlag.setText("✓");
+
+        }
+
+        if (taradod.getHas_error().equals("1")) {
+            holder.taradodFlag.setText("x");
+            holder.taradodFlag.setTextColor(Color.RED);
+        }
+
     }
 
     public static class DrawerItemHolder {
