@@ -523,7 +523,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         idIn += ")";
 
         SQLiteDatabase db = getWritableDatabase();
-        final Cursor cursor = db.rawQuery("Delete from " + TABLE_FALIAT + " Where " + KEY_ID + " In " + idIn + ";", null);
+        final Cursor cursor = db.rawQuery("UPDATE " + TABLE_FALIAT + " SET sent = \"1\" Where " + KEY_ID + " In " + idIn + ";", null);
 
     }
 
@@ -544,7 +544,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         idIn += ")";
 
         SQLiteDatabase db = getWritableDatabase();
-        final Cursor cursor = db.rawQuery("Delete from " + TABLE_TARADOD + " Where " + KEY_ID + " In " + idIn + ";", null);
+        final Cursor cursor = db.rawQuery("UPDATE " + TABLE_TARADOD + " SET sent = \"1\" Where " + KEY_ID + " In " + idIn + ";", null);
 
     }
 
