@@ -158,7 +158,7 @@ public class FastProjectManagmentActivity extends ActionBarActivity {
         TextView title = (TextView) customActionBar.findViewById(R.id.ac_title);
         FontHelper.SetFont(this, Fonts.MAIN_FONT, title, Typeface.BOLD);
 
-        title.setText("مدیریت پروژه سریع");
+        title.setText("مدیریت سریع پروژه");
         //ImageView back = (ImageView) customActionBar.findViewById(R.id.ac_back);
         LinearLayout back = (LinearLayout) customActionBar.findViewById(R.id.ac_back_layout);
 
@@ -208,7 +208,7 @@ public class FastProjectManagmentActivity extends ActionBarActivity {
             @Override
             public void onClick(View view) {
 
-
+                Toast.makeText(context, "در حال ارسال", Toast.LENGTH_SHORT).show();
                 SyncHelper.SyncTaradod(context);
                 SyncHelper.SyncFaliat(context);
                 DatabaseHelper db = new DatabaseHelper(context);
@@ -250,154 +250,6 @@ public class FastProjectManagmentActivity extends ActionBarActivity {
         if (resultCode == RESULT_CANCELED) {
             PathMapManager.pop("FastProj onActivityResult RESULT_CANCELED");
         }
-    }
-
-
-    //-------------------------------------------------------------------------------------
-    private void HandleTaradod(final Personnel personnel) {
-
-        String[] items = new String[]{"ثبت ورود", "ثبت خروج"};
-        DatabaseHelper db = new DatabaseHelper(context);
-        final String in_out = db.getPersonnelInOrOut(personnel);
-
-
-        new AlertDialog.Builder(context)
-                .setTitle("ثبت تردد برای  " + personnel.getFullName())
-                .setItems(items, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-
-                        dialogInterface.dismiss();
-                        switch (i) {
-                            case 0:
-                                if (in_out != null && in_out.equals("in")) {
-                                    Toast.makeText(context, "این پرسنل قبلا وارد شده است", Toast.LENGTH_LONG).show();
-                                    return;
-                                }
-                                HandelIn(personnel);
-
-                                break;
-                            case 1:
-                                if (in_out == null || in_out.equals("out")) {
-                                    Toast.makeText(context, "این پرسنل هنوز وارد نشده", Toast.LENGTH_LONG).show();
-                                    return;
-                                }
-                                HandelOut(personnel);
-                                break;
-                        }
-                    }
-                })
-
-                .show();
-    }
-
-    //---------------------------------------------------------------------
-    private void HandelIn(final Personnel personnel) {
-        new AlertDialog.Builder(context)
-                .setTitle("انتخاب زمان")
-                .setItems(new String[]{"ثبت زمان فعلی", "وارد نمودن تاریخ و ساعت"}, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
-                        switch (i) {
-                            case 0:
-                                InOutCurrentTime(personnel, "in");
-                                break;
-                            case 1:
-                                InOutCustomTime(personnel, "in");
-                                break;
-                        }
-                    }
-                })
-                .show();
-
-    }
-
-    //----------------------------------------------------------------------
-    private void InOutCurrentTime(Personnel personnel, String in_out) {
-        try {
-            DatabaseHelper db = new DatabaseHelper(context);
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH-mm");
-            String currentDateandTime = sdf.format(new Date());
-            Taradod taradod = new Taradod(personnel.getId() + "", in_out, 0, currentDateandTime, chart.getId() + "");
-            db.insertTaradod(taradod);
-            Toast.makeText(context, "ذخیره شد", Toast.LENGTH_SHORT).show();
-
-            Tab.setAdapter(TabAdapter);
-            Tab.setCurrentItem(1);
-
-        } catch (Exception e) {
-            Toast.makeText(context, "عملیات با خطا مواجه شد", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    //----------------------------------------------------------------------
-    private void HandelOut(final Personnel personnel) {
-        new AlertDialog.Builder(context)
-                .setTitle("انتخاب زمان")
-                .setItems(new String[]{"ثبت زمان فعلی", "وارد نمودن تاریخ و ساعت"}, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
-                        switch (i) {
-                            case 0:
-                                InOutCurrentTime(personnel, "out");
-                                break;
-                            case 1:
-                                InOutCustomTime(personnel, "out");
-                                break;
-                        }
-                    }
-                })
-                .show();
-    }
-
-    //-------------------------------------------------------------------------------------
-    private void InOutCustomTime(final Personnel personnel, final String in_out) {
-        final ViewDateTimePickerPersian pickerPersian = new ViewDateTimePickerPersian(context);
-        new AlertDialog.Builder(context)
-
-                .setTitle("انتخاب تاریخ و زمان")
-                .setView(pickerPersian)
-                .setTitle("تاریخ و ساعت را وارد نمایید")
-                .setPositiveButton("ذخیره", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-
-                                try {
-
-
-                                    String date = pickerPersian.getDate().getGregorianDate();
-                                    String hour = pickerPersian.getHour() < 10 ? "0" + pickerPersian.getHour() : pickerPersian.getHour() + "";
-                                    String minute = pickerPersian.getMinute() < 10 ? "0" + pickerPersian.getMinute() : pickerPersian.getMinute() + "";
-                                    date += " " + hour + "-" + minute;
-
-                                    DatabaseHelper db = new DatabaseHelper(context);
-                                    Taradod taradod = new Taradod(personnel.getId() + "", in_out, 0, date, chart.getId() + "");
-                                    db.insertTaradod(taradod);
-
-                                    Toast.makeText(context, "ذخیره شد", Toast.LENGTH_SHORT).show();
-                                    Tab.setAdapter(TabAdapter);
-                                    Tab.setCurrentItem(1);
-                                } catch (Exception e) {
-                                    Toast.makeText(context, "عملیات با خطا مواجه شد", Toast.LENGTH_SHORT).show();
-
-                                }
-                            }
-                        }
-                )
-                .
-
-                        setNegativeButton("لغو", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {
-
-                                    }
-                                }
-                        )
-                .
-
-                        show();
     }
 
     //-------------------------------------------------------------------------------------

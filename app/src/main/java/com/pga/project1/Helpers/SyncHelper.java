@@ -33,7 +33,7 @@ public class SyncHelper {
                 public void onSuccess(ServerResponse result) {
                     // TODO MAKE RECORDS SEND FLAG TRUE
                     DatabaseHelper db = new DatabaseHelper(context);
-                    db.markAsSentTaradod(taradods);
+                    //     db.markAsSentTaradod(taradods);
                 }
 
                 @Override
@@ -52,7 +52,7 @@ public class SyncHelper {
                 public void onSuccess(ServerResponse result) {
                     // TODO MAKE RECORDS SEND FLAG TRUE
                     DatabaseHelper db = new DatabaseHelper(context);
-                    db.markAsSentFaliat(faliats);
+                    //  db.markAsSentFaliat(faliats);
                 }
 
                 @Override
