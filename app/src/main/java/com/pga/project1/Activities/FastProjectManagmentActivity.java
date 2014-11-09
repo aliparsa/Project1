@@ -24,6 +24,7 @@ import com.pga.project1.DataModel.PathObject;
 import com.pga.project1.DataModel.Personnel;
 import com.pga.project1.DataModel.Taradod;
 import com.pga.project1.Helpers.DatabaseHelper;
+import com.pga.project1.Helpers.SyncHelper;
 import com.pga.project1.Intefaces.CallBack;
 import com.pga.project1.R;
 import com.pga.project1.Utilities.Account;
@@ -207,7 +208,11 @@ public class FastProjectManagmentActivity extends ActionBarActivity {
             @Override
             public void onClick(View view) {
 
-                // TODO SYNCH BUTTON HERE
+
+                SyncHelper.SyncTaradod(context);
+                SyncHelper.SyncFaliat(context);
+                DatabaseHelper db = new DatabaseHelper(context);
+                db.cleanOldData(7);
 
 
             }
@@ -313,7 +318,7 @@ public class FastProjectManagmentActivity extends ActionBarActivity {
             DatabaseHelper db = new DatabaseHelper(context);
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH-mm");
             String currentDateandTime = sdf.format(new Date());
-            Taradod taradod = new Taradod(personnel.getPersonnel_code(), in_out, 0, currentDateandTime, chart.getId() + "");
+            Taradod taradod = new Taradod(personnel.getId() + "", in_out, 0, currentDateandTime, chart.getId() + "");
             db.insertTaradod(taradod);
             Toast.makeText(context, "ذخیره شد", Toast.LENGTH_SHORT).show();
 
@@ -367,7 +372,7 @@ public class FastProjectManagmentActivity extends ActionBarActivity {
                                     date += " " + hour + "-" + minute;
 
                                     DatabaseHelper db = new DatabaseHelper(context);
-                                    Taradod taradod = new Taradod(personnel.getPersonnel_code(), in_out, 0, date, chart.getId() + "");
+                                    Taradod taradod = new Taradod(personnel.getId() + "", in_out, 0, date, chart.getId() + "");
                                     db.insertTaradod(taradod);
 
                                     Toast.makeText(context, "ذخیره شد", Toast.LENGTH_SHORT).show();

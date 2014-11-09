@@ -60,7 +60,7 @@ public class ProjectPickerActivity extends Activity {
 
         pathManager = (PathMapManager) findViewById(R.id.pmm);
         pathManager.clear();
-        PathMapManager.push(new PathObject("مدیرییت سریع"));
+        PathMapManager.push(new PathObject("مدیریت سریع"));
         pathManager.refresh();
 
         prepareActionBar();

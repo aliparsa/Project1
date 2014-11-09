@@ -14,11 +14,10 @@ import java.util.List;
 public class Taradod {
 
     private int id;
-    private String personnelCode;
+    private String personnelID;
     private String inOut;
     private int sent;
     private String date;
-    private int personnelId;
     private String projectID;
 
 
@@ -32,23 +31,23 @@ public class Taradod {
             + KEY_DATE + " TEXT"*/
 
 
-    public Taradod(int id, String personnelCode, String inOut, int sent, String date, String projectID) {
+    public Taradod(int id, String personnelId, String inOut, int sent, String date, String projectID) {
         this.id = id;
-        this.personnelCode = personnelCode;
         this.inOut = inOut;
         this.sent = sent;
         this.date = date;
-        this.personnelId = personnelId;
+        this.personnelID = personnelId;
         this.projectID = projectID;
     }
 
-    public Taradod(String personnelCode, String inOut, int sent, String date, String projectID) {
-        this.personnelCode = personnelCode;
+    public Taradod(String personnelId, String inOut, int sent, String date, String projectID) {
+
         this.inOut = inOut;
         this.sent = sent;
-        this.personnelId = personnelId;
         this.projectID = projectID;
         this.date = date;
+        this.personnelID = personnelId;
+
 
     }
 
@@ -60,13 +59,6 @@ public class Taradod {
         this.id = id;
     }
 
-    public String getPersonnelCode() {
-        return personnelCode;
-    }
-
-    public void setPersonnelCode(String personnelCode) {
-        this.personnelCode = personnelCode;
-    }
 
     public String getInOut() {
         return inOut;
@@ -84,13 +76,7 @@ public class Taradod {
         this.sent = sent;
     }
 
-    public int getPersonnelId() {
-        return personnelId;
-    }
 
-    public void setPersonnelId(int personnelId) {
-        this.personnelId = personnelId;
-    }
 
 
     public static JSONArray convertArrayToJson(List<Taradod> taradods){
@@ -100,11 +86,12 @@ public class Taradod {
         for (Taradod tar : taradods) {
             try {
                 JSONObject json = new JSONObject();
-                json.put("id", tar.getId());
-                json.put("personnel_code", tar.getPersonnelCode());
-                json.put("in_out", tar.inOut);
+
+                json.put("personnel_id", tar.getPersonnelID());
+                json.put("chart_id", tar.getProjectID());
+                json.put("in_out", tar.inOut.equals("in") ? "1" : "0");
                 json.put("date", tar.getDate());
-                json.put("project_id", tar.getProjectID());
+
 
                 taradodsJson.put(json);
             } catch (JSONException e) {
@@ -143,5 +130,13 @@ public class Taradod {
 
     public void setProjectID(String projectID) {
         this.projectID = projectID;
+    }
+
+    public String getPersonnelID() {
+        return personnelID;
+    }
+
+    public void setPersonnelID(String personnelID) {
+        this.personnelID = personnelID;
     }
 }

@@ -13,7 +13,9 @@ import com.pga.project1.DataModel.Personnel;
 import com.pga.project1.DataModel.Taradod;
 import com.pga.project1.DataModel.Work;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by aliparsa on 9/20/2014.
@@ -146,7 +148,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public void insertTaradod(Taradod taradod) {
         ContentValues values = new ContentValues();
-        values.put(KEY_CODE, taradod.getPersonnelCode());
+        values.put(KEY_CODE, taradod.getPersonnelID());
         values.put(KEY_IN_OUT, taradod.getInOut());
         values.put(KEY_SENT, taradod.getSent());
         values.put(KEY_DATE, taradod.getDate());
@@ -282,7 +284,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
 
-        values.put(KEY_CODE, faliat.getPersonnelCode());
+        values.put(KEY_CODE, faliat.getPersonnelID());
         values.put(KEY_WORK_CODE, faliat.getWorkId());
         values.put(KEY_AMOUNT, faliat.getAmount());
         values.put(KEY_DATE, faliat.getDate());
@@ -299,7 +301,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getReadableDatabase();
 
         String query = "SELECT * FROM " + TABLE_TARADOD + " t, " + TABLE_PERSONNEL + " p" +
-                " WHERE t." + KEY_PROJECT_ID + "=\"" + projectID + "\" AND t." + KEY_CODE + " = p." + KEY_CODE + " order by t.id desc";
+                " WHERE t." + KEY_PROJECT_ID + "=\"" + projectID + "\" AND t." + KEY_CODE + " = p." + KEY_ID + " order by t.id desc";
 
         Log.i("ali", query);
 
@@ -345,7 +347,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getReadableDatabase();
 
         String query = "SELECT * FROM " + TABLE_FALIAT + " f , " + TABLE_PERSONNEL + " p, " + TABLE_WORK + " w" +
-                " WHERE f." + KEY_PROJECT_ID + "=\"" + projectID + "\" AND  f." + KEY_CODE + " = p." + KEY_CODE +
+                " WHERE f." + KEY_PROJECT_ID + "=\"" + projectID + "\" AND  f." + KEY_CODE + " = p." + KEY_ID +
                 " AND f." + KEY_WORK_CODE + " = w." + KEY_ID + " order by f.id desc";
 
         final Cursor cursor = db.rawQuery(query, null);
@@ -396,7 +398,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public String getPersonnelInOrOut(Personnel personnel) {
         SQLiteDatabase db = getReadableDatabase();
 
-        String query = "SELECT * FROM " + TABLE_TARADOD + " WHERE " + KEY_CODE + "=\"" + personnel.getPersonnel_code() + "\"" + " order by " + KEY_ID + " desc limit 1";
+        String query = "SELECT * FROM " + TABLE_TARADOD + " WHERE " + KEY_CODE + "=\"" + personnel.getId() + "\"" + " order by " + KEY_ID + " desc limit 1";
 
         final Cursor cursor = db.rawQuery(query, null);
 
@@ -471,6 +473,39 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return faliats;
     }
 
+    public ArrayList<Faliat> getAllFaliat() {
+
+        ArrayList<Faliat> faliats = new ArrayList<Faliat>();
+
+        SQLiteDatabase db = getReadableDatabase();
+        final Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_FALIAT, null);
+
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+
+                do {
+
+                    Faliat faliat = new Faliat(
+                            cursor.getInt(cursor.getColumnIndex(TABLE_FALIAT + "." + KEY_ID)),
+                            cursor.getString(cursor.getColumnIndex(TABLE_FALIAT + "." + KEY_CODE)),
+                            cursor.getString(cursor.getColumnIndex(TABLE_FALIAT + "." + KEY_WORK_CODE)),
+                            cursor.getString(cursor.getColumnIndex(KEY_AMOUNT)),
+                            cursor.getString(cursor.getColumnIndex(KEY_DATE)),
+                            cursor.getInt(cursor.getColumnIndex(KEY_SENT)),
+                            cursor.getString(cursor.getColumnIndex(KEY_PROJECT_ID))
+
+
+                    );
+
+                    faliats.add(faliat);
+
+                } while (cursor.moveToNext());
+            }
+        }
+
+        return faliats;
+    }
+
     public void markAsSentFaliat(ArrayList<Faliat> faliats){
 
         String idIn = "(";
@@ -510,6 +545,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase db = getWritableDatabase();
         final Cursor cursor = db.rawQuery("Delete from " + TABLE_TARADOD + " Where " + KEY_ID + " In " + idIn + ";", null);
+
+    }
+
+    public void cleanOldData(int days) {
+        SQLiteDatabase db = getWritableDatabase();
+        Date d = new Date(System.currentTimeMillis() - (86400000) * days);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+        String date = sdf.format(d);
+        final Cursor cursor1 = db.rawQuery("delete from " + TABLE_FALIAT + " Where " + KEY_DATE + " < '" + date + "' AND " + KEY_SENT + "=\"1\"", null);
+        final Cursor cursor2 = db.rawQuery("delete from " + TABLE_TARADOD + " Where " + KEY_DATE + " < '" + date + "' AND " + KEY_SENT + "=\"1\"", null);
 
     }
 }

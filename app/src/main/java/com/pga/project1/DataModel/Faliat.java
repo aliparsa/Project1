@@ -15,7 +15,7 @@ public class Faliat {
 
 
     private int id;
-    private String personnelCode;
+    private String personnelID;
     private String workId;
     private String amount;
     private String date;
@@ -25,11 +25,11 @@ public class Faliat {
     private Personnel personnel;
     private Work work;
 
-    public Faliat(int id, String personnelCode, String workId, String amount, String date, int sent, String projectID) {
+    public Faliat(int id, String personnelID, String workId, String amount, String date, int sent, String projectID) {
 
 
         this.id = id;
-        this.personnelCode = personnelCode;
+        this.personnelID = personnelID;
         this.workId = workId;
         this.amount = amount;
         this.date = date;
@@ -38,10 +38,10 @@ public class Faliat {
 
     }
 
-    public Faliat(String personnelCode, String workId, String amount, String date, int sent, String projectID) {
+    public Faliat(String personnelID, String workId, String amount, String date, int sent, String projectID) {
 
 
-        this.personnelCode = personnelCode;
+        this.personnelID = personnelID;
         this.workId = workId;
         this.amount = amount;
         this.date = date;
@@ -58,13 +58,6 @@ public class Faliat {
         this.id = id;
     }
 
-    public String getPersonnelCode() {
-        return personnelCode;
-    }
-
-    public void setPersonnelCode(String personnelCode) {
-        this.personnelCode = personnelCode;
-    }
 
     public String getWorkId() {
         return workId;
@@ -118,12 +111,11 @@ public class Faliat {
         for (Faliat faliat : faliats) {
             try {
                 JSONObject json = new JSONObject();
-                json.put("id", faliat.getId());
+                json.put("id", faliat.getProjectID());
+                json.put("personnel_id", faliat.getPersonnelID());
                 json.put("work_code", faliat.getWorkId());
-                json.put("personnel_code", faliat.getPersonnelCode());
                 json.put("amount", faliat.getAmount());
                 json.put("date", faliat.getDate());
-                json.put("project_id", faliat.getProjectID());
 
 
                 faliatJson.put(json);
@@ -142,5 +134,13 @@ public class Faliat {
 
     public void setProjectID(String projectID) {
         this.projectID = projectID;
+    }
+
+    public String getPersonnelID() {
+        return personnelID;
+    }
+
+    public void setPersonnelID(String personnelID) {
+        this.personnelID = personnelID;
     }
 }

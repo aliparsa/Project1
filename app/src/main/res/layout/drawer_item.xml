@@ -396,17 +396,6 @@
                 android:textSize="15sp"
                 android:text="" />
 
-            <TextView
-                android:id="@+id/faliat_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                android:layout_alignParentLeft="true"
-                android:textColor="@color/chart_date_color"
-                android:padding="3dp"
-                android:paddingStart="8dp"
-                android:textSize="12sp"
-                android:text="" />
 
         </RelativeLayout>
 
@@ -434,7 +423,19 @@
                 android:text=""
                 android:padding="3dp"
                 android:paddingStart="8dp"
+                android:maxLength="15"
                 android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/faliat_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_alignParentLeft="true"
+                android:padding="3dp"
+                android:paddingStart="8dp"
+                android:textSize="12sp"
+                android:text="" />
 
         </RelativeLayout>
 
