@@ -233,7 +233,8 @@ public class FastProjectManagmentActivity extends ActionBarActivity {
         if (resultCode == RESULT_OK && requestCode == 1412) {
             personnel = (Personnel) data.getSerializableExtra("personnel");
             PathMapManager.pop("FastProj onActivityResult 1412");
-            HandleTaradod(personnel);
+            //HandleTaradod(personnel);
+            HandelInOut(personnel);
         }
 
         if (resultCode == RESULT_OK && requestCode == 1413) {
@@ -261,7 +262,7 @@ public class FastProjectManagmentActivity extends ActionBarActivity {
 
 
         new AlertDialog.Builder(context)
-                .setTitle("ثبت تردد")
+                .setTitle("ثبت تردد برای  " + personnel.getFullName())
                 .setItems(items, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -401,4 +402,75 @@ public class FastProjectManagmentActivity extends ActionBarActivity {
 
     //-------------------------------------------------------------------------------------
 
+    private void HandelInOut(final Personnel personnel) {
+        DatabaseHelper db = new DatabaseHelper(context);
+        final String last_in_out = db.getPersonnelInOrOut(personnel);
+
+        final ViewDateTimePickerPersian pickerPersian = new ViewDateTimePickerPersian(context);
+        new AlertDialog.Builder(context)
+                .setView(pickerPersian)
+                .setTitle("ثبت تردد برای  " + personnel.getFullName())
+                .setPositiveButton("ثبت ورود", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                                try {
+
+                                    if (last_in_out != null && last_in_out.equals("in")) {
+                                        Toast.makeText(context, "این پرسنل قبلا وارد شده است", Toast.LENGTH_LONG).show();
+                                        return;
+                                    }
+                                    String date = pickerPersian.getDate().getGregorianDate();
+                                    String hour = pickerPersian.getHour() < 10 ? "0" + pickerPersian.getHour() : pickerPersian.getHour() + "";
+                                    String minute = pickerPersian.getMinute() < 10 ? "0" + pickerPersian.getMinute() : pickerPersian.getMinute() + "";
+                                    date += " " + hour + "-" + minute;
+
+                                    DatabaseHelper db = new DatabaseHelper(context);
+                                    Taradod taradod = new Taradod(personnel.getId() + "", "in", 0, date, chart.getId() + "");
+                                    db.insertTaradod(taradod);
+
+                                    Toast.makeText(context, "ذخیره شد", Toast.LENGTH_SHORT).show();
+                                    Tab.setAdapter(TabAdapter);
+                                    Tab.setCurrentItem(1);
+                                } catch (Exception e) {
+                                    Toast.makeText(context, "عملیات با خطا مواجه شد", Toast.LENGTH_SHORT).show();
+
+                                }
+                            }
+                        }
+                )
+                .
+
+                        setNegativeButton("ثبت خروج", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        try {
+                                            if (last_in_out == null || last_in_out.equals("out")) {
+                                                Toast.makeText(context, "این پرسنل هنوز وارد نشده", Toast.LENGTH_LONG).show();
+                                                return;
+                                            }
+
+                                            String date = pickerPersian.getDate().getGregorianDate();
+                                            String hour = pickerPersian.getHour() < 10 ? "0" + pickerPersian.getHour() : pickerPersian.getHour() + "";
+                                            String minute = pickerPersian.getMinute() < 10 ? "0" + pickerPersian.getMinute() : pickerPersian.getMinute() + "";
+                                            date += " " + hour + "-" + minute;
+
+                                            DatabaseHelper db = new DatabaseHelper(context);
+                                            Taradod taradod = new Taradod(personnel.getId() + "", "out", 0, date, chart.getId() + "");
+                                            db.insertTaradod(taradod);
+
+                                            Toast.makeText(context, "ذخیره شد", Toast.LENGTH_SHORT).show();
+                                            Tab.setAdapter(TabAdapter);
+                                            Tab.setCurrentItem(1);
+                                        } catch (Exception e) {
+                                            Toast.makeText(context, "عملیات با خطا مواجه شد", Toast.LENGTH_SHORT).show();
+
+                                        }
+                                    }
+                                }
+                        )
+                .
+
+                        show();
+    }
 }

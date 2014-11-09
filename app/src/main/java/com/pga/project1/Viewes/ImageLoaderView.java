@@ -86,13 +86,13 @@ public class ImageLoaderView extends RelativeLayout {
         this.fakeImageView = (ImageView) findViewById(R.id.imv_fake);
         this.mainImageView = (ImageView) findViewById(R.id.imv_main);
 
+        this.progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        progressBar.setMax(100);
+
         if(this.defaultImageID != 0) {
             fakeImageView.setImageResource(this.defaultImageID);
             progressBar.setVisibility(GONE);
         }
-
-        this.progressBar = (ProgressBar) findViewById(R.id.progressBar);
-        progressBar.setMax(100);
 
         if (!showProgressBar)
             progressBar.setVisibility(GONE);
