@@ -14,6 +14,8 @@ import com.pga.project1.fragment.FragmentTaradod;
 
 public class FastProjectManTabPageAdapter extends FragmentStatePagerAdapter {
 
+    public FragmentTaradod f1;
+    public FragmentFaliat f2;
 
     public FastProjectManTabPageAdapter(FragmentManager fm) {
         super(fm);
@@ -24,13 +26,13 @@ public class FastProjectManTabPageAdapter extends FragmentStatePagerAdapter {
         switch (i) {
             case 0:
                 //Fragment for Ios Tab
-                FragmentFaliat f2 = new FragmentFaliat();
+                f2 = new FragmentFaliat();
                 return f2;
 
 
             case 1:
                 //Fragement for Android Tab
-                FragmentTaradod f1 = new FragmentTaradod();
+                f1 = new FragmentTaradod();
                 return f1;
         }
         return null;

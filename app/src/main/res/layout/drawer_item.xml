@@ -431,11 +431,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
-                android:layout_alignParentLeft="true"
+                android:layout_toRightOf="@+id/faliat_flag"
                 android:padding="3dp"
                 android:paddingStart="8dp"
                 android:textSize="12sp"
                 android:text="" />
+
+            <TextView
+                android:id="@+id/faliat_flag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="&#x2713;"
+                android:textColor="@color/login_button_background"
+
+                android:layout_alignParentLeft="true"
+                android:padding="3dp"
+                android:paddingStart="8dp"
+                android:textSize="12sp" />
 
         </RelativeLayout>
 
@@ -467,11 +479,22 @@
                 android:id="@+id/taradod_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
+                android:layout_toRightOf="@+id/taradod_flag"
                 android:padding="3dp"
                 android:paddingStart="8dp"
                 android:textSize="12sp"
                 android:layout_marginLeft="8dp" />
+
+            <TextView
+                android:id="@+id/taradod_flag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:padding="3dp"
+                android:paddingStart="8dp"
+                android:textSize="12sp"
+                android:text="&#x2713;"
+                android:textColor="@color/login_button_background" />
 
             <TextView
                 android:id="@+id/taradod_inout"

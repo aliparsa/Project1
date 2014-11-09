@@ -364,12 +364,20 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
         if (holder.faliatDate == null)
             holder.faliatDate = (TextView) ll_faliat.findViewById(R.id.faliat_date);
 
+        if (holder.faliatFlag == null)
+            holder.faliatFlag = (TextView) ll_faliat.findViewById(R.id.faliat_flag);
+
         Faliat faliat = ((Faliat) item.getTag());
 
         holder.faliatFullName.setText(faliat.getPersonnel().getFullName());
         holder.faliatAmount.setText(faliat.getAmount());
-        holder.faliatWork.setText(faliat.getWork().getName());
+        holder.faliatWork.setText(faliat.getWork().getName() + "  (" + faliat.getWork().getType() + ")");
         holder.faliatDate.setText(faliat.getPersianDate());
+
+        if (faliat.getSent() == 1)
+            holder.faliatFlag.setVisibility(View.VISIBLE);
+        else
+            holder.faliatFlag.setVisibility(View.GONE);
     }
 
     private void getTaradodItem(DrawerItemHolder holder, AdapterInputType item) {
@@ -383,6 +391,9 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
         if (holder.taradodInOut == null)
             holder.taradodInOut = (TextView) ll_taradod.findViewById(R.id.taradod_inout);
 
+        if (holder.taradodFlag == null)
+            holder.taradodFlag = (TextView) ll_taradod.findViewById(R.id.taradod_flag);
+
         Taradod taradod = ((Taradod) item.getTag());
 
         holder.taradodFullName.setText(taradod.getPersonnel().getFullName());
@@ -393,6 +404,11 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
             holder.taradodInOut.setTextColor(Color.GREEN);
         else
             holder.taradodInOut.setTextColor(Color.RED);
+
+        if (taradod.getSent() == 1)
+            holder.taradodFlag.setVisibility(View.VISIBLE);
+        else
+            holder.taradodFlag.setVisibility(View.GONE);
     }
 
     public static class DrawerItemHolder {
@@ -438,12 +454,14 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
         TextView faliatAmount;
         TextView faliatWork;
         TextView faliatDate;
+        TextView faliatFlag;
 
 
         //Taradod
         TextView taradodFullName;
         TextView taradodDate;
         TextView taradodInOut;
+        TextView taradodFlag;
 
         public Object getTag() {
             return tag;

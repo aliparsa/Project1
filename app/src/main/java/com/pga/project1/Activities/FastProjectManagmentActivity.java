@@ -51,7 +51,7 @@ public class FastProjectManagmentActivity extends ActionBarActivity {
     private PathMapManager pathManager;
 
     ViewPager Tab;
-    FastProjectManTabPageAdapter TabAdapter;
+    public FastProjectManTabPageAdapter TabAdapter;
     ActionBar actionBar;
 
     @Override
@@ -70,7 +70,7 @@ public class FastProjectManagmentActivity extends ActionBarActivity {
 
 
         pathManager.clear();
-        PathMapManager.push(new PathObject("مدیرییت سریع"));
+        PathMapManager.push(new PathObject("مدیریت سریع"));
         PathMapManager.push(chart);
         pathManager.refresh();
 
@@ -158,7 +158,7 @@ public class FastProjectManagmentActivity extends ActionBarActivity {
         TextView title = (TextView) customActionBar.findViewById(R.id.ac_title);
         FontHelper.SetFont(this, Fonts.MAIN_FONT, title, Typeface.BOLD);
 
-        title.setText("مدیریت سریع پروژه");
+        title.setText("مدیریت سریع");
         //ImageView back = (ImageView) customActionBar.findViewById(R.id.ac_back);
         LinearLayout back = (LinearLayout) customActionBar.findViewById(R.id.ac_back_layout);
 
@@ -208,9 +208,8 @@ public class FastProjectManagmentActivity extends ActionBarActivity {
             @Override
             public void onClick(View view) {
 
-                Toast.makeText(context, "در حال ارسال", Toast.LENGTH_SHORT).show();
-                SyncHelper.SyncTaradod(context);
-                SyncHelper.SyncFaliat(context);
+                Toast.makeText(context, "در حال بررسی و ارسال", Toast.LENGTH_SHORT).show();
+                SyncHelper.SyncTaradodAndFaliat(context);
                 DatabaseHelper db = new DatabaseHelper(context);
                 db.cleanOldData(7);
 
@@ -244,6 +243,10 @@ public class FastProjectManagmentActivity extends ActionBarActivity {
             intent.putExtra("personnel", personnel);
             intent.putExtra("chart", chart);
             startActivity(intent);
+
+
+            Tab.setAdapter(TabAdapter);
+            Tab.setCurrentItem(0);
         }
 
 

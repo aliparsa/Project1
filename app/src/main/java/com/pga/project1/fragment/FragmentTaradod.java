@@ -21,7 +21,6 @@ import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
- *
  */
 public class FragmentTaradod extends Fragment {
 
@@ -56,7 +55,7 @@ public class FragmentTaradod extends Fragment {
 
 
     public void loadTaradod() {
-        DatabaseHelper db = new DatabaseHelper(this.getActivity());
+        DatabaseHelper db = new DatabaseHelper(getActivity());
         int projectID = ((FastProjectManagmentActivity) getActivity()).chart.getId();
         List<Taradod> taradods = db.getAllTaradodsWithPersonnel(projectID + "");
 

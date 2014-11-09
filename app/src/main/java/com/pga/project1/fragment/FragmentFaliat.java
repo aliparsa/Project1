@@ -21,7 +21,6 @@ import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
- *
  */
 public class FragmentFaliat extends Fragment {
 
@@ -57,24 +56,20 @@ public class FragmentFaliat extends Fragment {
 
     public void loadFaaliat() {
 
-
-        DatabaseHelper db = new DatabaseHelper(this.getActivity());
+        DatabaseHelper db = new DatabaseHelper(getActivity());
         int projectID = ((FastProjectManagmentActivity) getActivity()).chart.getId();
 
         List<Faliat> faliats = db.getAllFaliatsWithPersonnelAndWork(projectID + "");
 
         List<AdapterInputType> items = new ArrayList<AdapterInputType>();
 
-        for (Faliat faliat : faliats){
+        for (Faliat faliat : faliats) {
 
-            AdapterInputType type = new AdapterInputType(faliat, ListViewCustomAdapter.FALIAT_ITEM,"",0);
+            AdapterInputType type = new AdapterInputType(faliat, ListViewCustomAdapter.FALIAT_ITEM, "", 0);
             items.add(type);
         }
 
-
-
         ListViewCustomAdapter adapter = new ListViewCustomAdapter(this.getActivity(), 0, items);
-
         lvFaliats.setAdapter(adapter);
     }
 }

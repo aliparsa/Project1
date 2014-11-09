@@ -87,6 +87,7 @@ public class Taradod {
             try {
                 JSONObject json = new JSONObject();
 
+                json.put("uid", tar.getId());
                 json.put("personnel_id", tar.getPersonnelID());
                 json.put("chart_id", tar.getProjectID());
                 json.put("in_out", tar.inOut.equals("in") ? "1" : "0");

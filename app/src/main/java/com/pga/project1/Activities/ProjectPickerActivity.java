@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.pga.project1.Adapters.ListViewCustomAdapter;
 import com.pga.project1.DataModel.Chart;
@@ -137,6 +138,7 @@ public class ProjectPickerActivity extends Activity {
 
                 final DatabaseHelper db = new DatabaseHelper(context);
 
+
                 Webservice.getProjects(context, new CallBack<ArrayList<Chart>>() {
                     @Override
                     public void onSuccess(ArrayList<Chart> result) {
@@ -144,12 +146,15 @@ public class ProjectPickerActivity extends Activity {
                         for (Chart chart : result) {
                             db.insertProject(chart);
                         }
+
                         loadProjects();
+                        Toast.makeText(context, "بروزرسانی انجام شد", Toast.LENGTH_SHORT).show();
 
                     }
 
                     @Override
                     public void onError(String errorMessage) {
+
                         if (errorMessage.equals("UNAUTHORIZED")) {
 
                             // clear token
@@ -160,6 +165,8 @@ public class ProjectPickerActivity extends Activity {
                             intent.putExtra("reason", "UNAUTHORIZED");
                             context.startActivity(intent);
                             ((Activity) context).overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
+
+
                         }
                     }
                 });

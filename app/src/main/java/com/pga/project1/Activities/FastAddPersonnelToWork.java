@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Typeface;
+import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -31,6 +32,7 @@ import com.pga.project1.Utilities.FontHelper;
 import com.pga.project1.Utilities.Fonts;
 import com.pga.project1.Utilities.PersianCalendar;
 import com.pga.project1.Utilities.Webservice;
+import com.pga.project1.Viewes.ImageLoaderView;
 import com.pga.project1.Viewes.ViewDateTimePickerPersian;
 import com.pga.project1.Viewes.ViewNameValue;
 
@@ -45,7 +47,7 @@ public class FastAddPersonnelToWork extends Activity {
     private EditText mizanKar;
     private Work selectedWork;
     private Chart chart;
-
+    private ImageLoaderView imgv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,11 +87,13 @@ public class FastAddPersonnelToWork extends Activity {
 
         ViewNameValue personnel_name = (ViewNameValue) findViewById(R.id.txt_fragmentTaskInfo_personnelName);
         ViewNameValue personnel_phone = (ViewNameValue) findViewById(R.id.txt_fragmentTaskInfo_personnelPhone);
-
+        imgv = (ImageLoaderView) findViewById(R.id.imgv_fragmentTaskInfo_pic);
 
         personnel_name.setNameValue("نام و نام خانوادگی", personnel.getFullName());
         personnel_phone.setNameValue("شماره تماس", personnel.getPhone_number());
 
+        imgv.setUrl(personnel.getPersonnel_image());
+        imgv.startLoading();
 
         DatabaseHelper db = new DatabaseHelper(context);
         ArrayList<Work> works = db.getAllWorks();

@@ -111,6 +111,8 @@ public class Faliat {
         for (Faliat faliat : faliats) {
             try {
                 JSONObject json = new JSONObject();
+
+                json.put("uid", faliat.getId());
                 json.put("id", faliat.getProjectID());
                 json.put("personnel_id", faliat.getPersonnelID());
                 json.put("work_code", faliat.getWorkId());
@@ -142,5 +144,13 @@ public class Faliat {
 
     public void setPersonnelID(String personnelID) {
         this.personnelID = personnelID;
+    }
+
+    public int getSent() {
+        return sent;
+    }
+
+    public void setSent(int sent) {
+        this.sent = sent;
     }
 }

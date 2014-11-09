@@ -313,8 +313,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 do {
 
                     Taradod taradod = new Taradod(
-                            cursor.getInt(cursor.getColumnIndex(TABLE_TARADOD +"."+ KEY_ID)),
-                            cursor.getString(cursor.getColumnIndex(TABLE_TARADOD +"."+KEY_CODE)),
+                            cursor.getInt(cursor.getColumnIndex("t." + KEY_ID)),
+                            cursor.getString(cursor.getColumnIndex("t." + KEY_CODE)),
                             cursor.getString(cursor.getColumnIndex(KEY_IN_OUT)),
                             cursor.getInt(cursor.getColumnIndex(KEY_SENT)),
                             cursor.getString(cursor.getColumnIndex(KEY_DATE)),
@@ -453,9 +453,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 do {
 
                     Faliat faliat = new Faliat(
-                            cursor.getInt(cursor.getColumnIndex(TABLE_FALIAT + "." + KEY_ID)),
-                            cursor.getString(cursor.getColumnIndex(TABLE_FALIAT + "." + KEY_CODE)),
-                            cursor.getString(cursor.getColumnIndex(TABLE_FALIAT + "." + KEY_WORK_CODE)),
+                            cursor.getInt(cursor.getColumnIndex(KEY_ID)),
+                            cursor.getString(cursor.getColumnIndex(KEY_CODE)),
+                            cursor.getString(cursor.getColumnIndex(KEY_WORK_CODE)),
                             cursor.getString(cursor.getColumnIndex(KEY_AMOUNT)),
                             cursor.getString(cursor.getColumnIndex(KEY_DATE)),
                             cursor.getInt(cursor.getColumnIndex(KEY_SENT)),
@@ -510,7 +510,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         String idIn = "(";
 
-        if(faliats.size() < 0)
+        if (faliats.size() < 1)
             return;
 
         idIn += faliats.get(0).getId();
@@ -523,7 +523,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         idIn += ")";
 
         SQLiteDatabase db = getWritableDatabase();
-        final Cursor cursor = db.rawQuery("UPDATE " + TABLE_FALIAT + " SET sent = \"1\" Where " + KEY_ID + " In " + idIn + ";", null);
+        db.execSQL("UPDATE " + TABLE_FALIAT + " SET sent =\"1\" Where " + KEY_ID + " In " + idIn + ";");
 
     }
 
@@ -531,7 +531,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         String idIn = "(";
 
-        if(taradods.size() < 0)
+        if (taradods.size() < 1)
             return;
 
         idIn += taradods.get(0).getId();
@@ -544,7 +544,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         idIn += ")";
 
         SQLiteDatabase db = getWritableDatabase();
-        final Cursor cursor = db.rawQuery("UPDATE " + TABLE_TARADOD + " SET sent = \"1\" Where " + KEY_ID + " In " + idIn + ";", null);
+        db.execSQL("UPDATE " + TABLE_TARADOD + " SET sent=\"1\" Where " + KEY_ID + " In " + idIn + ";");
 
     }
 

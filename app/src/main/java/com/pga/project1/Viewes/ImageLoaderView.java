@@ -28,7 +28,7 @@ public class ImageLoaderView extends RelativeLayout {
     private ImageView mainImageView;
     private ProgressBar progressBar;
     private AsynLoadImage async;
-    private  boolean circleImage;
+    private boolean circleImage;
 
 
     private boolean isZoomAllowed;
@@ -66,9 +66,7 @@ public class ImageLoaderView extends RelativeLayout {
         this.isZoomAllowed = a.getBoolean(R.styleable.ImageLoaderView_zoomAllowed, false);
 
         this.defaultImageID = a.getResourceId(R.styleable.ImageLoaderView_default_src, 0);
-        this.circleImage=a.getBoolean(R.styleable.ImageLoaderView_circleImage,false);
-
-
+        this.circleImage = a.getBoolean(R.styleable.ImageLoaderView_circleImage, false);
 
 
         configure();
@@ -89,7 +87,7 @@ public class ImageLoaderView extends RelativeLayout {
         this.progressBar = (ProgressBar) findViewById(R.id.progressBar);
         progressBar.setMax(100);
 
-        if(this.defaultImageID != 0) {
+        if (this.defaultImageID != 0) {
             fakeImageView.setImageResource(this.defaultImageID);
             progressBar.setVisibility(GONE);
         }
@@ -127,15 +125,20 @@ public class ImageLoaderView extends RelativeLayout {
         mainImageView.setImageResource(0);
         mainImageView.setImageBitmap(null);
 
-        if (showProgressBar)
+        if (defaultImageID != 0)
+            fakeImageView.setImageResource(defaultImageID);
+
+        if (showProgressBar && this.defaultImageID == 0)
             progressBar.setVisibility(VISIBLE);
+        else
+            progressBar.setVisibility(GONE);
 
         if (url != null && url.length() > 0) {
             async = new AsynLoadImage(getContext(), this.url, new ProgressCallBack<Bitmap>() {
                 @Override
                 public void onSuccess(Bitmap result) {
 
-                   // getclip(result);
+                    // getclip(result);
                     fakeImageView.setImageResource(0);
                     fakeImageView.setImageBitmap(null);
 
@@ -148,8 +151,10 @@ public class ImageLoaderView extends RelativeLayout {
                 @Override
                 public void onError(String err) {
 
-                    if(defaultImageID == 0)
+                    if (defaultImageID == 0)
                         mainImageView.setImageResource(R.drawable.image_error);
+                    else
+                        fakeImageView.setImageResource(defaultImageID);
 
                     progressBar.setVisibility(GONE);
                 }

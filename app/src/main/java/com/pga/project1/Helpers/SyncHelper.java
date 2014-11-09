@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
+import com.pga.project1.Activities.FastProjectManagmentActivity;
 import com.pga.project1.Activities.LoginActivity;
 import com.pga.project1.DataModel.Chart;
 import com.pga.project1.DataModel.Faliat;
@@ -33,11 +35,16 @@ public class SyncHelper {
                 public void onSuccess(ServerResponse result) {
                     // TODO MAKE RECORDS SEND FLAG TRUE
                     DatabaseHelper db = new DatabaseHelper(context);
-                    //     db.markAsSentTaradod(taradods);
+                    db.markAsSentTaradod(taradods);
+
+                    if (context instanceof FastProjectManagmentActivity)
+                        ((FastProjectManagmentActivity) context).TabAdapter.f1.loadTaradod();
+
                 }
 
                 @Override
                 public void onError(String errorMessage) {
+
 
                 }
             });
@@ -52,7 +59,11 @@ public class SyncHelper {
                 public void onSuccess(ServerResponse result) {
                     // TODO MAKE RECORDS SEND FLAG TRUE
                     DatabaseHelper db = new DatabaseHelper(context);
-                    //  db.markAsSentFaliat(faliats);
+                    db.markAsSentFaliat(faliats);
+
+                    if (context instanceof FastProjectManagmentActivity)
+                        ((FastProjectManagmentActivity) context).TabAdapter.f2.loadFaaliat();
+
                 }
 
                 @Override
@@ -120,5 +131,19 @@ public class SyncHelper {
                 }
             }
         });
+    }
+
+    public static void SyncTaradodAndFaliat(final Context context) {
+        DatabaseHelper db = new DatabaseHelper(context);
+
+        if (db.getAllUnsentTaradod().size() == 0 && db.getAllUnsentFaliat().size() == 0)
+            Toast.makeText(context, "همه داده ها ارسال شده است", Toast.LENGTH_LONG).show();
+        else {
+            SyncFaliat(context);
+            SyncTaradod(context);
+
+        }
+
+
     }
 }

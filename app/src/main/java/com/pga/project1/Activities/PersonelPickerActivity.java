@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.pga.project1.Adapters.ListViewCustomAdapter;
 import com.pga.project1.DataModel.PathObject;
@@ -149,12 +150,12 @@ public class PersonelPickerActivity extends Activity {
         });
 
 
-       // int searchButtonId = searchView.getContext().getResources().getIdentifier("android:id/search_button", null, null);
+        // int searchButtonId = searchView.getContext().getResources().getIdentifier("android:id/search_button", null, null);
         //Button searchIcon = (Button) searchView.findViewById(searchButtonId);
-       // searchIcon.setdraw//setImageResource(R.drawable.ic_search);
+        // searchIcon.setdraw//setImageResource(R.drawable.ic_search);
 
         //int searchPlateId = searchView.getContext().getResources().getIdentifier("android:id/search_plate", null, null);
-       // searchView.findViewById(searchPlateId).setBackgroundResource(R.drawable.textfield_search_selected);
+        // searchView.findViewById(searchPlateId).setBackgroundResource(R.drawable.textfield_search_selected);
 
         //int voiceSearchPlateId = searchView.getContext().getResources().getIdentifier("android:id/submit_area", null, null);
         //searchView.findViewById(voiceSearchPlateId).setBackgroundResource(R.drawable.textfield_search_right_selected);
@@ -167,7 +168,6 @@ public class PersonelPickerActivity extends Activity {
         //searchTextView.setTextSize(R.dimen.actionbar_search_font_size);
 
         // clear keyboard on start
-
 
 
     }
@@ -185,12 +185,14 @@ public class PersonelPickerActivity extends Activity {
                     db.emptyPersonnelTable();
                 }
 
+                Toast.makeText(context, "بروزرسانی انجام شد", Toast.LENGTH_SHORT).show();
+
                 ArrayList<AdapterInputType> listItem = new ArrayList<AdapterInputType>();
 
                 for (Personnel person : result) {
 
                     // insert to db
-                    if(str == null || str.equals(""))
+                    if (str == null || str.equals(""))
                         db.insertPersonnel(person);
 
                     AdapterInputType adapterInputType = new AdapterInputType(
