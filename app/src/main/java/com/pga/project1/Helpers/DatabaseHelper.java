@@ -6,12 +6,15 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.widget.ArrayAdapter;
 
 import com.pga.project1.DataModel.Chart;
 import com.pga.project1.DataModel.Faliat;
 import com.pga.project1.DataModel.Personnel;
 import com.pga.project1.DataModel.Taradod;
 import com.pga.project1.DataModel.Work;
+
+import org.json.JSONArray;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -65,6 +68,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private String KEY_CREATED_AT = "created_at";
     private String KEY_UPDATED_AT = "updated_at";
     private String KEY_PROJECT_ID = "project_id";
+    private String KEY_HAS_ERROR = "has_error";
 
 
     public DatabaseHelper(Context context) {
@@ -95,6 +99,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                         + KEY_IN_OUT + " TEXT,"
                         + KEY_SENT + " TEXT,"
                         + KEY_PROJECT_ID + " TEXT,"
+                        + KEY_HAS_ERROR + " TEXT,"
                         + KEY_DATE + " TEXT"
                         + ")";
         db.execSQL(CREATE_TARADOD_TABLE);
@@ -150,7 +155,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(KEY_CODE, taradod.getPersonnelID());
         values.put(KEY_IN_OUT, taradod.getInOut());
-        values.put(KEY_SENT, taradod.getSent());
+        values.put(KEY_SENT, "0");
+        values.put(KEY_SENT, "0");
         values.put(KEY_DATE, taradod.getDate());
         values.put(KEY_PROJECT_ID, taradod.getProjectID());
         this.getWritableDatabase().insert(TABLE_TARADOD, null, values);
@@ -439,7 +445,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         getReadableDatabase().execSQL("Delete from " + TABLE_PROJECTS);
     }
 
-
     public ArrayList<Faliat> getAllUnsentFaliat() {
 
         ArrayList<Faliat> faliats = new ArrayList<Faliat>();
@@ -556,5 +561,28 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         final Cursor cursor1 = db.rawQuery("delete from " + TABLE_FALIAT + " Where " + KEY_DATE + " < '" + date + "' AND " + KEY_SENT + "=\"1\"", null);
         final Cursor cursor2 = db.rawQuery("delete from " + TABLE_TARADOD + " Where " + KEY_DATE + " < '" + date + "' AND " + KEY_SENT + "=\"1\"", null);
 
+    }
+
+    public void makeHasErrorTrue(JSONArray jsonArray) {
+        try {
+            String idIn = "(";
+
+            if (jsonArray.length() < 0)
+                return;
+
+            idIn += jsonArray.get(0);
+
+            for (int i = 1; i < jsonArray.length(); i++) {
+
+                idIn += ", " + jsonArray.get(i);
+            }
+
+            idIn += ")";
+
+            SQLiteDatabase db = getWritableDatabase();
+            db.execSQL("UPDATE " + TABLE_TARADOD + " SET " + KEY_HAS_ERROR + "=\"1\" Where " + KEY_ID + " In " + idIn + ";");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

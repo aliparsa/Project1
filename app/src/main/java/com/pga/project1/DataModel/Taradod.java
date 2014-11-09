@@ -19,6 +19,7 @@ public class Taradod {
     private int sent;
     private String date;
     private String projectID;
+    private int has_error;
 
 
     private Personnel personnel;
@@ -139,5 +140,13 @@ public class Taradod {
 
     public void setPersonnelID(String personnelID) {
         this.personnelID = personnelID;
+    }
+
+    public int getHas_error() {
+        return has_error;
+    }
+
+    public void setHas_error(int has_error) {
+        this.has_error = has_error;
     }
 }

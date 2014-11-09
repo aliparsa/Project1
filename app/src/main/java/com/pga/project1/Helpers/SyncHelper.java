@@ -18,6 +18,9 @@ import com.pga.project1.R;
 import com.pga.project1.Utilities.Account;
 import com.pga.project1.Utilities.Webservice;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 /**
@@ -33,13 +36,27 @@ public class SyncHelper {
             Webservice.sendTaradod(context, taradods, new CallBack<ServerResponse>() {
                 @Override
                 public void onSuccess(ServerResponse result) {
-                    // TODO MAKE RECORDS SEND FLAG TRUE
-                    DatabaseHelper db = new DatabaseHelper(context);
-                    db.markAsSentTaradod(taradods);
+                    try {
+                        // TODO MAKE RECORDS SEND FLAG TRUE
+                        JSONObject jsonObject = new JSONObject(result.getResult());
 
-                    if (context instanceof FastProjectManagmentActivity)
-                        ((FastProjectManagmentActivity) context).TabAdapter.f1.loadTaradod();
+                        if (!jsonObject.has("uids")) {
+                            DatabaseHelper db = new DatabaseHelper(context);
+                            db.markAsSentTaradod(taradods);
+                        } else {
+                            JSONArray jsonArray = jsonObject.getJSONArray("uids");
+                            DatabaseHelper db = new DatabaseHelper(context);
+                            db.makeHasErrorTrue(jsonArray);
+                        }
 
+                        // TODO only mark Record don't have problem
+
+                        if (context instanceof FastProjectManagmentActivity)
+                            ((FastProjectManagmentActivity) context).TabAdapter.f1.loadTaradod();
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
 
                 @Override
