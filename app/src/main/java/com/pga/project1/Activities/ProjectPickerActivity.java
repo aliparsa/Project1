@@ -24,7 +24,6 @@ import com.pga.project1.Intefaces.CallBack;
 import com.pga.project1.Intefaces.CallBackFunction;
 import com.pga.project1.R;
 import com.pga.project1.Structures.AdapterInputType;
-import com.pga.project1.Utilities.Account;
 import com.pga.project1.Utilities.FontHelper;
 import com.pga.project1.Utilities.Fonts;
 import com.pga.project1.Utilities.HandleError;
@@ -134,7 +133,7 @@ public class ProjectPickerActivity extends Activity {
             @Override
             public void onClick(View view) {
 
-                SyncHelper.SyncProject(context, new CallBack() {
+                SyncHelper.syncProject(context, new CallBack() {
                     @Override
                     public void onSuccess(Object result) {
 

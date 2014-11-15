@@ -19,7 +19,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pga.project1.DataModel.Chart;
-import com.pga.project1.DataModel.Taradod;
 import com.pga.project1.Helpers.DatabaseHelper;
 import com.pga.project1.Helpers.SyncHelper;
 import com.pga.project1.Intefaces.CallBack;
@@ -77,23 +76,29 @@ public class MainActivity extends Activity
 
 
         // load needed data
-        SyncHelper.SyncWork(context);
-        SyncHelper.SyncProject(context, new CallBack() {
+        SyncHelper.syncWork(context);
+        SyncHelper.syncProject(context, new CallBack() {
             @Override
-            public void onSuccess(Object result) {            }
+            public void onSuccess(Object result) {
+            }
+
             @Override
-            public void onError(String errorMessage) {            }
+            public void onError(String errorMessage) {
+            }
         });
-        SyncHelper.SyncTaradod(context);
-        SyncHelper.SyncFaliat(context);
-        SyncHelper.SyncAnbar(context, new CallBack() {
+        SyncHelper.syncTaradod(context);
+        SyncHelper.syncFaliat(context);
+        SyncHelper.syncAnbar(context, new CallBack() {
             @Override
-            public void onSuccess(Object result) {            }
+            public void onSuccess(Object result) {
+            }
+
             @Override
-            public void onError(String errorMessage) {            }
+            public void onError(String errorMessage) {
+            }
         });
-        SyncHelper.SyncItemsProvider(context);
-        SyncHelper.SyncProduct(context, new CallBack() {
+        SyncHelper.syncItemsProvider(context);
+        SyncHelper.syncProduct(context, new CallBack() {
             @Override
             public void onSuccess(Object result) {
 

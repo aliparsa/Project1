@@ -14,21 +14,16 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.pga.project1.Adapters.ListViewCustomAdapter;
 import com.pga.project1.Adapters.ListViewObjectAdapter;
 import com.pga.project1.DataModel.Anbar;
-import com.pga.project1.DataModel.Chart;
 import com.pga.project1.DataModel.PathObject;
 import com.pga.project1.Helpers.DatabaseHelper;
 import com.pga.project1.Helpers.SyncHelper;
 import com.pga.project1.Intefaces.CallBack;
 import com.pga.project1.Intefaces.ListViewItemINTERFACE;
 import com.pga.project1.R;
-import com.pga.project1.Utilities.Account;
 import com.pga.project1.Utilities.FontHelper;
 import com.pga.project1.Utilities.Fonts;
-import com.pga.project1.Utilities.ListViewAdapterHandler;
-import com.pga.project1.Utilities.Webservice;
 import com.pga.project1.Viewes.PathMapManager;
 
 import java.util.ArrayList;
@@ -100,7 +95,7 @@ public class AnbarPickerActivity extends Activity {
             @Override
             public void onClick(View view) {
 
-                SyncHelper.SyncAnbar(context, new CallBack() {
+                SyncHelper.syncAnbar(context, new CallBack() {
                     @Override
                     public void onSuccess(Object result) {
                         Toast.makeText(context, "بروزرسانی با موفقیت انجام شد!", Toast.LENGTH_SHORT).show();
