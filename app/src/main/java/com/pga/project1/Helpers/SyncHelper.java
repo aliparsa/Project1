@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import com.pga.project1.Activities.FastProjectManagmentActivity;
 import com.pga.project1.Activities.LoginActivity;
+import com.pga.project1.DataModel.Anbar;
 import com.pga.project1.DataModel.Chart;
 import com.pga.project1.DataModel.Faliat;
 import com.pga.project1.DataModel.ServerResponse;
@@ -147,6 +148,38 @@ public class SyncHelper {
             }
         });
     }
+
+    public static void SyncAnbar(final Context context) {
+        final DatabaseHelper db = new DatabaseHelper(context);
+
+        Webservice.getAnbar(context, new CallBack<ArrayList<Anbar>>() {
+            @Override
+            public void onSuccess(ArrayList<Anbar> result) {
+                db.emptyAnbarTable();
+                for (Anbar anbar : result) {
+                    db.insertAnbar(anbar);
+                }
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+                if (errorMessage.equals("UNAUTHORIZED")) {
+
+                    // clear token
+                    Account.getInstant(context).clearToken();
+
+                    // pass user to login page
+                    Intent intent = new Intent(context, LoginActivity.class);
+                    intent.putExtra("reason", "UNAUTHORIZED");
+                    context.startActivity(intent);
+                    ((Activity) context).overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
+                }
+            }
+        });
+
+
+    }
+
 
     public static void SyncTaradodAndFaliat(final Context context) {
         DatabaseHelper db = new DatabaseHelper(context);

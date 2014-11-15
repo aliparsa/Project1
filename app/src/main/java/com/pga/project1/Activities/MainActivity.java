@@ -81,6 +81,7 @@ public class MainActivity extends Activity
         SyncHelper.SyncProject(context);
         SyncHelper.SyncTaradod(context);
         SyncHelper.SyncFaliat(context);
+        SyncHelper.SyncAnbar(context);
 
         DatabaseHelper db = new DatabaseHelper(context);
         db.cleanOldData(7);
@@ -355,7 +356,7 @@ public class MainActivity extends Activity
             overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
         } else {
             if (backStackEntryCount > 0)
-            Toast.makeText(this, "جهت خروج دوبار بزنید", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "جهت خروج دوبار بزنید", Toast.LENGTH_SHORT).show();
             TwiceBackPressed = true;
             new Handler().postDelayed(new Runnable() {
 

@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 
+import com.pga.project1.DataModel.Anbar;
 import com.pga.project1.DataModel.Chart;
 import com.pga.project1.DataModel.Faliat;
 import com.pga.project1.DataModel.Personnel;
@@ -64,7 +65,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String KEY_UPDATED_AT = "updated_at";
     private static final String KEY_PROJECT_ID = "project_id";
     private static final String KEY_HAS_ERROR = "has_error";
-    private static final String KEY_IS_OWNER = "has_error";
+    private static final String KEY_IS_OWNER = "is_owner";
 
 
     public DatabaseHelper(Context context) {
@@ -152,6 +153,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i2) {
 
+    }
+
+    public void insertAnbar(Anbar anbar) {
+        ContentValues values = new ContentValues();
+        values.put(KEY_ID, anbar.getId());
+        values.put(KEY_NAME, anbar.getName());
+        values.put(KEY_IS_OWNER, anbar.getIs_owner());
+        this.getWritableDatabase().insert(TABLE_ANBAR, null, values);
     }
 
     public void insertTaradod(Taradod taradod) {
@@ -589,5 +598,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void emptyAnbarTable() {
+        getReadableDatabase().execSQL("Delete from " + TABLE_ANBAR);
     }
 }
