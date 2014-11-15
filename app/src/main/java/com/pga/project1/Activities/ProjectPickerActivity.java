@@ -87,17 +87,14 @@ public class ProjectPickerActivity extends Activity {
 
                 @Override
                 public void onError(String errorMessage) {
-                    if (errorMessage.equals("UNAUTHORIZED")) {
 
-                        // clear token
-                        Account.getInstant(context).clearToken();
+                    HandleError.HandleError(context, errorMessage, new CallBackFunction() {
+                        @Override
+                        public void execute() {
 
-                        // pass user to login page
-                        Intent intent = new Intent(context, LoginActivity.class);
-                        intent.putExtra("reason", "UNAUTHORIZED");
-                        context.startActivity(intent);
-                        ((Activity) context).overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
-                    }
+                        }
+                    });
+
                 }
             });
         else

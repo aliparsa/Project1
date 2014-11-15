@@ -7,6 +7,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.pga.project1.DataModel.Anbar;
+import com.pga.project1.DataModel.AnbarTransaction;
+import com.pga.project1.Helpers.DatabaseHelper;
 import com.pga.project1.Intefaces.CallBack;
 import com.pga.project1.R;
 import com.pga.project1.Utilities.Webservice;
@@ -22,6 +24,13 @@ public class AnbarActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_anbar);
         context = this;
+
+        Anbar anbar = (Anbar) getIntent().getSerializableExtra("anbar");
+
+        DatabaseHelper db = new DatabaseHelper(context);
+        ArrayList<AnbarTransaction> anbarTransactions = db.getAnbarTransactions(anbar);
+
+        // TODO  Ready to Show Here
 
 
     }

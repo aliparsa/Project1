@@ -11,12 +11,13 @@ import com.pga.project1.R;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by parsa on 11/12/2014.
  */
-public class Anbar implements ListViewItemINTERFACE {
+public class Anbar implements ListViewItemINTERFACE, Serializable {
 
     private int id;
     private String name;
@@ -116,6 +117,10 @@ public class Anbar implements ListViewItemINTERFACE {
 
     public class Holder {
         TextView anbarName;
-        Anbar anbar;
+        private Anbar anbar;
+
+        public Anbar getAnbar() {
+            return anbar;
+        }
     }
 }

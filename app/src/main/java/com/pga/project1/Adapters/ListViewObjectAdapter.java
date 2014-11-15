@@ -28,6 +28,11 @@ public class ListViewObjectAdapter extends ArrayAdapter<ListViewItemINTERFACE> {
     }
 
     @Override
+    public int getCount() {
+        return items.size();
+    }
+
+    @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = convertView;
 

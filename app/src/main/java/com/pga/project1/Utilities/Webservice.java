@@ -96,6 +96,7 @@ public class Webservice {
                             break;
                         }
                         case SC_OK: {
+
                             JSONArray jsonArray = new JSONArray(response.getResult());
                             ArrayList<Chart> chartList = Chart.getArrayFromJson(jsonArray);
                             callBack.onSuccess(chartList);
@@ -108,7 +109,7 @@ public class Webservice {
 
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    callBack.onError("exception getProjects");
+                    callBack.onError(e.getMessage());
                 }
 
             }

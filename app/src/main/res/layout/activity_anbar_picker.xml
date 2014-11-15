@@ -6,18 +6,18 @@
     tools:context="com.pga.project1.Activities.AnbarPickerActivity">
 
 
-        <com.pga.project1.Viewes.PathMapManager
-            android:id="@+id/pmm"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
+    <com.pga.project1.Viewes.PathMapManager
+        android:id="@+id/pmm"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
 
-            />
+        />
 
 
     <ListView
 
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:id="@+id/lv_anbarspicker"
         android:layout_below="@+id/pmm_fragmentProjectTreeView_pathMap"

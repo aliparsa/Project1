@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.text.InputType;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.pga.project1.Activities.LoginActivity;
 import com.pga.project1.Intefaces.CallBackFunction;
@@ -65,7 +66,7 @@ public class HandleError {
                     .show();
         }
         //---------------------------------------
-        if (err.equals("UNAUTHORIZED")) {
+        else if (err.equals("UNAUTHORIZED")) {
 
             // clear token
             Account.getInstant(context).clearToken();
@@ -75,6 +76,9 @@ public class HandleError {
             intent.putExtra("reason", "UNAUTHORIZED");
             context.startActivity(intent);
             ((Activity) context).overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
+        } else {
+            Toast.makeText(context, "بروزرسانی با خطا مواجه شد!", Toast.LENGTH_SHORT).show();
+
         }
     }
 }

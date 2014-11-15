@@ -58,7 +58,7 @@ public class AnbarPickerActivity extends Activity {
 
         pathManager = (PathMapManager) findViewById(R.id.pmm);
         pathManager.clear();
-        PathMapManager.push(new PathObject("انبار ها"));
+        PathMapManager.push(new PathObject("انبار های من"));
         pathManager.refresh();
 
         prepareActionBar();
@@ -81,6 +81,8 @@ public class AnbarPickerActivity extends Activity {
 
         TextView title = (TextView) customActionBar.findViewById(R.id.ac_title);
         FontHelper.SetFont(this, Fonts.MAIN_FONT, title, Typeface.BOLD);
+
+        title.setText("یک انبار انتخاب نمایید");
 
         LinearLayout back = (LinearLayout) customActionBar.findViewById(R.id.ac_back_layout);
 
@@ -158,19 +160,14 @@ public class AnbarPickerActivity extends Activity {
 
             //TODO anbar clicked
 
-          /*  Object tag = ((ListViewCustomAdapter.DrawerItemHolder) view.getTag()).getTag();
-            Chart chart;
+            Anbar anbar = ((Anbar.Holder) view.getTag()).getAnbar();
 
-            if (tag instanceof Chart)
-                chart = (Chart) tag;
-            else
-                return;
 
-            Intent intent2 = new Intent(context, FastProjectManagmentActivity.class);
-            intent2.putExtra("chart", chart);
-            startActivityForResult(intent2, 147);
+            Intent intent2 = new Intent(context, AnbarActivity.class);
+            intent2.putExtra("anbar", anbar);
+            startActivity(intent2);
             overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
-*/
+
         }
 
 

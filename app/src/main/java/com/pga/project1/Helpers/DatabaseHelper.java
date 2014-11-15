@@ -6,9 +6,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-import android.widget.ArrayAdapter;
 
 import com.pga.project1.DataModel.Anbar;
+import com.pga.project1.DataModel.AnbarTransaction;
 import com.pga.project1.DataModel.Chart;
 import com.pga.project1.DataModel.Faliat;
 import com.pga.project1.DataModel.ItemsProvider;
@@ -41,6 +41,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String TABLE_PROJECTS = "projects";
     private static final String TABLE_ANBAR = "anbar";
     private static final String TABLE_ITEMS_PROVIDER = "items_provider";
+    private static final String TABLE_ANBAR_TRANSACTION = "anbar_tansaction";
 
 
     // Contacts Key names
@@ -69,6 +70,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String KEY_HAS_ERROR = "has_error";
     private static final String KEY_IS_OWNER = "is_owner";
     private static final String KEY_OWNER = "owner";
+    private static final String KEY_PRODUCT_ID = "product_id";
+    private static final String KEY_ANBAR_ID = "anbar_id";
+    private static final String KEY_PROVIDER_ID = "provider_id";
+    private static final String KEY_TO_ANBAR_ID = "to_anbar_id";
+    private static final String KEY_FROM_ANBAR_ID = "from_anbar_id";
+    private static final String KEY_DESCRIPTION = "description";
 
 
     public DatabaseHelper(Context context) {
@@ -157,6 +164,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                         + KEY_OWNER + " TEXT"
                         + ")";
         db.execSQL(CREATE_ITEMS_PROVIDER_TABLE);
+
+        String CREATE_ANBAR_TRANSACTION_TABLE =
+                "CREATE TABLE " + TABLE_ANBAR_TRANSACTION + "("
+                        + KEY_ID + " INTEGER PRIMARY KEY,"
+                        + KEY_TYPE + " TEXT,"
+                        + KEY_PRODUCT_ID + " TEXT,"
+                        + KEY_ANBAR_ID + " TEXT,"
+                        + KEY_PROVIDER_ID + " TEXT,"
+                        + KEY_TO_ANBAR_ID + " TEXT,"
+                        + KEY_FROM_ANBAR_ID + " TEXT,"
+                        + KEY_AMOUNT + " TEXT,"
+                        + KEY_DATE + " TEXT,"
+                        + KEY_DESCRIPTION + " TEXT"
+
+                        + ")";
+        db.execSQL(CREATE_ANBAR_TRANSACTION_TABLE);
 
 
     }
@@ -626,7 +649,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ArrayList<Anbar> anbars = new ArrayList<Anbar>();
 
         SQLiteDatabase db = getReadableDatabase();
-        final Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_ANBAR + " WHERE " + KEY_IS_OWNER + " = 1", null);
+        final Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_ANBAR + " WHERE " + KEY_IS_OWNER + " = \"1\"", null);
 
         if (cursor != null) {
             if (cursor.moveToFirst()) {
@@ -658,5 +681,53 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public void emptyItemsProviderTable() {
         getReadableDatabase().execSQL("Delete from " + TABLE_ITEMS_PROVIDER);
+    }
+
+    public ArrayList<AnbarTransaction> getAnbarTransactions(Anbar anbar) {
+        ArrayList<AnbarTransaction> anbarTransactions = new ArrayList<AnbarTransaction>();
+
+        SQLiteDatabase db = getReadableDatabase();
+        final Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_ANBAR_TRANSACTION, null);
+
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+
+                do {
+
+                    AnbarTransaction anbarTransaction = new AnbarTransaction(
+                            cursor.getInt(cursor.getColumnIndex(KEY_ID)),
+                            cursor.getInt(cursor.getColumnIndex(KEY_TYPE)),
+                            cursor.getInt(cursor.getColumnIndex(KEY_PRODUCT_ID)),
+                            cursor.getInt(cursor.getColumnIndex(KEY_ANBAR_ID)),
+                            cursor.getInt(cursor.getColumnIndex(KEY_PROVIDER_ID)),
+                            cursor.getInt(cursor.getColumnIndex(KEY_TO_ANBAR_ID)),
+                            cursor.getInt(cursor.getColumnIndex(KEY_FROM_ANBAR_ID)),
+                            cursor.getInt(cursor.getColumnIndex(KEY_AMOUNT)),
+                            cursor.getString(cursor.getColumnIndex(KEY_DATE)),
+                            cursor.getString(cursor.getColumnIndex(KEY_DESCRIPTION))
+                    );
+
+                    anbarTransactions.add(anbarTransaction);
+
+                } while (cursor.moveToNext());
+            }
+        }
+
+        return anbarTransactions;
+    }
+
+    public void insertAnbarTransaction(AnbarTransaction anbarTransaction) {
+        ContentValues values = new ContentValues();
+        values.put(KEY_ID, anbarTransaction.getId());
+        values.put(KEY_TYPE, anbarTransaction.getType());
+        values.put(KEY_PRODUCT_ID, anbarTransaction.getProduct_id());
+        values.put(KEY_ANBAR_ID, anbarTransaction.getAnbar_id());
+        values.put(KEY_PROVIDER_ID, anbarTransaction.getProvider_id());
+        values.put(KEY_TO_ANBAR_ID, anbarTransaction.getTo_anbar_id());
+        values.put(KEY_FROM_ANBAR_ID, anbarTransaction.getFrom_anbar_id());
+        values.put(KEY_AMOUNT, anbarTransaction.getAmount());
+        values.put(KEY_DATE, anbarTransaction.getDate());
+        values.put(KEY_DESCRIPTION, anbarTransaction.getDescription());
+        this.getWritableDatabase().insert(TABLE_ANBAR_TRANSACTION, null, values);
     }
 }
