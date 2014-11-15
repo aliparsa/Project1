@@ -150,7 +150,7 @@ public class SyncHelper {
         });
     }
 
-    public static void SyncAnbar(final Context context) {
+    public static void SyncAnbar(final Context context, final CallBack callBack) {
         final DatabaseHelper db = new DatabaseHelper(context);
 
         Webservice.getAnbar(context, new CallBack<ArrayList<Anbar>>() {
@@ -160,6 +160,8 @@ public class SyncHelper {
                 for (Anbar anbar : result) {
                     db.insertAnbar(anbar);
                 }
+
+                callBack.onSuccess(null);
             }
 
             @Override
@@ -174,6 +176,8 @@ public class SyncHelper {
                     intent.putExtra("reason", "UNAUTHORIZED");
                     context.startActivity(intent);
                     ((Activity) context).overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
+
+                    callBack.onError(errorMessage);
                 }
             }
         });

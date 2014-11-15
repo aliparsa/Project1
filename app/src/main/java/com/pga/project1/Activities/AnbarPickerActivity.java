@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.pga.project1.Adapters.ListViewCustomAdapter;
 import com.pga.project1.Adapters.ListViewObjectAdapter;
@@ -19,6 +20,7 @@ import com.pga.project1.DataModel.Anbar;
 import com.pga.project1.DataModel.Chart;
 import com.pga.project1.DataModel.PathObject;
 import com.pga.project1.Helpers.DatabaseHelper;
+import com.pga.project1.Helpers.SyncHelper;
 import com.pga.project1.Intefaces.CallBack;
 import com.pga.project1.Intefaces.ListViewItemINTERFACE;
 import com.pga.project1.R;
@@ -35,8 +37,7 @@ import static com.pga.project1.Utilities.TwiceBackEndApp.twiceBackCheck;
 
 public class AnbarPickerActivity extends Activity {
 
-    private ImageView inButton;
-    private ImageView outButton;
+    private ImageView synchButton;
     private ListView lv;
     private PathMapManager pathManager;
     private ArrayList<Anbar> anbars;
@@ -90,30 +91,29 @@ public class AnbarPickerActivity extends Activity {
             }
         });
 
-        inButton = (ImageView) customActionBar.findViewById(R.id.ac_action2);
-        outButton = (ImageView) customActionBar.findViewById(R.id.ac_action1);
+        synchButton = (ImageView) customActionBar.findViewById(R.id.ac_action1);
 
-        inButton.setImageResource(R.drawable.ic_camera);
-        inButton.setOnClickListener(new View.OnClickListener() {
+        synchButton.setImageResource(R.drawable.ac_refresh);
+        synchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                SyncHelper.SyncAnbar(context, new CallBack() {
+                    @Override
+                    public void onSuccess(Object result) {
+                        Toast.makeText(context, "بروزرسانی با موفقیت انجام شد!", Toast.LENGTH_SHORT).show();
+                        loadAnbars();
+                    }
+
+                    @Override
+                    public void onError(String errorMessage) {
+                        Toast.makeText(context, "بروزرسانی با خطا مواجه شد!", Toast.LENGTH_SHORT).show();
+                    }
+                });
 
             }
         });
 
-        //saveButton.setText("ذخیره");
-        outButton.setImageResource(R.drawable.ic_save);
-        // saveButton.setTextColor(getResources().getColor(R.color.actionbar_button_text));
-        final Context context = this;
-        outButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-
-
-
-            }
-        });
     }
 
 
