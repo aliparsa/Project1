@@ -98,7 +98,13 @@
             android:label="@string/title_activity_anbar_picker" />
         <activity
             android:name=".Activities.ItemsProviderPickerActivity"
-            android:label="@string/title_activity_kala_picker"></activity>
+            android:label="@string/title_activity_kala_picker" />
+        <activity
+            android:name=".Activities.KhoroojKalaActivity"
+            android:label="@string/title_activity_khorooj_kala"></activity>
+        <activity
+            android:name=".Activities.VoroodKalaActivity"
+            android:label="@string/title_activity_vorood_kala"></activity>
     </application>
 
 </manifest>

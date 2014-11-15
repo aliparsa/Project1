@@ -39,5 +39,7 @@
     <string name="title_activity_anbar">AnbarActivity</string>
     <string name="title_activity_anbar_picker">AnbarPickerActivity</string>
     <string name="title_activity_kala_picker">KalaPickerActivity</string>
+    <string name="title_activity_khorooj_kala">KhoroojKalaActivity</string>
+    <string name="title_activity_vorood_kala">VoroodKalaActivity</string>
 
 </resources>

@@ -3,6 +3,7 @@ package com.pga.project1.Activities;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Menu;
@@ -100,7 +101,10 @@ public class AnbarActivity extends Activity {
         inButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//TODO enter item activity
+                //TODO enter item activity
+                Intent intent = new Intent(context, VoroodKalaActivity.class);
+                intent.putExtra("anbar", anbar);
+                startActivity(intent);
             }
         });
 
@@ -108,7 +112,10 @@ public class AnbarActivity extends Activity {
         outButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//TODO exit item activity
+                //TODO exit item activity
+                Intent intent = new Intent(context, KhoroojKalaActivity.class);
+                intent.putExtra("anbar", anbar);
+                startActivity(intent);
             }
         });
 

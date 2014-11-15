@@ -3,7 +3,6 @@ package com.pga.project1.Helpers;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import com.pga.project1.Activities.FastProjectManagmentActivity;
@@ -34,7 +33,7 @@ import java.util.ArrayList;
 public class SyncHelper {
 
 
-    public static void SyncTaradod(final Context context) {
+    public static void syncTaradod(final Context context) {
         DatabaseHelper db = new DatabaseHelper(context);
         final ArrayList<Taradod> taradods = db.getAllUnsentTaradod();
         if (taradods.size() > 0)
@@ -70,7 +69,7 @@ public class SyncHelper {
             });
     }
 
-    public static void SyncFaliat(final Context context) {
+    public static void syncFaliat(final Context context) {
         DatabaseHelper db = new DatabaseHelper(context);
         final ArrayList<Faliat> faliats = db.getAllUnsentFaliat();
         if (faliats.size() > 0)
@@ -93,7 +92,7 @@ public class SyncHelper {
             });
     }
 
-    public static void SyncWork(final Context context) {
+    public static void syncWork(final Context context) {
         final DatabaseHelper db = new DatabaseHelper(context);
         Webservice.getWorks(context, new CallBack<ArrayList<Work>>() {
             @Override
@@ -124,7 +123,7 @@ public class SyncHelper {
         });
     }
 
-    public static void SyncProject(final Context context, final CallBack callback) {
+    public static void syncProject(final Context context, final CallBack callback) {
         final DatabaseHelper db = new DatabaseHelper(context);
 
         Webservice.getProjects(context, new CallBack<ArrayList<Chart>>() {
@@ -157,7 +156,7 @@ public class SyncHelper {
         });
     }
 
-    public static void SyncAnbar(final Context context, final CallBack callBack) {
+    public static void syncAnbar(final Context context, final CallBack callBack) {
         final DatabaseHelper db = new DatabaseHelper(context);
 
         Webservice.getAnbar(context, new CallBack<ArrayList<Anbar>>() {
@@ -198,7 +197,7 @@ public class SyncHelper {
     }
 
 
-    public static void SyncItemsProvider(final Context context) {
+    public static void syncItemsProvider(final Context context) {
         final DatabaseHelper db = new DatabaseHelper(context);
 
         Webservice.getProvider(context, new CallBack<ArrayList<ItemsProvider>>() {
@@ -229,7 +228,7 @@ public class SyncHelper {
 
     }
 
-    public static void SyncProduct(final Context context, final CallBack callBack) {
+    public static void syncProduct(final Context context, final CallBack callBack) {
         final DatabaseHelper db = new DatabaseHelper(context);
 
         Webservice.getProduct(context, new CallBack<ArrayList<Product>>() {
@@ -264,8 +263,8 @@ public class SyncHelper {
         if (db.getAllUnsentTaradod().size() == 0 && db.getAllUnsentFaliat().size() == 0)
             Toast.makeText(context, "همه داده ها ارسال شده است", Toast.LENGTH_LONG).show();
         else {
-            SyncFaliat(context);
-            SyncTaradod(context);
+            syncFaliat(context);
+            syncTaradod(context);
 
         }
 
