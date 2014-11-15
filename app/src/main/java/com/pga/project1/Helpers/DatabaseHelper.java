@@ -525,6 +525,41 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return faliats;
     }
 
+    public ArrayList<Anbar> getAllAnbars() {
+
+
+
+        return null;
+    }
+
+    public ArrayList<Anbar> getMyAnbars() {
+
+        ArrayList<Anbar> anbars = new ArrayList<Anbar>();
+
+        SQLiteDatabase db = getReadableDatabase();
+        final Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_ANBAR + " WHERE "+KEY_IS_OWNER +" = 1" , null);
+
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+
+                do {
+
+                    Anbar anbar = new Anbar(
+                            cursor.getInt(cursor.getColumnIndex(KEY_ID)),
+                            cursor.getString(cursor.getColumnIndex(KEY_NAME)),
+                            cursor.getInt(cursor.getColumnIndex(KEY_IS_OWNER))
+                    );
+
+                    anbars.add(anbar);
+
+                } while (cursor.moveToNext());
+            }
+        }
+
+        return anbars;
+    }
+
+
     public void markAsSentFaliat(ArrayList<Faliat> faliats){
 
         String idIn = "(";
@@ -600,7 +635,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+
+
     public void emptyAnbarTable() {
         getReadableDatabase().execSQL("Delete from " + TABLE_ANBAR);
     }
+
+
 }

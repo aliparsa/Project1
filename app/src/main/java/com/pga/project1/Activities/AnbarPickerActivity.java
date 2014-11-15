@@ -5,6 +5,8 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,26 +15,92 @@ import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.pga.project1.Adapters.ListViewCustomAdapter;
+import com.pga.project1.DataModel.Anbar;
+import com.pga.project1.DataModel.Chart;
+import com.pga.project1.DataModel.PathObject;
+import com.pga.project1.Helpers.DatabaseHelper;
+import com.pga.project1.Intefaces.CallBack;
 import com.pga.project1.R;
+import com.pga.project1.Structures.AdapterInputType;
+import com.pga.project1.Utilities.Account;
 import com.pga.project1.Utilities.FontHelper;
 import com.pga.project1.Utilities.Fonts;
+import com.pga.project1.Utilities.ListViewAdapterHandler;
+import com.pga.project1.Utilities.Webservice;
+import com.pga.project1.Viewes.PathMapManager;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AnbarPickerActivity extends Activity {
 
     private ImageView inButton;
     private ImageView outButton;
+    private ListView lv;
+    private PathMapManager pathManager;
+    private ArrayList<Anbar> anbars;
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_anbar_picker);
 
-        prepareActionBar();
-    }
+        lv = (ListView) findViewById(R.id.lv_anbarspicker);
+        lv.setAdapter(ListViewAdapterHandler.getLoadingAdapter(this));
+        
+        context = this;
 
+        //TODO create function to handle listview loading
+
+        pathManager = (PathMapManager) findViewById(R.id.pmm);
+        pathManager.clear();
+        PathMapManager.push(new PathObject("انبار ها"));
+        pathManager.refresh();
+
+        prepareActionBar();
+
+
+        // load projects
+        final DatabaseHelper db = new DatabaseHelper(this);
+        anbars = db.getMyAnbars();
+
+        if (anbars.size() < 1)
+            Webservice.getAnbar(this, new CallBack<ArrayList<Anbar>>() {
+
+                @Override
+                public void onSuccess(ArrayList<Anbar> anbars) {
+                    db.emptyAnbarTable();
+                    for (Anbar anbar : anbars) {
+                        db.insertAnbar(anbar);
+                    }
+                    loadAnbars();
+
+                }
+
+                @Override
+                public void onError(String errorMessage) {
+                    if (errorMessage.equals("UNAUTHORIZED")) {
+
+                        // clear token
+                        Account.getInstant(context).clearToken();
+
+                        // pass user to login page
+                        Intent intent = new Intent(context, LoginActivity.class);
+                        intent.putExtra("reason", "UNAUTHORIZED");
+                        context.startActivity(intent);
+                        ((Activity) context).overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
+                    }
+                }
+            });
+        else
+            loadAnbars();
+    }
 
     private void prepareActionBar() {
 
@@ -80,4 +148,32 @@ public class AnbarPickerActivity extends Activity {
             }
         });
     }
+
+
+
+    private void loadAnbars() {
+
+        pathManager.refresh();
+
+
+        List<AdapterInputType> itemList = new ArrayList<AdapterInputType>();
+
+        DatabaseHelper db = new DatabaseHelper(context);
+
+        anbars = db.getMyAnbars();
+
+        for (Anbar anbar:anbars) {
+
+            itemList.add(new AdapterInputType(anbar, ListViewCustomAdapter.ANBAR_ITEM,"", 0));
+
+        }
+
+        adapter = new ListViewCustomAdapter(context, R.layout.fragment_layout_project_tree_view, itemList);
+        lv.setAdapter(ListViewAdapterHandler.checkAdapterForNoItem(adapter));
+
+        // set on click listener
+        lv.setOnItemClickListener(new onTreeViewClickListener());
+
+    }
+
 }
