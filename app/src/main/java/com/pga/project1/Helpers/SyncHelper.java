@@ -11,6 +11,7 @@ import com.pga.project1.Activities.LoginActivity;
 import com.pga.project1.DataModel.Anbar;
 import com.pga.project1.DataModel.Chart;
 import com.pga.project1.DataModel.Faliat;
+import com.pga.project1.DataModel.ItemsProvider;
 import com.pga.project1.DataModel.ServerResponse;
 import com.pga.project1.DataModel.Taradod;
 import com.pga.project1.DataModel.Work;
@@ -180,6 +181,37 @@ public class SyncHelper {
 
     }
 
+
+    public static void SyncItemsProvider(final Context context) {
+        final DatabaseHelper db = new DatabaseHelper(context);
+
+        Webservice.getProvider(context, new CallBack<ArrayList<ItemsProvider>>() {
+            @Override
+            public void onSuccess(ArrayList<ItemsProvider> result) {
+                db.emptyItemsProviderTable();
+                for (ItemsProvider itemsProvider : result) {
+                    db.insertItemsProvider(itemsProvider);
+                }
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+                if (errorMessage.equals("UNAUTHORIZED")) {
+
+                    // clear token
+                    Account.getInstant(context).clearToken();
+
+                    // pass user to login page
+                    Intent intent = new Intent(context, LoginActivity.class);
+                    intent.putExtra("reason", "UNAUTHORIZED");
+                    context.startActivity(intent);
+                    ((Activity) context).overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
+                }
+            }
+        });
+
+
+    }
 
     public static void SyncTaradodAndFaliat(final Context context) {
         DatabaseHelper db = new DatabaseHelper(context);

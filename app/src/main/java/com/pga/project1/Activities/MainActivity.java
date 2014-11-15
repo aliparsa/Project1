@@ -82,6 +82,7 @@ public class MainActivity extends Activity
         SyncHelper.SyncTaradod(context);
         SyncHelper.SyncFaliat(context);
         SyncHelper.SyncAnbar(context);
+        SyncHelper.SyncItemsProvider(context);
 
         DatabaseHelper db = new DatabaseHelper(context);
         db.cleanOldData(7);

@@ -8,6 +8,7 @@ import android.util.Log;
 import com.pga.project1.DataModel.Anbar;
 import com.pga.project1.DataModel.Chart;
 import com.pga.project1.DataModel.Faliat;
+import com.pga.project1.DataModel.ItemsProvider;
 import com.pga.project1.DataModel.Personnel;
 import com.pga.project1.DataModel.Report;
 import com.pga.project1.DataModel.ServerResponse;
@@ -44,7 +45,7 @@ public class Webservice {
         return SERVER_ADDRESS;
     }
 
-    private static String SERVER_ADDRESS = "http://192.168.1.1:1111";
+    private static String SERVER_ADDRESS = "http://pms.pishgamanasia.ir:81";
     private static String SERVER_ADDRESS_POSTFIX = "/index.php/webservice?";
     //-----------------------------------------------------------------------------
 
@@ -957,6 +958,58 @@ public class Webservice {
                             JSONArray jsonArray = new JSONArray(response.getResult());
                             ArrayList<Anbar> anbars = Anbar.getArrayFromJson(jsonArray);
                             callBack.onSuccess(anbars);
+                            break;
+                        }
+
+
+                    }
+
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    callBack.onError(e.getMessage());
+                }
+
+            }
+
+            @Override
+            public void error(String err) {
+
+                Log.d("ali", err);
+                callBack.onError(err);
+            }
+        });
+    }
+
+    //---------------------------------------------------------------------
+
+    public static void getProvider(Context context, final CallBack<ArrayList<ItemsProvider>> callBack) {
+
+        prepareServerAddress(context);
+
+        HttpHelper helper = new HttpHelper(context, getWEBSERVICE_ADDRESS(), false, 0);
+        //HttpHelper helper = new HttpHelper(context, SERVER_ADDRESS, false, 0);
+
+
+        BasicNameValuePair[] arr = {
+                new BasicNameValuePair("tag", "provider")
+        };
+        helper.postHttp(arr, new ResponseHandler() {
+            @Override
+            public void handleResponse(ServerResponse response) {
+
+                try {
+
+
+                    switch (response.getStatusCode()) {
+                        case SC_UNAUTHORIZED: {
+                            callBack.onError("UNAUTHORIZED");
+                            break;
+                        }
+                        case SC_OK: {
+                            JSONArray jsonArray = new JSONArray(response.getResult());
+                            ArrayList<ItemsProvider> itemsProviders = ItemsProvider.getArrayFromJson(jsonArray);
+                            callBack.onSuccess(itemsProviders);
                             break;
                         }
 
