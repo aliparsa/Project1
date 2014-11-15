@@ -12,12 +12,15 @@ import com.pga.project1.DataModel.Anbar;
 import com.pga.project1.DataModel.Chart;
 import com.pga.project1.DataModel.Faliat;
 import com.pga.project1.DataModel.ItemsProvider;
+import com.pga.project1.DataModel.Product;
 import com.pga.project1.DataModel.ServerResponse;
 import com.pga.project1.DataModel.Taradod;
 import com.pga.project1.DataModel.Work;
 import com.pga.project1.Intefaces.CallBack;
+import com.pga.project1.Intefaces.CallBackFunction;
 import com.pga.project1.R;
 import com.pga.project1.Utilities.Account;
+import com.pga.project1.Utilities.HandleError;
 import com.pga.project1.Utilities.Webservice;
 
 import org.json.JSONArray;
@@ -220,6 +223,35 @@ public class SyncHelper {
                     context.startActivity(intent);
                     ((Activity) context).overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
                 }
+            }
+        });
+
+
+    }
+
+    public static void SyncProduct(final Context context, final CallBack callBack) {
+        final DatabaseHelper db = new DatabaseHelper(context);
+
+        Webservice.getProduct(context, new CallBack<ArrayList<Product>>() {
+            @Override
+            public void onSuccess(ArrayList<Product> result) {
+                db.emptyProductTable();
+                for (Product product : result) {
+                    db.insertProduct(product);
+                }
+                callBack.onSuccess(null);
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+                HandleError.HandleError(context, errorMessage, new CallBackFunction() {
+                    @Override
+                    public void execute() {
+
+                    }
+                });
+
+                callBack.onError(errorMessage);
             }
         });
 
