@@ -10,6 +10,7 @@ import com.pga.project1.DataModel.Chart;
 import com.pga.project1.DataModel.Faliat;
 import com.pga.project1.DataModel.ItemsProvider;
 import com.pga.project1.DataModel.Personnel;
+import com.pga.project1.DataModel.Product;
 import com.pga.project1.DataModel.Report;
 import com.pga.project1.DataModel.ServerResponse;
 import com.pga.project1.DataModel.Taradod;
@@ -1032,5 +1033,55 @@ public class Webservice {
             }
         });
     }
+    //---------------------------------------------------------------------
 
+    public static void getProduct(Context context, final CallBack<ArrayList<Product>> callBack) {
+
+        prepareServerAddress(context);
+
+        HttpHelper helper = new HttpHelper(context, getWEBSERVICE_ADDRESS(), false, 0);
+        //HttpHelper helper = new HttpHelper(context, SERVER_ADDRESS, false, 0);
+
+
+        BasicNameValuePair[] arr = {
+                new BasicNameValuePair("tag", "product")
+        };
+        helper.postHttp(arr, new ResponseHandler() {
+            @Override
+            public void handleResponse(ServerResponse response) {
+
+                try {
+
+
+                    switch (response.getStatusCode()) {
+                        case SC_UNAUTHORIZED: {
+                            callBack.onError("UNAUTHORIZED");
+                            break;
+                        }
+                        case SC_OK: {
+                            JSONArray jsonArray = new JSONArray(response.getResult());
+                            ArrayList<Product> products = Product.getArrayFromJson(jsonArray);
+                            callBack.onSuccess(products);
+                            break;
+                        }
+
+
+                    }
+
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    callBack.onError(e.getMessage());
+                }
+
+            }
+
+            @Override
+            public void error(String err) {
+
+                Log.d("ali", err);
+                callBack.onError(err);
+            }
+        });
+    }
 }
