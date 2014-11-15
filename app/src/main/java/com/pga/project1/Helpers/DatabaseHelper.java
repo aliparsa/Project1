@@ -11,7 +11,6 @@ import android.widget.ArrayAdapter;
 import com.pga.project1.DataModel.Anbar;
 import com.pga.project1.DataModel.Chart;
 import com.pga.project1.DataModel.Faliat;
-import com.pga.project1.DataModel.ItemsProvider;
 import com.pga.project1.DataModel.Personnel;
 import com.pga.project1.DataModel.Taradod;
 import com.pga.project1.DataModel.Work;
@@ -40,7 +39,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String TABLE_FALIAT = "faliat";
     private static final String TABLE_PROJECTS = "projects";
     private static final String TABLE_ANBAR = "anbar";
-    private static final String TABLE_ITEMS_PROVIDER = "items_provider";
 
 
     // Contacts Key names
@@ -68,7 +66,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String KEY_PROJECT_ID = "project_id";
     private static final String KEY_HAS_ERROR = "has_error";
     private static final String KEY_IS_OWNER = "is_owner";
-    private static final String KEY_OWNER = "owner";
 
 
     public DatabaseHelper(Context context) {
@@ -149,14 +146,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                         + KEY_IS_OWNER + " TEXT"
                         + ")";
         db.execSQL(CREATE_ANBAR_TABLE);
-
-        String CREATE_ITEMS_PROVIDER_TABLE =
-                "CREATE TABLE " + TABLE_ITEMS_PROVIDER + "("
-                        + KEY_ID + " INTEGER PRIMARY KEY,"
-                        + KEY_NAME + " TEXT,"
-                        + KEY_OWNER + " TEXT"
-                        + ")";
-        db.execSQL(CREATE_ITEMS_PROVIDER_TABLE);
 
 
     }
@@ -613,17 +602,5 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public void emptyAnbarTable() {
         getReadableDatabase().execSQL("Delete from " + TABLE_ANBAR);
-    }
-
-    public void insertItemsProvider(ItemsProvider itemsProvider) {
-        ContentValues values = new ContentValues();
-        values.put(KEY_ID, itemsProvider.getId());
-        values.put(KEY_NAME, itemsProvider.getName());
-        values.put(KEY_OWNER, itemsProvider.getOwner());
-        this.getWritableDatabase().insert(TABLE_ITEMS_PROVIDER, null, values);
-    }
-
-    public void emptyItemsProviderTable() {
-        getReadableDatabase().execSQL("Delete from " + TABLE_ITEMS_PROVIDER);
     }
 }
