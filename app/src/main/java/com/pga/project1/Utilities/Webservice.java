@@ -974,7 +974,7 @@ public class Webservice {
             @Override
             public void error(String err) {
 
-                Log.d("ali", "Error");
+                Log.d("ali", err);
                 callBack.onError(err);
             }
         });

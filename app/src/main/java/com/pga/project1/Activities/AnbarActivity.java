@@ -23,17 +23,7 @@ public class AnbarActivity extends Activity {
         setContentView(R.layout.activity_anbar);
         context = this;
 
-        Webservice.getAnbar(context, new CallBack<ArrayList<Anbar>>() {
-            @Override
-            public void onSuccess(ArrayList<Anbar> result) {
 
-            }
-
-            @Override
-            public void onError(String errorMessage) {
-
-            }
-        });
     }
 
 
