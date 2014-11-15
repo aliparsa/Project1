@@ -93,6 +93,17 @@ public class MainActivity extends Activity
             public void onError(String errorMessage) {            }
         });
         SyncHelper.SyncItemsProvider(context);
+        SyncHelper.SyncProduct(context, new CallBack() {
+            @Override
+            public void onSuccess(Object result) {
+
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+
+            }
+        });
 
         DatabaseHelper db = new DatabaseHelper(context);
         db.cleanOldData(7);

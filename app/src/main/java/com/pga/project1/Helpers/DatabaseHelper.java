@@ -13,6 +13,7 @@ import com.pga.project1.DataModel.Chart;
 import com.pga.project1.DataModel.Faliat;
 import com.pga.project1.DataModel.ItemsProvider;
 import com.pga.project1.DataModel.Personnel;
+import com.pga.project1.DataModel.Product;
 import com.pga.project1.DataModel.Taradod;
 import com.pga.project1.DataModel.Work;
 
@@ -42,6 +43,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String TABLE_ANBAR = "anbar";
     private static final String TABLE_ITEMS_PROVIDER = "items_provider";
     private static final String TABLE_ANBAR_TRANSACTION = "anbar_tansaction";
+    private static final String TABLE_PRODUCT = "product";
 
 
     // Contacts Key names
@@ -177,9 +179,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                         + KEY_AMOUNT + " TEXT,"
                         + KEY_DATE + " TEXT,"
                         + KEY_DESCRIPTION + " TEXT"
-
                         + ")";
         db.execSQL(CREATE_ANBAR_TRANSACTION_TABLE);
+
+        String CREATE_PRODUCT_TABLE =
+                "CREATE TABLE " + TABLE_PRODUCT + "("
+                        + KEY_ID + " INTEGER PRIMARY KEY,"
+                        + KEY_NAME + " TEXT"
+                        + ")";
+        db.execSQL(CREATE_PRODUCT_TABLE);
 
 
     }
@@ -187,6 +195,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i2) {
 
+    }
+
+    public void insertProduct(Product product) {
+        ContentValues values = new ContentValues();
+        values.put(KEY_ID, product.getId());
+        values.put(KEY_NAME, product.getName());
+        this.getWritableDatabase().insert(TABLE_PRODUCT, null, values);
     }
 
     public void insertAnbar(Anbar anbar) {
@@ -681,6 +696,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public void emptyItemsProviderTable() {
         getReadableDatabase().execSQL("Delete from " + TABLE_ITEMS_PROVIDER);
+    }
+
+    public void emptyProductTable() {
+        getReadableDatabase().execSQL("Delete from " + TABLE_PRODUCT);
     }
 
     public ArrayList<AnbarTransaction> getAnbarTransactions(Anbar anbar) {
