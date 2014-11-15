@@ -19,6 +19,7 @@ import com.pga.project1.Adapters.ListViewCustomAdapter;
 import com.pga.project1.DataModel.Chart;
 import com.pga.project1.DataModel.PathObject;
 import com.pga.project1.Helpers.DatabaseHelper;
+import com.pga.project1.Helpers.SyncHelper;
 import com.pga.project1.Intefaces.CallBack;
 import com.pga.project1.Intefaces.CallBackFunction;
 import com.pga.project1.R;
@@ -136,38 +137,17 @@ public class ProjectPickerActivity extends Activity {
             @Override
             public void onClick(View view) {
 
-                final DatabaseHelper db = new DatabaseHelper(context);
-
-
-                Webservice.getProjects(context, new CallBack<ArrayList<Chart>>() {
+                SyncHelper.SyncProject(context, new CallBack() {
                     @Override
-                    public void onSuccess(ArrayList<Chart> result) {
-                        db.emptyProjectsTable();
-                        for (Chart chart : result) {
-                            db.insertProject(chart);
-                        }
+                    public void onSuccess(Object result) {
 
-                        loadProjects();
                         Toast.makeText(context, "بروزرسانی انجام شد", Toast.LENGTH_SHORT).show();
-
+                        loadProjects();
                     }
 
                     @Override
                     public void onError(String errorMessage) {
-
-                        if (errorMessage.equals("UNAUTHORIZED")) {
-
-                            // clear token
-                            Account.getInstant(context).clearToken();
-
-                            // pass user to login page
-                            Intent intent = new Intent(context, LoginActivity.class);
-                            intent.putExtra("reason", "UNAUTHORIZED");
-                            context.startActivity(intent);
-                            ((Activity) context).overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
-
-
-                        }
+                        Toast.makeText(context, "بروزرسانی با خطا مواجه شد!", Toast.LENGTH_SHORT).show();
                     }
                 });
             }

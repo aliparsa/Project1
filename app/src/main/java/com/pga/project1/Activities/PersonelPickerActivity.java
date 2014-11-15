@@ -214,6 +214,7 @@ public class PersonelPickerActivity extends Activity {
 
             @Override
             public void onError(String err) {
+                Toast.makeText(context, "بروزرسانی با خطا مواجه شد!", Toast.LENGTH_SHORT).show();
 
             }
         });

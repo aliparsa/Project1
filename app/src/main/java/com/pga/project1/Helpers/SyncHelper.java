@@ -121,7 +121,7 @@ public class SyncHelper {
         });
     }
 
-    public static void SyncProject(final Context context) {
+    public static void SyncProject(final Context context, final CallBack callback) {
         final DatabaseHelper db = new DatabaseHelper(context);
 
         Webservice.getProjects(context, new CallBack<ArrayList<Chart>>() {
@@ -131,6 +131,8 @@ public class SyncHelper {
                 for (Chart chart : result) {
                     db.insertProject(chart);
                 }
+
+                callback.onSuccess(null);
             }
 
             @Override
@@ -146,6 +148,8 @@ public class SyncHelper {
                     context.startActivity(intent);
                     ((Activity) context).overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
                 }
+
+                callback.onError(errorMessage);
             }
         });
     }

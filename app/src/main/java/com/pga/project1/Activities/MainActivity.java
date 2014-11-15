@@ -78,10 +78,20 @@ public class MainActivity extends Activity
 
         // load needed data
         SyncHelper.SyncWork(context);
-        SyncHelper.SyncProject(context);
+        SyncHelper.SyncProject(context, new CallBack() {
+            @Override
+            public void onSuccess(Object result) {            }
+            @Override
+            public void onError(String errorMessage) {            }
+        });
         SyncHelper.SyncTaradod(context);
         SyncHelper.SyncFaliat(context);
-        SyncHelper.SyncAnbar(context);
+        SyncHelper.SyncAnbar(context, new CallBack() {
+            @Override
+            public void onSuccess(Object result) {            }
+            @Override
+            public void onError(String errorMessage) {            }
+        });
         SyncHelper.SyncItemsProvider(context);
 
         DatabaseHelper db = new DatabaseHelper(context);
