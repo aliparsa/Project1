@@ -39,6 +39,7 @@ public class AnbarActivity extends Activity {
     private PathMapManager pathManager;
     private ListView lv;
     private Anbar anbar;
+    private ListViewObjectAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,7 +121,7 @@ public class AnbarActivity extends Activity {
 
     }
 
-    void loadTransactions(){
+    void loadTransactions() {
 
         pathManager.refresh();
 
@@ -130,14 +131,13 @@ public class AnbarActivity extends Activity {
 
         ArrayList<AnbarTransaction> transes = db.getAnbarTransactions(anbar);
 
-        for (AnbarTransaction trans:transes) {
-            itemList.add(anbar);
+        for (AnbarTransaction trans : transes) {
+            itemList.add(trans);
         }
 
 
-        // adapter = new ListViewObjectAdapter(context, itemList);
-        //lv.setAdapter(adapter);
-
-        // lv.setOnItemClickListener(new AnbarPickerActivity.onAnbarClickListener());
+        adapter = new ListViewObjectAdapter(context, itemList);
+        lv.setAdapter(adapter);
     }
+
 }

@@ -5,12 +5,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
+import com.pga.project1.Intefaces.ListViewItemINTERFACE;
 import com.pga.project1.R;
 
 /**
  * Created by parsa on 2014-11-15.
  */
-public class AnbarTransaction {
+public class AnbarTransaction implements ListViewItemINTERFACE{
     int id;
     int type;
     int product_id;
