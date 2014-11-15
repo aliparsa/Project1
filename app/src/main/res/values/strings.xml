@@ -38,5 +38,6 @@
     <string name="title_activity_project_picker">ProjectPickerActivity</string>
     <string name="title_activity_anbar">AnbarActivity</string>
     <string name="title_activity_anbar_picker">AnbarPickerActivity</string>
+    <string name="title_activity_kala_picker">KalaPickerActivity</string>
 
 </resources>
