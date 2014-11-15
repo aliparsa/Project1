@@ -101,10 +101,13 @@
             android:label="@string/title_activity_kala_picker" />
         <activity
             android:name=".Activities.KhoroojKalaActivity"
-            android:label="@string/title_activity_khorooj_kala"></activity>
+            android:label="@string/title_activity_khorooj_kala" />
         <activity
             android:name=".Activities.VoroodKalaActivity"
-            android:label="@string/title_activity_vorood_kala"></activity>
+            android:label="@string/title_activity_vorood_kala" />
+        <activity
+            android:name=".Activities.KalaPickerActivity"
+            android:label="@string/title_activity_kala_picker"></activity>
     </application>
 
 </manifest>
