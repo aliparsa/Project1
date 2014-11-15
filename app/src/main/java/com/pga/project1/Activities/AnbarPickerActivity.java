@@ -7,13 +7,16 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.pga.project1.Adapters.ListViewCustomAdapter;
 import com.pga.project1.Adapters.ListViewObjectAdapter;
 import com.pga.project1.DataModel.Anbar;
+import com.pga.project1.DataModel.Chart;
 import com.pga.project1.DataModel.PathObject;
 import com.pga.project1.Helpers.DatabaseHelper;
 import com.pga.project1.Intefaces.CallBack;
@@ -27,6 +30,8 @@ import com.pga.project1.Utilities.Webservice;
 import com.pga.project1.Viewes.PathMapManager;
 
 import java.util.ArrayList;
+
+import static com.pga.project1.Utilities.TwiceBackEndApp.twiceBackCheck;
 
 public class AnbarPickerActivity extends Activity {
 
@@ -130,6 +135,44 @@ public class AnbarPickerActivity extends Activity {
 
         adapter = new ListViewObjectAdapter(context, itemList);
         lv.setAdapter(adapter);
+
+        lv.setOnItemClickListener(new onAnbarClickListener());
+    }
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+
+        overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
+
+        twiceBackCheck(this);
+
+        super.onBackPressed();
+
+    }
+
+    public class onAnbarClickListener implements AdapterView.OnItemClickListener {
+
+        @Override
+        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+            //TODO anbar clicked
+
+          /*  Object tag = ((ListViewCustomAdapter.DrawerItemHolder) view.getTag()).getTag();
+            Chart chart;
+
+            if (tag instanceof Chart)
+                chart = (Chart) tag;
+            else
+                return;
+
+            Intent intent2 = new Intent(context, FastProjectManagmentActivity.class);
+            intent2.putExtra("chart", chart);
+            startActivityForResult(intent2, 147);
+            overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
+*/
+        }
+
 
     }
 
