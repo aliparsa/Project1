@@ -7,7 +7,7 @@
 
 
         <com.pga.project1.Viewes.PathMapManager
-            android:id="@+id/pmm_fragmentProjectTreeView_pathMap"
+            android:id="@+id/pmm"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -19,7 +19,7 @@
 
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
-        android:id="@+id/lv_fragmentProjectTreeView_treeView"
+        android:id="@+id/lv_anbarspicker"
         android:layout_below="@+id/pmm_fragmentProjectTreeView_pathMap"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"

@@ -44,7 +44,7 @@ public class AnbarPickerActivity extends Activity {
         setContentView(R.layout.activity_anbar_picker);
 
         lv = (ListView) findViewById(R.id.lv_anbarspicker);
-        lv.setAdapter(ListViewAdapterHandler.getLoadingAdapter(this));
+//        lv.setAdapter(ListViewAdapterHandler.getLoadingAdapter(this));
         
         context = this;
 
@@ -58,40 +58,10 @@ public class AnbarPickerActivity extends Activity {
         prepareActionBar();
 
 
-        // load projects
+        // load
         final DatabaseHelper db = new DatabaseHelper(this);
         anbars = db.getMyAnbars();
-
-        if (anbars.size() < 1)
-            Webservice.getAnbar(this, new CallBack<ArrayList<Anbar>>() {
-
-                @Override
-                public void onSuccess(ArrayList<Anbar> anbars) {
-                    db.emptyAnbarTable();
-                    for (Anbar anbar : anbars) {
-                        db.insertAnbar(anbar);
-                    }
-                    loadAnbars();
-
-                }
-
-                @Override
-                public void onError(String errorMessage) {
-                    if (errorMessage.equals("UNAUTHORIZED")) {
-
-                        // clear token
-                        Account.getInstant(context).clearToken();
-
-                        // pass user to login page
-                        Intent intent = new Intent(context, LoginActivity.class);
-                        intent.putExtra("reason", "UNAUTHORIZED");
-                        context.startActivity(intent);
-                        ((Activity) context).overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
-                    }
-                }
-            });
-        else
-            loadAnbars();
+        loadAnbars();
     }
 
     private void prepareActionBar() {
@@ -147,7 +117,6 @@ public class AnbarPickerActivity extends Activity {
 
         pathManager.refresh();
 
-
         ArrayList<ListViewItemINTERFACE> itemList = new ArrayList<ListViewItemINTERFACE>();
 
         DatabaseHelper db = new DatabaseHelper(context);
@@ -155,10 +124,9 @@ public class AnbarPickerActivity extends Activity {
         anbars = db.getMyAnbars();
 
         for (Anbar anbar:anbars) {
-
             itemList.add(anbar);
-
         }
+
 
         adapter = new ListViewObjectAdapter(context, itemList);
         lv.setAdapter(adapter);
