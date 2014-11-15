@@ -36,6 +36,7 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
     public static String REPORT_ITEM = "report item";
     public static String TRADOD_ITEM = "taradod item";
     public static String FALIAT_ITEM = "faliat item";
+    public static String ANBAR_ITEM = "anbar item";
 
     public final static int SHERKAT = 1;
     public final static int TAMIN_KONANDE = 2;

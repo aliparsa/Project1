@@ -1,13 +1,12 @@
 package com.pga.project1.DataModel;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
+import com.pga.project1.Intefaces.ListViewItemINTERFACE;
 import com.pga.project1.R;
-import com.pga.project1.Utilities.JsonHelper;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -17,7 +16,7 @@ import java.util.ArrayList;
 /**
  * Created by parsa on 11/12/2014.
  */
-public class Anbar {
+public class Anbar implements ListViewItemINTERFACE {
 
     private int id;
     private String name;

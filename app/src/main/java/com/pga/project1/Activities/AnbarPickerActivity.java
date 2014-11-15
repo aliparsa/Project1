@@ -2,31 +2,23 @@ package com.pga.project1.Activities;
 
 import android.app.ActionBar;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.pga.project1.Adapters.ListViewCustomAdapter;
+import com.pga.project1.Adapters.ListViewObjectAdapter;
 import com.pga.project1.DataModel.Anbar;
-import com.pga.project1.DataModel.Chart;
 import com.pga.project1.DataModel.PathObject;
 import com.pga.project1.Helpers.DatabaseHelper;
 import com.pga.project1.Intefaces.CallBack;
+import com.pga.project1.Intefaces.ListViewItemINTERFACE;
 import com.pga.project1.R;
-import com.pga.project1.Structures.AdapterInputType;
 import com.pga.project1.Utilities.Account;
 import com.pga.project1.Utilities.FontHelper;
 import com.pga.project1.Utilities.Fonts;
@@ -35,7 +27,6 @@ import com.pga.project1.Utilities.Webservice;
 import com.pga.project1.Viewes.PathMapManager;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class AnbarPickerActivity extends Activity {
 
@@ -45,6 +36,7 @@ public class AnbarPickerActivity extends Activity {
     private PathMapManager pathManager;
     private ArrayList<Anbar> anbars;
     private Context context;
+    private ListViewObjectAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -156,7 +148,7 @@ public class AnbarPickerActivity extends Activity {
         pathManager.refresh();
 
 
-        List<AdapterInputType> itemList = new ArrayList<AdapterInputType>();
+        ArrayList<ListViewItemINTERFACE> itemList = new ArrayList<ListViewItemINTERFACE>();
 
         DatabaseHelper db = new DatabaseHelper(context);
 
@@ -164,15 +156,12 @@ public class AnbarPickerActivity extends Activity {
 
         for (Anbar anbar:anbars) {
 
-            itemList.add(new AdapterInputType(anbar, ListViewCustomAdapter.ANBAR_ITEM,"", 0));
+            itemList.add(anbar);
 
         }
 
-        adapter = new ListViewCustomAdapter(context, R.layout.fragment_layout_project_tree_view, itemList);
-        lv.setAdapter(ListViewAdapterHandler.checkAdapterForNoItem(adapter));
-
-        // set on click listener
-        lv.setOnItemClickListener(new onTreeViewClickListener());
+        adapter = new ListViewObjectAdapter(context, itemList);
+        lv.setAdapter(adapter);
 
     }
 
