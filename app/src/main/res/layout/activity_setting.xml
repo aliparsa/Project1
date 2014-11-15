@@ -34,7 +34,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Curent web server url"
+                android:text="Current web server url"
                 android:id="@+id/textview_current_server_address"
                 android:layout_below="@+id/textView2"
                 android:layout_alignRight="@+id/textView2"

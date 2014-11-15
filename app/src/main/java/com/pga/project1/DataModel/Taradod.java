@@ -1,5 +1,13 @@
 package com.pga.project1.DataModel;
 
+import android.content.Context;
+import android.graphics.Color;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.TextView;
+
+import com.pga.project1.R;
+import com.pga.project1.Structures.AdapterInputType;
 import com.pga.project1.Utilities.PersianCalendar;
 
 import org.json.JSONArray;
@@ -7,6 +15,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.zip.Inflater;
 
 /**
  * Created by ashkan on 2014-11-02.
@@ -79,9 +89,7 @@ public class Taradod {
     }
 
 
-
-
-    public static JSONArray convertArrayToJson(List<Taradod> taradods){
+    public static JSONArray convertArrayToJson(List<Taradod> taradods) {
 
         JSONArray taradodsJson = new JSONArray();
 
@@ -149,5 +157,72 @@ public class Taradod {
 
     public void setHas_error(String has_error) {
         this.has_error = has_error;
+    }
+
+    public View getView(Context context, View oldView) {
+        if (oldView == null || !(oldView.getTag() instanceof Taradod)) {
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            oldView = inflater.inflate(R.layout.taradod_item, null);
+            TaradodHolder taradodHolder = new TaradodHolder();
+            oldView.setTag(taradodHolder);
+            getTaradodItem(taradodHolder, oldView);
+            return oldView;
+        } else {
+            TaradodHolder taradodHolder = (TaradodHolder) oldView.getTag();
+            getTaradodItem(taradodHolder, oldView);
+            return oldView;
+        }
+    }
+
+    private void getTaradodItem(TaradodHolder holder, View view) {
+
+        holder.taradod = this;
+
+        if (holder.taradodFullName == null)
+            holder.taradodFullName = (TextView) view.findViewById(R.id.taradod_fullname);
+
+        if (holder.taradodDate == null)
+            holder.taradodDate = (TextView) view.findViewById(R.id.taradod_date);
+
+        if (holder.taradodInOut == null)
+            holder.taradodInOut = (TextView) view.findViewById(R.id.taradod_inout);
+
+        if (holder.taradodFlag == null)
+            holder.taradodFlag = (TextView) view.findViewById(R.id.taradod_flag);
+
+
+        holder.taradodFullName.setText(getPersonnel().getFullName());
+        holder.taradodDate.setText(getPersianDate());
+        holder.taradodInOut.setText(getInOut().equals("in") ? "ورود" : "خروج");
+
+        if (getInOut().equals("in"))
+            holder.taradodInOut.setTextColor(Color.GREEN);
+        else
+            holder.taradodInOut.setTextColor(Color.RED);
+
+
+        if (getSent() == 0) {
+            holder.taradodFlag.setText("");
+        }
+        if (getSent() == 1) {
+            holder.taradodFlag.setTextColor(Color.GREEN);
+            holder.taradodFlag.setText("✓");
+
+        }
+
+        if (getHas_error().equals("1")) {
+            holder.taradodFlag.setText("x");
+            holder.taradodFlag.setTextColor(Color.RED);
+        }
+
+    }
+
+
+    public class TaradodHolder {
+        TextView taradodFullName;
+        TextView taradodDate;
+        TextView taradodInOut;
+        TextView taradodFlag;
+        Taradod taradod;
     }
 }

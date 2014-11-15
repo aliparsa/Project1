@@ -74,14 +74,19 @@ public class NavigationDrawerFragment extends Fragment {
         datalist = new ArrayList<AdapterInputType>();
 
         AdapterInputType item = new AdapterInputType(null, ListViewCustomAdapter.DRAWER_ITEM
-        ,"مدیریت پروژه", R.drawable.ic_projects);
+                , "مدیریت پروژه", R.drawable.ic_projects);
 
         datalist.add(item);
 
         AdapterInputType item0 = new AdapterInputType(null, ListViewCustomAdapter.DRAWER_ITEM
-                , "مدیریت سریع", R.drawable.ic_projects);
+                , "مدیریت سریع", R.drawable.ac_fast_project_white);
 
         datalist.add(item0);
+
+        AdapterInputType item10 = new AdapterInputType(null, ListViewCustomAdapter.DRAWER_ITEM
+                , "انبارداری", R.drawable.ac_fast_project_white);
+
+        datalist.add(item10);
 
         AdapterInputType item2 = new AdapterInputType(null, ListViewCustomAdapter.DRAWER_ITEM
                 , "درباره برنامه", R.drawable.ic_aboutus);
@@ -310,7 +315,8 @@ public class NavigationDrawerFragment extends Fragment {
     ImageView nav;
 
     boolean drawerIconClick = false;
-    public void openDrawer(){
+
+    public void openDrawer() {
         mDrawerLayout.openDrawer(Gravity.END);
 
         drawerIconClick = true;
@@ -319,7 +325,7 @@ public class NavigationDrawerFragment extends Fragment {
 
     }
 
-    public void closeDrawer(){
+    public void closeDrawer() {
         mDrawerLayout.closeDrawer(Gravity.END);
 
         drawerIconClick = true;
@@ -327,7 +333,6 @@ public class NavigationDrawerFragment extends Fragment {
         nav.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.anim_drawer_close));
 
     }
-
 
 
 }

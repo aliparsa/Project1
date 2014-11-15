@@ -175,8 +175,6 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
     }
 
 
-
-
     public void OnlyShow(LinearLayout lv) {
 
         if (ll_chart != null) ll_chart.setVisibility(LinearLayout.GONE);
@@ -396,11 +394,12 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
 
         Taradod taradod = ((Taradod) item.getTag());
 
+
         holder.taradodFullName.setText(taradod.getPersonnel().getFullName());
         holder.taradodDate.setText(taradod.getPersianDate());
         holder.taradodInOut.setText(taradod.getInOut().equals("in") ? "ورود" : "خروج");
 
-        if(taradod.getInOut().equals("in"))
+        if (taradod.getInOut().equals("in"))
             holder.taradodInOut.setTextColor(Color.GREEN);
         else
             holder.taradodInOut.setTextColor(Color.RED);

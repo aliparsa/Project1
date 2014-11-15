@@ -5,6 +5,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.text.InputType;
+import android.widget.EditText;
 
 import com.pga.project1.Activities.LoginActivity;
 import com.pga.project1.Intefaces.CallBackFunction;
@@ -32,9 +34,31 @@ public class HandleError {
                                 }
                             }
                     )
-                    .setNegativeButton("لغو", new DialogInterface.OnClickListener() {
+                    .setNegativeButton("تغییر سرور", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                                    builder.setTitle("آدرس سرور را وارد نمایید");
 
+                                    final EditText input = new EditText(context);
+                                    input.setText(Webservice.getSERVER_ADDRESS());
+                                    input.setInputType(InputType.TYPE_CLASS_TEXT);
+                                    builder.setView(input);
+
+                                    builder.setPositiveButton("ذخیره", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            Webservice.modifyServerAddress(input.getText().toString(), context);
+                                            callback.execute();
+                                        }
+                                    });
+                                    builder.setNegativeButton("لغو", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.cancel();
+                                        }
+                                    });
+
+                                    builder.show();
                                 }
                             }
                     )

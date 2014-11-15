@@ -13,8 +13,10 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import com.pga.project1.Intefaces.CallBack;
+import com.pga.project1.Intefaces.CallBackFunction;
 import com.pga.project1.R;
 import com.pga.project1.Utilities.Account;
+import com.pga.project1.Utilities.HandleError;
 import com.pga.project1.Utilities.ValidationMessage;
 import com.pga.project1.Utilities.Webservice;
 
@@ -89,13 +91,22 @@ public class LoginActivity extends Activity {
 
             @Override
             public void onError(String err) {
-                //Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT).show();
 
                 Animation animation = AnimationUtils.loadAnimation(context, R.anim.view_not_valid);
                 panel.startAnimation(animation);
 
                 btnLogin.setVisibility(View.VISIBLE);
                 loaderBar.setVisibility(View.GONE);
+
+                HandleError.HandleError(context, err, new CallBackFunction() {
+                    @Override
+                    public void execute() {
+
+                    }
+                });
+                //Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT).show();
+
+
             }
 
 

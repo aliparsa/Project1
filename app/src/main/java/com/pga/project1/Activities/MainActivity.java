@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pga.project1.DataModel.Chart;
+import com.pga.project1.DataModel.Taradod;
 import com.pga.project1.Helpers.DatabaseHelper;
 import com.pga.project1.Helpers.SyncHelper;
 import com.pga.project1.Intefaces.CallBack;
@@ -62,6 +63,7 @@ public class MainActivity extends Activity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         context = this;
         mNavigationDrawerFragment = (NavigationDrawerFragment)
@@ -181,21 +183,28 @@ public class MainActivity extends Activity
                 overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
                 break;
 
-            case 2:
+            case 3:
                 intent = new Intent(this, AboutAppActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
                 break;
 
-            case 3:
+            case 4:
                 intent = new Intent(this, AboutUsActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
                 break;
 
-            case 4:
+            case 5:
 
                 intent = new Intent(this, SettingActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
+                break;
+
+
+            case 2:
+                intent = new Intent(this, AnbarPickerActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
                 break;
@@ -337,12 +346,15 @@ public class MainActivity extends Activity
     @Override
     public void onBackPressed() {
 
+        int backStackEntryCount = getFragmentManager().getBackStackEntryCount();
+
         overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
 
         if (TwiceBackPressed) {
             finish();
             overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
         } else {
+            if (backStackEntryCount > 0)
             Toast.makeText(this, "جهت خروج دوبار بزنید", Toast.LENGTH_SHORT).show();
             TwiceBackPressed = true;
             new Handler().postDelayed(new Runnable() {

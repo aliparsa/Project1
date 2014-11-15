@@ -25,23 +25,22 @@ import java.util.Date;
  */
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-
-    // All Static variables
-    SQLiteDatabase database;
     // Database Version
     private static final int DATABASE_VERSION = 1;
 
     // Database Name
     private static final String DATABASE_NAME = "db.db";
 
-    // Contacts table name
+    // Contacts table names
     private static final String TABLE_PERSONNEL = "personnel";
     private static final String TABLE_TARADOD = "taradod";
     private static final String TABLE_WORK = "work";
     private static final String TABLE_FALIAT = "faliat";
     private static final String TABLE_PROJECTS = "projects";
+    private static final String TABLE_ANBAR = "anbar";
 
 
+    // Contacts Key names
     private static final String KEY_ID = "id";
     private static final String KEY_FIRSTNAME = "first_name";
     private static final String KEY_LASTNAME = "last_name";
@@ -50,25 +49,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String KEY_DATE = "date";
     private static final String KEY_SENT = "sent";
     private static final String KEY_IMAGE = "image";
-    private static final String KEY_NUMBER = "number";
     private static final String KEY_NAME = "name";
     private static final String KEY_TYPE = "type";
     private static final String KEY_PRICE = "price";
     private static final String KEY_WORK_CODE = "work_id";
     private static final String KEY_AMOUNT = "amount";
     private static final String KEY_PHONE = "phone";
-
-
-    SQLiteDatabase db;
-    private String KEY_TYPE_ID = "type_id";
-    private String KEY_PERSONAL_ID = "personnel_id";
-    private String KEY_PERSONAL = "personnel";
-    private String KEY_START_DATE = "start_date";
-    private String KEY_END_DATE = "end_date";
-    private String KEY_CREATED_AT = "created_at";
-    private String KEY_UPDATED_AT = "updated_at";
-    private String KEY_PROJECT_ID = "project_id";
-    private String KEY_HAS_ERROR = "has_error";
+    private static final String KEY_TYPE_ID = "type_id";
+    private static final String KEY_PERSONAL_ID = "personnel_id";
+    private static final String KEY_PERSONAL = "personnel";
+    private static final String KEY_START_DATE = "start_date";
+    private static final String KEY_END_DATE = "end_date";
+    private static final String KEY_CREATED_AT = "created_at";
+    private static final String KEY_UPDATED_AT = "updated_at";
+    private static final String KEY_PROJECT_ID = "project_id";
+    private static final String KEY_HAS_ERROR = "has_error";
+    private static final String KEY_IS_OWNER = "has_error";
 
 
     public DatabaseHelper(Context context) {
@@ -142,8 +138,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                         + ")";
         db.execSQL(CREATE_PROJECTS_TABLE);
 
+        String CREATE_ANBAR_TABLE =
+                "CREATE TABLE " + TABLE_ANBAR + "("
+                        + KEY_ID + " INTEGER PRIMARY KEY,"
+                        + KEY_NAME + " TEXT,"
+                        + KEY_IS_OWNER + " TEXT"
+                        + ")";
+        db.execSQL(CREATE_ANBAR_TABLE);
 
-        database = db;
+
     }
 
     @Override

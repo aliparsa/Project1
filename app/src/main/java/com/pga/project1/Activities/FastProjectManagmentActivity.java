@@ -259,7 +259,7 @@ public class FastProjectManagmentActivity extends ActionBarActivity {
 
     private void HandelInOut(final Personnel personnel) {
         DatabaseHelper db = new DatabaseHelper(context);
-        final String last_in_out = db.getPersonnelInOrOut(personnel);
+        //  final String last_in_out = db.getPersonnelInOrOut(personnel);
 
         final ViewDateTimePickerPersian pickerPersian = new ViewDateTimePickerPersian(context);
         new AlertDialog.Builder(context)
@@ -271,10 +271,10 @@ public class FastProjectManagmentActivity extends ActionBarActivity {
 
                                 try {
 
-                                    if (last_in_out != null && last_in_out.equals("in")) {
-                                        Toast.makeText(context, "این پرسنل قبلا وارد شده است", Toast.LENGTH_LONG).show();
-                                        return;
-                                    }
+//                                    if (last_in_out != null && last_in_out.equals("in")) {
+//                                        Toast.makeText(context, "این پرسنل قبلا وارد شده است", Toast.LENGTH_LONG).show();
+//                                        return;
+//                                    }
                                     String date = pickerPersian.getDate().getGregorianDate();
                                     String hour = pickerPersian.getHour() < 10 ? "0" + pickerPersian.getHour() : pickerPersian.getHour() + "";
                                     String minute = pickerPersian.getMinute() < 10 ? "0" + pickerPersian.getMinute() : pickerPersian.getMinute() + "";
@@ -300,10 +300,10 @@ public class FastProjectManagmentActivity extends ActionBarActivity {
                                     @Override
                                     public void onClick(DialogInterface dialogInterface, int i) {
                                         try {
-                                            if (last_in_out == null || last_in_out.equals("out")) {
-                                                Toast.makeText(context, "این پرسنل هنوز وارد نشده", Toast.LENGTH_LONG).show();
-                                                return;
-                                            }
+//                                            if (last_in_out == null || last_in_out.equals("out")) {
+//                                                Toast.makeText(context, "این پرسنل هنوز وارد نشده", Toast.LENGTH_LONG).show();
+//                                                return;
+//                                            }
 
                                             String date = pickerPersian.getDate().getGregorianDate();
                                             String hour = pickerPersian.getHour() < 10 ? "0" + pickerPersian.getHour() : pickerPersian.getHour() + "";
