@@ -1,5 +1,12 @@
 package com.pga.project1.DataModel;
 
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.TextView;
+
+import com.pga.project1.R;
+
 /**
  * Created by parsa on 2014-11-15.
  */
@@ -106,5 +113,49 @@ public class AnbarTransaction {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+
+    public View getView(Context context, View oldView) {
+        if (oldView == null || !(oldView.getTag() instanceof AnbarTransaction)) {
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            oldView = inflater.inflate(R.layout.anbar_transaction_item, null);
+            Holder anbarHolder = new Holder();
+            oldView.setTag(anbarHolder);
+            getItem(anbarHolder, oldView);
+            return oldView;
+        } else {
+            Holder anbarHolder = (Holder) oldView.getTag();
+            getItem(anbarHolder, oldView);
+            return oldView;
+        }
+    }
+
+    private void getItem(Holder holder, View view) {
+
+        holder.anbarTransaction = this;
+
+        if (holder.kala_name == null)
+            holder.kala_name = (TextView) view.findViewById(R.id.kala_name);
+
+        holder.kala_name.setText(getProduct_id());
+
+
+    }
+
+
+    public class Holder {
+        TextView kala_name;
+        TextView amount;
+        TextView in_out;
+        TextView date;
+
+
+        private AnbarTransaction anbarTransaction;
+
+        public AnbarTransaction getAnbarTransaction() {
+            return anbarTransaction;
+        }
+
     }
 }

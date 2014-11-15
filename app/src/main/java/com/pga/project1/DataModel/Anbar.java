@@ -91,18 +91,18 @@ public class Anbar implements ListViewItemINTERFACE, Serializable {
             oldView = inflater.inflate(R.layout.anbar_item, null);
             Holder anbarHolder = new Holder();
             oldView.setTag(anbarHolder);
-            getTaradodItem(anbarHolder, oldView);
+            getItem(anbarHolder, oldView);
 
 
             return oldView;
         } else {
             Holder anbarHolder = (Holder) oldView.getTag();
-            getTaradodItem(anbarHolder, oldView);
+            getItem(anbarHolder, oldView);
             return oldView;
         }
     }
 
-    private void getTaradodItem(Holder holder, View view) {
+    private void getItem(Holder holder, View view) {
 
         holder.anbar = this;
 
