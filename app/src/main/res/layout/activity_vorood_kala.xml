@@ -11,7 +11,7 @@
 
 
     <Button
-        android:id="@+id/vorood_kala"
+        android:id="@+id/entekhab_kala"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="انتخاب کالای ورودی" />
@@ -46,7 +46,7 @@
             android:layout_height="wrap_content"
             android:text="ورود از تامین کننده"
             android:layout_weight=".5"
-            android:id="@+id/button2" />
+            android:id="@+id/TaminKonandePicker" />
 
     </LinearLayout>
 

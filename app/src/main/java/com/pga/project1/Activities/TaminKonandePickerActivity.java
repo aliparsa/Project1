@@ -16,7 +16,7 @@ import com.pga.project1.R;
 import com.pga.project1.Utilities.FontHelper;
 import com.pga.project1.Utilities.Fonts;
 
-public class ItemsProviderPickerActivity extends Activity {
+public class TaminKonandePickerActivity extends Activity {
 
     private SearchView searchView;
     private ImageView refreshButton;

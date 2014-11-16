@@ -2,11 +2,12 @@ package com.pga.project1.Activities;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -18,14 +19,36 @@ import com.pga.project1.Utilities.Fonts;
 public class VoroodKalaActivity extends Activity {
 
     private ImageView save;
+    Button buttonVoroodKala;
+    Button buttonTaminKonandePicker;
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vorood_kala);
-
-
         prepareActionBar();
+        context = this;
+        buttonVoroodKala = (Button) findViewById(R.id.entekhab_kala);
+        buttonTaminKonandePicker = (Button) findViewById(R.id.TaminKonandePicker);
+
+
+        buttonVoroodKala.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, KalaPickerActivity.class);
+                startActivityForResult(intent, 1111);
+            }
+        });
+
+        buttonTaminKonandePicker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, TaminKonandePickerActivity.class);
+                startActivityForResult(intent, 2222);
+            }
+        });
+
 
     }
 
