@@ -108,8 +108,7 @@ public class TaminKonandePickerActivity extends Activity {
         refreshButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SyncHelper.syncItemsProvider(context);
-          /*      ), new CallBack() {
+                SyncHelper.syncItemsProvider(context, new CallBack() {
                     @Override
                     public void onSuccess(Object result) {
 
@@ -121,7 +120,7 @@ public class TaminKonandePickerActivity extends Activity {
                     public void onError(String errorMessage) {
 
                     }
-                });*/
+                });
             }
         });
 
@@ -138,20 +137,20 @@ public class TaminKonandePickerActivity extends Activity {
 
     private void loadProvider(String s) {
 
-//        pm.refresh();
-//
-//        ArrayList<ListViewItemINTERFACE> itemList = new ArrayList<ListViewItemINTERFACE>();
-//
-//        DatabaseHelper db = new DatabaseHelper(context);
-//
-//        ArrayList<TaminKonande> tamins = db.getTaminKonnande(s);
-//
-//        for (TaminKonande tamin:tamins) {
-//            itemList.add(tamin);
-//        }
-//
-//        ListViewObjectAdapter adapter = new ListViewObjectAdapter(context, itemList);
-//        lv.setAdapter(adapter);
+        pm.refresh();
+
+        ArrayList<ListViewItemINTERFACE> itemList = new ArrayList<ListViewItemINTERFACE>();
+
+        DatabaseHelper db = new DatabaseHelper(context);
+
+        ArrayList<TaminKonande> tamins = db.getTaminKonnande(s);
+
+        for (TaminKonande tamin:tamins) {
+            itemList.add(tamin);
+        }
+
+        ListViewObjectAdapter adapter = new ListViewObjectAdapter(context, itemList);
+        lv.setAdapter(adapter);
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

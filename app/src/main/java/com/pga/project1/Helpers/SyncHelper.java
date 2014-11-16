@@ -197,7 +197,7 @@ public class SyncHelper {
     }
 
 
-    public static void syncItemsProvider(final Context context) {
+    public static void syncItemsProvider(final Context context, final CallBack callback) {
         final DatabaseHelper db = new DatabaseHelper(context);
 
         Webservice.getProvider(context, new CallBack<ArrayList<TaminKonande>>() {
@@ -207,6 +207,8 @@ public class SyncHelper {
                 for (TaminKonande taminKonande : result) {
                     db.insertItemsProvider(taminKonande);
                 }
+
+                callback.onSuccess(null);
             }
 
             @Override

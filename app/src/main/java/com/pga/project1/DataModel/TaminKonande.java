@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
+import com.pga.project1.Intefaces.ListViewItemINTERFACE;
 import com.pga.project1.R;
 
 import org.json.JSONArray;
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 /**
  * Created by parsa on 2014-11-15.
  */
-public class TaminKonande {
+public class TaminKonande implements ListViewItemINTERFACE {
     public int getId() {
         return id;
     }

@@ -97,7 +97,17 @@ public class MainActivity extends Activity
             public void onError(String errorMessage) {
             }
         });
-        SyncHelper.syncItemsProvider(context);
+        SyncHelper.syncItemsProvider(context, new CallBack() {
+            @Override
+            public void onSuccess(Object result) {
+
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+
+            }
+        });
         SyncHelper.syncProduct(context, new CallBack() {
             @Override
             public void onSuccess(Object result) {

@@ -779,4 +779,36 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return products;
     }
+
+    public ArrayList<TaminKonande> getTaminKonnande(String key) {
+        ArrayList<TaminKonande> taminKonandes = new ArrayList<TaminKonande>();
+
+        SQLiteDatabase db = getReadableDatabase();
+
+        String condition = "";
+        if ((key != null) && (key.length() > 0))
+            condition = " WHERE " + KEY_NAME + " like \"" + key + "%\" OR " + KEY_NAME + " like \"%" + key + "%";
+        final Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_ITEMS_PROVIDER + condition, null);
+
+
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+
+                do {
+
+                    TaminKonande tamin = new TaminKonande(
+                            cursor.getInt(cursor.getColumnIndex(KEY_ID)),
+                            cursor.getString(cursor.getColumnIndex(KEY_NAME)),
+                            cursor.getString(cursor.getColumnIndex(KEY_OWNER))
+                    );
+
+
+                    taminKonandes.add(tamin);
+
+                } while (cursor.moveToNext());
+            }
+        }
+
+        return taminKonandes;
+    }
 }
