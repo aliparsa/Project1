@@ -3,6 +3,7 @@ package com.pga.project1.Activities;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Menu;
@@ -95,7 +96,8 @@ public class KalaPickerActivity extends Activity {
 
             @Override
             public boolean onQueryTextChange(String s) {
-                return false;
+                loadKala(s);
+                return true;
             }
         });
 
@@ -144,7 +146,7 @@ public class KalaPickerActivity extends Activity {
 
         DatabaseHelper db = new DatabaseHelper(context);
 
-        ArrayList<Product> kalas = db.getProducts(null);
+        ArrayList<Product> kalas = db.getProducts(s);
 
         for (Product kala:kalas) {
             itemList.add(kala);
@@ -157,6 +159,12 @@ public class KalaPickerActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 //TODO item selected
+                Product product = ((Product.Holder) view.getTag()).getProduct();
+
+                Intent returnIntent = new Intent();
+                returnIntent.putExtra("product", product);
+                setResult(RESULT_OK, returnIntent);
+                finish();
             }
         });
 

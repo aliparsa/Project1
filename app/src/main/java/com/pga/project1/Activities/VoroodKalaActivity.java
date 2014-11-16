@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.pga.project1.DataModel.Product;
 import com.pga.project1.R;
 import com.pga.project1.Utilities.FontHelper;
 import com.pga.project1.Utilities.Fonts;
@@ -22,6 +23,10 @@ public class VoroodKalaActivity extends Activity {
     Button buttonVoroodKala;
     Button buttonTaminKonandePicker;
     private Context context;
+    final int KALA_REQUEST_CODE = 1111;
+    final int TAMINKONANDE_REQUEST_CODE = 2222;
+    TextView selectedKala;
+    Product product;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,13 +36,13 @@ public class VoroodKalaActivity extends Activity {
         context = this;
         buttonVoroodKala = (Button) findViewById(R.id.entekhab_kala);
         buttonTaminKonandePicker = (Button) findViewById(R.id.TaminKonandePicker);
-
+        selectedKala = (TextView) findViewById(R.id.selected_kala);
 
         buttonVoroodKala.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, KalaPickerActivity.class);
-                startActivityForResult(intent, 1111);
+                startActivityForResult(intent, KALA_REQUEST_CODE);
             }
         });
 
@@ -45,7 +50,7 @@ public class VoroodKalaActivity extends Activity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, TaminKonandePickerActivity.class);
-                startActivityForResult(intent, 2222);
+                startActivityForResult(intent, TAMINKONANDE_REQUEST_CODE);
             }
         });
 
@@ -86,5 +91,14 @@ public class VoroodKalaActivity extends Activity {
         });
 
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == KALA_REQUEST_CODE && resultCode == RESULT_OK) {
+            product = (Product) data.getSerializableExtra("product");
+            selectedKala.setText(product.getName());
+        }
     }
 }

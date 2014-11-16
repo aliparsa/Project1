@@ -1258,6 +1258,7 @@ containing a value of this type.
     public static final class id {
         public static final int ImageLoaderView_show_Image=0x7f080055;
         public static final int ImageView_show_Image=0x7f080054;
+        public static final int TaminKonandePicker=0x7f080087;
         public static final int ac_action1=0x7f080040;
         public static final int ac_action2=0x7f080041;
         public static final int ac_action3=0x7f080042;
@@ -1295,7 +1296,6 @@ containing a value of this type.
         public static final int btn_fragmentNewReportWork_selectPercent=0x7f08004f;
         public static final int button=0x7f080086;
         public static final int button1=0x7f080083;
-        public static final int button2=0x7f080087;
         public static final int button_end_date=0x7f080060;
         public static final int button_start_date=0x7f08005f;
         public static final int chart_date=0x7f080098;
@@ -1424,6 +1424,7 @@ containing a value of this type.
         public static final int search_plate=0x7f080036;
         public static final int search_src_text=0x7f080037;
         public static final int search_voice_btn=0x7f08003b;
+        public static final int selected_kala=0x7f080085;
         public static final int shortcut=0x7f08002e;
         public static final int showCustom=0x7f080007;
         public static final int showHome=0x7f080004;
@@ -1444,7 +1445,6 @@ containing a value of this type.
         public static final int textView2=0x7f08004c;
         public static final int textView3=0x7f08005e;
         public static final int textView4=0x7f080051;
-        public static final int textView5=0x7f080085;
         public static final int textview_current_server_address=0x7f08007f;
         public static final int timePicker=0x7f08006d;
         public static final int title=0x7f08002b;
