@@ -11,7 +11,7 @@ import com.pga.project1.DataModel.Anbar;
 import com.pga.project1.DataModel.AnbarTransaction;
 import com.pga.project1.DataModel.Chart;
 import com.pga.project1.DataModel.Faliat;
-import com.pga.project1.DataModel.ItemsProvider;
+import com.pga.project1.DataModel.TaminKonande;
 import com.pga.project1.DataModel.Personnel;
 import com.pga.project1.DataModel.Product;
 import com.pga.project1.DataModel.Taradod;
@@ -280,7 +280,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         getReadableDatabase().execSQL("Delete from " + TABLE_PERSONNEL);
     }
 
-    public ArrayList<Taradod> getAllUnsentTaradod(){
+    public ArrayList<Taradod> getAllUnsentTaradod() {
 
         ArrayList<Taradod> taradods = new ArrayList<Taradod>();
 
@@ -292,15 +292,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
                 do {
 
-                   Taradod taradod = new Taradod(
-                           cursor.getInt(cursor.getColumnIndex(KEY_ID)),
-                           cursor.getString(cursor.getColumnIndex(KEY_CODE)),
-                           cursor.getString(cursor.getColumnIndex(KEY_IN_OUT)),
-                           cursor.getInt(cursor.getColumnIndex(KEY_SENT)),
-                           cursor.getString(cursor.getColumnIndex(KEY_DATE)),
-                           cursor.getString(cursor.getColumnIndex(KEY_PROJECT_ID)),
-                           cursor.getString(cursor.getColumnIndex(KEY_HAS_ERROR))
-                           );
+                    Taradod taradod = new Taradod(
+                            cursor.getInt(cursor.getColumnIndex(KEY_ID)),
+                            cursor.getString(cursor.getColumnIndex(KEY_CODE)),
+                            cursor.getString(cursor.getColumnIndex(KEY_IN_OUT)),
+                            cursor.getInt(cursor.getColumnIndex(KEY_SENT)),
+                            cursor.getString(cursor.getColumnIndex(KEY_DATE)),
+                            cursor.getString(cursor.getColumnIndex(KEY_PROJECT_ID)),
+                            cursor.getString(cursor.getColumnIndex(KEY_HAS_ERROR))
+                    );
 
                     taradods.add(taradod);
 
@@ -391,10 +391,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     );
 
                     Personnel personnel = new Personnel();
-                    personnel.setId(cursor.getInt(cursor.getColumnIndex(TABLE_PERSONNEL +"."+ KEY_ID)));
+                    personnel.setId(cursor.getInt(cursor.getColumnIndex(TABLE_PERSONNEL + "." + KEY_ID)));
                     personnel.setFirst_name(cursor.getString(cursor.getColumnIndex(KEY_FIRSTNAME)));
                     personnel.setLast_name(cursor.getString(cursor.getColumnIndex(KEY_LASTNAME)));
-                    personnel.setPersonnel_code(cursor.getString(cursor.getColumnIndex(TABLE_PERSONNEL +"."+KEY_CODE)));
+                    personnel.setPersonnel_code(cursor.getString(cursor.getColumnIndex(TABLE_PERSONNEL + "." + KEY_CODE)));
                     personnel.setPersonnel_image((cursor.getString(cursor.getColumnIndex(KEY_IMAGE))));
                     personnel.setPhone_number((cursor.getString(cursor.getColumnIndex(KEY_PHONE))));
 
@@ -427,9 +427,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 do {
 
                     Faliat faliat = new Faliat(
-                            cursor.getInt(cursor.getColumnIndex(TABLE_FALIAT +"."+ KEY_ID)),
-                            cursor.getString(cursor.getColumnIndex(TABLE_FALIAT +"."+ KEY_CODE)),
-                            cursor.getString(cursor.getColumnIndex(TABLE_FALIAT +"."+ KEY_WORK_CODE)),
+                            cursor.getInt(cursor.getColumnIndex(TABLE_FALIAT + "." + KEY_ID)),
+                            cursor.getString(cursor.getColumnIndex(TABLE_FALIAT + "." + KEY_CODE)),
+                            cursor.getString(cursor.getColumnIndex(TABLE_FALIAT + "." + KEY_WORK_CODE)),
                             cursor.getString(cursor.getColumnIndex(KEY_AMOUNT)),
                             cursor.getString(cursor.getColumnIndex(KEY_DATE)),
                             cursor.getInt(cursor.getColumnIndex(KEY_SENT)),
@@ -437,17 +437,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     );
 
                     Personnel personnel = new Personnel();
-                    personnel.setId(cursor.getInt(cursor.getColumnIndex(TABLE_PERSONNEL +"."+ KEY_ID)));
+                    personnel.setId(cursor.getInt(cursor.getColumnIndex(TABLE_PERSONNEL + "." + KEY_ID)));
                     personnel.setFirst_name(cursor.getString(cursor.getColumnIndex(KEY_FIRSTNAME)));
                     personnel.setLast_name(cursor.getString(cursor.getColumnIndex(KEY_LASTNAME)));
-                    personnel.setPersonnel_code(cursor.getString(cursor.getColumnIndex(TABLE_PERSONNEL +"."+KEY_CODE)));
+                    personnel.setPersonnel_code(cursor.getString(cursor.getColumnIndex(TABLE_PERSONNEL + "." + KEY_CODE)));
                     personnel.setPersonnel_image((cursor.getString(cursor.getColumnIndex(KEY_IMAGE))));
                     personnel.setPhone_number((cursor.getString(cursor.getColumnIndex(KEY_PHONE))));
 
                     faliat.setPersonnel(personnel);
 
                     Work work = new Work();
-                    work.setId(cursor.getInt(cursor.getColumnIndex(TABLE_WORK +"."+KEY_ID)));
+                    work.setId(cursor.getInt(cursor.getColumnIndex(TABLE_WORK + "." + KEY_ID)));
                     work.setName(cursor.getString(cursor.getColumnIndex(KEY_NAME)));
                     work.setType(cursor.getString(cursor.getColumnIndex(KEY_TYPE)));
                     work.setPrice(cursor.getInt(cursor.getColumnIndex(KEY_PRICE)));
@@ -574,7 +574,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return faliats;
     }
 
-    public void markAsSentFaliat(ArrayList<Faliat> faliats){
+    public void markAsSentFaliat(ArrayList<Faliat> faliats) {
 
         String idIn = "(";
 
@@ -595,7 +595,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public void markAsSentTaradod(ArrayList<Taradod> taradods){
+    public void markAsSentTaradod(ArrayList<Taradod> taradods) {
 
         String idIn = "(";
 
@@ -686,11 +686,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return anbars;
     }
 
-    public void insertItemsProvider(ItemsProvider itemsProvider) {
+    public void insertItemsProvider(TaminKonande taminKonande) {
         ContentValues values = new ContentValues();
-        values.put(KEY_ID, itemsProvider.getId());
-        values.put(KEY_NAME, itemsProvider.getName());
-        values.put(KEY_OWNER, itemsProvider.getOwner());
+        values.put(KEY_ID, taminKonande.getId());
+        values.put(KEY_NAME, taminKonande.getName());
+        values.put(KEY_OWNER, taminKonande.getOwner());
         this.getWritableDatabase().insert(TABLE_ITEMS_PROVIDER, null, values);
     }
 

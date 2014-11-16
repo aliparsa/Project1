@@ -8,7 +8,7 @@ import java.util.ArrayList;
 /**
  * Created by parsa on 2014-11-15.
  */
-public class ItemsProvider {
+public class TaminKonande {
     public int getId() {
         return id;
     }
@@ -37,15 +37,15 @@ public class ItemsProvider {
     String name;
     String owner;
 
-    public ItemsProvider(int id, String name, String owner) {
+    public TaminKonande(int id, String name, String owner) {
         this.id = id;
         this.name = name;
         this.owner = owner;
 
     }
 
-    public static ArrayList<ItemsProvider> getArrayFromJson(JSONArray jsonArray) {
-        ArrayList<ItemsProvider> itemlist = new ArrayList<ItemsProvider>();
+    public static ArrayList<TaminKonande> getArrayFromJson(JSONArray jsonArray) {
+        ArrayList<TaminKonande> itemlist = new ArrayList<TaminKonande>();
 
 
         for (int i = 0; i < jsonArray.length(); i++) {
@@ -59,9 +59,9 @@ public class ItemsProvider {
                 String owner = jsonObject.getString("owner");
 
 
-                ItemsProvider itemsProvider = new ItemsProvider(id, name, owner);
+                TaminKonande taminKonande = new TaminKonande(id, name, owner);
 
-                itemlist.add(itemsProvider);
+                itemlist.add(taminKonande);
 
             } catch (Exception e) {
                 continue;

@@ -10,7 +10,7 @@ import com.pga.project1.Activities.LoginActivity;
 import com.pga.project1.DataModel.Anbar;
 import com.pga.project1.DataModel.Chart;
 import com.pga.project1.DataModel.Faliat;
-import com.pga.project1.DataModel.ItemsProvider;
+import com.pga.project1.DataModel.TaminKonande;
 import com.pga.project1.DataModel.Product;
 import com.pga.project1.DataModel.ServerResponse;
 import com.pga.project1.DataModel.Taradod;
@@ -200,12 +200,12 @@ public class SyncHelper {
     public static void syncItemsProvider(final Context context) {
         final DatabaseHelper db = new DatabaseHelper(context);
 
-        Webservice.getProvider(context, new CallBack<ArrayList<ItemsProvider>>() {
+        Webservice.getProvider(context, new CallBack<ArrayList<TaminKonande>>() {
             @Override
-            public void onSuccess(ArrayList<ItemsProvider> result) {
+            public void onSuccess(ArrayList<TaminKonande> result) {
                 db.emptyItemsProviderTable();
-                for (ItemsProvider itemsProvider : result) {
-                    db.insertItemsProvider(itemsProvider);
+                for (TaminKonande taminKonande : result) {
+                    db.insertItemsProvider(taminKonande);
                 }
             }
 

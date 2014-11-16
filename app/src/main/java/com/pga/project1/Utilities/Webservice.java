@@ -8,7 +8,7 @@ import android.util.Log;
 import com.pga.project1.DataModel.Anbar;
 import com.pga.project1.DataModel.Chart;
 import com.pga.project1.DataModel.Faliat;
-import com.pga.project1.DataModel.ItemsProvider;
+import com.pga.project1.DataModel.TaminKonande;
 import com.pga.project1.DataModel.Personnel;
 import com.pga.project1.DataModel.Product;
 import com.pga.project1.DataModel.Report;
@@ -985,7 +985,7 @@ public class Webservice {
 
     //---------------------------------------------------------------------
 
-    public static void getProvider(Context context, final CallBack<ArrayList<ItemsProvider>> callBack) {
+    public static void getProvider(Context context, final CallBack<ArrayList<TaminKonande>> callBack) {
 
         prepareServerAddress(context);
 
@@ -1010,8 +1010,8 @@ public class Webservice {
                         }
                         case SC_OK: {
                             JSONArray jsonArray = new JSONArray(response.getResult());
-                            ArrayList<ItemsProvider> itemsProviders = ItemsProvider.getArrayFromJson(jsonArray);
-                            callBack.onSuccess(itemsProviders);
+                            ArrayList<TaminKonande> taminKonandes = TaminKonande.getArrayFromJson(jsonArray);
+                            callBack.onSuccess(taminKonandes);
                             break;
                         }
 
