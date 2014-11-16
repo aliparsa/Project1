@@ -1270,7 +1270,7 @@ containing a value of this type.
         public static final int ac_reload=0x7f080045;
         public static final int ac_search=0x7f080046;
         public static final int ac_title=0x7f08003d;
-        public static final int action_back=0x7f0800d4;
+        public static final int action_back=0x7f0800d6;
         public static final int action_bar=0x7f08001c;
         public static final int action_bar_activity_content=0x7f080014;
         public static final int action_bar_container=0x7f08001b;
@@ -1282,8 +1282,8 @@ containing a value of this type.
         public static final int action_menu_divider=0x7f080015;
         public static final int action_menu_presenter=0x7f080016;
         public static final int action_mode_close_button=0x7f080024;
-        public static final int action_navi=0x7f0800d3;
-        public static final int action_settings=0x7f0800d2;
+        public static final int action_navi=0x7f0800d5;
+        public static final int action_settings=0x7f0800d4;
         public static final int activity_chooser_view_content=0x7f080025;
         public static final int always=0x7f08000f;
         public static final int amount=0x7f08008c;
@@ -1371,7 +1371,7 @@ containing a value of this type.
         public static final int ll_report_subtitle=0x7f0800ac;
         public static final int ll_report_title=0x7f0800ab;
         public static final int ll_taradod=0x7f08008a;
-        public static final int ll_viewPathMap_main=0x7f0800d1;
+        public static final int ll_viewPathMap_main=0x7f0800d3;
         public static final int lv_anbarTrans=0x7f080066;
         public static final int lv_anbarspicker=0x7f080067;
         public static final int lv_faliatListView=0x7f0800b9;
@@ -1389,11 +1389,11 @@ containing a value of this type.
         public static final int never=0x7f08000d;
         public static final int none=0x7f080009;
         public static final int normal=0x7f080000;
-        public static final int numPic_datepicker_day=0x7f0800ce;
-        public static final int numPic_datepicker_hour=0x7f0800ca;
-        public static final int numPic_datepicker_minute=0x7f0800cb;
-        public static final int numPic_datepicker_month=0x7f0800cd;
-        public static final int numPic_datepicker_year=0x7f0800cc;
+        public static final int numPic_datepicker_day=0x7f0800d0;
+        public static final int numPic_datepicker_hour=0x7f0800cc;
+        public static final int numPic_datepicker_minute=0x7f0800cd;
+        public static final int numPic_datepicker_month=0x7f0800cf;
+        public static final int numPic_datepicker_year=0x7f0800ce;
         public static final int option_server_address=0x7f08007e;
         public static final int pager=0x7f080057;
         public static final int personnelInfo=0x7f08005b;
@@ -1436,6 +1436,8 @@ containing a value of this type.
         public static final int submit_area=0x7f080039;
         public static final int tabMode=0x7f080002;
         public static final int tab_host=0x7f080059;
+        public static final int tamin_konande_name=0x7f0800ca;
+        public static final int tamin_konande_owner=0x7f0800cb;
         public static final int taradod_date=0x7f0800b7;
         public static final int taradod_flag=0x7f08008e;
         public static final int taradod_fullname=0x7f0800b6;
@@ -1461,8 +1463,8 @@ containing a value of this type.
         public static final int txt_people_groups=0x7f0800a3;
         public static final int txt_people_name=0x7f0800a1;
         public static final int txt_people_phone=0x7f0800a2;
-        public static final int txt_view_name_value_name=0x7f0800d0;
-        public static final int txt_view_name_value_value=0x7f0800cf;
+        public static final int txt_view_name_value_name=0x7f0800d2;
+        public static final int txt_view_name_value_value=0x7f0800d1;
         public static final int up=0x7f080021;
         public static final int useLogo=0x7f080003;
         public static final int view=0x7f080056;
@@ -1550,10 +1552,11 @@ containing a value of this type.
         public static final int product_item=0x7f030049;
         public static final int spiner_item=0x7f03004a;
         public static final int support_simple_spinner_dropdown_item=0x7f03004b;
-        public static final int taradod_item=0x7f03004c;
-        public static final int view_datepicker=0x7f03004d;
-        public static final int view_name_value=0x7f03004e;
-        public static final int view_pathmap=0x7f03004f;
+        public static final int tamin_konade_item=0x7f03004c;
+        public static final int taradod_item=0x7f03004d;
+        public static final int view_datepicker=0x7f03004e;
+        public static final int view_name_value=0x7f03004f;
+        public static final int view_pathmap=0x7f030050;
     }
     public static final class menu {
         public static final int anbar=0x7f0d0000;

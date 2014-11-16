@@ -1,5 +1,12 @@
 package com.pga.project1.DataModel;
 
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.TextView;
+
+import com.pga.project1.R;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -71,5 +78,51 @@ public class TaminKonande {
 
 
         return itemlist;
+    }
+
+
+    public View getView(Context context, View oldView) {
+        if (oldView == null || !(oldView.getTag() instanceof TaminKonande)) {
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            oldView = inflater.inflate(R.layout.tamin_konade_item, null);
+            Holder holder = new Holder();
+            oldView.setTag(holder);
+            getItem(holder, oldView);
+            return oldView;
+        } else {
+            Holder holder = (Holder) oldView.getTag();
+            getItem(holder, oldView);
+            return oldView;
+        }
+    }
+
+    private void getItem(Holder holder, View view) {
+
+        holder.taminKonande = this;
+
+        if (holder.taminKonande_name == null)
+            holder.taminKonande_name = (TextView) view.findViewById(R.id.tamin_konande_name);
+
+        holder.taminKonande_name.setText(getName());
+
+        if (holder.taminKonande_owner == null)
+            holder.taminKonande_owner = (TextView) view.findViewById(R.id.tamin_konande_owner);
+
+        holder.taminKonande_owner.setText(getOwner());
+
+
+    }
+
+    public class Holder {
+        TextView taminKonande_name;
+        TextView taminKonande_owner;
+
+
+        private TaminKonande taminKonande;
+
+        public TaminKonande getTaminKonande() {
+            return taminKonande;
+        }
+
     }
 }
