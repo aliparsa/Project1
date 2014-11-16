@@ -749,4 +749,34 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(KEY_DESCRIPTION, anbarTransaction.getDescription());
         this.getWritableDatabase().insert(TABLE_ANBAR_TRANSACTION, null, values);
     }
+
+    public ArrayList<Product> getProducts(String key) {
+        ArrayList<Product> products = new ArrayList<Product>();
+
+        SQLiteDatabase db = getReadableDatabase();
+
+        String condition = "";
+        if ((key != null) && (key.length() > 0))
+            condition = " WHERE " + KEY_NAME + " like \"" + key + "%\"";
+        final Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_PRODUCT + condition, null);
+
+
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+
+                do {
+
+                    Product product = new Product(
+                            cursor.getInt(cursor.getColumnIndex(KEY_ID)),
+                            cursor.getString(cursor.getColumnIndex(KEY_NAME))
+                    );
+
+                    products.add(product);
+
+                } while (cursor.moveToNext());
+            }
+        }
+
+        return products;
+    }
 }
