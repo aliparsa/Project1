@@ -2,22 +2,33 @@ package com.pga.project1.Activities;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
 
+import com.pga.project1.Adapters.ListViewObjectAdapter;
+import com.pga.project1.DataModel.Anbar;
 import com.pga.project1.DataModel.PathObject;
+import com.pga.project1.DataModel.Product;
+import com.pga.project1.Helpers.DatabaseHelper;
+import com.pga.project1.Helpers.SyncHelper;
+import com.pga.project1.Intefaces.CallBack;
+import com.pga.project1.Intefaces.ListViewItemINTERFACE;
 import com.pga.project1.R;
 import com.pga.project1.Utilities.FontHelper;
 import com.pga.project1.Utilities.Fonts;
 import com.pga.project1.Viewes.PathMapManager;
+
+import java.util.ArrayList;
 
 public class KalaPickerActivity extends Activity {
     private SearchView searchView;
@@ -25,6 +36,8 @@ public class KalaPickerActivity extends Activity {
     private ImageView refreshButton;
     private ListView lv;
     private PathMapManager pm;
+    private Context context;
+    private ListViewObjectAdapter adapter;
 
 
     @Override
@@ -32,6 +45,7 @@ public class KalaPickerActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_kala_picker);
 
+        context = this;
         lv = (ListView) findViewById(R.id.lv_kalapicker);
 
         pm = (PathMapManager) findViewById(R.id.pmm);
@@ -95,6 +109,19 @@ public class KalaPickerActivity extends Activity {
             @Override
             public void onClick(View view) {
                 //loadPersonalsFromWeb("");
+                SyncHelper.syncProduct(context, new CallBack() {
+                    @Override
+                    public void onSuccess(Object result) {
+
+                        searchView.setQuery("", false);
+                        loadKala(null);
+                    }
+
+                    @Override
+                    public void onError(String errorMessage) {
+
+                    }
+                });
             }
         });
 
@@ -111,7 +138,27 @@ public class KalaPickerActivity extends Activity {
 
     private void loadKala(String s) {
 
+        pm.refresh();
 
-        //TODO load kalas s == null to load all
+        ArrayList<ListViewItemINTERFACE> itemList = new ArrayList<ListViewItemINTERFACE>();
+
+        DatabaseHelper db = new DatabaseHelper(context);
+
+        ArrayList<Product> kalas = db.getProducts(null);
+
+        for (Product kala:kalas) {
+            itemList.add(kala);
+        }
+
+        adapter = new ListViewObjectAdapter(context, itemList);
+        lv.setAdapter(adapter);
+
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                //TODO item selected
+            }
+        });
+
     }
 }
