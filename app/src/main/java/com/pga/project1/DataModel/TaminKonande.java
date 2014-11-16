@@ -11,12 +11,13 @@ import com.pga.project1.R;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by parsa on 2014-11-15.
  */
-public class TaminKonande implements ListViewItemINTERFACE {
+public class TaminKonande implements ListViewItemINTERFACE, Serializable {
     public int getId() {
         return id;
     }

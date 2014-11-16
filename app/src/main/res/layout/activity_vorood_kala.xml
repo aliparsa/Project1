@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:text="ورود از انبار دیگر"
             android:layout_weight=".5"
-            android:id="@+id/button" />
+            android:id="@+id/anbar_picker" />
 
         <Button
             android:layout_width="wrap_content"
@@ -62,7 +62,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:id="@+id/textView4" />
+        android:id="@+id/selected_tamin_konande" />
 
 
     <EditText

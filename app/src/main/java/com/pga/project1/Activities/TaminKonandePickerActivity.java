@@ -156,12 +156,11 @@ public class TaminKonandePickerActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 //TODO provider selected
-/*                Product product = ((Product.Holder) view.getTag()).getProduct();
-
+                TaminKonande taminKonande = ((TaminKonande.Holder) view.getTag()).getTaminKonande();
                 Intent returnIntent = new Intent();
-                returnIntent.putExtra("product", product);
+                returnIntent.putExtra("tamin_konande", taminKonande);
                 setResult(RESULT_OK, returnIntent);
-                finish();*/
+                finish();
             }
         });
     }

@@ -38,6 +38,7 @@ public class AnbarPickerActivity extends Activity {
     private ArrayList<Anbar> anbars;
     private Context context;
     private ListViewObjectAdapter adapter;
+    private boolean fromVoroodKala;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +52,13 @@ public class AnbarPickerActivity extends Activity {
 
         //TODO create function to handle listview loading
 
+
+        if (getIntent().hasExtra("from_vorood_kala"))
+            fromVoroodKala = true;
+        else
+            fromVoroodKala = false;
+
+
         pathManager = (PathMapManager) findViewById(R.id.pmm);
         pathManager.clear();
         PathMapManager.push(new PathObject("انبار های من"));
@@ -59,9 +67,6 @@ public class AnbarPickerActivity extends Activity {
         prepareActionBar();
 
 
-        // load
-        final DatabaseHelper db = new DatabaseHelper(this);
-        anbars = db.getMyAnbars();
         loadAnbars();
     }
 
@@ -123,7 +128,12 @@ public class AnbarPickerActivity extends Activity {
 
         DatabaseHelper db = new DatabaseHelper(context);
 
-        anbars = db.getMyAnbars();
+        if (fromVoroodKala) {
+            anbars = db.getAllAnbars();
+        } else {
+            anbars = db.getMyAnbars();
+        }
+
 
         for (Anbar anbar:anbars) {
             itemList.add(anbar);
@@ -160,9 +170,14 @@ public class AnbarPickerActivity extends Activity {
 
             Intent intent2 = new Intent(context, AnbarActivity.class);
             intent2.putExtra("anbar", anbar);
-            startActivity(intent2);
-            overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
 
+            if (fromVoroodKala) {
+                setResult(RESULT_OK, intent2);
+                finish();
+            } else {
+                startActivity(intent2);
+                overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
+            }
         }
 
 

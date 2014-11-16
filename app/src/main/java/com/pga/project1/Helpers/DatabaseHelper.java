@@ -654,9 +654,29 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public ArrayList<Anbar> getAllAnbars() {
+        ArrayList<Anbar> anbars = new ArrayList<Anbar>();
 
+        SQLiteDatabase db = getReadableDatabase();
+        final Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_ANBAR, null);
 
-        return null;
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+
+                do {
+
+                    Anbar anbar = new Anbar(
+                            cursor.getInt(cursor.getColumnIndex(KEY_ID)),
+                            cursor.getString(cursor.getColumnIndex(KEY_NAME)),
+                            cursor.getInt(cursor.getColumnIndex(KEY_IS_OWNER))
+                    );
+
+                    anbars.add(anbar);
+
+                } while (cursor.moveToNext());
+            }
+        }
+
+        return anbars;
     }
 
     public ArrayList<Anbar> getMyAnbars() {
@@ -786,8 +806,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getReadableDatabase();
 
         String condition = "";
+
         if ((key != null) && (key.length() > 0))
-            condition = " WHERE " + KEY_NAME + " like \"" + key + "%\" OR " + KEY_NAME + " like \"%" + key + "%";
+            condition = " WHERE " + KEY_NAME + " like \"" + key + "%\"";
+
         final Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_ITEMS_PROVIDER + condition, null);
 
 

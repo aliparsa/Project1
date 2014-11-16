@@ -12,8 +12,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.pga.project1.DataModel.Anbar;
 import com.pga.project1.DataModel.PathObject;
 import com.pga.project1.DataModel.Product;
+import com.pga.project1.DataModel.TaminKonande;
 import com.pga.project1.R;
 import com.pga.project1.Utilities.FontHelper;
 import com.pga.project1.Utilities.Fonts;
@@ -21,15 +23,20 @@ import com.pga.project1.Viewes.PathMapManager;
 
 public class VoroodKalaActivity extends Activity {
 
+    private static final int ANBAR_REQUEST_CODE = 3333;
     private ImageView save;
     Button buttonVoroodKala;
     Button buttonTaminKonandePicker;
+    Button buttonAnbarPicker;
     private Context context;
     final int KALA_REQUEST_CODE = 1111;
     final int TAMINKONANDE_REQUEST_CODE = 2222;
     TextView selectedKala;
+    TextView selectedtaminKonande;
     Product product;
     private PathMapManager pm;
+    private TaminKonande taminKonande;
+    private Anbar anbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +46,9 @@ public class VoroodKalaActivity extends Activity {
         context = this;
         buttonVoroodKala = (Button) findViewById(R.id.entekhab_kala);
         buttonTaminKonandePicker = (Button) findViewById(R.id.TaminKonandePicker);
+        buttonAnbarPicker = (Button) findViewById(R.id.anbar_picker);
         selectedKala = (TextView) findViewById(R.id.selected_kala);
+        selectedtaminKonande = (TextView) findViewById(R.id.selected_tamin_konande);
 
         pm = (PathMapManager) findViewById(R.id.pmm);
         pm.push(new PathObject("ورود کالا"));
@@ -58,6 +67,15 @@ public class VoroodKalaActivity extends Activity {
             public void onClick(View view) {
                 Intent intent = new Intent(context, TaminKonandePickerActivity.class);
                 startActivityForResult(intent, TAMINKONANDE_REQUEST_CODE);
+            }
+        });
+
+        buttonAnbarPicker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, AnbarPickerActivity.class);
+                intent.putExtra("from_vorood_kala", 1);
+                startActivityForResult(intent, ANBAR_REQUEST_CODE);
             }
         });
 
@@ -103,9 +121,22 @@ public class VoroodKalaActivity extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
         if (requestCode == KALA_REQUEST_CODE && resultCode == RESULT_OK) {
             product = (Product) data.getSerializableExtra("product");
             selectedKala.setText(product.getName());
+        }
+
+        if (requestCode == TAMINKONANDE_REQUEST_CODE && resultCode == RESULT_OK) {
+            taminKonande = (TaminKonande) data.getSerializableExtra("tamin_konande");
+            selectedtaminKonande.setText(taminKonande.getName() + "  " + taminKonande.getOwner());
+            anbar = null;
+        }
+
+        if (requestCode == ANBAR_REQUEST_CODE && resultCode == RESULT_OK) {
+            anbar = (Anbar) data.getSerializableExtra("anbar");
+            selectedtaminKonande.setText(anbar.getName());
+            taminKonande = null;
         }
     }
 
