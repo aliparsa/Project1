@@ -169,4 +169,11 @@ public class KalaPickerActivity extends Activity {
         });
 
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        PathMapManager.pop("destroy kala picker");
+    }
 }

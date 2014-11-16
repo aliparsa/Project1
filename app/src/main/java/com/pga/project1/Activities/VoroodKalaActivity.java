@@ -108,4 +108,11 @@ public class VoroodKalaActivity extends Activity {
             selectedKala.setText(product.getName());
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        PathMapManager.pop("destroy vorodkala");
+    }
 }

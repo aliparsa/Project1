@@ -2,30 +2,54 @@ package com.pga.project1.Activities;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
 
+import com.pga.project1.Adapters.ListViewObjectAdapter;
+import com.pga.project1.DataModel.PathObject;
+import com.pga.project1.DataModel.Product;
+import com.pga.project1.DataModel.TaminKonande;
+import com.pga.project1.Helpers.DatabaseHelper;
+import com.pga.project1.Helpers.SyncHelper;
+import com.pga.project1.Intefaces.CallBack;
+import com.pga.project1.Intefaces.ListViewItemINTERFACE;
 import com.pga.project1.R;
 import com.pga.project1.Utilities.FontHelper;
 import com.pga.project1.Utilities.Fonts;
+import com.pga.project1.Viewes.PathMapManager;
+
+import java.util.ArrayList;
 
 public class TaminKonandePickerActivity extends Activity {
 
     private SearchView searchView;
     private ImageView refreshButton;
+    private TaminKonandePickerActivity context;
+    private ListView lv;
+    private PathMapManager pm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_items_provider);
 
+
+        context = this;
+        lv = (ListView) findViewById(R.id.lv_providers);
+
+        pm = (PathMapManager) findViewById(R.id.pmm);
+        pm.push(new PathObject("انتخاب تامین کننده"));
+        pm.refresh();
 
         loadProvider(null);
 
@@ -70,7 +94,8 @@ public class TaminKonandePickerActivity extends Activity {
 
             @Override
             public boolean onQueryTextChange(String s) {
-                return false;
+                loadProvider(s);
+                return true;
             }
         });
 
@@ -83,8 +108,20 @@ public class TaminKonandePickerActivity extends Activity {
         refreshButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                SyncHelper.syncItemsProvider(context);
+          /*      ), new CallBack() {
+                    @Override
+                    public void onSuccess(Object result) {
 
-                //TODO synch provider
+                        searchView.setQuery("", false);
+                        loadProvider(null);
+                    }
+
+                    @Override
+                    public void onError(String errorMessage) {
+
+                    }
+                });*/
             }
         });
 
@@ -101,7 +138,40 @@ public class TaminKonandePickerActivity extends Activity {
 
     private void loadProvider(String s) {
 
+//        pm.refresh();
+//
+//        ArrayList<ListViewItemINTERFACE> itemList = new ArrayList<ListViewItemINTERFACE>();
+//
+//        DatabaseHelper db = new DatabaseHelper(context);
+//
+//        ArrayList<TaminKonande> tamins = db.getTaminKonnande(s);
+//
+//        for (TaminKonande tamin:tamins) {
+//            itemList.add(tamin);
+//        }
+//
+//        ListViewObjectAdapter adapter = new ListViewObjectAdapter(context, itemList);
+//        lv.setAdapter(adapter);
 
-        //TODO load providers s == null to load all
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                //TODO provider selected
+/*                Product product = ((Product.Holder) view.getTag()).getProduct();
+
+                Intent returnIntent = new Intent();
+                returnIntent.putExtra("product", product);
+                setResult(RESULT_OK, returnIntent);
+                finish();*/
+            }
+        });
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        PathMapManager.pop("destroy tamin konande picker");
     }
 }
