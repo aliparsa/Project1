@@ -12,10 +12,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.pga.project1.DataModel.PathObject;
 import com.pga.project1.DataModel.Product;
 import com.pga.project1.R;
 import com.pga.project1.Utilities.FontHelper;
 import com.pga.project1.Utilities.Fonts;
+import com.pga.project1.Viewes.PathMapManager;
 
 public class VoroodKalaActivity extends Activity {
 
@@ -27,6 +29,7 @@ public class VoroodKalaActivity extends Activity {
     final int TAMINKONANDE_REQUEST_CODE = 2222;
     TextView selectedKala;
     Product product;
+    private PathMapManager pm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +40,10 @@ public class VoroodKalaActivity extends Activity {
         buttonVoroodKala = (Button) findViewById(R.id.entekhab_kala);
         buttonTaminKonandePicker = (Button) findViewById(R.id.TaminKonandePicker);
         selectedKala = (TextView) findViewById(R.id.selected_kala);
+
+        pm = (PathMapManager) findViewById(R.id.pmm);
+        pm.push(new PathObject("ورود کالا"));
+        pm.refresh();
 
         buttonVoroodKala.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,5 +107,12 @@ public class VoroodKalaActivity extends Activity {
             product = (Product) data.getSerializableExtra("product");
             selectedKala.setText(product.getName());
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        PathMapManager.pop("destroy vorodkala");
     }
 }
