@@ -704,7 +704,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public void makeHasErrorTrue(JSONArray jsonArray) {
+    public void makeHasErrorTrueTaradod(JSONArray jsonArray) {
         try {
             String idIn = "(";
 
@@ -1102,4 +1102,47 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
+    public void markAsSentAnbarTransaction(ArrayList<AnbarTransaction> anbarTransactions) {
+
+        String idIn = "(";
+
+        if (anbarTransactions.size() < 1)
+            return;
+
+        idIn += anbarTransactions.get(0).getId();
+
+        for (int i = 1; i < anbarTransactions.size(); i++) {
+
+            idIn += ", " + anbarTransactions.get(i).getId();
+        }
+
+        idIn += ")";
+
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("UPDATE " + TABLE_ANBAR_TRANSACTION + " SET " + ANBAR_TRANSACTION_KEY_SENT + " = 1 Where " + ANBAR_TRANSACTION_KEY_ID + " In " + idIn + ";");
+
+    }
+
+    public void makeHasErrorTrueAnbarTransaction(JSONArray jsonArray) {
+        try {
+            String idIn = "(";
+
+            if (jsonArray.length() < 0)
+                return;
+
+            idIn += jsonArray.get(0);
+
+            for (int i = 1; i < jsonArray.length(); i++) {
+
+                idIn += ", " + jsonArray.get(i);
+            }
+
+            idIn += ")";
+
+            SQLiteDatabase db = getWritableDatabase();
+            db.execSQL("UPDATE " + TABLE_ANBAR_TRANSACTION + " SET " + ANBAR_TRANSACTION_KEY_HAS_ERROR + "=1 Where " + ANBAR_TRANSACTION_KEY_ID + " In " + idIn + ";");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
 
+import com.pga.project1.Activities.AnbarActivity;
 import com.pga.project1.Activities.FastProjectManagmentActivity;
 import com.pga.project1.Activities.LoginActivity;
 import com.pga.project1.DataModel.Anbar;
@@ -49,7 +50,7 @@ public class SyncHelper {
 
                         if (jsonObject.has("uids")) {
                             JSONArray jsonArray = jsonObject.getJSONArray("uids");
-                            db.makeHasErrorTrue(jsonArray);
+                            db.makeHasErrorTrueTaradod(jsonArray);
                         }
 
                         // TODO only mark Record don't have problem
@@ -290,13 +291,11 @@ public class SyncHelper {
 
                         if (jsonObject.has("uids")) {
                             JSONArray jsonArray = jsonObject.getJSONArray("uids");
-                            db.makeHasErrorTrue(jsonArray);
+                            db.makeHasErrorTrueAnbarTransaction(jsonArray);
                         }
 
-                        // TODO only mark Record don't have problem
-
-                        if (context instanceof FastProjectManagmentActivity)
-                            ((FastProjectManagmentActivity) context).TabAdapter.f1.loadTaradod();
+                        if (context instanceof AnbarActivity)
+                            ((AnbarActivity) context).loadTransactions();
 
                     } catch (Exception e) {
                         e.printStackTrace();

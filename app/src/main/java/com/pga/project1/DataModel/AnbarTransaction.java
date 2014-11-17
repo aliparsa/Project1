@@ -11,6 +11,12 @@ import com.pga.project1.Intefaces.ListViewItemINTERFACE;
 import com.pga.project1.R;
 import com.pga.project1.Utilities.PersianCalendar;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.List;
+
 /**
  * Created by parsa on 2014-11-15.
  */
@@ -245,6 +251,36 @@ public class AnbarTransaction implements ListViewItemINTERFACE{
     public String getPersianDate() {
         PersianCalendar pc = new PersianCalendar(getDate());
         return pc.getIranianDateTime();
+    }
+
+    public static JSONArray convertArrayToJson(List<AnbarTransaction> anbarTransactions) {
+
+        JSONArray transArray = new JSONArray();
+
+        for (AnbarTransaction trans : anbarTransactions) {
+            try {
+                JSONObject json = new JSONObject();
+
+                json.put("type", trans.getType());
+                json.put("product_id", trans.getProduct_id());
+                json.put("chart_id", trans.getAnbar_id());
+                json.put("provider", trans.getTaminKonande_id());
+                json.put("to_chart", trans.getTo_anbar_id());
+                json.put("from_chart", trans.getFrom_anbar_id());
+                json.put("amount", trans.getAmount());
+                json.put("date", trans.getDate());
+                json.put("description", trans.getDescription());
+
+
+
+                transArray.put(json);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+        return transArray;
     }
 
 

@@ -121,7 +121,7 @@ public class AnbarActivity extends Activity {
 
     }
 
-    void loadTransactions() {
+    public void loadTransactions() {
 
         pathManager.refresh();
 
