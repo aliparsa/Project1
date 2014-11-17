@@ -10,21 +10,42 @@
     android:orientation="vertical"
     android:visibility="visible">
 
-    <TextView
-        android:id="@+id/kala_name"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="5dp"
-        android:padding="3dp"
-        android:textSize="15sp" />
 
-    <TextView
-        android:id="@+id/amount"
+    <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginRight="5dp"
-        android:padding="3dp"
-        android:textSize="15sp" />
+        android:orientation="horizontal"
+        android:gravity="right">
+
+        <TextView
+            android:id="@+id/anbar_transaction_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:padding="3dp"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/anbar_transaction_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:padding="3dp"
+            android:textSize="18sp"
+            android:text=" x " />
+
+        <TextView
+            android:id="@+id/kala_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:padding="3dp"
+            android:textSize="20sp"
+            android:gravity="right" />
+
+
+    </LinearLayout>
+
 
     <RelativeLayout
         android:layout_width="fill_parent"
@@ -38,8 +59,24 @@
             android:padding="3dp"
             android:paddingStart="8dp"
             android:textSize="12sp"
-            android:layout_marginLeft="8dp" />
+            android:layout_marginLeft="8dp"
 
+
+            />
+
+
+        <TextView
+            android:id="@+id/anbar_transaction_toanbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/anbar_transaction_inout"
+            android:padding="3dp"
+            android:textSize="12sp"
+            android:layout_marginLeft="8dp"
+            android:layout_centerInParent="true"
+
+
+            />
 
         <TextView
             android:id="@+id/anbar_transaction_inout"
@@ -49,7 +86,9 @@
             android:layout_marginRight="5dp"
             android:padding="3dp"
             android:paddingStart="8dp"
-            android:textSize="10sp" />
+            android:textSize="18sp"
+
+            />
 
     </RelativeLayout>
 

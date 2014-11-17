@@ -6,6 +6,7 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.pga.project1.DataModel.Anbar;
+import com.pga.project1.DataModel.AnbarTransaction;
 import com.pga.project1.DataModel.Chart;
 import com.pga.project1.DataModel.Faliat;
 import com.pga.project1.DataModel.TaminKonande;
@@ -730,6 +731,52 @@ public class Webservice {
 
     }
 
+    //------------------------------------------------------------------------------
+    public static void sendAnbarTransaction(Context context, List<AnbarTransaction> anbarTransactions, final CallBack<ServerResponse> callBack) {
+        prepareServerAddress(context);
+        HttpHelper helper = new HttpHelper(context, getWEBSERVICE_ADDRESS(), false, 0);
+
+        String anbarTransactionJSON = AnbarTransaction.convertArrayToJson(anbarTransactions).toString();
+
+        BasicNameValuePair[] arr = {
+                new BasicNameValuePair("tag", "insert_warhouse"),
+                new BasicNameValuePair("value", anbarTransactionJSON)
+        };
+        helper.postHttp(arr, new ResponseHandler() {
+            @Override
+            public void handleResponse(ServerResponse response) {
+
+                try {
+
+                    switch (response.getStatusCode()) {
+                        case SC_UNAUTHORIZED: {
+                            callBack.onError("UNAUTHORIZED");
+                            break;
+                        }
+                        case SC_OK: {
+                            JSONObject jsonObject = new JSONObject(response.getResult());
+                            callBack.onSuccess(response);
+                            break;
+                        }
+                    }
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+
+                    callBack.onError("Exception");
+                }
+
+            }
+
+            @Override
+            public void error(String err) {
+                Log.e("ali", " webservice / send anbar transaction ");
+                callBack.onError(err);
+            }
+        });
+
+    }
     //-------------------------------------------------------------------------------
     public static void sendFaliat(Context context, List<Faliat> faliats, final CallBack<ServerResponse> callBack) {
         prepareServerAddress(context);

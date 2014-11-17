@@ -8,6 +8,7 @@ import android.widget.Toast;
 import com.pga.project1.Activities.FastProjectManagmentActivity;
 import com.pga.project1.Activities.LoginActivity;
 import com.pga.project1.DataModel.Anbar;
+import com.pga.project1.DataModel.AnbarTransaction;
 import com.pga.project1.DataModel.Chart;
 import com.pga.project1.DataModel.Faliat;
 import com.pga.project1.DataModel.TaminKonande;
@@ -271,5 +272,42 @@ public class SyncHelper {
         }
 
 
+    }
+
+    public static void syncAnbarTransaction(final Context context) {
+        DatabaseHelper db = new DatabaseHelper(context);
+        final ArrayList<AnbarTransaction> anbarTransactions = db.getAllAnbarTransactions();
+        if (anbarTransactions.size() > 0)
+
+            Webservice.sendAnbarTransaction(context, anbarTransactions, new CallBack<ServerResponse>() {
+                @Override
+                public void onSuccess(ServerResponse result) {
+                    try {
+                        // TODO MAKE RECORDS SEND FLAG TRUE
+                        JSONObject jsonObject = new JSONObject(result.getResult());
+                        DatabaseHelper db = new DatabaseHelper(context);
+                        db.markAsSentAnbarTransaction(anbarTransactions);
+
+                        if (jsonObject.has("uids")) {
+                            JSONArray jsonArray = jsonObject.getJSONArray("uids");
+                            db.makeHasErrorTrue(jsonArray);
+                        }
+
+                        // TODO only mark Record don't have problem
+
+                        if (context instanceof FastProjectManagmentActivity)
+                            ((FastProjectManagmentActivity) context).TabAdapter.f1.loadTaradod();
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onError(String errorMessage) {
+
+
+                }
+            });
     }
 }

@@ -55,13 +55,13 @@ public class PersianCalendar {
     }
 
 
-
     /**
      * JavaSource_Calendar:
      * The default constructor uses the current Gregorian date to initialize the
      * other private memebers of the class (Iranian and Julian dates).
-     *                                  1234567890123456
-     * @param date  String in format of yyyy-mm-DD hh-MM
+     * 1234567890123456
+     *
+     * @param date String in format of yyyy-mm-DD hh-MM
      */
     public PersianCalendar(String date) {
 
@@ -78,7 +78,7 @@ public class PersianCalendar {
 
         Calendar calendar = new GregorianCalendar(year, month, day, hour, min);
         setGregorianDate(calendar.get(Calendar.YEAR),
-                calendar.get(Calendar.MONTH) + 1,
+                calendar.get(Calendar.MONTH),
                 calendar.get(Calendar.DAY_OF_MONTH));
     }
 
@@ -229,6 +229,23 @@ public class PersianCalendar {
                 ((gMonth < 10) ? ("0" + gMonth) : gMonth)
                 + "/" +
                 ((gDay < 10) ? ("0" + gDay) : gDay));
+    }
+
+    /**
+     * getGregorianDate:
+     * Returns a string version of Gregorian date
+     *
+     * @return String
+     */
+    public String getGregorianDateTime() {
+        return (gYear
+                + "/" +
+                ((gMonth < 10) ? ("0" + gMonth) : gMonth)
+                + "/" +
+                ((gDay < 10) ? ("0" + gDay) : gDay)) + " " +
+                ((getHour() < 10) ? ("0" + getHour()) : getHour())
+                + "-" +
+                ((getMinute() < 10) ? ("0" + getMinute()) : getMinute());
     }
 
     /**
@@ -612,7 +629,7 @@ public class PersianCalendar {
 
     //-------------------------------------------------
     //--time extension functions
-    private void setTime(){
+    private void setTime() {
 
         Calendar calendar = new GregorianCalendar();
         Date d = calendar.getTime();

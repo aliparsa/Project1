@@ -104,7 +104,7 @@ public class AnbarActivity extends Activity {
                 //TODO enter item activity
                 Intent intent = new Intent(context, VoroodKalaActivity.class);
                 intent.putExtra("anbar", anbar);
-                startActivity(intent);
+                startActivityForResult(intent, 1111);
             }
         });
 
@@ -115,7 +115,7 @@ public class AnbarActivity extends Activity {
                 //TODO exit item activity
                 Intent intent = new Intent(context, KhoroojKalaActivity.class);
                 intent.putExtra("anbar", anbar);
-                startActivity(intent);
+                startActivityForResult(intent, 1111);
             }
         });
 
@@ -140,4 +140,18 @@ public class AnbarActivity extends Activity {
         lv.setAdapter(adapter);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        PathMapManager.pop("destroy anbar picker");
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == 1111) {
+            loadTransactions();
+        }
+    }
 }

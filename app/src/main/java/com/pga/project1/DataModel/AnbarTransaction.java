@@ -1,12 +1,15 @@
 package com.pga.project1.DataModel;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.pga.project1.Intefaces.ListViewItemINTERFACE;
 import com.pga.project1.R;
+import com.pga.project1.Utilities.PersianCalendar;
 
 /**
  * Created by parsa on 2014-11-15.
@@ -15,25 +18,91 @@ public class AnbarTransaction implements ListViewItemINTERFACE{
     int id;
     int type;
     int product_id;
+    Product product;
     int anbar_id;
-    int provider_id;
+    Anbar anbar;
+    int taminKonande_id;
+    TaminKonande taminKonande;
     int to_anbar_id;
+    Anbar toAnbar;
     int from_anbar_id;
+    Anbar fromAnbar;
     int amount;
     String date;
     String description;
+    private int persianDate;
+    int sent;
+    int has_error;
 
-    public AnbarTransaction(int id, int type, int product_id, int anbar_id, int provider_id, int to_anbar_id, int from_anbar_id, int amount, String date, String description) {
+
+    public AnbarTransaction(int id, int type, int product_id, int anbar_id, int taminKonande_id, int to_anbar_id, int from_anbar_id, int amount, String date, String description, int sent, int has_error) {
         this.id = id;
         this.type = type;
         this.product_id = product_id;
         this.anbar_id = anbar_id;
-        this.provider_id = provider_id;
+        this.taminKonande_id = taminKonande_id;
         this.to_anbar_id = to_anbar_id;
         this.from_anbar_id = from_anbar_id;
         this.amount = amount;
         this.date = date;
         this.description = description;
+        this.sent = sent;
+        this.has_error = has_error;
+    }
+
+    public AnbarTransaction(int type, int product_id, int anbar_id, int taminKonande_id, int to_anbar_id, int from_anbar_id, int amount, String date, String description, int sent, int has_error) {
+
+        this.type = type;
+        this.product_id = product_id;
+        this.anbar_id = anbar_id;
+        this.taminKonande_id = taminKonande_id;
+        this.to_anbar_id = to_anbar_id;
+        this.from_anbar_id = from_anbar_id;
+        this.amount = amount;
+        this.date = date;
+        this.description = description;
+        this.sent = sent;
+        this.has_error = has_error;
+    }
+
+    public TaminKonande getTaminKonande() {
+        return taminKonande;
+    }
+
+    public void setTaminKonande(TaminKonande taminKonande) {
+        this.taminKonande = taminKonande;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public Anbar getAnbar() {
+        return anbar;
+    }
+
+    public void setAnbar(Anbar anbar) {
+        this.anbar = anbar;
+    }
+
+    public Anbar getToAnbar() {
+        return toAnbar;
+    }
+
+    public void setToAnbar(Anbar toAnbar) {
+        this.toAnbar = toAnbar;
+    }
+
+    public Anbar getFromAnbar() {
+        return fromAnbar;
+    }
+
+    public void setFromAnbar(Anbar fromAnbar) {
+        this.fromAnbar = fromAnbar;
     }
 
     public int getId() {
@@ -68,12 +137,12 @@ public class AnbarTransaction implements ListViewItemINTERFACE{
         this.anbar_id = anbar_id;
     }
 
-    public int getProvider_id() {
-        return provider_id;
+    public int getTaminKonande_id() {
+        return taminKonande_id;
     }
 
-    public void setProvider_id(int provider_id) {
-        this.provider_id = provider_id;
+    public void setTaminKonande_id(int taminKonande_id) {
+        this.taminKonande_id = taminKonande_id;
     }
 
     public int getTo_anbar_id() {
@@ -139,9 +208,43 @@ public class AnbarTransaction implements ListViewItemINTERFACE{
         if (holder.kala_name == null)
             holder.kala_name = (TextView) view.findViewById(R.id.kala_name);
 
-        holder.kala_name.setText(getProduct_id());
+        if (holder.amount == null)
+            holder.amount = (TextView) view.findViewById(R.id.anbar_transaction_amount);
+
+        if (holder.in_out == null)
+            holder.in_out = (TextView) view.findViewById(R.id.anbar_transaction_inout);
+
+        if (holder.date == null)
+            holder.date = (TextView) view.findViewById(R.id.anbar_transaction_date);
+
+        if (holder.toanbar == null)
+            holder.toanbar = (TextView) view.findViewById(R.id.anbar_transaction_toanbar);
 
 
+        holder.kala_name.setText(product.getName() + " ");
+        holder.amount.setText(+getAmount() + "");
+
+        if (getType() == 1 || getType() == 3) {
+            holder.in_out.setText("ورود");
+            holder.in_out.setTextColor(Color.parseColor("#FF31C401"));
+        } else {
+            holder.in_out.setText("خروج");
+            holder.in_out.setTextColor(Color.RED);
+        }
+
+        if (getType() == 1)
+            holder.toanbar.setText(" از " + taminKonande.getName());
+        else if (getType() == 2)
+            holder.toanbar.setText(" به  " + toAnbar.getName());
+        else if (getType() == 3)
+            holder.toanbar.setText(" از   " + fromAnbar.getName());
+
+        holder.date.setText(this.getPersianDate());
+    }
+
+    public String getPersianDate() {
+        PersianCalendar pc = new PersianCalendar(getDate());
+        return pc.getIranianDateTime();
     }
 
 
@@ -150,6 +253,8 @@ public class AnbarTransaction implements ListViewItemINTERFACE{
         TextView amount;
         TextView in_out;
         TextView date;
+        TextView toanbar;
+
 
 
         private AnbarTransaction anbarTransaction;

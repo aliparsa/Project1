@@ -1,16 +1,75 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.pga.project1.Activities.KhoroojKalaActivity">
+    android:orientation="vertical"
+    tools:context="com.pga.project1.Activities.VoroodKalaActivity">
+
+    <com.pga.project1.Viewes.PathMapManager
+        android:id="@+id/pmm"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+
+        />
+
+
+    <Button
+        android:id="@+id/entekhab_kala"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="انتخاب کالای خروجی" />
 
     <TextView
-        android:text="@string/hello_world"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:text="کالای انتخاب شده"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/selected_kala" />
 
-</RelativeLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView"
+        android:layout_centerHorizontal="true">
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="انتخاب انبار مقصد"
+            android:id="@+id/anbar_picker" />
+
+
+    </LinearLayout>
+
+    <TextView
+        android:text="مقصد انتخاب شده"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/selected_anbar_khorooji" />
+
+
+    <EditText
+        android:id="@+id/mizanKala"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:hint="میزان کالا" />
+
+    <EditText
+        android:id="@+id/tozihat"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="توضیحات" />
+
+
+</LinearLayout>

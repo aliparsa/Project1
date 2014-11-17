@@ -41,13 +41,89 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String TABLE_FALIAT = "faliat";
     private static final String TABLE_PROJECTS = "projects";
     private static final String TABLE_ANBAR = "anbar";
-    private static final String TABLE_ITEMS_PROVIDER = "items_provider";
+    private static final String TABLE_TAMIN_KONANDE = "items_provider";
     private static final String TABLE_ANBAR_TRANSACTION = "anbar_tansaction";
     private static final String TABLE_PRODUCT = "product";
 
 
     // Contacts Key names
-    private static final String KEY_ID = "id";
+
+    //TABLE__PERSONNEL
+    private static final String PERSONNEL_KEY_ID = "personnel_id";
+    private static final String PERSONNEL_KEY_FIRSTNAME = "personnel_firstname";
+    private static final String PERSONNEL_KEY_LASTNAME = "personnel_lastname";
+    private static final String PERSONNEL_KEY_IMAGE = "personnel_image";
+    private static final String PERSONNEL_KEY_PHONE = "personnel_phone";
+    private static final String PERSONNEL_KEY_CODE = "personnel_code";
+
+    //TABLE_TARADOD
+    private static final String TARADOD_KEY_ID = "taradod_id";
+    private static final String TARADOD_KEY_CODE = "taradod_code";
+    private static final String TARADOD_KEY_IN_OUT = "taradod_inout";
+    private static final String TARADOD_KEY_SENT = "taradod_sent";
+    private static final String TARADOD_KEY_PROJECT_ID = "taradod_project_id";
+    private static final String TARADOD_KEY_HAS_ERROR = "taradod_has_error";
+    private static final String TARADOD_KEY_DATE = "taradod_date";
+
+    //TABLE_WORK
+    private static final String WORK_KEY_ID = "work_id";
+    private static final String WORK_KEY_NAME = "work_name";
+    private static final String WORK_KEY_TYPE = "work_type";
+    private static final String WORK_KEY_PRICE = "work_price";
+
+    //TABLE_FALIAT
+    private static final String FALIAT_KEY_ID = "faliat_id";
+    private static final String FALIAT_KEY_CODE = "faliat_code";
+    private static final String FALIAT_KEY_WORK_CODE = "faliat_work_code";
+    private static final String FALIAT_KEY_AMOUNT = "faliat_amount";
+    private static final String FALIAT_KEY_SENT = "faliat_sent";
+    private static final String FALIAT_KEY_PROJECT_ID = "faliat_project_id";
+    private static final String FALIAT_KEY_DATE = "faliat_date";
+
+    //TABLE_PROJECT
+    private static final String PROJECT_KEY_ID = "project_id";
+    private static final String PROJECT_KEY_NAME = "project_name";
+    private static final String PROJECT_KEY_TYPE_ID = "project_type_id";
+    private static final String PROJECT_KEY_TYPE = "project_type";
+    private static final String PROJECT_KEY_PERSONAL_ID = "project_personnel_id";
+    private static final String PROJECT_KEY_PERSONAL = "project_personnel";
+    private static final String PROJECT_KEY_START_DATE = "project_start_date";
+    private static final String PROJECT_KEY_END_DATE = "project_end_date";
+    private static final String PROJECT_KEY_PRICE = "project_price";
+    private static final String PROJECT_KEY_CREATED_AT = "project_created_at";
+    private static final String PROJECT_KEY_UPDATED_AT = "project_updated_at";
+
+    //TABLE_ANBAR
+    private static final String ANBAR_KEY_ID = "anbar_id";
+    private static final String ANBAR_KEY_NAME = "anbar_name";
+    private static final String ANBAR_KEY_IS_OWNER = "anbar_is_owner";
+
+    //TABLE_TAMIN_KONANDE
+    private static final String TAMIN_KONANDE_KEY_ID = "tamin_konande_id";
+    private static final String TAMIN_KONANDE_KEY_NAME = "tamin_konande_name";
+    private static final String TAMIN_KONANDE_KEY_OWNER = "tamin_konande_owner";
+
+    //TABLE_ANBAR_TRANSACTION
+    private static final String ANBAR_TRANSACTION_KEY_ID = "anbar_transaction_id";
+    private static final String ANBAR_TRANSACTION_KEY_TYPE = "anbar_transaction_type";
+    private static final String ANBAR_TRANSACTION_KEY_PRODUCT_ID = "anbar_transaction_product_id";
+    private static final String ANBAR_TRANSACTION_KEY_ANBAR_ID = "anbar_transaction_anbar_id";
+    private static final String ANBAR_TRANSACTION_KEY_PROVIDER_ID = "anbar_transaction_provider_id";
+    private static final String ANBAR_TRANSACTION_KEY_TO_ANBAR_ID = "anbar_transaction_to_anbar_id";
+    private static final String ANBAR_TRANSACTION_KEY_FROM_ANBAR_ID = "anbar_transaction_from_anbar_id";
+    private static final String ANBAR_TRANSACTION_KEY_AMOUNT = "anbar_transaction_amount";
+    private static final String ANBAR_TRANSACTION_KEY_DATE = "anbar_transaction_date";
+    private static final String ANBAR_TRANSACTION_KEY_DESCRIPTION = "anbar_transaction_description";
+    private static final String ANBAR_TRANSACTION_KEY_SENT = "anbar_transaction_sent";
+    private static final String ANBAR_TRANSACTION_KEY_HAS_ERROR = "anbar_transaction_has_error";
+
+
+    //TABLE_PRODUCT
+    private static final String PRODUCT_KEY_ID = "product_id";
+    private static final String PRODUCT_KEY_NAME = "product_name";
+
+
+  /*  private static final String KEY_ID = "id";
     private static final String KEY_FIRSTNAME = "first_name";
     private static final String KEY_LASTNAME = "last_name";
     private static final String KEY_CODE = "personnel_code";
@@ -77,7 +153,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String KEY_PROVIDER_ID = "provider_id";
     private static final String KEY_TO_ANBAR_ID = "to_anbar_id";
     private static final String KEY_FROM_ANBAR_ID = "from_anbar_id";
-    private static final String KEY_DESCRIPTION = "description";
+    private static final String KEY_DESCRIPTION = "description";*/
 
 
     public DatabaseHelper(Context context) {
@@ -92,100 +168,102 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         String CREATE_PERSONNEL_TABLE =
                 "CREATE TABLE " + TABLE_PERSONNEL + "("
-                        + KEY_ID + " INTEGER PRIMARY KEY,"
-                        + KEY_FIRSTNAME + " TEXT,"
-                        + KEY_LASTNAME + " TEXT,"
-                        + KEY_IMAGE + " TEXT,"
-                        + KEY_PHONE + " TEXT,"
-                        + KEY_CODE + " TEXT"
+                        + PERSONNEL_KEY_ID + " INTEGER PRIMARY KEY,"
+                        + PERSONNEL_KEY_FIRSTNAME + " TEXT,"
+                        + PERSONNEL_KEY_LASTNAME + " TEXT,"
+                        + PERSONNEL_KEY_IMAGE + " TEXT,"
+                        + PERSONNEL_KEY_PHONE + " TEXT,"
+                        + PERSONNEL_KEY_CODE + " TEXT"
                         + ")";
         db.execSQL(CREATE_PERSONNEL_TABLE);
 
         String CREATE_TARADOD_TABLE =
                 "CREATE TABLE " + TABLE_TARADOD + "("
-                        + KEY_ID + " INTEGER PRIMARY KEY,"
-                        + KEY_CODE + " TEXT,"
-                        + KEY_IN_OUT + " TEXT,"
-                        + KEY_SENT + " TEXT,"
-                        + KEY_PROJECT_ID + " TEXT,"
-                        + KEY_HAS_ERROR + " TEXT,"
-                        + KEY_DATE + " TEXT"
+                        + TARADOD_KEY_ID + " INTEGER PRIMARY KEY,"
+                        + TARADOD_KEY_CODE + " TEXT,"
+                        + TARADOD_KEY_IN_OUT + " TEXT,"
+                        + TARADOD_KEY_SENT + " TEXT,"
+                        + TARADOD_KEY_PROJECT_ID + " TEXT,"
+                        + TARADOD_KEY_HAS_ERROR + " TEXT,"
+                        + TARADOD_KEY_DATE + " TEXT"
                         + ")";
         db.execSQL(CREATE_TARADOD_TABLE);
 
         String CREATE_WORK_TABLE =
                 "CREATE TABLE " + TABLE_WORK + "("
-                        + KEY_ID + " INTEGER PRIMARY KEY,"
-                        + KEY_NAME + " TEXT,"
-                        + KEY_TYPE + " TEXT,"
-                        + KEY_PRICE + " TEXT"
+                        + WORK_KEY_ID + " INTEGER PRIMARY KEY,"
+                        + WORK_KEY_NAME + " TEXT,"
+                        + WORK_KEY_TYPE + " TEXT,"
+                        + WORK_KEY_PRICE + " TEXT"
                         + ")";
         db.execSQL(CREATE_WORK_TABLE);
 
 
         String CREATE_FALIAT_TABLE =
                 "CREATE TABLE " + TABLE_FALIAT + "("
-                        + KEY_ID + " INTEGER PRIMARY KEY,"
-                        + KEY_CODE + " TEXT,"
-                        + KEY_WORK_CODE + " TEXT,"
-                        + KEY_AMOUNT + " TEXT,"
-                        + KEY_SENT + " TEXT,"
-                        + KEY_PROJECT_ID + " TEXT,"
-                        + KEY_DATE + " TEXT"
+                        + FALIAT_KEY_ID + " INTEGER PRIMARY KEY,"
+                        + FALIAT_KEY_CODE + " TEXT,"
+                        + FALIAT_KEY_WORK_CODE + " TEXT,"
+                        + FALIAT_KEY_AMOUNT + " TEXT,"
+                        + FALIAT_KEY_SENT + " TEXT,"
+                        + FALIAT_KEY_PROJECT_ID + " TEXT,"
+                        + FALIAT_KEY_DATE + " TEXT"
                         + ")";
         db.execSQL(CREATE_FALIAT_TABLE);
 
         String CREATE_PROJECTS_TABLE =
                 "CREATE TABLE " + TABLE_PROJECTS + "("
-                        + KEY_ID + " INTEGER PRIMARY KEY,"
-                        + KEY_NAME + " TEXT,"
-                        + KEY_TYPE_ID + " TEXT,"
-                        + KEY_TYPE + " TEXT,"
-                        + KEY_PERSONAL_ID + " TEXT,"
-                        + KEY_PERSONAL + " TEXT,"
-                        + KEY_START_DATE + " TEXT,"
-                        + KEY_END_DATE + " TEXT,"
-                        + KEY_PRICE + " TEXT,"
-                        + KEY_CREATED_AT + " TEXT,"
-                        + KEY_UPDATED_AT + " TEXT"
+                        + PROJECT_KEY_ID + " INTEGER PRIMARY KEY,"
+                        + PROJECT_KEY_NAME + " TEXT,"
+                        + PROJECT_KEY_TYPE_ID + " TEXT,"
+                        + PROJECT_KEY_TYPE + " TEXT,"
+                        + PROJECT_KEY_PERSONAL_ID + " TEXT,"
+                        + PROJECT_KEY_PERSONAL + " TEXT,"
+                        + PROJECT_KEY_START_DATE + " TEXT,"
+                        + PROJECT_KEY_END_DATE + " TEXT,"
+                        + PROJECT_KEY_PRICE + " TEXT,"
+                        + PROJECT_KEY_CREATED_AT + " TEXT,"
+                        + PROJECT_KEY_UPDATED_AT + " TEXT"
                         + ")";
         db.execSQL(CREATE_PROJECTS_TABLE);
 
         String CREATE_ANBAR_TABLE =
                 "CREATE TABLE " + TABLE_ANBAR + "("
-                        + KEY_ID + " INTEGER PRIMARY KEY,"
-                        + KEY_NAME + " TEXT,"
-                        + KEY_IS_OWNER + " TEXT"
+                        + ANBAR_KEY_ID + " INTEGER PRIMARY KEY,"
+                        + ANBAR_KEY_NAME + " TEXT,"
+                        + ANBAR_KEY_IS_OWNER + " TEXT"
                         + ")";
         db.execSQL(CREATE_ANBAR_TABLE);
 
-        String CREATE_ITEMS_PROVIDER_TABLE =
-                "CREATE TABLE " + TABLE_ITEMS_PROVIDER + "("
-                        + KEY_ID + " INTEGER PRIMARY KEY,"
-                        + KEY_NAME + " TEXT,"
-                        + KEY_OWNER + " TEXT"
+        String CREATE_TAMIN_KONANDE_TABLE =
+                "CREATE TABLE " + TABLE_TAMIN_KONANDE + "("
+                        + TAMIN_KONANDE_KEY_ID + " INTEGER PRIMARY KEY,"
+                        + TAMIN_KONANDE_KEY_NAME + " TEXT,"
+                        + TAMIN_KONANDE_KEY_OWNER + " TEXT"
                         + ")";
-        db.execSQL(CREATE_ITEMS_PROVIDER_TABLE);
+        db.execSQL(CREATE_TAMIN_KONANDE_TABLE);
 
         String CREATE_ANBAR_TRANSACTION_TABLE =
                 "CREATE TABLE " + TABLE_ANBAR_TRANSACTION + "("
-                        + KEY_ID + " INTEGER PRIMARY KEY,"
-                        + KEY_TYPE + " TEXT,"
-                        + KEY_PRODUCT_ID + " TEXT,"
-                        + KEY_ANBAR_ID + " TEXT,"
-                        + KEY_PROVIDER_ID + " TEXT,"
-                        + KEY_TO_ANBAR_ID + " TEXT,"
-                        + KEY_FROM_ANBAR_ID + " TEXT,"
-                        + KEY_AMOUNT + " TEXT,"
-                        + KEY_DATE + " TEXT,"
-                        + KEY_DESCRIPTION + " TEXT"
+                        + ANBAR_TRANSACTION_KEY_ID + " INTEGER PRIMARY KEY,"
+                        + ANBAR_TRANSACTION_KEY_TYPE + " TEXT,"
+                        + ANBAR_TRANSACTION_KEY_PRODUCT_ID + " TEXT,"
+                        + ANBAR_TRANSACTION_KEY_ANBAR_ID + " TEXT,"
+                        + ANBAR_TRANSACTION_KEY_PROVIDER_ID + " TEXT,"
+                        + ANBAR_TRANSACTION_KEY_TO_ANBAR_ID + " TEXT,"
+                        + ANBAR_TRANSACTION_KEY_FROM_ANBAR_ID + " TEXT,"
+                        + ANBAR_TRANSACTION_KEY_AMOUNT + " TEXT,"
+                        + ANBAR_TRANSACTION_KEY_DATE + " TEXT,"
+                        + ANBAR_TRANSACTION_KEY_SENT + " INTEGER,"
+                        + ANBAR_TRANSACTION_KEY_HAS_ERROR + " INTEGER,"
+                        + ANBAR_TRANSACTION_KEY_DESCRIPTION + " TEXT"
                         + ")";
         db.execSQL(CREATE_ANBAR_TRANSACTION_TABLE);
 
         String CREATE_PRODUCT_TABLE =
                 "CREATE TABLE " + TABLE_PRODUCT + "("
-                        + KEY_ID + " INTEGER PRIMARY KEY,"
-                        + KEY_NAME + " TEXT"
+                        + PRODUCT_KEY_ID + " INTEGER PRIMARY KEY,"
+                        + PRODUCT_KEY_NAME + " TEXT"
                         + ")";
         db.execSQL(CREATE_PRODUCT_TABLE);
 
@@ -199,53 +277,53 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public void insertProduct(Product product) {
         ContentValues values = new ContentValues();
-        values.put(KEY_ID, product.getId());
-        values.put(KEY_NAME, product.getName());
+        values.put(PRODUCT_KEY_ID, product.getId());
+        values.put(PRODUCT_KEY_NAME, product.getName());
         this.getWritableDatabase().insert(TABLE_PRODUCT, null, values);
     }
 
     public void insertAnbar(Anbar anbar) {
         ContentValues values = new ContentValues();
-        values.put(KEY_ID, anbar.getId());
-        values.put(KEY_NAME, anbar.getName());
-        values.put(KEY_IS_OWNER, anbar.getIs_owner());
+        values.put(ANBAR_KEY_ID, anbar.getId());
+        values.put(ANBAR_KEY_NAME, anbar.getName());
+        values.put(ANBAR_KEY_IS_OWNER, anbar.getIs_owner());
         this.getWritableDatabase().insert(TABLE_ANBAR, null, values);
     }
 
     public void insertTaradod(Taradod taradod) {
         ContentValues values = new ContentValues();
-        values.put(KEY_CODE, taradod.getPersonnelID());
-        values.put(KEY_IN_OUT, taradod.getInOut());
-        values.put(KEY_SENT, "0");
-        values.put(KEY_HAS_ERROR, "0");
-        values.put(KEY_DATE, taradod.getDate());
-        values.put(KEY_PROJECT_ID, taradod.getProjectID());
+        values.put(TARADOD_KEY_CODE, taradod.getPersonnelID());
+        values.put(TARADOD_KEY_IN_OUT, taradod.getInOut());
+        values.put(TARADOD_KEY_SENT, "0");
+        values.put(TARADOD_KEY_HAS_ERROR, "0");
+        values.put(TARADOD_KEY_DATE, taradod.getDate());
+        values.put(TARADOD_KEY_PROJECT_ID, taradod.getProjectID());
         this.getWritableDatabase().insert(TABLE_TARADOD, null, values);
     }
 
     public void insertProject(Chart chart) {
         ContentValues values = new ContentValues();
-        values.put(KEY_ID, chart.getId());
-        values.put(KEY_NAME, chart.getName());
-        values.put(KEY_TYPE_ID, chart.getType_id());
-        values.put(KEY_TYPE, chart.getType());
-        values.put(KEY_PERSONAL_ID, chart.getPersonnel_id());
-        values.put(KEY_PERSONAL, "");
-        values.put(KEY_START_DATE, chart.getStart_date());
-        values.put(KEY_END_DATE, chart.getEnd_date());
-        values.put(KEY_PRICE, chart.getPrice());
+        values.put(PROJECT_KEY_ID, chart.getId());
+        values.put(PROJECT_KEY_NAME, chart.getName());
+        values.put(PROJECT_KEY_TYPE_ID, chart.getType_id());
+        values.put(PROJECT_KEY_TYPE, chart.getType());
+        values.put(PROJECT_KEY_PERSONAL_ID, chart.getPersonnel_id());
+        values.put(PROJECT_KEY_PERSONAL, "");
+        values.put(PROJECT_KEY_START_DATE, chart.getStart_date());
+        values.put(PROJECT_KEY_END_DATE, chart.getEnd_date());
+        values.put(PROJECT_KEY_PRICE, chart.getPrice());
 
         this.getWritableDatabase().insert(TABLE_PROJECTS, null, values);
     }
 
     public void insertPersonnel(Personnel personnel) {
         ContentValues values = new ContentValues();
-        values.put(KEY_ID, personnel.getId());
-        values.put(KEY_FIRSTNAME, personnel.getFirst_name());
-        values.put(KEY_LASTNAME, personnel.getLast_name());
-        values.put(KEY_CODE, personnel.getPersonnel_code());
-        values.put(KEY_IMAGE, personnel.getPersonnel_image());
-        values.put(KEY_PHONE, personnel.getPhone_number());
+        values.put(PERSONNEL_KEY_ID, personnel.getId());
+        values.put(PERSONNEL_KEY_FIRSTNAME, personnel.getFirst_name());
+        values.put(PERSONNEL_KEY_LASTNAME, personnel.getLast_name());
+        values.put(PERSONNEL_KEY_CODE, personnel.getPersonnel_code());
+        values.put(PERSONNEL_KEY_IMAGE, personnel.getPersonnel_image());
+        values.put(PERSONNEL_KEY_PHONE, personnel.getPhone_number());
         this.getWritableDatabase().insert(TABLE_PERSONNEL, null, values);
     }
 
@@ -260,12 +338,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
                 do {
                     Personnel personnel = new Personnel();
-                    personnel.setId(cursor.getInt(cursor.getColumnIndex(KEY_ID)));
-                    personnel.setFirst_name(cursor.getString(cursor.getColumnIndex(KEY_FIRSTNAME)));
-                    personnel.setLast_name(cursor.getString(cursor.getColumnIndex(KEY_LASTNAME)));
-                    personnel.setPersonnel_code(cursor.getString(cursor.getColumnIndex(KEY_CODE)));
-                    personnel.setPersonnel_image((cursor.getString(cursor.getColumnIndex(KEY_IMAGE))));
-                    personnel.setPhone_number((cursor.getString(cursor.getColumnIndex(KEY_PHONE))));
+                    personnel.setId(cursor.getInt(cursor.getColumnIndex(PERSONNEL_KEY_ID)));
+                    personnel.setFirst_name(cursor.getString(cursor.getColumnIndex(PERSONNEL_KEY_FIRSTNAME)));
+                    personnel.setLast_name(cursor.getString(cursor.getColumnIndex(PERSONNEL_KEY_LASTNAME)));
+                    personnel.setPersonnel_code(cursor.getString(cursor.getColumnIndex(PERSONNEL_KEY_CODE)));
+                    personnel.setPersonnel_image((cursor.getString(cursor.getColumnIndex(PERSONNEL_KEY_IMAGE))));
+                    personnel.setPhone_number((cursor.getString(cursor.getColumnIndex(PERSONNEL_KEY_PHONE))));
 
                     personnels.add(personnel);
 
@@ -285,7 +363,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ArrayList<Taradod> taradods = new ArrayList<Taradod>();
 
         SQLiteDatabase db = getReadableDatabase();
-        final Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_TARADOD + " WHERE " + KEY_SENT + " = \"0\";", null);
+        final Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_TARADOD + " WHERE " + TARADOD_KEY_SENT + " = \"0\";", null);
 
         if (cursor != null) {
             if (cursor.moveToFirst()) {
@@ -293,13 +371,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 do {
 
                     Taradod taradod = new Taradod(
-                            cursor.getInt(cursor.getColumnIndex(KEY_ID)),
-                            cursor.getString(cursor.getColumnIndex(KEY_CODE)),
-                            cursor.getString(cursor.getColumnIndex(KEY_IN_OUT)),
-                            cursor.getInt(cursor.getColumnIndex(KEY_SENT)),
-                            cursor.getString(cursor.getColumnIndex(KEY_DATE)),
-                            cursor.getString(cursor.getColumnIndex(KEY_PROJECT_ID)),
-                            cursor.getString(cursor.getColumnIndex(KEY_HAS_ERROR))
+                            cursor.getInt(cursor.getColumnIndex(TARADOD_KEY_ID)),
+                            cursor.getString(cursor.getColumnIndex(TARADOD_KEY_CODE)),
+                            cursor.getString(cursor.getColumnIndex(TARADOD_KEY_IN_OUT)),
+                            cursor.getInt(cursor.getColumnIndex(TARADOD_KEY_SENT)),
+                            cursor.getString(cursor.getColumnIndex(TARADOD_KEY_DATE)),
+                            cursor.getString(cursor.getColumnIndex(TARADOD_KEY_PROJECT_ID)),
+                            cursor.getString(cursor.getColumnIndex(TARADOD_KEY_HAS_ERROR))
                     );
 
                     taradods.add(taradod);
@@ -320,10 +398,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public void insertWork(Work work) {
         ContentValues values = new ContentValues();
-        values.put(KEY_ID, work.getId());
-        values.put(KEY_NAME, work.getName());
-        values.put(KEY_TYPE, work.getType());
-        values.put(KEY_PRICE, work.getPrice());
+        values.put(WORK_KEY_ID, work.getId());
+        values.put(WORK_KEY_NAME, work.getName());
+        values.put(WORK_KEY_TYPE, work.getType());
+        values.put(WORK_KEY_PRICE, work.getPrice());
         this.getWritableDatabase().insert(TABLE_WORK, null, values);
     }
 
@@ -337,10 +415,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             if (cursor.moveToFirst()) {
                 do {
                     Work work = new Work();
-                    work.setId(cursor.getInt(cursor.getColumnIndex(KEY_ID)));
-                    work.setName(cursor.getString(cursor.getColumnIndex(KEY_NAME)));
-                    work.setType(cursor.getString(cursor.getColumnIndex(KEY_TYPE)));
-                    work.setPrice(cursor.getInt(cursor.getColumnIndex(KEY_PRICE)));
+                    work.setId(cursor.getInt(cursor.getColumnIndex(WORK_KEY_ID)));
+                    work.setName(cursor.getString(cursor.getColumnIndex(WORK_KEY_NAME)));
+                    work.setType(cursor.getString(cursor.getColumnIndex(WORK_KEY_TYPE)));
+                    work.setPrice(cursor.getInt(cursor.getColumnIndex(WORK_KEY_PRICE)));
                     works.add(work);
                 } while (cursor.moveToNext());
             }
@@ -352,12 +430,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
 
-        values.put(KEY_CODE, faliat.getPersonnelID());
-        values.put(KEY_WORK_CODE, faliat.getWorkId());
-        values.put(KEY_AMOUNT, faliat.getAmount());
-        values.put(KEY_DATE, faliat.getDate());
-        values.put(KEY_PROJECT_ID, faliat.getProjectID());
-        values.put(KEY_SENT, 0);
+        values.put(FALIAT_KEY_CODE, faliat.getPersonnelID());
+        values.put(FALIAT_KEY_WORK_CODE, faliat.getWorkId());
+        values.put(FALIAT_KEY_AMOUNT, faliat.getAmount());
+        values.put(FALIAT_KEY_DATE, faliat.getDate());
+        values.put(FALIAT_KEY_PROJECT_ID, faliat.getProjectID());
+        values.put(FALIAT_KEY_SENT, 0);
         this.getWritableDatabase().insert(TABLE_FALIAT, null, values);
 
     }
@@ -369,7 +447,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getReadableDatabase();
 
         String query = "SELECT * FROM " + TABLE_TARADOD + " t, " + TABLE_PERSONNEL + " p" +
-                " WHERE t." + KEY_PROJECT_ID + "=\"" + projectID + "\" AND t." + KEY_CODE + " = p." + KEY_ID + " order by t.id desc";
+                " WHERE t." + TARADOD_KEY_PROJECT_ID + "=\"" + projectID + "\" AND t." + TARADOD_KEY_CODE + " = p." + PERSONNEL_KEY_ID + " order by " + TARADOD_KEY_ID + " desc";
 
         Log.i("ali", query);
 
@@ -381,22 +459,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 do {
 
                     Taradod taradod = new Taradod(
-                            cursor.getInt(cursor.getColumnIndex(TABLE_TARADOD + "." + KEY_ID)),
-                            cursor.getString(cursor.getColumnIndex(TABLE_TARADOD + "." + KEY_CODE)),
-                            cursor.getString(cursor.getColumnIndex(KEY_IN_OUT)),
-                            cursor.getInt(cursor.getColumnIndex(KEY_SENT)),
-                            cursor.getString(cursor.getColumnIndex(KEY_DATE)),
-                            cursor.getString(cursor.getColumnIndex(KEY_PROJECT_ID)),
-                            cursor.getString(cursor.getColumnIndex(KEY_HAS_ERROR))
+                            cursor.getInt(cursor.getColumnIndex(TARADOD_KEY_ID)),
+                            cursor.getString(cursor.getColumnIndex(TARADOD_KEY_CODE)),
+                            cursor.getString(cursor.getColumnIndex(TARADOD_KEY_IN_OUT)),
+                            cursor.getInt(cursor.getColumnIndex(TARADOD_KEY_SENT)),
+                            cursor.getString(cursor.getColumnIndex(TARADOD_KEY_DATE)),
+                            cursor.getString(cursor.getColumnIndex(TARADOD_KEY_PROJECT_ID)),
+                            cursor.getString(cursor.getColumnIndex(TARADOD_KEY_HAS_ERROR))
                     );
 
                     Personnel personnel = new Personnel();
-                    personnel.setId(cursor.getInt(cursor.getColumnIndex(TABLE_PERSONNEL + "." + KEY_ID)));
-                    personnel.setFirst_name(cursor.getString(cursor.getColumnIndex(KEY_FIRSTNAME)));
-                    personnel.setLast_name(cursor.getString(cursor.getColumnIndex(KEY_LASTNAME)));
-                    personnel.setPersonnel_code(cursor.getString(cursor.getColumnIndex(TABLE_PERSONNEL + "." + KEY_CODE)));
-                    personnel.setPersonnel_image((cursor.getString(cursor.getColumnIndex(KEY_IMAGE))));
-                    personnel.setPhone_number((cursor.getString(cursor.getColumnIndex(KEY_PHONE))));
+                    personnel.setId(cursor.getInt(cursor.getColumnIndex(PERSONNEL_KEY_ID)));
+                    personnel.setFirst_name(cursor.getString(cursor.getColumnIndex(PERSONNEL_KEY_FIRSTNAME)));
+                    personnel.setLast_name(cursor.getString(cursor.getColumnIndex(PERSONNEL_KEY_LASTNAME)));
+                    personnel.setPersonnel_code(cursor.getString(cursor.getColumnIndex(PERSONNEL_KEY_CODE)));
+                    personnel.setPersonnel_image((cursor.getString(cursor.getColumnIndex(PERSONNEL_KEY_IMAGE))));
+                    personnel.setPhone_number((cursor.getString(cursor.getColumnIndex(PERSONNEL_KEY_PHONE))));
 
                     taradod.setPersonnel(personnel);
 
@@ -416,8 +494,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getReadableDatabase();
 
         String query = "SELECT * FROM " + TABLE_FALIAT + " f , " + TABLE_PERSONNEL + " p, " + TABLE_WORK + " w" +
-                " WHERE f." + KEY_PROJECT_ID + "=\"" + projectID + "\" AND  f." + KEY_CODE + " = p." + KEY_ID +
-                " AND f." + KEY_WORK_CODE + " = w." + KEY_ID + " order by f.id desc";
+                " WHERE f." + FALIAT_KEY_PROJECT_ID + "=\"" + projectID + "\" AND  f." + FALIAT_KEY_CODE + " = p." + PERSONNEL_KEY_ID +
+                " AND f." + FALIAT_KEY_WORK_CODE + " = w." + WORK_KEY_ID + " order by f." + FALIAT_KEY_ID + " desc";
 
         final Cursor cursor = db.rawQuery(query, null);
 
@@ -427,30 +505,30 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 do {
 
                     Faliat faliat = new Faliat(
-                            cursor.getInt(cursor.getColumnIndex(TABLE_FALIAT + "." + KEY_ID)),
-                            cursor.getString(cursor.getColumnIndex(TABLE_FALIAT + "." + KEY_CODE)),
-                            cursor.getString(cursor.getColumnIndex(TABLE_FALIAT + "." + KEY_WORK_CODE)),
-                            cursor.getString(cursor.getColumnIndex(KEY_AMOUNT)),
-                            cursor.getString(cursor.getColumnIndex(KEY_DATE)),
-                            cursor.getInt(cursor.getColumnIndex(KEY_SENT)),
-                            cursor.getString(cursor.getColumnIndex(KEY_PROJECT_ID))
+                            cursor.getInt(cursor.getColumnIndex(FALIAT_KEY_ID)),
+                            cursor.getString(cursor.getColumnIndex(FALIAT_KEY_CODE)),
+                            cursor.getString(cursor.getColumnIndex(FALIAT_KEY_WORK_CODE)),
+                            cursor.getString(cursor.getColumnIndex(FALIAT_KEY_AMOUNT)),
+                            cursor.getString(cursor.getColumnIndex(FALIAT_KEY_DATE)),
+                            cursor.getInt(cursor.getColumnIndex(FALIAT_KEY_SENT)),
+                            cursor.getString(cursor.getColumnIndex(FALIAT_KEY_PROJECT_ID))
                     );
 
                     Personnel personnel = new Personnel();
-                    personnel.setId(cursor.getInt(cursor.getColumnIndex(TABLE_PERSONNEL + "." + KEY_ID)));
-                    personnel.setFirst_name(cursor.getString(cursor.getColumnIndex(KEY_FIRSTNAME)));
-                    personnel.setLast_name(cursor.getString(cursor.getColumnIndex(KEY_LASTNAME)));
-                    personnel.setPersonnel_code(cursor.getString(cursor.getColumnIndex(TABLE_PERSONNEL + "." + KEY_CODE)));
-                    personnel.setPersonnel_image((cursor.getString(cursor.getColumnIndex(KEY_IMAGE))));
-                    personnel.setPhone_number((cursor.getString(cursor.getColumnIndex(KEY_PHONE))));
+                    personnel.setId(cursor.getInt(cursor.getColumnIndex(PERSONNEL_KEY_ID)));
+                    personnel.setFirst_name(cursor.getString(cursor.getColumnIndex(PERSONNEL_KEY_FIRSTNAME)));
+                    personnel.setLast_name(cursor.getString(cursor.getColumnIndex(PERSONNEL_KEY_LASTNAME)));
+                    personnel.setPersonnel_code(cursor.getString(cursor.getColumnIndex(PERSONNEL_KEY_CODE)));
+                    personnel.setPersonnel_image((cursor.getString(cursor.getColumnIndex(PERSONNEL_KEY_IMAGE))));
+                    personnel.setPhone_number((cursor.getString(cursor.getColumnIndex(PERSONNEL_KEY_PHONE))));
 
                     faliat.setPersonnel(personnel);
 
                     Work work = new Work();
-                    work.setId(cursor.getInt(cursor.getColumnIndex(TABLE_WORK + "." + KEY_ID)));
-                    work.setName(cursor.getString(cursor.getColumnIndex(KEY_NAME)));
-                    work.setType(cursor.getString(cursor.getColumnIndex(KEY_TYPE)));
-                    work.setPrice(cursor.getInt(cursor.getColumnIndex(KEY_PRICE)));
+                    work.setId(cursor.getInt(cursor.getColumnIndex(WORK_KEY_ID)));
+                    work.setName(cursor.getString(cursor.getColumnIndex(WORK_KEY_NAME)));
+                    work.setType(cursor.getString(cursor.getColumnIndex(WORK_KEY_TYPE)));
+                    work.setPrice(cursor.getInt(cursor.getColumnIndex(WORK_KEY_PRICE)));
 
                     faliat.setWork(work);
 
@@ -467,14 +545,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public String getPersonnelInOrOut(Personnel personnel) {
         SQLiteDatabase db = getReadableDatabase();
 
-        String query = "SELECT * FROM " + TABLE_TARADOD + " WHERE " + KEY_CODE + "=\"" + personnel.getId() + "\"" + " order by " + KEY_ID + " desc limit 1";
+        String query = "SELECT * FROM " + TABLE_TARADOD + " WHERE " + TARADOD_KEY_CODE + "=\"" + personnel.getId() + "\"" + " order by " + TARADOD_KEY_ID + " desc limit 1";
 
         final Cursor cursor = db.rawQuery(query, null);
 
         String in_out = null;
         if (cursor != null) {
             if (cursor.moveToFirst()) {
-                in_out = cursor.getString(cursor.getColumnIndex(KEY_IN_OUT));
+                in_out = cursor.getString(cursor.getColumnIndex(TARADOD_KEY_IN_OUT));
             }
         }
 
@@ -491,12 +569,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             if (cursor.moveToFirst()) {
                 do {
                     Chart chart = new Chart();
-                    chart.setId(cursor.getInt(cursor.getColumnIndex(KEY_ID)));
-                    chart.setName(cursor.getString(cursor.getColumnIndex(KEY_NAME)));
-                    chart.setType_id(Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_TYPE_ID))));
-                    chart.setStart_date((cursor.getString(cursor.getColumnIndex(KEY_START_DATE))));
-                    chart.setEnd_date((cursor.getString(cursor.getColumnIndex(KEY_END_DATE))));
-                    chart.setPrice(cursor.getString(cursor.getColumnIndex(KEY_PRICE)));
+                    chart.setId(cursor.getInt(cursor.getColumnIndex(PROJECT_KEY_ID)));
+                    chart.setName(cursor.getString(cursor.getColumnIndex(PROJECT_KEY_NAME)));
+                    chart.setType_id(Integer.parseInt(cursor.getString(cursor.getColumnIndex(PROJECT_KEY_TYPE_ID))));
+                    chart.setStart_date((cursor.getString(cursor.getColumnIndex(PROJECT_KEY_START_DATE))));
+                    chart.setEnd_date((cursor.getString(cursor.getColumnIndex(PROJECT_KEY_END_DATE))));
+                    chart.setPrice(cursor.getString(cursor.getColumnIndex(PROJECT_KEY_PRICE)));
                     charts.add(chart);
                 } while (cursor.moveToNext());
             }
@@ -513,7 +591,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ArrayList<Faliat> faliats = new ArrayList<Faliat>();
 
         SQLiteDatabase db = getReadableDatabase();
-        final Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_FALIAT + " WHERE " + KEY_SENT + " = \"0\" ;", null);
+        final Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_FALIAT + " WHERE " + FALIAT_KEY_SENT + " = \"0\" ;", null);
 
         if (cursor != null) {
             if (cursor.moveToFirst()) {
@@ -521,13 +599,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 do {
 
                     Faliat faliat = new Faliat(
-                            cursor.getInt(cursor.getColumnIndex(KEY_ID)),
-                            cursor.getString(cursor.getColumnIndex(KEY_CODE)),
-                            cursor.getString(cursor.getColumnIndex(KEY_WORK_CODE)),
-                            cursor.getString(cursor.getColumnIndex(KEY_AMOUNT)),
-                            cursor.getString(cursor.getColumnIndex(KEY_DATE)),
-                            cursor.getInt(cursor.getColumnIndex(KEY_SENT)),
-                            cursor.getString(cursor.getColumnIndex(KEY_PROJECT_ID))
+                            cursor.getInt(cursor.getColumnIndex(FALIAT_KEY_ID)),
+                            cursor.getString(cursor.getColumnIndex(FALIAT_KEY_CODE)),
+                            cursor.getString(cursor.getColumnIndex(FALIAT_KEY_WORK_CODE)),
+                            cursor.getString(cursor.getColumnIndex(FALIAT_KEY_AMOUNT)),
+                            cursor.getString(cursor.getColumnIndex(FALIAT_KEY_DATE)),
+                            cursor.getInt(cursor.getColumnIndex(FALIAT_KEY_SENT)),
+                            cursor.getString(cursor.getColumnIndex(FALIAT_KEY_PROJECT_ID))
 
 
                     );
@@ -554,13 +632,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 do {
 
                     Faliat faliat = new Faliat(
-                            cursor.getInt(cursor.getColumnIndex(TABLE_FALIAT + "." + KEY_ID)),
-                            cursor.getString(cursor.getColumnIndex(TABLE_FALIAT + "." + KEY_CODE)),
-                            cursor.getString(cursor.getColumnIndex(TABLE_FALIAT + "." + KEY_WORK_CODE)),
-                            cursor.getString(cursor.getColumnIndex(KEY_AMOUNT)),
-                            cursor.getString(cursor.getColumnIndex(KEY_DATE)),
-                            cursor.getInt(cursor.getColumnIndex(KEY_SENT)),
-                            cursor.getString(cursor.getColumnIndex(KEY_PROJECT_ID))
+                            cursor.getInt(cursor.getColumnIndex(FALIAT_KEY_ID)),
+                            cursor.getString(cursor.getColumnIndex(FALIAT_KEY_CODE)),
+                            cursor.getString(cursor.getColumnIndex(FALIAT_KEY_WORK_CODE)),
+                            cursor.getString(cursor.getColumnIndex(FALIAT_KEY_AMOUNT)),
+                            cursor.getString(cursor.getColumnIndex(FALIAT_KEY_DATE)),
+                            cursor.getInt(cursor.getColumnIndex(FALIAT_KEY_SENT)),
+                            cursor.getString(cursor.getColumnIndex(FALIAT_KEY_PROJECT_ID))
 
 
                     );
@@ -591,7 +669,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         idIn += ")";
 
         SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("UPDATE " + TABLE_FALIAT + " SET sent =\"1\" Where " + KEY_ID + " In " + idIn + ";");
+        db.execSQL("UPDATE " + TABLE_FALIAT + " SET " + FALIAT_KEY_SENT + " =\"1\" Where " + FALIAT_KEY_ID + " In " + idIn + ";");
 
     }
 
@@ -612,7 +690,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         idIn += ")";
 
         SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("UPDATE " + TABLE_TARADOD + " SET sent=\"1\" Where " + KEY_ID + " In " + idIn + ";");
+        db.execSQL("UPDATE " + TABLE_TARADOD + " SET " + TARADOD_KEY_SENT + "=\"1\" Where " + TARADOD_KEY_ID + " In " + idIn + ";");
 
     }
 
@@ -621,8 +699,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Date d = new Date(System.currentTimeMillis() - (86400000) * days);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
         String date = sdf.format(d);
-        final Cursor cursor1 = db.rawQuery("delete from " + TABLE_FALIAT + " Where " + KEY_DATE + " < '" + date + "' AND " + KEY_SENT + "=\"1\"", null);
-        final Cursor cursor2 = db.rawQuery("delete from " + TABLE_TARADOD + " Where " + KEY_DATE + " < '" + date + "' AND " + KEY_SENT + "=\"1\"", null);
+        final Cursor cursor1 = db.rawQuery("delete from " + TABLE_FALIAT + " Where " + FALIAT_KEY_DATE + " < '" + date + "' AND " + FALIAT_KEY_SENT + "=\"1\"", null);
+        final Cursor cursor2 = db.rawQuery("delete from " + TABLE_TARADOD + " Where " + TARADOD_KEY_DATE + " < '" + date + "' AND " + TARADOD_KEY_SENT + "=\"1\"", null);
 
     }
 
@@ -643,7 +721,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             idIn += ")";
 
             SQLiteDatabase db = getWritableDatabase();
-            db.execSQL("UPDATE " + TABLE_TARADOD + " SET " + KEY_HAS_ERROR + "=\"1\" Where " + KEY_ID + " In " + idIn + ";");
+            db.execSQL("UPDATE " + TABLE_TARADOD + " SET " + TARADOD_KEY_HAS_ERROR + "=\"1\" Where " + TARADOD_KEY_ID + " In " + idIn + ";");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -665,9 +743,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 do {
 
                     Anbar anbar = new Anbar(
-                            cursor.getInt(cursor.getColumnIndex(KEY_ID)),
-                            cursor.getString(cursor.getColumnIndex(KEY_NAME)),
-                            cursor.getInt(cursor.getColumnIndex(KEY_IS_OWNER))
+                            cursor.getInt(cursor.getColumnIndex(ANBAR_KEY_ID)),
+                            cursor.getString(cursor.getColumnIndex(ANBAR_KEY_NAME)),
+                            cursor.getInt(cursor.getColumnIndex(ANBAR_KEY_IS_OWNER))
                     );
 
                     anbars.add(anbar);
@@ -684,7 +762,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ArrayList<Anbar> anbars = new ArrayList<Anbar>();
 
         SQLiteDatabase db = getReadableDatabase();
-        final Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_ANBAR + " WHERE " + KEY_IS_OWNER + " = \"1\"", null);
+        final Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_ANBAR + " WHERE " + ANBAR_KEY_IS_OWNER + " = \"1\"", null);
 
         if (cursor != null) {
             if (cursor.moveToFirst()) {
@@ -692,9 +770,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 do {
 
                     Anbar anbar = new Anbar(
-                            cursor.getInt(cursor.getColumnIndex(KEY_ID)),
-                            cursor.getString(cursor.getColumnIndex(KEY_NAME)),
-                            cursor.getInt(cursor.getColumnIndex(KEY_IS_OWNER))
+                            cursor.getInt(cursor.getColumnIndex(ANBAR_KEY_ID)),
+                            cursor.getString(cursor.getColumnIndex(ANBAR_KEY_NAME)),
+                            cursor.getInt(cursor.getColumnIndex(ANBAR_KEY_IS_OWNER))
                     );
 
                     anbars.add(anbar);
@@ -708,14 +786,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public void insertItemsProvider(TaminKonande taminKonande) {
         ContentValues values = new ContentValues();
-        values.put(KEY_ID, taminKonande.getId());
-        values.put(KEY_NAME, taminKonande.getName());
-        values.put(KEY_OWNER, taminKonande.getOwner());
-        this.getWritableDatabase().insert(TABLE_ITEMS_PROVIDER, null, values);
+        values.put(TAMIN_KONANDE_KEY_ID, taminKonande.getId());
+        values.put(TAMIN_KONANDE_KEY_NAME, taminKonande.getName());
+        values.put(TAMIN_KONANDE_KEY_OWNER, taminKonande.getOwner());
+        this.getWritableDatabase().insert(TABLE_TAMIN_KONANDE, null, values);
     }
 
     public void emptyItemsProviderTable() {
-        getReadableDatabase().execSQL("Delete from " + TABLE_ITEMS_PROVIDER);
+        getReadableDatabase().execSQL("Delete from " + TABLE_TAMIN_KONANDE);
     }
 
     public void emptyProductTable() {
@@ -726,7 +804,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ArrayList<AnbarTransaction> anbarTransactions = new ArrayList<AnbarTransaction>();
 
         SQLiteDatabase db = getReadableDatabase();
-        final Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_ANBAR_TRANSACTION, null);
+
+        String query = "SELECT * FROM " + TABLE_ANBAR_TRANSACTION + " WHERE " +
+                ANBAR_TRANSACTION_KEY_ANBAR_ID + "  = " + anbar.getId();
+
+        final Cursor cursor = db.rawQuery(query, null);
 
         if (cursor != null) {
             if (cursor.moveToFirst()) {
@@ -734,17 +816,203 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 do {
 
                     AnbarTransaction anbarTransaction = new AnbarTransaction(
-                            cursor.getInt(cursor.getColumnIndex(KEY_ID)),
-                            cursor.getInt(cursor.getColumnIndex(KEY_TYPE)),
-                            cursor.getInt(cursor.getColumnIndex(KEY_PRODUCT_ID)),
-                            cursor.getInt(cursor.getColumnIndex(KEY_ANBAR_ID)),
-                            cursor.getInt(cursor.getColumnIndex(KEY_PROVIDER_ID)),
-                            cursor.getInt(cursor.getColumnIndex(KEY_TO_ANBAR_ID)),
-                            cursor.getInt(cursor.getColumnIndex(KEY_FROM_ANBAR_ID)),
-                            cursor.getInt(cursor.getColumnIndex(KEY_AMOUNT)),
-                            cursor.getString(cursor.getColumnIndex(KEY_DATE)),
-                            cursor.getString(cursor.getColumnIndex(KEY_DESCRIPTION))
+                            cursor.getInt(cursor.getColumnIndex(ANBAR_TRANSACTION_KEY_ID)),
+                            cursor.getInt(cursor.getColumnIndex(ANBAR_TRANSACTION_KEY_TYPE)),
+                            cursor.getInt(cursor.getColumnIndex(ANBAR_TRANSACTION_KEY_PRODUCT_ID)),
+                            cursor.getInt(cursor.getColumnIndex(ANBAR_TRANSACTION_KEY_ANBAR_ID)),
+                            cursor.getInt(cursor.getColumnIndex(ANBAR_TRANSACTION_KEY_PROVIDER_ID)),
+                            cursor.getInt(cursor.getColumnIndex(ANBAR_TRANSACTION_KEY_TO_ANBAR_ID)),
+                            cursor.getInt(cursor.getColumnIndex(ANBAR_TRANSACTION_KEY_FROM_ANBAR_ID)),
+                            cursor.getInt(cursor.getColumnIndex(ANBAR_TRANSACTION_KEY_AMOUNT)),
+                            cursor.getString(cursor.getColumnIndex(ANBAR_TRANSACTION_KEY_DATE)),
+                            cursor.getString(cursor.getColumnIndex(ANBAR_TRANSACTION_KEY_DESCRIPTION)),
+                            cursor.getInt(cursor.getColumnIndex(ANBAR_TRANSACTION_KEY_SENT)),
+                            cursor.getInt(cursor.getColumnIndex(ANBAR_TRANSACTION_KEY_HAS_ERROR))
+
                     );
+
+
+                    // - - - - - - - -   GET PRODUCT
+                    String query3 = "SELECT * FROM " + TABLE_PRODUCT + " WHERE " +
+                            PRODUCT_KEY_ID + "=" + anbarTransaction.getProduct_id();
+                    final Cursor cursor3 = db.rawQuery(query3, null);
+                    if (cursor3 != null) {
+                        if (cursor3.moveToFirst()) {
+
+                            Product product = new Product(
+                                    cursor3.getInt(cursor3.getColumnIndex(PRODUCT_KEY_ID)),
+                                    cursor3.getString(cursor3.getColumnIndex(PRODUCT_KEY_NAME))
+                            );
+                            anbarTransaction.setProduct(product);
+                        }
+                    }
+
+
+                    // - - - - - - - - - -  AZ >> TAMIN_KONANDE  BE >> ANBAR MA
+                    if (anbarTransaction.getType() == 1) {
+
+                        String query2 = "SELECT * FROM " + TABLE_TAMIN_KONANDE + " WHERE " +
+                                TAMIN_KONANDE_KEY_ID + "=" + anbarTransaction.getTaminKonande_id();
+                        final Cursor cursor2 = db.rawQuery(query2, null);
+                        if (cursor2 != null) {
+                            if (cursor2.moveToFirst()) {
+                                TaminKonande tamin = new TaminKonande(
+                                        cursor2.getInt(cursor2.getColumnIndex(TAMIN_KONANDE_KEY_ID)),
+                                        cursor2.getString(cursor2.getColumnIndex(TAMIN_KONANDE_KEY_NAME)),
+                                        cursor2.getString(cursor2.getColumnIndex(TAMIN_KONANDE_KEY_OWNER))
+                                );
+                                anbarTransaction.setTaminKonande(tamin);
+                            }
+                        }
+                    }
+
+
+                    // - - - - - - - -   AZ >> ANBAR DIGAR  BE >> ANBAR MA
+                    if (anbarTransaction.getType() == 3) {
+                        String query2 = "SELECT * FROM " + TABLE_ANBAR + " WHERE " +
+                                ANBAR_KEY_ID + "=" + anbarTransaction.getFrom_anbar_id();
+
+                        final Cursor cursor2 = db.rawQuery(query2, null);
+                        if (cursor2 != null) {
+                            if (cursor2.moveToFirst()) {
+                                Anbar fromAnbar = new Anbar(
+                                        cursor2.getInt(cursor2.getColumnIndex(ANBAR_KEY_ID)),
+                                        cursor2.getString(cursor2.getColumnIndex(ANBAR_KEY_NAME)),
+                                        cursor2.getInt(cursor2.getColumnIndex(ANBAR_KEY_IS_OWNER))
+                                );
+                                anbarTransaction.setFromAnbar(fromAnbar);
+                            }
+                        }
+                    }
+
+                    // - - - - - - - -   AZ >> ANBAR MA  BE >> ANBAR DIGAR
+                    if (anbarTransaction.getType() == 2) {
+                        String query2 = "SELECT * FROM " + TABLE_ANBAR + " WHERE " +
+                                ANBAR_KEY_ID + "=" + anbarTransaction.getTo_anbar_id();
+
+                        final Cursor cursor2 = db.rawQuery(query2, null);
+                        if (cursor2 != null) {
+                            if (cursor2.moveToFirst()) {
+                                Anbar toAnbar = new Anbar(
+                                        cursor2.getInt(cursor2.getColumnIndex(ANBAR_KEY_ID)),
+                                        cursor2.getString(cursor2.getColumnIndex(ANBAR_KEY_NAME)),
+                                        cursor2.getInt(cursor2.getColumnIndex(ANBAR_KEY_IS_OWNER))
+                                );
+                                anbarTransaction.setToAnbar(toAnbar);
+                            }
+                        }
+                    }
+
+                    anbarTransactions.add(anbarTransaction);
+
+                } while (cursor.moveToNext());
+            }
+        }
+
+        return anbarTransactions;
+    }
+
+    public ArrayList<AnbarTransaction> getAllAnbarTransactions() {
+        ArrayList<AnbarTransaction> anbarTransactions = new ArrayList<AnbarTransaction>();
+
+        SQLiteDatabase db = getReadableDatabase();
+
+        String query = "SELECT * FROM " + TABLE_ANBAR_TRANSACTION;
+
+        final Cursor cursor = db.rawQuery(query, null);
+
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+
+                do {
+
+                    AnbarTransaction anbarTransaction = new AnbarTransaction(
+                            cursor.getInt(cursor.getColumnIndex(ANBAR_TRANSACTION_KEY_ID)),
+                            cursor.getInt(cursor.getColumnIndex(ANBAR_TRANSACTION_KEY_TYPE)),
+                            cursor.getInt(cursor.getColumnIndex(ANBAR_TRANSACTION_KEY_PRODUCT_ID)),
+                            cursor.getInt(cursor.getColumnIndex(ANBAR_TRANSACTION_KEY_ANBAR_ID)),
+                            cursor.getInt(cursor.getColumnIndex(ANBAR_TRANSACTION_KEY_PROVIDER_ID)),
+                            cursor.getInt(cursor.getColumnIndex(ANBAR_TRANSACTION_KEY_TO_ANBAR_ID)),
+                            cursor.getInt(cursor.getColumnIndex(ANBAR_TRANSACTION_KEY_FROM_ANBAR_ID)),
+                            cursor.getInt(cursor.getColumnIndex(ANBAR_TRANSACTION_KEY_AMOUNT)),
+                            cursor.getString(cursor.getColumnIndex(ANBAR_TRANSACTION_KEY_DATE)),
+                            cursor.getString(cursor.getColumnIndex(ANBAR_TRANSACTION_KEY_DESCRIPTION)),
+                            cursor.getInt(cursor.getColumnIndex(ANBAR_TRANSACTION_KEY_SENT)),
+                            cursor.getInt(cursor.getColumnIndex(ANBAR_TRANSACTION_KEY_HAS_ERROR))
+
+                    );
+
+
+                    // - - - - - - - -   GET PRODUCT
+                    String query3 = "SELECT * FROM " + TABLE_PRODUCT + " WHERE " +
+                            PRODUCT_KEY_ID + "=" + anbarTransaction.getProduct_id();
+                    final Cursor cursor3 = db.rawQuery(query3, null);
+                    if (cursor3 != null) {
+                        if (cursor3.moveToFirst()) {
+
+                            Product product = new Product(
+                                    cursor3.getInt(cursor3.getColumnIndex(PRODUCT_KEY_ID)),
+                                    cursor3.getString(cursor3.getColumnIndex(PRODUCT_KEY_NAME))
+                            );
+                            anbarTransaction.setProduct(product);
+                        }
+                    }
+
+
+                    // - - - - - - - - - -  AZ >> TAMIN_KONANDE  BE >> ANBAR MA
+                    if (anbarTransaction.getType() == 1) {
+
+                        String query2 = "SELECT * FROM " + TABLE_TAMIN_KONANDE + " WHERE " +
+                                TAMIN_KONANDE_KEY_ID + "=" + anbarTransaction.getTaminKonande_id();
+                        final Cursor cursor2 = db.rawQuery(query2, null);
+                        if (cursor2 != null) {
+                            if (cursor2.moveToFirst()) {
+                                TaminKonande tamin = new TaminKonande(
+                                        cursor2.getInt(cursor2.getColumnIndex(TAMIN_KONANDE_KEY_ID)),
+                                        cursor2.getString(cursor2.getColumnIndex(TAMIN_KONANDE_KEY_NAME)),
+                                        cursor2.getString(cursor2.getColumnIndex(TAMIN_KONANDE_KEY_OWNER))
+                                );
+                                anbarTransaction.setTaminKonande(tamin);
+                            }
+                        }
+                    }
+
+
+                    // - - - - - - - -   AZ >> ANBAR DIGAR  BE >> ANBAR MA
+                    if (anbarTransaction.getType() == 3) {
+                        String query2 = "SELECT * FROM " + TABLE_ANBAR + " WHERE " +
+                                ANBAR_KEY_ID + "=" + anbarTransaction.getFrom_anbar_id();
+
+                        final Cursor cursor2 = db.rawQuery(query2, null);
+                        if (cursor2 != null) {
+                            if (cursor2.moveToFirst()) {
+                                Anbar fromAnbar = new Anbar(
+                                        cursor2.getInt(cursor2.getColumnIndex(ANBAR_KEY_ID)),
+                                        cursor2.getString(cursor2.getColumnIndex(ANBAR_KEY_NAME)),
+                                        cursor2.getInt(cursor2.getColumnIndex(ANBAR_KEY_IS_OWNER))
+                                );
+                                anbarTransaction.setFromAnbar(fromAnbar);
+                            }
+                        }
+                    }
+
+                    // - - - - - - - -   AZ >> ANBAR MA  BE >> ANBAR DIGAR
+                    if (anbarTransaction.getType() == 2) {
+                        String query2 = "SELECT * FROM " + TABLE_ANBAR + " WHERE " +
+                                ANBAR_KEY_ID + "=" + anbarTransaction.getTo_anbar_id();
+
+                        final Cursor cursor2 = db.rawQuery(query2, null);
+                        if (cursor2 != null) {
+                            if (cursor2.moveToFirst()) {
+                                Anbar toAnbar = new Anbar(
+                                        cursor2.getInt(cursor2.getColumnIndex(ANBAR_KEY_ID)),
+                                        cursor2.getString(cursor2.getColumnIndex(ANBAR_KEY_NAME)),
+                                        cursor2.getInt(cursor2.getColumnIndex(ANBAR_KEY_IS_OWNER))
+                                );
+                                anbarTransaction.setToAnbar(toAnbar);
+                            }
+                        }
+                    }
 
                     anbarTransactions.add(anbarTransaction);
 
@@ -757,16 +1025,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public void insertAnbarTransaction(AnbarTransaction anbarTransaction) {
         ContentValues values = new ContentValues();
-        values.put(KEY_ID, anbarTransaction.getId());
-        values.put(KEY_TYPE, anbarTransaction.getType());
-        values.put(KEY_PRODUCT_ID, anbarTransaction.getProduct_id());
-        values.put(KEY_ANBAR_ID, anbarTransaction.getAnbar_id());
-        values.put(KEY_PROVIDER_ID, anbarTransaction.getProvider_id());
-        values.put(KEY_TO_ANBAR_ID, anbarTransaction.getTo_anbar_id());
-        values.put(KEY_FROM_ANBAR_ID, anbarTransaction.getFrom_anbar_id());
-        values.put(KEY_AMOUNT, anbarTransaction.getAmount());
-        values.put(KEY_DATE, anbarTransaction.getDate());
-        values.put(KEY_DESCRIPTION, anbarTransaction.getDescription());
+        values.put(ANBAR_TRANSACTION_KEY_TYPE, anbarTransaction.getType());
+        values.put(ANBAR_TRANSACTION_KEY_PRODUCT_ID, anbarTransaction.getProduct_id());
+        values.put(ANBAR_TRANSACTION_KEY_ANBAR_ID, anbarTransaction.getAnbar_id());
+        values.put(ANBAR_TRANSACTION_KEY_PROVIDER_ID, anbarTransaction.getTaminKonande_id());
+        values.put(ANBAR_TRANSACTION_KEY_TO_ANBAR_ID, anbarTransaction.getTo_anbar_id());
+        values.put(ANBAR_TRANSACTION_KEY_FROM_ANBAR_ID, anbarTransaction.getFrom_anbar_id());
+        values.put(ANBAR_TRANSACTION_KEY_AMOUNT, anbarTransaction.getAmount());
+        values.put(ANBAR_TRANSACTION_KEY_DATE, anbarTransaction.getDate());
+        values.put(ANBAR_TRANSACTION_KEY_DESCRIPTION, anbarTransaction.getDescription());
         this.getWritableDatabase().insert(TABLE_ANBAR_TRANSACTION, null, values);
     }
 
@@ -777,7 +1044,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         String condition = "";
         if ((key != null) && (key.length() > 0))
-            condition = " WHERE " + KEY_NAME + " like \"" + key + "%\"";
+            condition = " WHERE " + PRODUCT_KEY_NAME + " like \"" + key + "%\"";
         final Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_PRODUCT + condition, null);
 
 
@@ -787,8 +1054,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 do {
 
                     Product product = new Product(
-                            cursor.getInt(cursor.getColumnIndex(KEY_ID)),
-                            cursor.getString(cursor.getColumnIndex(KEY_NAME))
+                            cursor.getInt(cursor.getColumnIndex(PRODUCT_KEY_ID)),
+                            cursor.getString(cursor.getColumnIndex(PRODUCT_KEY_NAME))
                     );
 
                     products.add(product);
@@ -808,9 +1075,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String condition = "";
 
         if ((key != null) && (key.length() > 0))
-            condition = " WHERE " + KEY_NAME + " like \"" + key + "%\"";
+            condition = " WHERE " + TAMIN_KONANDE_KEY_NAME + " like \"" + key + "%\"";
 
-        final Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_ITEMS_PROVIDER + condition, null);
+        final Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_TAMIN_KONANDE + condition, null);
 
 
         if (cursor != null) {
@@ -819,9 +1086,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 do {
 
                     TaminKonande tamin = new TaminKonande(
-                            cursor.getInt(cursor.getColumnIndex(KEY_ID)),
-                            cursor.getString(cursor.getColumnIndex(KEY_NAME)),
-                            cursor.getString(cursor.getColumnIndex(KEY_OWNER))
+                            cursor.getInt(cursor.getColumnIndex(TAMIN_KONANDE_KEY_ID)),
+                            cursor.getString(cursor.getColumnIndex(TAMIN_KONANDE_KEY_NAME)),
+                            cursor.getString(cursor.getColumnIndex(TAMIN_KONANDE_KEY_OWNER))
                     );
 
 
@@ -833,4 +1100,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return taminKonandes;
     }
+
+
 }

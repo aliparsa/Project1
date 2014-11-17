@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Path;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
@@ -99,11 +100,12 @@ public class AnbarPickerActivity extends Activity {
         synchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Toast.makeText(context, "بروزرسانی...", Toast.LENGTH_SHORT).show();
 
                 SyncHelper.syncAnbar(context, new CallBack() {
                     @Override
                     public void onSuccess(Object result) {
-                        Toast.makeText(context, "بروزرسانی با موفقیت انجام شد!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "بروزرسانی با موفقیت انجام شد", Toast.LENGTH_SHORT).show();
                         loadAnbars();
                     }
 
@@ -156,6 +158,13 @@ public class AnbarPickerActivity extends Activity {
 
         super.onBackPressed();
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        PathMapManager.pop("destroy anbar picker");
     }
 
     public class onAnbarClickListener implements AdapterView.OnItemClickListener {

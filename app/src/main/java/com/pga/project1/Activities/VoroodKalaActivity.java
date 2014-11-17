@@ -8,18 +8,25 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.pga.project1.DataModel.Anbar;
+import com.pga.project1.DataModel.AnbarTransaction;
 import com.pga.project1.DataModel.PathObject;
 import com.pga.project1.DataModel.Product;
 import com.pga.project1.DataModel.TaminKonande;
+import com.pga.project1.Helpers.DatabaseHelper;
 import com.pga.project1.R;
 import com.pga.project1.Utilities.FontHelper;
 import com.pga.project1.Utilities.Fonts;
+import com.pga.project1.Utilities.PersianCalendar;
 import com.pga.project1.Viewes.PathMapManager;
+
+import java.io.Serializable;
 
 public class VoroodKalaActivity extends Activity {
 
@@ -33,22 +40,30 @@ public class VoroodKalaActivity extends Activity {
     final int TAMINKONANDE_REQUEST_CODE = 2222;
     TextView selectedKala;
     TextView selectedtaminKonande;
+    EditText mizanKala;
     Product product;
     private PathMapManager pm;
     private TaminKonande taminKonande;
     private Anbar anbar;
+    private Anbar anbarMa;
+    private EditText tozihat;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vorood_kala);
+        anbarMa = (Anbar) getIntent().getSerializableExtra("anbar");
         prepareActionBar();
         context = this;
+
         buttonVoroodKala = (Button) findViewById(R.id.entekhab_kala);
         buttonTaminKonandePicker = (Button) findViewById(R.id.TaminKonandePicker);
         buttonAnbarPicker = (Button) findViewById(R.id.anbar_picker);
         selectedKala = (TextView) findViewById(R.id.selected_kala);
         selectedtaminKonande = (TextView) findViewById(R.id.selected_tamin_konande);
+        mizanKala = (EditText) findViewById(R.id.mizanKala);
+        tozihat = (EditText) findViewById(R.id.tozihat);
 
         pm = (PathMapManager) findViewById(R.id.pmm);
         pm.push(new PathObject("ورود کالا"));
@@ -112,6 +127,62 @@ public class VoroodKalaActivity extends Activity {
             @Override
             public void onClick(View view) {
                 //TODO save vorod kala
+                String message = "";
+                if (product == null) {
+                    message += "کلا انتخاب نشده است" + "\n";
+                }
+
+                if (taminKonande == null && anbar == null) {
+                    message += "مبدا تعیین نشده است" + "\n";
+                }
+
+                if (mizanKala.length() < 1) {
+                    message += "میزان کالا وارد نشده" + "\n";
+                }
+
+                if (message.length() > 0) {
+                    Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+                    return;
+                } else {
+                    // TODO SAVE TRANSACTION
+                    AnbarTransaction anbarTransaction = null;
+
+                    if (taminKonande != null) {
+                        anbarTransaction = new AnbarTransaction(
+                                1,
+                                product.getId(),
+                                anbarMa.getId(),
+                                taminKonande.getId(),
+                                -1,
+                                -1,
+                                Integer.parseInt(mizanKala.getText().toString()),
+                                new PersianCalendar().getGregorianDateTime(),
+                                tozihat.getText().toString(),
+                                0,
+                                0);
+
+                    }
+
+                    if (anbar != null) {
+                        anbarTransaction = new AnbarTransaction(
+                                3,
+                                product.getId(),
+                                anbarMa.getId(),
+                                -1,
+                                -1,
+                                anbar.getId(),
+                                Integer.parseInt(mizanKala.getText().toString()),
+                                new PersianCalendar().getGregorianDateTime(),
+                                tozihat.getText().toString(),
+                                0,
+                                0);
+
+                    }
+                    DatabaseHelper db = new DatabaseHelper(context);
+                    db.insertAnbarTransaction(anbarTransaction);
+                    finish();
+
+                }
             }
         });
 
