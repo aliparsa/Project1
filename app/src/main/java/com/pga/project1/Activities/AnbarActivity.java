@@ -40,6 +40,7 @@ public class AnbarActivity extends Activity {
     private ListView lv;
     private Anbar anbar;
     private ListViewObjectAdapter adapter;
+    private ImageView reload;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +97,7 @@ public class AnbarActivity extends Activity {
 
         inButton = (ImageView) customActionBar.findViewById(R.id.ac_action1);
         outButton = (ImageView) customActionBar.findViewById(R.id.ac_action2);
+        reload = (ImageView) customActionBar.findViewById(R.id.ac_action3);
 
         inButton.setImageResource(R.drawable.ic_action_enter);
         inButton.setOnClickListener(new View.OnClickListener() {
@@ -116,6 +118,28 @@ public class AnbarActivity extends Activity {
                 Intent intent = new Intent(context, KhoroojKalaActivity.class);
                 intent.putExtra("anbar", anbar);
                 startActivityForResult(intent, 1111);
+            }
+        });
+
+
+        reload.setImageResource(R.drawable.ac_refresh);
+        reload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                SyncHelper.syncAnbarTransaction(context, new CallBack() {
+                    @Override
+                    public void onSuccess(Object result) {
+
+                        Toast.makeText(context, "بروزرسانی انجام شد", Toast.LENGTH_SHORT).show();
+                        loadTransactions();
+                    }
+
+                    @Override
+                    public void onError(String errorMessage) {
+                        Toast.makeText(context, "بروزرسانی با خطا مواجه شد!", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
 

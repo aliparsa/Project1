@@ -37,8 +37,8 @@ public class AnbarTransaction implements ListViewItemINTERFACE{
     String date;
     String description;
     private int persianDate;
-    int sent;
-    int has_error;
+    private int sent;
+    private int has_error;
 
 
     public AnbarTransaction(int id, int type, int product_id, int anbar_id, int taminKonande_id, int to_anbar_id, int from_anbar_id, int amount, String date, String description, int sent, int has_error) {
@@ -226,6 +226,9 @@ public class AnbarTransaction implements ListViewItemINTERFACE{
         if (holder.toanbar == null)
             holder.toanbar = (TextView) view.findViewById(R.id.anbar_transaction_toanbar);
 
+        if (holder.taradodFlag == null)
+            holder.taradodFlag = (TextView) view.findViewById(R.id.taradod_flag);
+
 
         holder.kala_name.setText(product.getName() + " ");
         holder.amount.setText(+getAmount() + "");
@@ -246,6 +249,20 @@ public class AnbarTransaction implements ListViewItemINTERFACE{
             holder.toanbar.setText(" از   " + fromAnbar.getName());
 
         holder.date.setText(this.getPersianDate());
+
+
+        if (getSent() == 0) {
+            holder.taradodFlag.setText("");
+        }
+        if (getSent() == 1) {
+            holder.taradodFlag.setTextColor(Color.GREEN);
+            holder.taradodFlag.setText("✓");
+        }
+        if (getHas_error() == 1) {
+            holder.taradodFlag.setText("x");
+            holder.taradodFlag.setTextColor(Color.RED);
+        }
+
     }
 
     public String getPersianDate() {
@@ -271,8 +288,6 @@ public class AnbarTransaction implements ListViewItemINTERFACE{
                 json.put("date", trans.getDate());
                 json.put("description", trans.getDescription());
 
-
-
                 transArray.put(json);
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -283,6 +298,22 @@ public class AnbarTransaction implements ListViewItemINTERFACE{
         return transArray;
     }
 
+    public int getSent() {
+        return sent;
+    }
+
+    public void setSent(int sent) {
+        this.sent = sent;
+    }
+
+    public int getHas_error() {
+        return has_error;
+    }
+
+    public void setHas_error(int has_error) {
+        this.has_error = has_error;
+    }
+
 
     public class Holder {
         TextView kala_name;
@@ -290,6 +321,7 @@ public class AnbarTransaction implements ListViewItemINTERFACE{
         TextView in_out;
         TextView date;
         TextView toanbar;
+        TextView taradodFlag;
 
 
 
