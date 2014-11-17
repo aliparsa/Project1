@@ -7,16 +7,28 @@
     android:layout_margin="2dp"
     android:padding="5dp"
     android:background="@drawable/tree_view_item_background"
-    android:orientation="vertical"
-    android:visibility="visible">
+    android:orientation="horizontal"
+    android:visibility="visible"
+    android:gravity="right"
+    >
 
     <TextView
         android:id="@+id/anbar_name"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:minHeight="40dp"
-        android:layout_marginRight="5dp"
+        android:minHeight="50dp"
         android:padding="3dp"
         android:textSize="15sp" />
+
+
+    <view
+        android:id="@+id/anbar_icon"
+        class="com.pga.project1.Viewes.ImageLoaderView"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:alpha="0.8"
+        android:padding="3dp"
+        android:src="@drawable/ic_warehouse_512"
+        />
 
 </LinearLayout>
