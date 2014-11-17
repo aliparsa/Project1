@@ -28,6 +28,7 @@ import com.pga.project1.Utilities.FontHelper;
 import com.pga.project1.Utilities.Fonts;
 import com.pga.project1.Utilities.HandleError;
 import com.pga.project1.Utilities.Webservice;
+import com.pga.project1.Viewes.ViewNameValue;
 import com.pga.project1.fragment.NavigationDrawerFragment;
 
 import org.json.JSONArray;
@@ -159,6 +160,15 @@ public class MainActivity extends Activity
     }
 
     private void LoadHomePageInfo() {
+        ViewNameValue nv1 = (ViewNameValue) findViewById(R.id.nv1);
+        ViewNameValue nv2 = (ViewNameValue) findViewById(R.id.nv2);
+        ViewNameValue nv3 = (ViewNameValue) findViewById(R.id.nv3);
+        ViewNameValue nv4 = (ViewNameValue) findViewById(R.id.nv4);
+
+        nv1.setNameValue("تعداد پروژه های من", new DatabaseHelper(context).getProjects().size() + "");
+        nv2.setNameValue("تعداد انبار های من", new DatabaseHelper(context).getMyAnbars().size() + "");
+
+
 
     }
 
