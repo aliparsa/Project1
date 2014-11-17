@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.pga.project1.Adapters.ListViewObjectAdapter;
 import com.pga.project1.DataModel.PathObject;
@@ -54,6 +55,9 @@ public class TaminKonandePickerActivity extends Activity {
         loadProvider(null);
 
         prepareActionbar();
+
+        lv.requestFocus();
+
     }
 
 
@@ -108,16 +112,21 @@ public class TaminKonandePickerActivity extends Activity {
         refreshButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Toast.makeText(context, "بروزرسانی...", Toast.LENGTH_SHORT).show();
+
                 SyncHelper.syncItemsProvider(context, new CallBack() {
                     @Override
                     public void onSuccess(Object result) {
 
                         searchView.setQuery("", false);
                         loadProvider(null);
+                        Toast.makeText(context, "بروزرسانی با موفقیت انجام شد", Toast.LENGTH_SHORT).show();
+
                     }
 
                     @Override
                     public void onError(String errorMessage) {
+                        Toast.makeText(context, "بروزرسانی با موفقیت انجام شد", Toast.LENGTH_SHORT).show();
 
                     }
                 });
@@ -145,7 +154,7 @@ public class TaminKonandePickerActivity extends Activity {
 
         ArrayList<TaminKonande> tamins = db.getTaminKonnande(s);
 
-        for (TaminKonande tamin:tamins) {
+        for (TaminKonande tamin : tamins) {
             itemList.add(tamin);
         }
 

@@ -266,7 +266,9 @@ public class AnbarTransaction implements ListViewItemINTERFACE{
     }
 
     public String getPersianDate() {
-        PersianCalendar pc = new PersianCalendar(getDate());
+
+        String date = getDate();
+        PersianCalendar pc = new PersianCalendar(date);
         return pc.getIranianDateTime();
     }
 
@@ -278,6 +280,7 @@ public class AnbarTransaction implements ListViewItemINTERFACE{
             try {
                 JSONObject json = new JSONObject();
 
+                json.put("uid", trans.getId());
                 json.put("type", trans.getType());
                 json.put("product_id", trans.getProduct_id());
                 json.put("chart_id", trans.getAnbar_id());

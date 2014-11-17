@@ -2,13 +2,16 @@ package com.pga.project1.Activities;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -56,6 +59,17 @@ public class AnbarActivity extends Activity {
 
         lv = (ListView) findViewById(R.id.lv_anbarTrans);
 //        lv.setAdapter(ListViewAdapterHandler.getLoadingAdapter(this));
+
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                AnbarTransaction anbarTransaction = ((AnbarTransaction.Holder) view.getTag()).getAnbarTransaction();
+                new AlertDialog.Builder(context)
+                        .setTitle(anbarTransaction.getProduct().getName())
+                        .setMessage("توضیحات :" + "\n" + anbarTransaction.getDescription())
+                        .show();
+            }
+        });
 
         context = this;
 
@@ -122,7 +136,7 @@ public class AnbarActivity extends Activity {
         });
 
 
-        reload.setImageResource(R.drawable.ac_refresh);
+        reload.setImageResource(R.drawable.ic_action_synch);
         reload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -137,7 +151,7 @@ public class AnbarActivity extends Activity {
 
                     @Override
                     public void onError(String errorMessage) {
-                        Toast.makeText(context, "بروزرسانی با خطا مواجه شد!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "بروزرسانی تراکنش انبار با خطا مواجه شد", Toast.LENGTH_SHORT).show();
                     }
                 });
             }

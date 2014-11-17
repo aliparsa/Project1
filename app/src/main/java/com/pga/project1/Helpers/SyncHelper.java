@@ -169,10 +169,6 @@ public class SyncHelper {
                     db.insertAnbar(anbar);
                 }
 
-                db.insertAnbar(new Anbar(100, "انبار همه چیز", 1));
-                db.insertAnbar(new Anbar(101, " همه چیز", 1));
-                db.insertAnbar(new Anbar(102, "انبار  چیز", 1));
-
 
                 callBack.onSuccess(null);
             }
@@ -197,7 +193,6 @@ public class SyncHelper {
 
 
     }
-
 
     public static void syncItemsProvider(final Context context, final CallBack callback) {
         final DatabaseHelper db = new DatabaseHelper(context);

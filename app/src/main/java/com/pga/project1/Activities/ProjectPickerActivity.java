@@ -143,7 +143,7 @@ public class ProjectPickerActivity extends Activity {
 
                     @Override
                     public void onError(String errorMessage) {
-                        Toast.makeText(context, "بروزرسانی با خطا مواجه شد!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "بروز رسانی پروژه ها با خطا مواجه شد", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
