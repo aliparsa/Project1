@@ -134,25 +134,7 @@ public class MainActivity extends Activity
         DatabaseHelper db = new DatabaseHelper(context);
         db.cleanOldData(7);
 
-        //  this.getFragmentManager().addOnBackStackChangedListener(new BackStackChanged(this));
-
-
-//        Fragment frag = new FragmentSplash();
-//        FragmentManager fragmentManager = getFragmentManager();
-//        fragmentManager.beginTransaction()
-//                .replace(R.id.container, frag)
-//                .commit();
-        //ShowLoginFragment("Main Activity");
-//
-//        if (savedInstanceState==null)
-//            ShowTreeFragmnet("");
-
-
         prepareActionbar();
-
-        /*Intent intent = new Intent(this, TreeViewActivity.class);
-        startActivity(intent);
-        finish();*/
 
         Webservice.getHomePageInfo(this, new CallBack<JSONArray>() {
             @Override
@@ -173,6 +155,10 @@ public class MainActivity extends Activity
             }
         });
 
+        LoadHomePageInfo();
+    }
+
+    private void LoadHomePageInfo() {
 
     }
 

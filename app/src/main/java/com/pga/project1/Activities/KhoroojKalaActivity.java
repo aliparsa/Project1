@@ -80,6 +80,7 @@ public class KhoroojKalaActivity extends Activity {
             public void onClick(View view) {
                 Intent intent = new Intent(context, AnbarPickerActivity.class);
                 intent.putExtra("from_vorood_kala", 1);
+                intent.putExtra("anbarMa", anbarMa);
                 startActivityForResult(intent, ANBAR_REQUEST_CODE);
             }
         });

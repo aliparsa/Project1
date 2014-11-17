@@ -4,7 +4,6 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Path;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
@@ -40,6 +39,7 @@ public class AnbarPickerActivity extends Activity {
     private Context context;
     private ListViewObjectAdapter adapter;
     private boolean fromVoroodKala;
+    private Anbar anbarMa;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,22 +48,30 @@ public class AnbarPickerActivity extends Activity {
 
         lv = (ListView) findViewById(R.id.lv_anbarspicker);
 //        lv.setAdapter(ListViewAdapterHandler.getLoadingAdapter(this));
-        
+
         context = this;
 
         //TODO create function to handle listview loading
 
 
-        if (getIntent().hasExtra("from_vorood_kala"))
+        if (getIntent().hasExtra("from_vorood_kala")) {
             fromVoroodKala = true;
-        else
+            anbarMa = (Anbar) getIntent().getSerializableExtra("anbarMa");
+        } else
             fromVoroodKala = false;
 
 
         pathManager = (PathMapManager) findViewById(R.id.pmm);
-        pathManager.clear();
-        PathMapManager.push(new PathObject("انبار های من"));
-        pathManager.refresh();
+
+
+        if (!fromVoroodKala) {
+            pathManager.clear();
+            PathMapManager.push(new PathObject("انبار های من"));
+            pathManager.refresh();
+        } else {
+            PathMapManager.push(new PathObject("انتخاب انبار"));
+            pathManager.refresh();
+        }
 
         prepareActionBar();
 
@@ -111,7 +119,7 @@ public class AnbarPickerActivity extends Activity {
 
                     @Override
                     public void onError(String errorMessage) {
-                        Toast.makeText(context, "بروزرسانی با خطا مواجه شد!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "بروزرسانی با موفقیت انجام شد", Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -119,7 +127,6 @@ public class AnbarPickerActivity extends Activity {
         });
 
     }
-
 
 
     private void loadAnbars() {
@@ -131,13 +138,13 @@ public class AnbarPickerActivity extends Activity {
         DatabaseHelper db = new DatabaseHelper(context);
 
         if (fromVoroodKala) {
-            anbars = db.getAllAnbars();
+            anbars = db.getAllAnbarsButMe(anbarMa);
         } else {
             anbars = db.getMyAnbars();
         }
 
 
-        for (Anbar anbar:anbars) {
+        for (Anbar anbar : anbars) {
             itemList.add(anbar);
         }
 

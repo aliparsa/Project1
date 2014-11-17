@@ -123,39 +123,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String PRODUCT_KEY_NAME = "product_name";
 
 
-  /*  private static final String KEY_ID = "id";
-    private static final String KEY_FIRSTNAME = "first_name";
-    private static final String KEY_LASTNAME = "last_name";
-    private static final String KEY_CODE = "personnel_code";
-    private static final String KEY_IN_OUT = "in_out";
-    private static final String KEY_DATE = "date";
-    private static final String KEY_SENT = "sent";
-    private static final String KEY_IMAGE = "image";
-    private static final String KEY_NAME = "name";
-    private static final String KEY_TYPE = "type";
-    private static final String KEY_PRICE = "price";
-    private static final String KEY_WORK_CODE = "work_id";
-    private static final String KEY_AMOUNT = "amount";
-    private static final String KEY_PHONE = "phone";
-    private static final String KEY_TYPE_ID = "type_id";
-    private static final String KEY_PERSONAL_ID = "personnel_id";
-    private static final String KEY_PERSONAL = "personnel";
-    private static final String KEY_START_DATE = "start_date";
-    private static final String KEY_END_DATE = "end_date";
-    private static final String KEY_CREATED_AT = "created_at";
-    private static final String KEY_UPDATED_AT = "updated_at";
-    private static final String KEY_PROJECT_ID = "project_id";
-    private static final String KEY_HAS_ERROR = "has_error";
-    private static final String KEY_IS_OWNER = "is_owner";
-    private static final String KEY_OWNER = "owner";
-    private static final String KEY_PRODUCT_ID = "product_id";
-    private static final String KEY_ANBAR_ID = "anbar_id";
-    private static final String KEY_PROVIDER_ID = "provider_id";
-    private static final String KEY_TO_ANBAR_ID = "to_anbar_id";
-    private static final String KEY_FROM_ANBAR_ID = "from_anbar_id";
-    private static final String KEY_DESCRIPTION = "description";*/
-
-
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
 
@@ -701,6 +668,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String date = sdf.format(d);
         final Cursor cursor1 = db.rawQuery("delete from " + TABLE_FALIAT + " Where " + FALIAT_KEY_DATE + " < '" + date + "' AND " + FALIAT_KEY_SENT + "=\"1\"", null);
         final Cursor cursor2 = db.rawQuery("delete from " + TABLE_TARADOD + " Where " + TARADOD_KEY_DATE + " < '" + date + "' AND " + TARADOD_KEY_SENT + "=\"1\"", null);
+        final Cursor cursor3 = db.rawQuery("delete from " + TABLE_ANBAR_TRANSACTION + " Where " + ANBAR_TRANSACTION_KEY_DATE + " < '" + date + "' AND " + ANBAR_TRANSACTION_KEY_SENT + "=1", null);
 
     }
 
@@ -731,7 +699,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         getReadableDatabase().execSQL("Delete from " + TABLE_ANBAR);
     }
 
-    public ArrayList<Anbar> getAllAnbars() {
+    public ArrayList<Anbar> getAllAnbarsButMe(Anbar anbarMa) {
         ArrayList<Anbar> anbars = new ArrayList<Anbar>();
 
         SQLiteDatabase db = getReadableDatabase();
@@ -741,6 +709,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             if (cursor.moveToFirst()) {
 
                 do {
+
+                    if (cursor.getInt(cursor.getColumnIndex(ANBAR_KEY_ID)) == anbarMa.getId())
+                        continue;
 
                     Anbar anbar = new Anbar(
                             cursor.getInt(cursor.getColumnIndex(ANBAR_KEY_ID)),
@@ -806,7 +777,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getReadableDatabase();
 
         String query = "SELECT * FROM " + TABLE_ANBAR_TRANSACTION + " WHERE " +
-                ANBAR_TRANSACTION_KEY_ANBAR_ID + "  = " + anbar.getId();
+                ANBAR_TRANSACTION_KEY_ANBAR_ID + "  = " + anbar.getId() + " order by " + ANBAR_TRANSACTION_KEY_DATE + " DESC";
 
         final Cursor cursor = db.rawQuery(query, null);
 

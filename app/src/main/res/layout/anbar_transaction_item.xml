@@ -99,6 +99,7 @@
             android:padding="3dp"
             android:paddingStart="8dp"
             android:textSize="18sp"
+            android:background="@drawable/circular_background_anbar"
 
             />
 

@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.pga.project1.Adapters.ListViewObjectAdapter;
 import com.pga.project1.DataModel.Anbar;
@@ -56,6 +57,9 @@ public class KalaPickerActivity extends Activity {
         loadKala(null);
 
         prepareActionbar();
+
+        lv.requestFocus();
+
     }
 
 
@@ -111,16 +115,21 @@ public class KalaPickerActivity extends Activity {
             @Override
             public void onClick(View view) {
                 //loadPersonalsFromWeb("");
+                Toast.makeText(context, "بروزرسانی...", Toast.LENGTH_SHORT).show();
+
                 SyncHelper.syncProduct(context, new CallBack() {
                     @Override
                     public void onSuccess(Object result) {
 
                         searchView.setQuery("", false);
                         loadKala(null);
+                        Toast.makeText(context, "بروزرسانی با موفقیت انجام شد", Toast.LENGTH_SHORT).show();
+
                     }
 
                     @Override
                     public void onError(String errorMessage) {
+                        Toast.makeText(context, "بروزرسانی با موفقیت انجام شد", Toast.LENGTH_SHORT).show();
 
                     }
                 });
@@ -148,7 +157,7 @@ public class KalaPickerActivity extends Activity {
 
         ArrayList<Product> kalas = db.getProducts(s);
 
-        for (Product kala:kalas) {
+        for (Product kala : kalas) {
             itemList.add(kala);
         }
 
