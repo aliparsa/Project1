@@ -119,6 +119,17 @@ public class MainActivity extends Activity
 
             }
         });
+        SyncHelper.syncAnbarTransaction(context, new CallBack() {
+            @Override
+            public void onSuccess(Object result) {
+
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+
+            }
+        });
 
         DatabaseHelper db = new DatabaseHelper(context);
         db.cleanOldData(7);

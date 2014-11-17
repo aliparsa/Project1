@@ -275,7 +275,7 @@ public class SyncHelper {
 
     }
 
-    public static void syncAnbarTransaction(final Context context) {
+    public static void syncAnbarTransaction(final Context context, final CallBack callBack) {
         DatabaseHelper db = new DatabaseHelper(context);
         final ArrayList<AnbarTransaction> anbarTransactions = db.getAllAnbarTransactions();
         if (anbarTransactions.size() > 0)
@@ -294,8 +294,7 @@ public class SyncHelper {
                             db.makeHasErrorTrueAnbarTransaction(jsonArray);
                         }
 
-                        if (context instanceof AnbarActivity)
-                            ((AnbarActivity) context).loadTransactions();
+                        callBack.onSuccess(null);
 
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -304,7 +303,7 @@ public class SyncHelper {
 
                 @Override
                 public void onError(String errorMessage) {
-
+                    callBack.onError(errorMessage);
 
                 }
             });
