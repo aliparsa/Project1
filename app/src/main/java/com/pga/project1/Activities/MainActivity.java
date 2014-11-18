@@ -24,6 +24,7 @@ import com.pga.project1.Helpers.SyncHelper;
 import com.pga.project1.Intefaces.CallBack;
 import com.pga.project1.Intefaces.CallBackFunction;
 import com.pga.project1.R;
+import com.pga.project1.Utilities.Account;
 import com.pga.project1.Utilities.FontHelper;
 import com.pga.project1.Utilities.Fonts;
 import com.pga.project1.Utilities.HandleError;
@@ -246,6 +247,15 @@ public class MainActivity extends Activity
                 intent = new Intent(this, SettingActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
+                break;
+
+            case 6:
+                Account.getInstant(context).clearToken();
+                Intent intent2 = new Intent(context, LoginActivity.class);
+                intent2.putExtra("reason", "UNAUTHORIZED");
+                context.startActivity(intent2);
+                ((Activity) context).overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
+                this.finish();
                 break;
 
 
