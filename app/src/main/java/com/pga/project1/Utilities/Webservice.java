@@ -870,6 +870,7 @@ public class Webservice {
     }
 
     public static void modifyServerAddress(String serverAddress, Context context) {
+        if (serverAddress.length() < 1) return;
         SERVER_ADDRESS = serverAddress;
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = preferences.edit();

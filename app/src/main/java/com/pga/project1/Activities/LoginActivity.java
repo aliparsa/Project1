@@ -1,14 +1,18 @@
 package com.pga.project1.Activities;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
@@ -25,6 +29,7 @@ public class LoginActivity extends Activity {
 
     EditText txtUsername;
     EditText txtPassword;
+    ImageView imgv;
     Button btnLogin;
     ProgressBar loaderBar;
     LinearLayout panel;
@@ -54,6 +59,35 @@ public class LoginActivity extends Activity {
         panel = (LinearLayout) findViewById(R.id.ll_fragmentLogin_panel);
 
 //        FontHelper.SetFont(context, Fonts.MAIN_FONT,btnLogin, Typeface.BOLD);
+
+        imgv = (ImageView) findViewById(R.id.imgv_fragmentLogin_setting);
+        imgv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle("آدرس سرور را وارد نمایید");
+
+                final EditText input = new EditText(context);
+                input.setText(Webservice.getSERVER_ADDRESS());
+                input.setInputType(InputType.TYPE_CLASS_TEXT);
+                builder.setView(input);
+
+                builder.setPositiveButton("ذخیره", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Webservice.modifyServerAddress(input.getText().toString(), context);
+                    }
+                });
+                builder.setNegativeButton("لغو", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+                builder.show();
+            }
+        });
 
         btnLogin = (Button) findViewById(R.id.btn_fragmentLogin_login);
         btnLogin.setOnClickListener(new View.OnClickListener() {

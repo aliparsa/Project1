@@ -39,10 +39,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"></com.pga.project1.Viewes.ViewNameValue>
 
-            <com.pga.project1.Viewes.ViewNameValue
-                android:id="@+id/nv4"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"></com.pga.project1.Viewes.ViewNameValue>
+
         </LinearLayout>
 
     </FrameLayout>

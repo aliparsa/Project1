@@ -16,6 +16,7 @@ import com.pga.project1.DataModel.Personnel;
 import com.pga.project1.DataModel.Product;
 import com.pga.project1.DataModel.Taradod;
 import com.pga.project1.DataModel.Work;
+import com.pga.project1.Utilities.PersianCalendar;
 
 import org.json.JSONArray;
 
@@ -1072,7 +1073,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return taminKonandes;
     }
 
-
     public void markAsSentAnbarTransaction(ArrayList<AnbarTransaction> anbarTransactions) {
 
         String idIn = "(";
@@ -1115,5 +1115,35 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public int countCurrentPersonnel() {
+        SQLiteDatabase db = getReadableDatabase();
+
+        PersianCalendar pc = new PersianCalendar();
+        pc.setTime(0, 0, 0);
+        String today = pc.getGregorianDate();
+        String query = "SELECT " + TARADOD_KEY_CODE + ", max(" + TARADOD_KEY_ID + ") as a, " + TARADOD_KEY_IN_OUT + " FROM " + TABLE_TARADOD + " where " + TARADOD_KEY_DATE + " like \"" + today + "%\" group by " + TARADOD_KEY_CODE;
+        Cursor cursor = db.rawQuery(query, null);
+
+        int a = 0;
+
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+
+                do {
+
+                    int id = cursor.getInt(cursor.getColumnIndex(TARADOD_KEY_CODE));
+                    String date = cursor.getString(cursor.getColumnIndex("a"));
+                    String inout = cursor.getString(cursor.getColumnIndex(TARADOD_KEY_IN_OUT));
+
+                    if (inout.equals("in"))
+                        a++;
+
+                } while (cursor.moveToNext());
+
+            }
+        }
+        return a;
     }
 }

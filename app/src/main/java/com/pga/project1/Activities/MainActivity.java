@@ -163,11 +163,12 @@ public class MainActivity extends Activity
         ViewNameValue nv1 = (ViewNameValue) findViewById(R.id.nv1);
         ViewNameValue nv2 = (ViewNameValue) findViewById(R.id.nv2);
         ViewNameValue nv3 = (ViewNameValue) findViewById(R.id.nv3);
-        ViewNameValue nv4 = (ViewNameValue) findViewById(R.id.nv4);
 
         nv1.setNameValue("تعداد پروژه های من", new DatabaseHelper(context).getProjects().size() + "");
         nv2.setNameValue("تعداد انبار های من", new DatabaseHelper(context).getMyAnbars().size() + "");
+        nv3.setNameValue("تعداد افراد حاضر", new DatabaseHelper(context).countCurrentPersonnel() + "");
 
+        new DatabaseHelper(context).countCurrentPersonnel();
 
 
     }
@@ -506,4 +507,9 @@ public class MainActivity extends Activity
     //-------------------------------------------------------------------------------------
 
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        LoadHomePageInfo();
+    }
 }

@@ -65,15 +65,37 @@
                 android:password="true"
                 android:singleLine="true" />
 
-            <Button
-                android:id="@+id/btn_fragmentLogin_login"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_margin="5dp"
-                android:padding="3dp"
-                android:background="@drawable/login_button_background"
-                android:textColor="@color/login_text_color"
-                android:text="ورود" />
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/btn_fragmentLogin_login"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_margin="5dp"
+                    android:padding="3dp"
+                    android:layout_weight=".8"
+                    android:background="@drawable/login_button_background"
+                    android:textColor="@color/login_text_color"
+                    android:text="ورود" />
+
+                <ImageView
+                    android:id="@+id/imgv_fragmentLogin_setting"
+                    android:layout_width="45dp"
+                    android:layout_weight=".2"
+                    android:layout_height="45dp"
+                    android:layout_margin="5dp"
+                    android:padding="3dp"
+                    android:src="@drawable/ic_settings"
+                    android:background="@drawable/login_button_background"
+
+                    />
+
+
+            </LinearLayout>
+
 
             <ProgressBar
                 android:layout_width="wrap_content"

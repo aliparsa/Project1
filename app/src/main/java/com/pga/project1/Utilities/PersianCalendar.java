@@ -50,7 +50,7 @@ public class PersianCalendar {
     public PersianCalendar() {
         Calendar calendar = new GregorianCalendar();
         setGregorianDate(calendar.get(Calendar.YEAR),
-                calendar.get(Calendar.MONTH) + 1,
+                calendar.get(Calendar.MONTH),
                 calendar.get(Calendar.DAY_OF_MONTH));
     }
 
