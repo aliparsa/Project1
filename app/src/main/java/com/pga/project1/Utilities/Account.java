@@ -41,7 +41,6 @@ public class Account {
         editor.commit();
     }
 
-
     public String getToken() {
 
         if (token != null && token.length() > 1)
