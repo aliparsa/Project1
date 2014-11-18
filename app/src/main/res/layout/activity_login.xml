@@ -9,9 +9,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true">
+        android:layout_centerHorizontal="true"
+        android:id="@+id/linearLayout">
 
-        <ImageView
+    <ImageView
             android:layout_width="120dp"
             android:layout_height="120dp"
             android:src="@drawable/logo_"
@@ -84,7 +85,6 @@
                 <ImageView
                     android:id="@+id/imgv_fragmentLogin_setting"
                     android:layout_width="45dp"
-                    android:layout_weight=".2"
                     android:layout_height="45dp"
                     android:layout_margin="5dp"
                     android:padding="3dp"
@@ -106,5 +106,19 @@
         </LinearLayout>
 
     </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Copyright Pishgaman Asia 2014"
+        android:id="@+id/textView"
+        android:textColor="#00dac3"
+        android:layout_alignParentBottom="true"
+        android:layout_alignLeft="@+id/linearLayout"
+        android:layout_alignStart="@+id/linearLayout"
+        android:layout_alignParentRight="true"
+        android:gravity="center"
+        android:layout_alignParentLeft="true" />
 
 </RelativeLayout>

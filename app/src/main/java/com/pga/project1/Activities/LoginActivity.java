@@ -111,6 +111,8 @@ public class LoginActivity extends Activity {
     private void loginClicked(String username, String password) {
 
         btnLogin.setVisibility(View.GONE);
+        imgv.setVisibility(View.GONE);
+
         loaderBar.setVisibility(View.VISIBLE);
 
         Webservice.Login(this, username, password, new CallBack<String>() {
@@ -130,6 +132,8 @@ public class LoginActivity extends Activity {
                 panel.startAnimation(animation);
 
                 btnLogin.setVisibility(View.VISIBLE);
+                imgv.setVisibility(View.VISIBLE);
+
                 loaderBar.setVisibility(View.GONE);
 
                 HandleError.HandleError(context, err, new CallBackFunction() {
