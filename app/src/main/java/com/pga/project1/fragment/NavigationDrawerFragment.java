@@ -103,6 +103,11 @@ public class NavigationDrawerFragment extends Fragment {
 
         datalist.add(item4);
 
+        AdapterInputType item5 = new AdapterInputType(null, ListViewCustomAdapter.DRAWER_ITEM
+                , "خروج", R.drawable.ic_exitapp);
+
+        datalist.add(item5);
+
         // Read in the flag indicating whether or not the user has demonstrated awareness of the
         // drawer. See PREF_USER_LEARNED_DRAWER for details.
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());

@@ -237,6 +237,10 @@ public class MainActivity extends Activity
                 overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
                 break;
 
+            case 6:
+                this.finish();
+                break;
+
 
             case 2:
                 intent = new Intent(this, AnbarPickerActivity.class);

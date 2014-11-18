@@ -9,4 +9,5 @@ import android.view.View;
 public interface ListViewItemINTERFACE {
 
     View getView(Context context, View oldView);
+
 }
