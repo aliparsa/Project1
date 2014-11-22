@@ -35,10 +35,10 @@ import java.util.ArrayList;
 public class SyncHelper {
 
 
-    public static void syncTaradod(final Context context) {
+    public static void syncTaradod(final Context context, final CallBack callback) {
         DatabaseHelper db = new DatabaseHelper(context);
         final ArrayList<Taradod> taradods = db.getAllUnsentTaradod();
-        if (taradods.size() > 0)
+        if (taradods.size() > 0) {
             Webservice.sendTaradod(context, taradods, new CallBack<ServerResponse>() {
                 @Override
                 public void onSuccess(ServerResponse result) {
@@ -55,11 +55,13 @@ public class SyncHelper {
 
                         // TODO only mark Record don't have problem
 
+
                         if (context instanceof FastProjectManagmentActivity)
                             ((FastProjectManagmentActivity) context).TabAdapter.f1.loadTaradod();
 
                     } catch (Exception e) {
                         e.printStackTrace();
+                        callback.onError("");
                     }
                 }
 
@@ -69,6 +71,10 @@ public class SyncHelper {
 
                 }
             });
+        } else {
+            callback.onSuccess(null);
+        }
+
     }
 
     public static void syncFaliat(final Context context) {
@@ -263,7 +269,17 @@ public class SyncHelper {
             Toast.makeText(context, "همه داده ها ارسال شده است", Toast.LENGTH_LONG).show();
         else {
             syncFaliat(context);
-            syncTaradod(context);
+            syncTaradod(context, new CallBack() {
+                @Override
+                public void onSuccess(Object result) {
+
+                }
+
+                @Override
+                public void onError(String errorMessage) {
+
+                }
+            });
 
         }
 

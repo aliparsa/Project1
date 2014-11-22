@@ -53,6 +53,7 @@ public class MainActivity extends Activity
     private Fragment currentFragment;
     private boolean TwiceBackPressed = false;
     private Context context;
+    private ImageView reload;
 
     public MainActivity() {
 
@@ -82,17 +83,29 @@ public class MainActivity extends Activity
         SyncHelper.syncProject(context, new CallBack() {
             @Override
             public void onSuccess(Object result) {
+                LoadHomePageInfo();
             }
 
             @Override
             public void onError(String errorMessage) {
             }
         });
-        SyncHelper.syncTaradod(context);
+        SyncHelper.syncTaradod(context, new CallBack() {
+            @Override
+            public void onSuccess(Object result) {
+                LoadHomePageInfo();
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+
+            }
+        });
         SyncHelper.syncFaliat(context);
         SyncHelper.syncAnbar(context, new CallBack() {
             @Override
             public void onSuccess(Object result) {
+                LoadHomePageInfo();
             }
 
             @Override
@@ -201,6 +214,57 @@ public class MainActivity extends Activity
             @Override
             public void onClick(View view) {
                 mNavigationDrawerFragment.toggleNavigationDrawer();
+
+            }
+        });
+
+        reload = (ImageView) customActionBar.findViewById(R.id.ac_action1);
+
+        //addPhotoButton.setText("تصویر");
+        reload.setImageResource(R.drawable.ac_refresh);
+        //addPhotoButton.setTextColor(getResources().getColor(R.color.actionbar_button_text));
+        reload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                SyncHelper.syncProject(context, new CallBack() {
+                    @Override
+                    public void onSuccess(Object result) {
+                        LoadHomePageInfo();
+                    }
+
+                    @Override
+                    public void onError(String errorMessage) {
+
+                    }
+                });
+
+                SyncHelper.syncAnbar(context, new CallBack() {
+                    @Override
+                    public void onSuccess(Object result) {
+                        LoadHomePageInfo();
+                    }
+
+                    @Override
+                    public void onError(String errorMessage) {
+
+                    }
+                });
+
+                SyncHelper.syncTaradod(context, new CallBack() {
+                    @Override
+                    public void onSuccess(Object result) {
+                        Toast.makeText(context, "بروزرسانی انجام شد", Toast.LENGTH_SHORT).show();
+                        LoadHomePageInfo();
+                    }
+
+                    @Override
+                    public void onError(String errorMessage) {
+                        Toast.makeText(context, "بروز رسانی پروژه ها با خطا مواجه شد", Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+
 
             }
         });
