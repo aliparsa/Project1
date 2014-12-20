@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
+import com.pga.project1.Helpers.JsonFormatter;
 import com.pga.project1.Intefaces.ListViewItemINTERFACE;
 import com.pga.project1.R;
 
@@ -188,7 +189,14 @@ public class LogHelper extends SQLiteOpenHelper {
                 holder.date = (TextView) view.findViewById(R.id.date);
 
             holder.request.setText(getRequest());
-            holder.response.setText(getResponse());
+
+            try {
+                holder.response.setText(JsonFormatter.format(getResponse()));
+            } catch (JSONException e) {
+                e.printStackTrace();
+                holder.response.setText(getResponse());
+            }
+
             holder.date.setText(getDate());
         }
 
