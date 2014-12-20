@@ -69,7 +69,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".test.testActivity"
-            android:label="@string/title_activity_test" />
+            android:label="@string/title_activity_test"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.AboutUsActivity"
             android:label="درباره ما"
@@ -80,34 +81,44 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.SettingActivity"
-            android:label="@string/title_activity_setting" />
+            android:label="@string/title_activity_setting"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.FastProjectManagmentActivity"
-            android:label="@string/title_activity_fast_project_managment" />
+            android:label="@string/title_activity_fast_project_managment"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.FastAddPersonnelToWork"
-            android:label="@string/title_activity_fast_add_personnel_to_work" />
+            android:label="@string/title_activity_fast_add_personnel_to_work"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.ProjectPickerActivity"
-            android:label="@string/title_activity_project_picker" />
+            android:label="@string/title_activity_project_picker"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.AnbarActivity"
-            android:label="@string/title_activity_anbar" />
+            android:label="@string/title_activity_anbar"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.AnbarPickerActivity"
-            android:label="@string/title_activity_anbar_picker" />
+            android:label="@string/title_activity_anbar_picker"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.TaminKonandePickerActivity"
-            android:label="@string/title_activity_kala_picker" />
+            android:label="@string/title_activity_kala_picker"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.KhoroojKalaActivity"
-            android:label="@string/title_activity_khorooj_kala" />
+            android:label="@string/title_activity_khorooj_kala"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.VoroodKalaActivity"
-            android:label="@string/title_activity_vorood_kala" />
+            android:label="@string/title_activity_vorood_kala"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.KalaPickerActivity"
-            android:label="@string/title_activity_kala_picker"></activity>
+            android:label="@string/title_activity_kala_picker"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

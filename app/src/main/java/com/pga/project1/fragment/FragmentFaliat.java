@@ -1,11 +1,14 @@
 package com.pga.project1.fragment;
 
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -71,5 +74,24 @@ public class FragmentFaliat extends Fragment {
 
         ListViewCustomAdapter adapter = new ListViewCustomAdapter(this.getActivity(), 0, items);
         lvFaliats.setAdapter(adapter);
+
+
+        lvFaliats.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                Faliat faliat = ((Faliat) ((ListViewCustomAdapter.DrawerItemHolder) view.getTag()).getTag());
+
+                new AlertDialog.Builder(getActivity())
+                        .setTitle(faliat.getPersonnel().getFullName())
+                        .setMessage("عنوان کار :  " + faliat.getWork().getName() + " ( " + faliat.getWork().getType() + " ) " + "\n\n تاریخ  :  " + faliat.getOnlyPersianDate() + "\n\n میزان کار :  " + faliat.getAmount() + "\n\nتوضیحات :  " + faliat.getDescription())
+                        .setPositiveButton("تایید", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // continue with delete
+                            }
+                        })
+                        .show();
+            }
+        });
     }
 }

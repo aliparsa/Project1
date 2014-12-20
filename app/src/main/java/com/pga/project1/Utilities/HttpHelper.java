@@ -135,6 +135,8 @@ public class HttpHelper {
                         //handler.error(ErrorMessage.NO_CONNECTION_ERROR);
                         // handler.error(new ErrorMessage(ErrorPlaceHolder.UnsupportedEncodingException));
 
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
 
                     return null;

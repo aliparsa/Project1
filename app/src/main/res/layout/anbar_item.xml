@@ -9,8 +9,7 @@
     android:background="@drawable/tree_view_item_background"
     android:orientation="horizontal"
     android:visibility="visible"
-    android:gravity="right"
-    >
+    android:gravity="right">
 
     <TextView
         android:id="@+id/anbar_name"
@@ -21,14 +20,12 @@
         android:textSize="15sp" />
 
 
-    <view
+    <ImageView
         android:id="@+id/anbar_icon"
-        class="com.pga.project1.Viewes.ImageLoaderView"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:alpha="0.8"
         android:padding="3dp"
-        android:src="@drawable/ic_warehouse_512"
-        />
+        android:src="@drawable/ic_warehouse_512" />
 
 </LinearLayout>

@@ -371,12 +371,14 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
         holder.faliatFullName.setText(faliat.getPersonnel().getFullName());
         holder.faliatAmount.setText(faliat.getAmount());
         holder.faliatWork.setText(faliat.getWork().getName() + "  (" + faliat.getWork().getType() + ")");
-        holder.faliatDate.setText(faliat.getPersianDate());
+        holder.faliatDate.setText(faliat.getOnlyPersianDate());
 
         if (faliat.getSent() == 1)
             holder.faliatFlag.setVisibility(View.VISIBLE);
         else
             holder.faliatFlag.setVisibility(View.GONE);
+
+        holder.setTag(item.getTag());
     }
 
     private void getTaradodItem(DrawerItemHolder holder, AdapterInputType item) {
@@ -420,6 +422,8 @@ public class ListViewCustomAdapter extends ArrayAdapter<AdapterInputType> {
             holder.taradodFlag.setTextColor(Color.RED);
         }
 
+
+        holder.setTag(item.getTag());
     }
 
     public static class DrawerItemHolder {

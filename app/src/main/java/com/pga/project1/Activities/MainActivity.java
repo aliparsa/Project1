@@ -53,6 +53,7 @@ public class MainActivity extends Activity
     private Fragment currentFragment;
     private boolean TwiceBackPressed = false;
     private Context context;
+    private ImageView reload;
 
     public MainActivity() {
 
@@ -82,17 +83,29 @@ public class MainActivity extends Activity
         SyncHelper.syncProject(context, new CallBack() {
             @Override
             public void onSuccess(Object result) {
+                LoadHomePageInfo();
             }
 
             @Override
             public void onError(String errorMessage) {
             }
         });
-        SyncHelper.syncTaradod(context);
+        SyncHelper.syncTaradod(context, new CallBack() {
+            @Override
+            public void onSuccess(Object result) {
+                LoadHomePageInfo();
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+
+            }
+        });
         SyncHelper.syncFaliat(context);
         SyncHelper.syncAnbar(context, new CallBack() {
             @Override
             public void onSuccess(Object result) {
+                LoadHomePageInfo();
             }
 
             @Override
@@ -132,6 +145,18 @@ public class MainActivity extends Activity
 
             }
         });
+        SyncHelper.syncPersonnel(context, new CallBack() {
+            @Override
+            public void onSuccess(Object result) {
+
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+
+            }
+        });
+
 
         DatabaseHelper db = new DatabaseHelper(context);
         db.cleanOldData(7);
@@ -164,11 +189,12 @@ public class MainActivity extends Activity
         ViewNameValue nv1 = (ViewNameValue) findViewById(R.id.nv1);
         ViewNameValue nv2 = (ViewNameValue) findViewById(R.id.nv2);
         ViewNameValue nv3 = (ViewNameValue) findViewById(R.id.nv3);
-        ViewNameValue nv4 = (ViewNameValue) findViewById(R.id.nv4);
 
         nv1.setNameValue("تعداد پروژه های من", new DatabaseHelper(context).getProjects().size() + "");
         nv2.setNameValue("تعداد انبار های من", new DatabaseHelper(context).getMyAnbars().size() + "");
+        nv3.setNameValue("تعداد افراد حاضر امروز", new DatabaseHelper(context).countCurrentPersonnel() + "");
 
+        new DatabaseHelper(context).countCurrentPersonnel();
 
 
     }
@@ -204,6 +230,57 @@ public class MainActivity extends Activity
             }
         });
 
+        reload = (ImageView) customActionBar.findViewById(R.id.ac_action1);
+
+        //addPhotoButton.setText("تصویر");
+        reload.setImageResource(R.drawable.ac_refresh);
+        //addPhotoButton.setTextColor(getResources().getColor(R.color.actionbar_button_text));
+        reload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                SyncHelper.syncProject(context, new CallBack() {
+                    @Override
+                    public void onSuccess(Object result) {
+                        LoadHomePageInfo();
+                    }
+
+                    @Override
+                    public void onError(String errorMessage) {
+
+                    }
+                });
+
+                SyncHelper.syncAnbar(context, new CallBack() {
+                    @Override
+                    public void onSuccess(Object result) {
+                        LoadHomePageInfo();
+                    }
+
+                    @Override
+                    public void onError(String errorMessage) {
+
+                    }
+                });
+
+                SyncHelper.syncTaradod(context, new CallBack() {
+                    @Override
+                    public void onSuccess(Object result) {
+                        Toast.makeText(context, "بروزرسانی انجام شد", Toast.LENGTH_SHORT).show();
+                        LoadHomePageInfo();
+                    }
+
+                    @Override
+                    public void onError(String errorMessage) {
+                        Toast.makeText(context, "بروز رسانی پروژه ها با خطا مواجه شد", Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+
+
+            }
+        });
+
 
     }
 
@@ -216,39 +293,46 @@ public class MainActivity extends Activity
 
         switch (position) {
 
+//            case 0:
+//
+//                intent = new Intent(this, TreeViewActivity.class);
+//                startActivity(intent);
+//                overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
+//                break;
+
             case 0:
-
-                intent = new Intent(this, TreeViewActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
-                break;
-
-            case 1:
                 intent = new Intent(this, ProjectPickerActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
                 break;
 
-            case 3:
+            case 1:
+                intent = new Intent(this, AnbarPickerActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
+                break;
+
+
+            case 2:
                 intent = new Intent(this, AboutAppActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
                 break;
 
-            case 4:
+            case 3:
                 intent = new Intent(this, AboutUsActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
                 break;
 
-            case 5:
+            case 4:
 
                 intent = new Intent(this, SettingActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
                 break;
 
-            case 6:
+            case 5:
                 Account.getInstant(context).clearToken();
                 Intent intent2 = new Intent(context, LoginActivity.class);
                 intent2.putExtra("reason", "UNAUTHORIZED");
@@ -257,12 +341,6 @@ public class MainActivity extends Activity
                 this.finish();
                 break;
 
-
-            case 2:
-                intent = new Intent(this, AnbarPickerActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
-                break;
 
         }
 
@@ -516,4 +594,9 @@ public class MainActivity extends Activity
     //-------------------------------------------------------------------------------------
 
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        LoadHomePageInfo();
+    }
 }

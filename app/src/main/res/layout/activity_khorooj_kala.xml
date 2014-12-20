@@ -61,19 +61,69 @@
         android:layout_alignParentEnd="true"
         android:id="@+id/selected_anbar_khorooji" />
 
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="تاریخ"
+        android:layout_margin="5dp"
+        android:background="@drawable/login_button_background"
+        android:id="@+id/dateKhoroojKalaPicker" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="میزان کالا"
+        android:layout_margin="5dp" />
 
     <EditText
+        android:layout_marginTop="5dp"
         android:id="@+id/mizanKala"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:inputType="number"
-        android:hint="میزان کالا" />
+        android:hint="میزان کالا را وارد نمایید" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="توضیحات"
+        android:layout_margin="5dp" />
 
     <EditText
+        android:layout_marginTop="5dp"
         android:id="@+id/tozihat"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:hint="توضیحات" />
+        android:hint="توضیحات را وارد نمایید" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="شماره خودرو"
+        android:layout_margin="5dp" />
+
+    <EditText
+        android:layout_marginTop="5dp"
+        android:id="@+id/shomare_khodro"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:hint="شماره خودرو را وارد نمایید" />
+
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="شماره قبض"
+        android:layout_margin="5dp" />
+
+    <EditText
+        android:layout_marginTop="5dp"
+        android:id="@+id/shomare_ghabz"
+        android:layout_width="fill_parent"
+        android:inputType="number"
+        android:layout_height="wrap_content"
+        android:hint="شماره قبض را وارد نمایید  " />
 
 
 </LinearLayout>

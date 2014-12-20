@@ -77,7 +77,8 @@ public class PersianCalendar {
 
 
         Calendar calendar = new GregorianCalendar(year, month, day, hour, min);
-        setGregorianDate(calendar.get(Calendar.YEAR),
+        setGregorianDate(
+                calendar.get(Calendar.YEAR),
                 calendar.get(Calendar.MONTH),
                 calendar.get(Calendar.DAY_OF_MONTH));
 
@@ -632,9 +633,7 @@ public class PersianCalendar {
     //-------------------------------------------------
     //--time extension functions
     private void setTime() {
-
-        Calendar calendar = new GregorianCalendar();
-        Date d = calendar.getTime();
+        Date d = new Date();
 
         this.hour = d.getHours();
         this.minute = d.getMinutes();

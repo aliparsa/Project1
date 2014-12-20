@@ -30,6 +30,7 @@ public class Taradod {
     private String date;
     private String projectID;
     private String has_error;
+    private String description;
 
 
     private Personnel personnel;
@@ -42,7 +43,7 @@ public class Taradod {
             + KEY_DATE + " TEXT"*/
 
 
-    public Taradod(int id, String personnelId, String inOut, int sent, String date, String projectID, String has_error) {
+    public Taradod(int id, String personnelId, String inOut, int sent, String date, String projectID, String has_error, String description) {
         this.id = id;
         this.inOut = inOut;
         this.sent = sent;
@@ -50,17 +51,17 @@ public class Taradod {
         this.personnelID = personnelId;
         this.projectID = projectID;
         this.has_error = has_error;
+        this.description = description;
     }
 
-    public Taradod(String personnelId, String inOut, int sent, String date, String projectID) {
+    public Taradod(String personnelId, String inOut, int sent, String date, String projectID, String description) {
 
         this.inOut = inOut;
         this.sent = sent;
         this.projectID = projectID;
         this.date = date;
         this.personnelID = personnelId;
-
-
+        this.description = description;
     }
 
     public int getId() {
@@ -102,7 +103,7 @@ public class Taradod {
                 json.put("chart_id", tar.getProjectID());
                 json.put("in_out", tar.inOut.equals("in") ? "1" : "0");
                 json.put("date", tar.getDate());
-
+                json.put("description", tar.getDescription());
 
                 taradodsJson.put(json);
             } catch (JSONException e) {
@@ -215,6 +216,14 @@ public class Taradod {
             holder.taradodFlag.setTextColor(Color.RED);
         }
 
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
 

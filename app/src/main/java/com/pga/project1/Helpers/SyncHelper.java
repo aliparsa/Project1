@@ -8,10 +8,12 @@ import android.widget.Toast;
 import com.pga.project1.Activities.AnbarActivity;
 import com.pga.project1.Activities.FastProjectManagmentActivity;
 import com.pga.project1.Activities.LoginActivity;
+import com.pga.project1.Adapters.ListViewCustomAdapter;
 import com.pga.project1.DataModel.Anbar;
 import com.pga.project1.DataModel.AnbarTransaction;
 import com.pga.project1.DataModel.Chart;
 import com.pga.project1.DataModel.Faliat;
+import com.pga.project1.DataModel.Personnel;
 import com.pga.project1.DataModel.TaminKonande;
 import com.pga.project1.DataModel.Product;
 import com.pga.project1.DataModel.ServerResponse;
@@ -20,8 +22,10 @@ import com.pga.project1.DataModel.Work;
 import com.pga.project1.Intefaces.CallBack;
 import com.pga.project1.Intefaces.CallBackFunction;
 import com.pga.project1.R;
+import com.pga.project1.Structures.AdapterInputType;
 import com.pga.project1.Utilities.Account;
 import com.pga.project1.Utilities.HandleError;
+import com.pga.project1.Utilities.ListViewAdapterHandler;
 import com.pga.project1.Utilities.Webservice;
 
 import org.json.JSONArray;
@@ -35,10 +39,10 @@ import java.util.ArrayList;
 public class SyncHelper {
 
 
-    public static void syncTaradod(final Context context) {
+    public static void syncTaradod(final Context context, final CallBack callback) {
         DatabaseHelper db = new DatabaseHelper(context);
         final ArrayList<Taradod> taradods = db.getAllUnsentTaradod();
-        if (taradods.size() > 0)
+        if (taradods.size() > 0) {
             Webservice.sendTaradod(context, taradods, new CallBack<ServerResponse>() {
                 @Override
                 public void onSuccess(ServerResponse result) {
@@ -55,11 +59,13 @@ public class SyncHelper {
 
                         // TODO only mark Record don't have problem
 
+
                         if (context instanceof FastProjectManagmentActivity)
                             ((FastProjectManagmentActivity) context).TabAdapter.f1.loadTaradod();
 
                     } catch (Exception e) {
                         e.printStackTrace();
+                        callback.onError("");
                     }
                 }
 
@@ -69,6 +75,10 @@ public class SyncHelper {
 
                 }
             });
+        } else {
+            callback.onSuccess(null);
+        }
+
     }
 
     public static void syncFaliat(final Context context) {
@@ -256,14 +266,24 @@ public class SyncHelper {
 
     }
 
-    public static void SyncTaradodAndFaliat(final Context context) {
+    public static void syncTaradodAndFaliat(final Context context) {
         DatabaseHelper db = new DatabaseHelper(context);
 
         if (db.getAllUnsentTaradod().size() == 0 && db.getAllUnsentFaliat().size() == 0)
             Toast.makeText(context, "همه داده ها ارسال شده است", Toast.LENGTH_LONG).show();
         else {
             syncFaliat(context);
-            syncTaradod(context);
+            syncTaradod(context, new CallBack() {
+                @Override
+                public void onSuccess(Object result) {
+
+                }
+
+                @Override
+                public void onError(String errorMessage) {
+
+                }
+            });
 
         }
 
@@ -303,4 +323,29 @@ public class SyncHelper {
                 }
             });
     }
+
+    public static void syncPersonnel(final Context context, final CallBack callBack) {
+
+        final DatabaseHelper db = new DatabaseHelper(context);
+
+        Webservice.searchPersonnel(context, "", new CallBack<ArrayList<Personnel>>() {
+            @Override
+            public void onSuccess(ArrayList<Personnel> result) {
+                if (result != null) {
+                    db.emptyPersonnelTable();
+                }
+                for (Personnel person : result) {
+                    // insert to db
+                    db.insertPersonnel(person);
+                }
+            }
+
+            @Override
+            public void onError(String err) {
+
+            }
+        });
+
+    }
+
 }

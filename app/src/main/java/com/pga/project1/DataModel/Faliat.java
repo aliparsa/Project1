@@ -22,10 +22,12 @@ public class Faliat {
     private int sent;
     private String projectID;
 
+    private String description;
+
     private Personnel personnel;
     private Work work;
 
-    public Faliat(int id, String personnelID, String workId, String amount, String date, int sent, String projectID) {
+    public Faliat(int id, String personnelID, String workId, String amount, String date, int sent, String projectID, String description) {
 
 
         this.id = id;
@@ -35,10 +37,11 @@ public class Faliat {
         this.date = date;
         this.sent = sent;
         this.projectID = projectID;
+        this.description = description;
 
     }
 
-    public Faliat(String personnelID, String workId, String amount, String date, int sent, String projectID) {
+    public Faliat(String personnelID, String workId, String amount, String date, int sent, String projectID, String description) {
 
 
         this.personnelID = personnelID;
@@ -47,8 +50,10 @@ public class Faliat {
         this.date = date;
         this.sent = sent;
         this.projectID = projectID;
+        this.description = description;
 
     }
+
 
     public int getId() {
         return id;
@@ -58,6 +63,13 @@ public class Faliat {
         this.id = id;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     public String getWorkId() {
         return workId;
@@ -86,6 +98,11 @@ public class Faliat {
     public String getPersianDate() {
         PersianCalendar pc = new PersianCalendar(getDate());
         return pc.getIranianDateTime();
+    }
+
+    public String getOnlyPersianDate() {
+        PersianCalendar pc = new PersianCalendar(getDate());
+        return pc.getIranianDate();
     }
 
     public Personnel getPersonnel() {
@@ -118,7 +135,7 @@ public class Faliat {
                 json.put("work_code", faliat.getWorkId());
                 json.put("amount", faliat.getAmount());
                 json.put("date", faliat.getDate());
-
+                json.put("description", faliat.getDescription());
 
                 faliatJson.put(json);
             } catch (JSONException e) {
