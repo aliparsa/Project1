@@ -47,7 +47,8 @@ public class Webservice {
         return SERVER_ADDRESS;
     }
 
-    private static String SERVER_ADDRESS = "http://pms.pishgamanasia.ir:95";
+    private static String SERVER_ADDRESS = "http://gishayenegar.pishgamanasia.com";
+    //private static String SERVER_ADDRESS = "http://pms.pishgamanasia.ir:95";
     //private static String SERVER_ADDRESS = "http://192.168.0.79:3333";
     private static String SERVER_ADDRESS_POSTFIX = "/index.php/webservice?";
     //-----------------------------------------------------------------------------
