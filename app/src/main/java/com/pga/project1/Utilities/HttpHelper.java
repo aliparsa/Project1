@@ -97,31 +97,32 @@ public class HttpHelper {
 
                         HttpResponse response = httpclient.execute(httppost);
 
+                        String strResult = EntityUtils.toString(response.getEntity(), HTTP.UTF_8);
 
                         LogHelper helper = new LogHelper(getContext());
-                        helper.InsertLog(new Date().toString(), basicNameValuePairs.toString(), EntityUtils.toString(response.getEntity(), HTTP.UTF_8));
+                        helper.InsertLog(new Date().toString(), basicNameValuePairs.toString(), strResult);
 
                         if (response.getStatusLine().getStatusCode() == HttpStatusCode.SC_OK.getCode()) {
 
                             ServerResponse result = new ServerResponse("",
-                                    EntityUtils.toString(response.getEntity(), HTTP.UTF_8),
-                                    HttpStatusCode.get(response.getStatusLine().getStatusCode()));
-
-                            return result;
-
-                        } else if (response.getStatusLine().getStatusCode() == HttpStatusCode.SC_FORBIDDEN.getCode()) {
-
-                            ServerResponse result = new ServerResponse("", EntityUtils.toString(response.getEntity(), HTTP.UTF_8),
-                                    HttpStatusCode.get(response.getStatusLine().getStatusCode()));
-
-                            return result;
-                        } else if (response.getStatusLine().getStatusCode() == HttpStatusCode.SC_UNAUTHORIZED.getCode()) {
-
-                            ServerResponse result = new ServerResponse("", EntityUtils.toString(response.getEntity(), HTTP.UTF_8),
+                                    strResult,
                                     HttpStatusCode.get(response.getStatusLine().getStatusCode()));
 
                             return result;
                         }
+//                        } else if (response.getStatusLine().getStatusCode() == HttpStatusCode.SC_FORBIDDEN.getCode()) {
+//
+//                            ServerResponse result = new ServerResponse("", EntityUtils.toString(response.getEntity(), HTTP.UTF_8),
+//                                    HttpStatusCode.get(response.getStatusLine().getStatusCode()));
+//
+//                            return result;
+//                        } else if (response.getStatusLine().getStatusCode() == HttpStatusCode.SC_UNAUTHORIZED.getCode()) {
+//
+//                            ServerResponse result = new ServerResponse("", EntityUtils.toString(response.getEntity(), HTTP.UTF_8),
+//                                    HttpStatusCode.get(response.getStatusLine().getStatusCode()));
+//
+//                            return result;
+//                        }
 
 
                     } catch (UnsupportedEncodingException ue) {
