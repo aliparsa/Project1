@@ -25,6 +25,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -95,6 +96,10 @@ public class HttpHelper {
                         }
 
                         HttpResponse response = httpclient.execute(httppost);
+
+
+                        LogHelper helper = new LogHelper(getContext());
+                        helper.InsertLog(new Date().toString(), httpclient.toString(), response.toString());
 
                         if (response.getStatusLine().getStatusCode() == HttpStatusCode.SC_OK.getCode()) {
 
