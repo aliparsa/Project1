@@ -24,6 +24,7 @@ import com.pga.project1.Intefaces.CallBackFunction;
 import com.pga.project1.R;
 import com.pga.project1.Structures.AdapterInputType;
 import com.pga.project1.Utilities.Account;
+import com.pga.project1.Utilities.ErrorHelper;
 import com.pga.project1.Utilities.HandleError;
 import com.pga.project1.Utilities.ListViewAdapterHandler;
 import com.pga.project1.Utilities.Webservice;
@@ -120,17 +121,19 @@ public class SyncHelper {
 
             @Override
             public void onError(String errorMessage) {
-                if (errorMessage.equals("UNAUTHORIZED")) {
+//                if (errorMessage.equals("UNAUTHORIZED")) {
+//
+//                    // clear token
+//                    Account.getInstant(context).clearToken();
+//
+//                    // pass user to login page
+//                    Intent intent = new Intent(context, LoginActivity.class);
+//                    intent.putExtra("reason", "UNAUTHORIZED");
+//                    context.startActivity(intent);
+//                    ((Activity) context).overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
+//                }
+                ErrorHelper.handelError(context, errorMessage);
 
-                    // clear token
-                    Account.getInstant(context).clearToken();
-
-                    // pass user to login page
-                    Intent intent = new Intent(context, LoginActivity.class);
-                    intent.putExtra("reason", "UNAUTHORIZED");
-                    context.startActivity(intent);
-                    ((Activity) context).overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
-                }
             }
         });
     }
@@ -151,17 +154,23 @@ public class SyncHelper {
 
             @Override
             public void onError(String errorMessage) {
-                if (errorMessage.equals("UNAUTHORIZED")) {
 
-                    // clear token
-                    Account.getInstant(context).clearToken();
-
-                    // pass user to login page
-                    Intent intent = new Intent(context, LoginActivity.class);
-                    intent.putExtra("reason", "UNAUTHORIZED");
-                    context.startActivity(intent);
-                    ((Activity) context).overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
-                }
+                ErrorHelper.handelError(context, errorMessage);
+//                if (errorMessage.equals("UNAUTHORIZED")) {
+//
+//                    if (Account.getInstant(context).alreadyHaveToken()){
+//
+//                        // clear token
+//                        Account.getInstant(context).clearToken();
+//                        // pass user to login page
+//                        Intent intent = new Intent(context, LoginActivity.class);
+//                        intent.putExtra("reason", "UNAUTHORIZED");
+//                        context.startActivity(intent);
+//                        ((Activity) context).overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
+//
+//                    }
+//
+//                }
 
                 callback.onError(errorMessage);
             }
@@ -185,19 +194,22 @@ public class SyncHelper {
 
             @Override
             public void onError(String errorMessage) {
-                if (errorMessage.equals("UNAUTHORIZED")) {
 
-                    // clear token
-                    Account.getInstant(context).clearToken();
-
-                    // pass user to login page
-                    Intent intent = new Intent(context, LoginActivity.class);
-                    intent.putExtra("reason", "UNAUTHORIZED");
-                    context.startActivity(intent);
-                    ((Activity) context).overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
-
-                    callBack.onError(errorMessage);
-                }
+                ErrorHelper.handelError(context, errorMessage);
+                callBack.onError(errorMessage);
+//                if (errorMessage.equals("UNAUTHORIZED")) {
+//
+//                    // clear token
+//                    Account.getInstant(context).clearToken();
+//
+//                    // pass user to login page
+//                    Intent intent = new Intent(context, LoginActivity.class);
+//                    intent.putExtra("reason", "UNAUTHORIZED");
+//                    context.startActivity(intent);
+//                    ((Activity) context).overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
+//
+//
+//                }
             }
         });
 
@@ -220,17 +232,20 @@ public class SyncHelper {
 
             @Override
             public void onError(String errorMessage) {
-                if (errorMessage.equals("UNAUTHORIZED")) {
 
-                    // clear token
-                    Account.getInstant(context).clearToken();
+                ErrorHelper.handelError(context, errorMessage);
 
-                    // pass user to login page
-                    Intent intent = new Intent(context, LoginActivity.class);
-                    intent.putExtra("reason", "UNAUTHORIZED");
-                    context.startActivity(intent);
-                    ((Activity) context).overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
-                }
+//                if (errorMessage.equals("UNAUTHORIZED")) {
+//
+//                    // clear token
+//                    Account.getInstant(context).clearToken();
+//
+//                    // pass user to login page
+//                    Intent intent = new Intent(context, LoginActivity.class);
+//                    intent.putExtra("reason", "UNAUTHORIZED");
+//                    context.startActivity(intent);
+//                    ((Activity) context).overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
+//                }
             }
         });
 

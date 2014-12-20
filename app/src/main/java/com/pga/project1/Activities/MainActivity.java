@@ -163,24 +163,24 @@ public class MainActivity extends Activity
 
         prepareActionbar();
 
-        Webservice.getHomePageInfo(this, new CallBack<JSONArray>() {
-            @Override
-            public void onSuccess(JSONArray result) {
-                int a = 10;
-
-            }
-
-            @Override
-            public void onError(String errorMessage) {
-
-                HandleError.HandleError(context, errorMessage, new CallBackFunction() {
-                    @Override
-                    public void execute() {
-
-                    }
-                });
-            }
-        });
+//        Webservice.getHomePageInfo(this, new CallBack<JSONArray>() {
+//            @Override
+//            public void onSuccess(JSONArray result) {
+//                int a = 10;
+//
+//            }
+//
+//            @Override
+//            public void onError(String errorMessage) {
+//
+//                HandleError.HandleError(context, errorMessage, new CallBackFunction() {
+//                    @Override
+//                    public void execute() {
+//
+//                    }
+//                });
+//            }
+//        });
 
         LoadHomePageInfo();
     }
@@ -278,6 +278,17 @@ public class MainActivity extends Activity
                 });
 
 
+            }
+        });
+
+        reload.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                Intent intent = new Intent(context, LogActivity.class);
+                startActivity(intent);
+
+
+                return true;
             }
         });
 

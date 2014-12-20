@@ -27,7 +27,7 @@ public class LogHelper extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
 
     // Database Name
-    private static final String DATABASE_NAME = "db.db";
+    private static final String DATABASE_NAME = "log.db";
 
 
     // TABLES

@@ -99,7 +99,7 @@ public class HttpHelper {
 
 
                         LogHelper helper = new LogHelper(getContext());
-                        helper.InsertLog(new Date().toString(), httpclient.toString(), response.toString());
+                        helper.InsertLog(new Date().toString(), basicNameValuePairs.toString(), EntityUtils.toString(response.getEntity(), HTTP.UTF_8));
 
                         if (response.getStatusLine().getStatusCode() == HttpStatusCode.SC_OK.getCode()) {
 
