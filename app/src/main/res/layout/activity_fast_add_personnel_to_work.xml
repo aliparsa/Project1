@@ -79,6 +79,19 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="توضیحات"
+            android:id="@+id/textView" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:gravity="right"
+            android:id="@+id/editText_description" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="تاریخ"
             android:id="@+id/textView" />
 
@@ -86,7 +99,7 @@
             android:id="@+id/timePicker"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-
+            android:background="@drawable/login_button_background"
             />
 
 

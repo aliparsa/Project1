@@ -145,6 +145,18 @@ public class MainActivity extends Activity
 
             }
         });
+        SyncHelper.syncPersonnel(context, new CallBack() {
+            @Override
+            public void onSuccess(Object result) {
+
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+
+            }
+        });
+
 
         DatabaseHelper db = new DatabaseHelper(context);
         db.cleanOldData(7);
@@ -180,7 +192,7 @@ public class MainActivity extends Activity
 
         nv1.setNameValue("تعداد پروژه های من", new DatabaseHelper(context).getProjects().size() + "");
         nv2.setNameValue("تعداد انبار های من", new DatabaseHelper(context).getMyAnbars().size() + "");
-        nv3.setNameValue("تعداد افراد حاضر", new DatabaseHelper(context).countCurrentPersonnel() + "");
+        nv3.setNameValue("تعداد افراد حاضر امروز", new DatabaseHelper(context).countCurrentPersonnel() + "");
 
         new DatabaseHelper(context).countCurrentPersonnel();
 
@@ -281,39 +293,46 @@ public class MainActivity extends Activity
 
         switch (position) {
 
+//            case 0:
+//
+//                intent = new Intent(this, TreeViewActivity.class);
+//                startActivity(intent);
+//                overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
+//                break;
+
             case 0:
-
-                intent = new Intent(this, TreeViewActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
-                break;
-
-            case 1:
                 intent = new Intent(this, ProjectPickerActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
                 break;
 
-            case 3:
+            case 1:
+                intent = new Intent(this, AnbarPickerActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
+                break;
+
+
+            case 2:
                 intent = new Intent(this, AboutAppActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
                 break;
 
-            case 4:
+            case 3:
                 intent = new Intent(this, AboutUsActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
                 break;
 
-            case 5:
+            case 4:
 
                 intent = new Intent(this, SettingActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
                 break;
 
-            case 6:
+            case 5:
                 Account.getInstant(context).clearToken();
                 Intent intent2 = new Intent(context, LoginActivity.class);
                 intent2.putExtra("reason", "UNAUTHORIZED");
@@ -322,12 +341,6 @@ public class MainActivity extends Activity
                 this.finish();
                 break;
 
-
-            case 2:
-                intent = new Intent(this, AnbarPickerActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.activity_fade_in_animation, R.anim.activity_fade_out_animation);
-                break;
 
         }
 

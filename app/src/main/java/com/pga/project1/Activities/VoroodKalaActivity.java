@@ -2,7 +2,9 @@ package com.pga.project1.Activities;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -25,6 +27,7 @@ import com.pga.project1.Utilities.FontHelper;
 import com.pga.project1.Utilities.Fonts;
 import com.pga.project1.Utilities.PersianCalendar;
 import com.pga.project1.Viewes.PathMapManager;
+import com.pga.project1.Viewes.ViewDateTimePickerPersian;
 
 import java.io.Serializable;
 
@@ -41,12 +44,18 @@ public class VoroodKalaActivity extends Activity {
     TextView selectedKala;
     TextView selectedtaminKonande;
     EditText mizanKala;
+
+    EditText shomareKhodro;
+    EditText shomareGhabz;
+    Button datePicker;
+
     Product product;
     private PathMapManager pm;
     private TaminKonande taminKonande;
     private Anbar anbar;
     private Anbar anbarMa;
     private EditText tozihat;
+    private PersianCalendar InDateTime;
 
 
     @Override
@@ -64,6 +73,40 @@ public class VoroodKalaActivity extends Activity {
         selectedtaminKonande = (TextView) findViewById(R.id.selected_tamin_konande);
         mizanKala = (EditText) findViewById(R.id.mizanKala);
         tozihat = (EditText) findViewById(R.id.tozihat);
+
+        datePicker = (Button) findViewById(R.id.dateVoroodKalaPicker);
+        shomareGhabz = (EditText) findViewById(R.id.shomare_ghabz);
+        shomareKhodro = (EditText) findViewById(R.id.shomare_khodro);
+
+        InDateTime = new PersianCalendar();
+        datePicker.setText(InDateTime.getIranianDateTime());
+
+        datePicker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                final ViewDateTimePickerPersian dp;
+                if (InDateTime == null)
+                    dp = new ViewDateTimePickerPersian(context);
+                else
+                    dp = new ViewDateTimePickerPersian(context, InDateTime);
+
+                new AlertDialog.Builder(context)
+                        .setTitle("انتخاب زمان و تاریخ")
+                        .setCancelable(false)
+                        .setView(dp)
+                        .setPositiveButton("تایید", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        InDateTime = dp.getDate();
+                                        datePicker.setText(InDateTime.getIranianDateTime());
+                                    }
+                                }
+                        )
+                        .show();
+            }
+        });
+        //-----------------------------------------------------------------------------
+
 
         pm = (PathMapManager) findViewById(R.id.pmm);
         pm.push(new PathObject("ورود کالا"));
@@ -157,10 +200,13 @@ public class VoroodKalaActivity extends Activity {
                                 -1,
                                 -1,
                                 Integer.parseInt(mizanKala.getText().toString()),
-                                new PersianCalendar().getGregorianDateTime(),
+                                //new PersianCalendar().getGregorianDateTime(),
+                                InDateTime.getGregorianDateTime(),
                                 tozihat.getText().toString(),
                                 0,
-                                0);
+                                0,
+                                shomareKhodro.getText().toString(),
+                                shomareGhabz.getText().toString());
 
                     }
 
@@ -173,10 +219,13 @@ public class VoroodKalaActivity extends Activity {
                                 -1,
                                 anbar.getId(),
                                 Integer.parseInt(mizanKala.getText().toString()),
-                                new PersianCalendar().getGregorianDateTime(),
+                                //new PersianCalendar().getGregorianDateTime(),
+                                InDateTime.getGregorianDateTime(),
                                 tozihat.getText().toString(),
                                 0,
-                                0);
+                                0,
+                                shomareKhodro.getText().toString(),
+                                shomareGhabz.getText().toString());
 
                     }
                     DatabaseHelper db = new DatabaseHelper(context);

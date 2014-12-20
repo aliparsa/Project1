@@ -48,6 +48,7 @@ public class FastAddPersonnelToWork extends Activity {
     private Work selectedWork;
     private Chart chart;
     private ImageLoaderView imgv;
+    private EditText descriptionET;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,6 +121,8 @@ public class FastAddPersonnelToWork extends Activity {
             }
         });
         mizanKar = (EditText) findViewById(R.id.editText_MizanKar);
+
+        descriptionET = (EditText) findViewById(R.id.editText_description);
 
         timePicker = (Button) findViewById(R.id.timePicker);
         timePicker.setText(new PersianCalendar().getIranianDateTime());
@@ -219,7 +222,7 @@ public class FastAddPersonnelToWork extends Activity {
     private void addFaliat() {
 
 
-        Faliat faliat = new Faliat(personnel.getId() + "", selectedWork.getId() + "", mizanKar.getText().toString(), selectedDateTime.getGregorianDate() + "", 0, chart.getId() + "");
+        Faliat faliat = new Faliat(personnel.getId() + "", selectedWork.getId() + "", mizanKar.getText().toString(), selectedDateTime.getGregorianDate() + "", 0, chart.getId() + "", descriptionET.getText().toString());
         DatabaseHelper db = new DatabaseHelper(context);
         db.insertFaliat(faliat);
         finish();

@@ -15,8 +15,6 @@ import java.util.ArrayList;
 public class ListViewObjectAdapter extends ArrayAdapter<ListViewItemINTERFACE> {
 
 
-
-
     private Context context;
     private ArrayList<ListViewItemINTERFACE> items;
 
@@ -34,10 +32,14 @@ public class ListViewObjectAdapter extends ArrayAdapter<ListViewItemINTERFACE> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View view = convertView;
+        try {
+            View view = convertView;
 
-        ListViewItemINTERFACE item = items.get(position);
+            ListViewItemINTERFACE item = items.get(position);
 
-        return item.getView(context, view);
+            return item.getView(context, view);
+        } catch (Exception e) {
+            return new View(context);
+        }
     }
 }

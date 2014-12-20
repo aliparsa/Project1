@@ -65,6 +65,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String TARADOD_KEY_PROJECT_ID = "taradod_project_id";
     private static final String TARADOD_KEY_HAS_ERROR = "taradod_has_error";
     private static final String TARADOD_KEY_DATE = "taradod_date";
+    private static final String TARADOD_KEY_DESCRIPTION = "taradod_description";
 
     //TABLE_WORK
     private static final String WORK_KEY_ID = "work_id";
@@ -80,7 +81,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String FALIAT_KEY_SENT = "faliat_sent";
     private static final String FALIAT_KEY_PROJECT_ID = "faliat_project_id";
     private static final String FALIAT_KEY_DATE = "faliat_date";
-
+    private static final String FALIAT_KEY_DESCRIPTION = "faliat_description";
     //TABLE_PROJECT
     private static final String PROJECT_KEY_ID = "project_id";
     private static final String PROJECT_KEY_NAME = "project_name";
@@ -117,6 +118,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String ANBAR_TRANSACTION_KEY_DESCRIPTION = "anbar_transaction_description";
     private static final String ANBAR_TRANSACTION_KEY_SENT = "anbar_transaction_sent";
     private static final String ANBAR_TRANSACTION_KEY_HAS_ERROR = "anbar_transaction_has_error";
+    private static final String ANBAR_TRANSACTION_KEY_SHOMARE_KHODRO = "anbar_transaction_shomare_khodro";
+    private static final String ANBAR_TRANSACTION_KEY_SHOMARE_GHABZ = "anbar_transaction_shomare_ghabz";
 
 
     //TABLE_PRODUCT
@@ -153,7 +156,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                         + TARADOD_KEY_SENT + " TEXT,"
                         + TARADOD_KEY_PROJECT_ID + " TEXT,"
                         + TARADOD_KEY_HAS_ERROR + " TEXT,"
-                        + TARADOD_KEY_DATE + " TEXT"
+                        + TARADOD_KEY_DATE + " TEXT,"
+                        + TARADOD_KEY_DESCRIPTION + " TEXT"
                         + ")";
         db.execSQL(CREATE_TARADOD_TABLE);
 
@@ -175,7 +179,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                         + FALIAT_KEY_AMOUNT + " TEXT,"
                         + FALIAT_KEY_SENT + " TEXT,"
                         + FALIAT_KEY_PROJECT_ID + " TEXT,"
-                        + FALIAT_KEY_DATE + " TEXT"
+                        + FALIAT_KEY_DATE + " TEXT,"
+                        + FALIAT_KEY_DESCRIPTION + " TEXT"
                         + ")";
         db.execSQL(CREATE_FALIAT_TABLE);
 
@@ -224,6 +229,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                         + ANBAR_TRANSACTION_KEY_DATE + " TEXT,"
                         + ANBAR_TRANSACTION_KEY_SENT + " INTEGER,"
                         + ANBAR_TRANSACTION_KEY_HAS_ERROR + " INTEGER,"
+                        + ANBAR_TRANSACTION_KEY_SHOMARE_KHODRO + " TEXT,"
+                        + ANBAR_TRANSACTION_KEY_SHOMARE_GHABZ + " TEXT,"
                         + ANBAR_TRANSACTION_KEY_DESCRIPTION + " TEXT"
                         + ")";
         db.execSQL(CREATE_ANBAR_TRANSACTION_TABLE);
@@ -266,6 +273,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(TARADOD_KEY_HAS_ERROR, "0");
         values.put(TARADOD_KEY_DATE, taradod.getDate());
         values.put(TARADOD_KEY_PROJECT_ID, taradod.getProjectID());
+        values.put(TARADOD_KEY_DESCRIPTION, taradod.getDescription());
         this.getWritableDatabase().insert(TABLE_TARADOD, null, values);
     }
 
@@ -345,7 +353,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                             cursor.getInt(cursor.getColumnIndex(TARADOD_KEY_SENT)),
                             cursor.getString(cursor.getColumnIndex(TARADOD_KEY_DATE)),
                             cursor.getString(cursor.getColumnIndex(TARADOD_KEY_PROJECT_ID)),
-                            cursor.getString(cursor.getColumnIndex(TARADOD_KEY_HAS_ERROR))
+                            cursor.getString(cursor.getColumnIndex(TARADOD_KEY_HAS_ERROR)),
+                            cursor.getString(cursor.getColumnIndex(TARADOD_KEY_DESCRIPTION))
                     );
 
                     taradods.add(taradod);
@@ -404,6 +413,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(FALIAT_KEY_DATE, faliat.getDate());
         values.put(FALIAT_KEY_PROJECT_ID, faliat.getProjectID());
         values.put(FALIAT_KEY_SENT, 0);
+        values.put(FALIAT_KEY_DESCRIPTION, faliat.getDescription());
         this.getWritableDatabase().insert(TABLE_FALIAT, null, values);
 
     }
@@ -433,7 +443,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                             cursor.getInt(cursor.getColumnIndex(TARADOD_KEY_SENT)),
                             cursor.getString(cursor.getColumnIndex(TARADOD_KEY_DATE)),
                             cursor.getString(cursor.getColumnIndex(TARADOD_KEY_PROJECT_ID)),
-                            cursor.getString(cursor.getColumnIndex(TARADOD_KEY_HAS_ERROR))
+                            cursor.getString(cursor.getColumnIndex(TARADOD_KEY_HAS_ERROR)),
+                            cursor.getString(cursor.getColumnIndex(TARADOD_KEY_DESCRIPTION))
                     );
 
                     Personnel personnel = new Personnel();
@@ -479,7 +490,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                             cursor.getString(cursor.getColumnIndex(FALIAT_KEY_AMOUNT)),
                             cursor.getString(cursor.getColumnIndex(FALIAT_KEY_DATE)),
                             cursor.getInt(cursor.getColumnIndex(FALIAT_KEY_SENT)),
-                            cursor.getString(cursor.getColumnIndex(FALIAT_KEY_PROJECT_ID))
+                            cursor.getString(cursor.getColumnIndex(FALIAT_KEY_PROJECT_ID)),
+                            cursor.getString(cursor.getColumnIndex(FALIAT_KEY_DESCRIPTION))
                     );
 
                     Personnel personnel = new Personnel();
@@ -573,7 +585,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                             cursor.getString(cursor.getColumnIndex(FALIAT_KEY_AMOUNT)),
                             cursor.getString(cursor.getColumnIndex(FALIAT_KEY_DATE)),
                             cursor.getInt(cursor.getColumnIndex(FALIAT_KEY_SENT)),
-                            cursor.getString(cursor.getColumnIndex(FALIAT_KEY_PROJECT_ID))
+                            cursor.getString(cursor.getColumnIndex(FALIAT_KEY_PROJECT_ID)),
+                            cursor.getString(cursor.getColumnIndex(FALIAT_KEY_DESCRIPTION))
 
 
                     );
@@ -606,7 +619,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                             cursor.getString(cursor.getColumnIndex(FALIAT_KEY_AMOUNT)),
                             cursor.getString(cursor.getColumnIndex(FALIAT_KEY_DATE)),
                             cursor.getInt(cursor.getColumnIndex(FALIAT_KEY_SENT)),
-                            cursor.getString(cursor.getColumnIndex(FALIAT_KEY_PROJECT_ID))
+                            cursor.getString(cursor.getColumnIndex(FALIAT_KEY_PROJECT_ID)),
+                            cursor.getString(cursor.getColumnIndex(FALIAT_KEY_DESCRIPTION))
 
 
                     );
@@ -799,7 +813,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                             cursor.getString(cursor.getColumnIndex(ANBAR_TRANSACTION_KEY_DATE)),
                             cursor.getString(cursor.getColumnIndex(ANBAR_TRANSACTION_KEY_DESCRIPTION)),
                             cursor.getInt(cursor.getColumnIndex(ANBAR_TRANSACTION_KEY_SENT)),
-                            cursor.getInt(cursor.getColumnIndex(ANBAR_TRANSACTION_KEY_HAS_ERROR))
+                            cursor.getInt(cursor.getColumnIndex(ANBAR_TRANSACTION_KEY_HAS_ERROR)),
+                            cursor.getString(cursor.getColumnIndex(ANBAR_TRANSACTION_KEY_SHOMARE_KHODRO)),
+                            cursor.getString(cursor.getColumnIndex(ANBAR_TRANSACTION_KEY_SHOMARE_GHABZ))
 
                     );
 
@@ -910,7 +926,122 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                             cursor.getString(cursor.getColumnIndex(ANBAR_TRANSACTION_KEY_DATE)),
                             cursor.getString(cursor.getColumnIndex(ANBAR_TRANSACTION_KEY_DESCRIPTION)),
                             cursor.getInt(cursor.getColumnIndex(ANBAR_TRANSACTION_KEY_SENT)),
-                            cursor.getInt(cursor.getColumnIndex(ANBAR_TRANSACTION_KEY_HAS_ERROR))
+                            cursor.getInt(cursor.getColumnIndex(ANBAR_TRANSACTION_KEY_HAS_ERROR)),
+                            cursor.getString(cursor.getColumnIndex(ANBAR_TRANSACTION_KEY_SHOMARE_KHODRO)),
+                            cursor.getString(cursor.getColumnIndex(ANBAR_TRANSACTION_KEY_SHOMARE_GHABZ))
+
+                    );
+
+
+                    // - - - - - - - -   GET PRODUCT
+                    String query3 = "SELECT * FROM " + TABLE_PRODUCT + " WHERE " +
+                            PRODUCT_KEY_ID + "=" + anbarTransaction.getProduct_id();
+                    final Cursor cursor3 = db.rawQuery(query3, null);
+                    if (cursor3 != null) {
+                        if (cursor3.moveToFirst()) {
+
+                            Product product = new Product(
+                                    cursor3.getInt(cursor3.getColumnIndex(PRODUCT_KEY_ID)),
+                                    cursor3.getString(cursor3.getColumnIndex(PRODUCT_KEY_NAME))
+                            );
+                            anbarTransaction.setProduct(product);
+                        }
+                    }
+
+
+                    // - - - - - - - - - -  AZ >> TAMIN_KONANDE  BE >> ANBAR MA
+                    if (anbarTransaction.getType() == 1) {
+
+                        String query2 = "SELECT * FROM " + TABLE_TAMIN_KONANDE + " WHERE " +
+                                TAMIN_KONANDE_KEY_ID + "=" + anbarTransaction.getTaminKonande_id();
+                        final Cursor cursor2 = db.rawQuery(query2, null);
+                        if (cursor2 != null) {
+                            if (cursor2.moveToFirst()) {
+                                TaminKonande tamin = new TaminKonande(
+                                        cursor2.getInt(cursor2.getColumnIndex(TAMIN_KONANDE_KEY_ID)),
+                                        cursor2.getString(cursor2.getColumnIndex(TAMIN_KONANDE_KEY_NAME)),
+                                        cursor2.getString(cursor2.getColumnIndex(TAMIN_KONANDE_KEY_OWNER))
+                                );
+                                anbarTransaction.setTaminKonande(tamin);
+                            }
+                        }
+                    }
+
+
+                    // - - - - - - - -   AZ >> ANBAR DIGAR  BE >> ANBAR MA
+                    if (anbarTransaction.getType() == 3) {
+                        String query2 = "SELECT * FROM " + TABLE_ANBAR + " WHERE " +
+                                ANBAR_KEY_ID + "=" + anbarTransaction.getFrom_anbar_id();
+
+                        final Cursor cursor2 = db.rawQuery(query2, null);
+                        if (cursor2 != null) {
+                            if (cursor2.moveToFirst()) {
+                                Anbar fromAnbar = new Anbar(
+                                        cursor2.getInt(cursor2.getColumnIndex(ANBAR_KEY_ID)),
+                                        cursor2.getString(cursor2.getColumnIndex(ANBAR_KEY_NAME)),
+                                        cursor2.getInt(cursor2.getColumnIndex(ANBAR_KEY_IS_OWNER))
+                                );
+                                anbarTransaction.setFromAnbar(fromAnbar);
+                            }
+                        }
+                    }
+
+                    // - - - - - - - -   AZ >> ANBAR MA  BE >> ANBAR DIGAR
+                    if (anbarTransaction.getType() == 2) {
+                        String query2 = "SELECT * FROM " + TABLE_ANBAR + " WHERE " +
+                                ANBAR_KEY_ID + "=" + anbarTransaction.getTo_anbar_id();
+
+                        final Cursor cursor2 = db.rawQuery(query2, null);
+                        if (cursor2 != null) {
+                            if (cursor2.moveToFirst()) {
+                                Anbar toAnbar = new Anbar(
+                                        cursor2.getInt(cursor2.getColumnIndex(ANBAR_KEY_ID)),
+                                        cursor2.getString(cursor2.getColumnIndex(ANBAR_KEY_NAME)),
+                                        cursor2.getInt(cursor2.getColumnIndex(ANBAR_KEY_IS_OWNER))
+                                );
+                                anbarTransaction.setToAnbar(toAnbar);
+                            }
+                        }
+                    }
+
+                    anbarTransactions.add(anbarTransaction);
+
+                } while (cursor.moveToNext());
+            }
+        }
+
+        return anbarTransactions;
+    }
+
+    public ArrayList<AnbarTransaction> getAllUnsentAnbarTransactions() {
+        ArrayList<AnbarTransaction> anbarTransactions = new ArrayList<AnbarTransaction>();
+
+        SQLiteDatabase db = getReadableDatabase();
+
+        String query = "SELECT * FROM " + TABLE_ANBAR_TRANSACTION + " where " + ANBAR_TRANSACTION_KEY_SENT + "=0";
+
+        final Cursor cursor = db.rawQuery(query, null);
+
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+
+                do {
+
+                    AnbarTransaction anbarTransaction = new AnbarTransaction(
+                            cursor.getInt(cursor.getColumnIndex(ANBAR_TRANSACTION_KEY_ID)),
+                            cursor.getInt(cursor.getColumnIndex(ANBAR_TRANSACTION_KEY_TYPE)),
+                            cursor.getInt(cursor.getColumnIndex(ANBAR_TRANSACTION_KEY_PRODUCT_ID)),
+                            cursor.getInt(cursor.getColumnIndex(ANBAR_TRANSACTION_KEY_ANBAR_ID)),
+                            cursor.getInt(cursor.getColumnIndex(ANBAR_TRANSACTION_KEY_PROVIDER_ID)),
+                            cursor.getInt(cursor.getColumnIndex(ANBAR_TRANSACTION_KEY_TO_ANBAR_ID)),
+                            cursor.getInt(cursor.getColumnIndex(ANBAR_TRANSACTION_KEY_FROM_ANBAR_ID)),
+                            cursor.getInt(cursor.getColumnIndex(ANBAR_TRANSACTION_KEY_AMOUNT)),
+                            cursor.getString(cursor.getColumnIndex(ANBAR_TRANSACTION_KEY_DATE)),
+                            cursor.getString(cursor.getColumnIndex(ANBAR_TRANSACTION_KEY_DESCRIPTION)),
+                            cursor.getInt(cursor.getColumnIndex(ANBAR_TRANSACTION_KEY_SENT)),
+                            cursor.getInt(cursor.getColumnIndex(ANBAR_TRANSACTION_KEY_HAS_ERROR)),
+                            cursor.getString(cursor.getColumnIndex(ANBAR_TRANSACTION_KEY_SHOMARE_KHODRO)),
+                            cursor.getString(cursor.getColumnIndex(ANBAR_TRANSACTION_KEY_SHOMARE_GHABZ))
 
                     );
 
@@ -1006,7 +1137,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(ANBAR_TRANSACTION_KEY_AMOUNT, anbarTransaction.getAmount());
         values.put(ANBAR_TRANSACTION_KEY_DATE, anbarTransaction.getDate());
         values.put(ANBAR_TRANSACTION_KEY_DESCRIPTION, anbarTransaction.getDescription());
+        values.put(ANBAR_TRANSACTION_KEY_SHOMARE_KHODRO, anbarTransaction.getShomareKhodro());
+        values.put(ANBAR_TRANSACTION_KEY_SHOMARE_GHABZ, anbarTransaction.getShomareGhabz());
         this.getWritableDatabase().insert(TABLE_ANBAR_TRANSACTION, null, values);
+
     }
 
     public ArrayList<Product> getProducts(String key) {

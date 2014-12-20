@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Menu;
@@ -64,9 +65,30 @@ public class AnbarActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 AnbarTransaction anbarTransaction = ((AnbarTransaction.Holder) view.getTag()).getAnbarTransaction();
+
+                String transactionType = "";
+                if (anbarTransaction.getType() == 1 || anbarTransaction.getType() == 3) {
+                    transactionType += "ورود";
+                } else {
+                    transactionType += "خروج";
+                }
+
+                if (anbarTransaction.getType() == 1)
+                    transactionType += " از " + anbarTransaction.getTaminKonande().getName();
+                else if (anbarTransaction.getType() == 2)
+                    transactionType += " به  " + anbarTransaction.getToAnbar().getName();
+                else if (anbarTransaction.getType() == 3)
+                    transactionType += " از   " + anbarTransaction.getFromAnbar().getName();
+
                 new AlertDialog.Builder(context)
                         .setTitle(anbarTransaction.getProduct().getName())
-                        .setMessage("توضیحات :" + "\n" + anbarTransaction.getDescription())
+                        .setMessage("توضیحات :" + anbarTransaction.getDescription()
+                                        + "\n\n" + "تعداد :" + anbarTransaction.getAmount()
+                                        + "\n\n" + "تاریخ :" + anbarTransaction.getPersianDate()
+                                        + "\n\n" + "شماره قبض :" + anbarTransaction.getShomareGhabz()
+                                        + "\n\n" + "شماره خودرو :" + anbarTransaction.getShomareKhodro()
+                                        + "\n\n" + "نوع تراکنش: " + " " + transactionType
+                        )
                         .show();
             }
         });
@@ -98,7 +120,7 @@ public class AnbarActivity extends Activity {
         TextView title = (TextView) customActionBar.findViewById(R.id.ac_title);
         FontHelper.SetFont(this, Fonts.MAIN_FONT, title, Typeface.BOLD);
 
-        title.setText("لیست ورود ها و خروج ها");
+        title.setText(" ورود ها و خروج ها");
 
         LinearLayout back = (LinearLayout) customActionBar.findViewById(R.id.ac_back_layout);
 

@@ -2,7 +2,9 @@ package com.pga.project1.Activities;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -27,6 +29,7 @@ import com.pga.project1.Utilities.FontHelper;
 import com.pga.project1.Utilities.Fonts;
 import com.pga.project1.Utilities.PersianCalendar;
 import com.pga.project1.Viewes.PathMapManager;
+import com.pga.project1.Viewes.ViewDateTimePickerPersian;
 
 public class KhoroojKalaActivity extends Activity {
 
@@ -46,6 +49,11 @@ public class KhoroojKalaActivity extends Activity {
     private Anbar anbarMa;
     private EditText tozihat;
 
+    EditText shomareKhodro;
+    EditText shomareGhabz;
+    Button datePicker;
+    private PersianCalendar outDateTime;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +69,41 @@ public class KhoroojKalaActivity extends Activity {
         mizanKala = (EditText) findViewById(R.id.mizanKala);
         selectedAnbarKhorooji = (TextView) findViewById(R.id.selected_anbar_khorooji);
         tozihat = (EditText) findViewById(R.id.tozihat);
+
+        datePicker = (Button) findViewById(R.id.dateKhoroojKalaPicker);
+        shomareGhabz = (EditText) findViewById(R.id.shomare_ghabz);
+        shomareKhodro = (EditText) findViewById(R.id.shomare_khodro);
+
+        outDateTime = new PersianCalendar();
+        datePicker.setText(outDateTime.getIranianDateTime());
+
+        datePicker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                final ViewDateTimePickerPersian dp;
+                if (outDateTime == null)
+                    dp = new ViewDateTimePickerPersian(context);
+                else
+                    dp = new ViewDateTimePickerPersian(context, outDateTime);
+
+                new AlertDialog.Builder(context)
+                        .setTitle("انتخاب زمان و تاریخ")
+                        .setCancelable(false)
+                        .setView(dp)
+                        .setPositiveButton("تایید", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        outDateTime = dp.getDate();
+                                        datePicker.setText(outDateTime.getIranianDateTime());
+                                    }
+                                }
+                        )
+                        .show();
+            }
+        });
+        //-----------------------------------------------------------------------------
+
+
 
         pm = (PathMapManager) findViewById(R.id.pmm);
         pm.push(new PathObject("خروج کالا"));
@@ -144,10 +187,13 @@ public class KhoroojKalaActivity extends Activity {
                                 anbar.getId(),
                                 -1,
                                 Integer.parseInt(mizanKala.getText().toString()),
-                                new PersianCalendar().getGregorianDateTime(),
+                                //new PersianCalendar().getGregorianDateTime(),
+                                outDateTime.getGregorianDateTime(),
                                 tozihat.getText().toString(),
                                 0,
-                                0);
+                                0,
+                                shomareKhodro.getText().toString(),
+                                shomareGhabz.getText().toString());
 
                     }
                     DatabaseHelper db = new DatabaseHelper(context);

@@ -8,10 +8,12 @@ import android.widget.Toast;
 import com.pga.project1.Activities.AnbarActivity;
 import com.pga.project1.Activities.FastProjectManagmentActivity;
 import com.pga.project1.Activities.LoginActivity;
+import com.pga.project1.Adapters.ListViewCustomAdapter;
 import com.pga.project1.DataModel.Anbar;
 import com.pga.project1.DataModel.AnbarTransaction;
 import com.pga.project1.DataModel.Chart;
 import com.pga.project1.DataModel.Faliat;
+import com.pga.project1.DataModel.Personnel;
 import com.pga.project1.DataModel.TaminKonande;
 import com.pga.project1.DataModel.Product;
 import com.pga.project1.DataModel.ServerResponse;
@@ -20,8 +22,10 @@ import com.pga.project1.DataModel.Work;
 import com.pga.project1.Intefaces.CallBack;
 import com.pga.project1.Intefaces.CallBackFunction;
 import com.pga.project1.R;
+import com.pga.project1.Structures.AdapterInputType;
 import com.pga.project1.Utilities.Account;
 import com.pga.project1.Utilities.HandleError;
+import com.pga.project1.Utilities.ListViewAdapterHandler;
 import com.pga.project1.Utilities.Webservice;
 
 import org.json.JSONArray;
@@ -262,7 +266,7 @@ public class SyncHelper {
 
     }
 
-    public static void SyncTaradodAndFaliat(final Context context) {
+    public static void syncTaradodAndFaliat(final Context context) {
         DatabaseHelper db = new DatabaseHelper(context);
 
         if (db.getAllUnsentTaradod().size() == 0 && db.getAllUnsentFaliat().size() == 0)
@@ -319,4 +323,29 @@ public class SyncHelper {
                 }
             });
     }
+
+    public static void syncPersonnel(final Context context, final CallBack callBack) {
+
+        final DatabaseHelper db = new DatabaseHelper(context);
+
+        Webservice.searchPersonnel(context, "", new CallBack<ArrayList<Personnel>>() {
+            @Override
+            public void onSuccess(ArrayList<Personnel> result) {
+                if (result != null) {
+                    db.emptyPersonnelTable();
+                }
+                for (Personnel person : result) {
+                    // insert to db
+                    db.insertPersonnel(person);
+                }
+            }
+
+            @Override
+            public void onError(String err) {
+
+            }
+        });
+
+    }
+
 }

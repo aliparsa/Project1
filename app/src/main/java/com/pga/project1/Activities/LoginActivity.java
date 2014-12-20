@@ -155,6 +155,11 @@ public class LoginActivity extends Activity {
 
     //-----------------------------------------------------Functions}
 
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+    }
+
 
     //validations-----------------------------------------------------
 

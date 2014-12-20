@@ -1,11 +1,9 @@
 package com.pga.project1.Activities;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Path;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
@@ -13,6 +11,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -25,18 +24,11 @@ import com.pga.project1.DataModel.Personnel;
 import com.pga.project1.DataModel.Taradod;
 import com.pga.project1.Helpers.DatabaseHelper;
 import com.pga.project1.Helpers.SyncHelper;
-import com.pga.project1.Intefaces.CallBack;
 import com.pga.project1.R;
-import com.pga.project1.Utilities.Account;
 import com.pga.project1.Utilities.FontHelper;
 import com.pga.project1.Utilities.Fonts;
-import com.pga.project1.Utilities.Webservice;
 import com.pga.project1.Viewes.PathMapManager;
 import com.pga.project1.Viewes.ViewDateTimePickerPersian;
-
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 
 public class FastProjectManagmentActivity extends ActionBarActivity {
 
@@ -209,7 +201,7 @@ public class FastProjectManagmentActivity extends ActionBarActivity {
             public void onClick(View view) {
 
                 Toast.makeText(context, "در حال بررسی و ارسال", Toast.LENGTH_SHORT).show();
-                SyncHelper.SyncTaradodAndFaliat(context);
+                SyncHelper.syncTaradodAndFaliat(context);
                 DatabaseHelper db = new DatabaseHelper(context);
                 db.cleanOldData(7);
 
@@ -261,9 +253,18 @@ public class FastProjectManagmentActivity extends ActionBarActivity {
         DatabaseHelper db = new DatabaseHelper(context);
         //  final String last_in_out = db.getPersonnelInOrOut(personnel);
 
+
         final ViewDateTimePickerPersian pickerPersian = new ViewDateTimePickerPersian(context);
+        LinearLayout linearLayout = new LinearLayout(context);
+        final EditText editTextTozihaat = new EditText(context);
+        editTextTozihaat.setHint("توضیحات");
+        linearLayout.setOrientation(LinearLayout.VERTICAL);
+        linearLayout.addView(editTextTozihaat);
+        linearLayout.addView(pickerPersian);
+
+
         new AlertDialog.Builder(context)
-                .setView(pickerPersian)
+                .setView(linearLayout)
                 .setTitle("ثبت تردد برای  " + personnel.getFullName())
                 .setPositiveButton("ثبت ورود", new DialogInterface.OnClickListener() {
                             @Override
@@ -279,14 +280,15 @@ public class FastProjectManagmentActivity extends ActionBarActivity {
                                     String hour = pickerPersian.getHour() < 10 ? "0" + pickerPersian.getHour() : pickerPersian.getHour() + "";
                                     String minute = pickerPersian.getMinute() < 10 ? "0" + pickerPersian.getMinute() : pickerPersian.getMinute() + "";
                                     date += " " + hour + "-" + minute;
-
+                                    final String theDate = date;
                                     DatabaseHelper db = new DatabaseHelper(context);
-                                    Taradod taradod = new Taradod(personnel.getId() + "", "in", 0, date, chart.getId() + "");
+                                    Taradod taradod = new Taradod(personnel.getId() + "", "in", 0, theDate, chart.getId() + "", editTextTozihaat.getText().toString());
                                     db.insertTaradod(taradod);
-
                                     Toast.makeText(context, "ذخیره شد", Toast.LENGTH_SHORT).show();
                                     Tab.setAdapter(TabAdapter);
                                     Tab.setCurrentItem(1);
+
+
                                 } catch (Exception e) {
                                     Toast.makeText(context, "عملیات با خطا مواجه شد", Toast.LENGTH_SHORT).show();
 
@@ -309,14 +311,15 @@ public class FastProjectManagmentActivity extends ActionBarActivity {
                                             String hour = pickerPersian.getHour() < 10 ? "0" + pickerPersian.getHour() : pickerPersian.getHour() + "";
                                             String minute = pickerPersian.getMinute() < 10 ? "0" + pickerPersian.getMinute() : pickerPersian.getMinute() + "";
                                             date += " " + hour + "-" + minute;
-
+                                            final String theDate = date;
                                             DatabaseHelper db = new DatabaseHelper(context);
-                                            Taradod taradod = new Taradod(personnel.getId() + "", "out", 0, date, chart.getId() + "");
+                                            Taradod taradod = new Taradod(personnel.getId() + "", "out", 0, theDate, chart.getId() + "", editTextTozihaat.getText().toString());
                                             db.insertTaradod(taradod);
-
                                             Toast.makeText(context, "ذخیره شد", Toast.LENGTH_SHORT).show();
                                             Tab.setAdapter(TabAdapter);
                                             Tab.setCurrentItem(1);
+
+
                                         } catch (Exception e) {
                                             Toast.makeText(context, "عملیات با خطا مواجه شد", Toast.LENGTH_SHORT).show();
 

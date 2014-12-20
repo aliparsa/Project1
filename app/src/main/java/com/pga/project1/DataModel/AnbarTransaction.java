@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * Created by parsa on 2014-11-15.
  */
-public class AnbarTransaction implements ListViewItemINTERFACE{
+public class AnbarTransaction implements ListViewItemINTERFACE {
     int id;
     int type;
     int product_id;
@@ -39,9 +39,11 @@ public class AnbarTransaction implements ListViewItemINTERFACE{
     private int persianDate;
     private int sent;
     private int has_error;
+    String shomareKhodro;
+    String shomareGhabz;
 
 
-    public AnbarTransaction(int id, int type, int product_id, int anbar_id, int taminKonande_id, int to_anbar_id, int from_anbar_id, int amount, String date, String description, int sent, int has_error) {
+    public AnbarTransaction(int id, int type, int product_id, int anbar_id, int taminKonande_id, int to_anbar_id, int from_anbar_id, int amount, String date, String description, int sent, int has_error, String shomareKhodro, String shomareGhabz) {
         this.id = id;
         this.type = type;
         this.product_id = product_id;
@@ -54,9 +56,11 @@ public class AnbarTransaction implements ListViewItemINTERFACE{
         this.description = description;
         this.sent = sent;
         this.has_error = has_error;
+        this.shomareKhodro = shomareKhodro;
+        this.shomareGhabz = shomareGhabz;
     }
 
-    public AnbarTransaction(int type, int product_id, int anbar_id, int taminKonande_id, int to_anbar_id, int from_anbar_id, int amount, String date, String description, int sent, int has_error) {
+    public AnbarTransaction(int type, int product_id, int anbar_id, int taminKonande_id, int to_anbar_id, int from_anbar_id, int amount, String date, String description, int sent, int has_error, String shomareKhodro, String shomareGhabz) {
 
         this.type = type;
         this.product_id = product_id;
@@ -69,6 +73,24 @@ public class AnbarTransaction implements ListViewItemINTERFACE{
         this.description = description;
         this.sent = sent;
         this.has_error = has_error;
+        this.shomareKhodro = shomareKhodro;
+        this.shomareGhabz = shomareGhabz;
+    }
+
+    public String getShomareKhodro() {
+        return shomareKhodro;
+    }
+
+    public void setShomareKhodro(String shomareKhodro) {
+        this.shomareKhodro = shomareKhodro;
+    }
+
+    public String getShomareGhabz() {
+        return shomareGhabz;
+    }
+
+    public void setShomareGhabz(String shomareGhabz) {
+        this.shomareGhabz = shomareGhabz;
     }
 
     public TaminKonande getTaminKonande() {
@@ -290,6 +312,9 @@ public class AnbarTransaction implements ListViewItemINTERFACE{
                 json.put("amount", trans.getAmount());
                 json.put("date", trans.getDate());
                 json.put("description", trans.getDescription());
+                json.put("bill_no", trans.getShomareGhabz());
+                json.put("car_no", trans.getShomareKhodro());
+
 
                 transArray.put(json);
             } catch (JSONException e) {
@@ -325,7 +350,6 @@ public class AnbarTransaction implements ListViewItemINTERFACE{
         TextView date;
         TextView toanbar;
         TextView taradodFlag;
-
 
 
         private AnbarTransaction anbarTransaction;
