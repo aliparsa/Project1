@@ -145,7 +145,7 @@ public class AsynLoadImage extends AsyncTask<String, String, Bitmap> {
     protected void onPostExecute(Bitmap file) {
 
         if (file == null) {
-            callback.onError("on error in responce handler");
+            callback.onError("on error in response handler");
         } else {
             callback.onSuccess(file);
         }
