@@ -76,13 +76,13 @@ public class FastProjectManagmentActivity extends ActionBarActivity {
         TabAdapter = new FastProjectManTabPageAdapter(getSupportFragmentManager());
         Tab = (ViewPager) findViewById(R.id.pager);
         Tab.setOnPageChangeListener(
-                new ViewPager.SimpleOnPageChangeListener() {
-                    @Override
-                    public void onPageSelected(int position) {
-                        actionBar = getSupportActionBar();
-                        actionBar.setSelectedNavigationItem(position);
-                    }
-                }
+                        new ViewPager.SimpleOnPageChangeListener() {
+                            @Override
+                            public void onPageSelected(int position) {
+                                actionBar = getSupportActionBar();
+                                actionBar.setSelectedNavigationItem(position);
+                            }
+                        }
         );
         Tab.setAdapter(TabAdapter);
         actionBar = getSupportActionBar();

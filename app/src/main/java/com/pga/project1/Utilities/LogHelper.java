@@ -190,12 +190,12 @@ public class LogHelper extends SQLiteOpenHelper {
 
             holder.request.setText(getRequest());
 
-            try {
+/*            try {
                 holder.response.setText(JsonFormatter.format(getResponse()));
             } catch (JSONException e) {
-                e.printStackTrace();
+                e.printStackTrace();*/
                 holder.response.setText(getResponse());
-            }
+           // }
 
             holder.date.setText(getDate());
         }

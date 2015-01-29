@@ -114,6 +114,8 @@ public class ImageLoaderView extends RelativeLayout {
 
     public void startLoading() {
 
+        try {
+
         /*if(async != null && !async.isCancelled()) {
             async.cancel(true);
             progressBar.setProgress(0);
@@ -121,52 +123,56 @@ public class ImageLoaderView extends RelativeLayout {
             mainImageView.setImageBitmap(null);
         }*/
 
-        progressBar.setProgress(0);
-        mainImageView.setImageResource(0);
-        mainImageView.setImageBitmap(null);
+            progressBar.setProgress(0);
+            mainImageView.setImageResource(0);
+            mainImageView.setImageBitmap(null);
 
-        if (defaultImageID != 0)
-            fakeImageView.setImageResource(defaultImageID);
+            if (defaultImageID != 0)
+                fakeImageView.setImageResource(defaultImageID);
 
-        if (showProgressBar && this.defaultImageID == 0)
-            progressBar.setVisibility(VISIBLE);
-        else
-            progressBar.setVisibility(GONE);
+            if (showProgressBar && this.defaultImageID == 0)
+                progressBar.setVisibility(VISIBLE);
+            else
+                progressBar.setVisibility(GONE);
 
-        if (url != null && url.length() > 0) {
-            async = new AsynLoadImage(getContext(), this.url, new ProgressCallBack<Bitmap>() {
-                @Override
-                public void onSuccess(Bitmap result) {
+            if (url != null && url.length() > 0) {
+                async = new AsynLoadImage(getContext(), this.url, new ProgressCallBack<Bitmap>() {
+                    @Override
+                    public void onSuccess(Bitmap result) {
 
-                    // getclip(result);
-                    fakeImageView.setImageResource(0);
-                    fakeImageView.setImageBitmap(null);
+                        // getclip(result);
+                        fakeImageView.setImageResource(0);
+                        fakeImageView.setImageBitmap(null);
 
-                    mainImageView.setImageBitmap(result);
-                    invalidate();
+                        mainImageView.setImageBitmap(result);
+                        invalidate();
 
-                    progressBar.setVisibility(GONE);
-                }
+                        progressBar.setVisibility(GONE);
+                    }
 
-                @Override
-                public void onError(String err) {
+                    @Override
+                    public void onError(String err) {
 
-                    if (defaultImageID == 0)
-                        mainImageView.setImageResource(R.drawable.image_error);
-                    else
-                        fakeImageView.setImageResource(defaultImageID);
+                        if (defaultImageID == 0)
+                            mainImageView.setImageResource(R.drawable.image_error);
+                        else
+                            fakeImageView.setImageResource(defaultImageID);
 
-                    progressBar.setVisibility(GONE);
-                }
+                        progressBar.setVisibility(GONE);
+                    }
 
-                @Override
-                public void onProgress(int done, int total, Bitmap result) {
-                    progressBar.setProgress(done);
-                }
-            });
+                    @Override
+                    public void onProgress(int done, int total, Bitmap result) {
+                        progressBar.setProgress(done);
+                    }
+                });
 
-            //async.execute();
-            async.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                //async.execute();
+                async.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 

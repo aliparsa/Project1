@@ -15,6 +15,19 @@
 
         />
 
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
+
+
+
+
+
 
     <Button
         android:id="@+id/entekhab_kala"
@@ -142,4 +155,6 @@
         android:hint="شماره قبض را وارد نمایید  " />
 
 
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

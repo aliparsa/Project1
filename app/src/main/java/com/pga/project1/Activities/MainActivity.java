@@ -66,6 +66,9 @@ public class MainActivity extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        try{
+
+
 
         context = this;
         mNavigationDrawerFragment = (NavigationDrawerFragment)
@@ -163,29 +166,20 @@ public class MainActivity extends Activity
 
         prepareActionbar();
 
-//        Webservice.getHomePageInfo(this, new CallBack<JSONArray>() {
-//            @Override
-//            public void onSuccess(JSONArray result) {
-//                int a = 10;
-//
-//            }
-//
-//            @Override
-//            public void onError(String errorMessage) {
-//
-//                HandleError.HandleError(context, errorMessage, new CallBackFunction() {
-//                    @Override
-//                    public void execute() {
-//
-//                    }
-//                });
-//            }
-//        });
+
 
         LoadHomePageInfo();
+
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     private void LoadHomePageInfo() {
+        try{
+
+
         ViewNameValue nv1 = (ViewNameValue) findViewById(R.id.nv1);
         ViewNameValue nv2 = (ViewNameValue) findViewById(R.id.nv2);
         ViewNameValue nv3 = (ViewNameValue) findViewById(R.id.nv3);
@@ -196,11 +190,13 @@ public class MainActivity extends Activity
 
         new DatabaseHelper(context).countCurrentPersonnel();
 
-
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     private void prepareActionbar() {
-
+try{
         final ViewGroup customActionBar = (ViewGroup) getLayoutInflater().inflate(
                 R.layout.actionbar_nav,
                 null);
@@ -293,11 +289,15 @@ public class MainActivity extends Activity
         });
 
 
+}catch (Exception e){
+    e.printStackTrace();
+}
     }
 
     //----------------------------------------------------------------------------------------
     @Override
     public void onNavigationDrawerItemSelected(int position) {
+        try{
         // update the main content by replacing fragments
 
         Intent intent;
@@ -354,7 +354,9 @@ public class MainActivity extends Activity
 
 
         }
-
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
 
@@ -365,126 +367,6 @@ public class MainActivity extends Activity
         actionBar.setDisplayShowTitleEnabled(true);
         //actionBar.setTitle(mTitle);
     }
-
-//    //----------------------------------------------------------------------------------------
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        if (!mNavigationDrawerFragment.isDrawerOpen()) {
-//            // Only show items in the action bar relevant to this screen
-//            // if the drawer is not showing. Otherwise, let the drawer
-//            // decide what to show in the action bar.
-//            getMenuInflater().inflate(R.menu.main, menu);
-//            this.menu = menu;
-//            restoreActionBar();
-//            return true;
-////        }
-//
-//
-//        changeMenuIcons(true, false, "main act onCreateOptionsMenu");
-//
-//
-//        return false;
-//    }
-
-    //----------------------------------------------------------------------------------------
-  /*  @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        if (item.getItemId() == R.id.action_back) {
-            onBackPressed();
-            return true;
-        }
-
-        if (id == R.id.ac_pick_personnel) {
-            return false;
-        }
-
-        if (id == R.id.ac_new_work_report) {
-            return false;
-        }
-
-        if (id == R.id.ac_work_report_save) {
-            return false;
-        }
-
-
-        return super.onOptionsItemSelected(item);
-    }
-*/
-    //----------------------------------------------------------------------------------------
-    /*public void ShowTreeFragmnet(String CallerFragment) {
-
-        // hide Tabs if Exist
-        hideTabs();
-
-        // Call ProjectTree View Fraqgment
-        Fragment frag = new FragmentProjectTreeView();
-        replaceFragment(frag, "FragmentProjectTreeView", false);
-
-
-    }*/
-
-    //-----------------------------------------------------------------------------------
-  /*  public void ShowTreeFragmnet(Chart chart, String CallerFragment) {
-
-
-        // hide Tabs if Exist
-        hideTabs();
-
-        // Call ProjectTree View Fraqgment
-        Fragment frag = new FragmentProjectTreeView();
-        ((FragmentProjectTreeView) frag).setChart(chart);
-        replaceFragment(frag, "FragmentProjectTreeView", true);
-
-        PathMapManager.push(chart);
-    }*/
-
-    //---------------------------------------------------------------------------------------
-    public void ShowWorkFragment(Chart chart, String CallerFragment, boolean addToBackStack) {
-
-       /* Fragment frag = new FragmentWork();
-        ((FragmentWork) frag).setChart(chart);
-        replaceFragment(frag, addToBackStack);
-
-
-        PathMapManager.push(chart);*/
-
-
-    }
-
-    //---------------------------------------------------------------------------------------
-//    public void ShowWorkTaskFragment(Chart chart, String CallerFragment) {
-//        Fragment frag = new FragmentWorkTasks();
-//        ((FragmentWorkTasks) frag).setChart(chart);
-//        replaceFragment(frag, false);
-//    }
-
-    //---------------------------------------------------------------------------------------
-//    public void ShowLoginFragment(String CallerFragment) {
-//
-//        // hide Tabs if Exist
-//        hideTabs();
-//
-//        Fragment frag = new FragmentLogin();
-//        replaceFragment(frag, false);
-//    }
-
-    //-------------------------------------------------------------------------------------
-//    public void changeMenuIcons(boolean navigation, boolean back, String caller) {
-//
-//        if (menu.findItem(R.id.action_navi) != null)
-//            menu.findItem(R.id.action_navi).setVisible(navigation); // getItem(R.id.action_navi).setVisible(navigation);
-//
-//        if (menu.findItem(R.id.action_back) != null)
-//            menu.findItem(R.id.action_back).setVisible(back);
-//    }
 
     //-------------------------------------------------------------------------------------
     @Override
@@ -526,52 +408,11 @@ public class MainActivity extends Activity
 
     //-------------------------------------------------------------------------------------
     public void hideTabs() {
-
-
         if (getActionBar().getNavigationMode() == ActionBar.NAVIGATION_MODE_TABS) {
             getActionBar().removeAllTabs();
             getActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
         }
-
-
     }
-
-    //-------------------------------------------------------------------------------------
-   /* public void replaceFragment(Fragment frag, String tag, boolean addToBackStack) {
-
-        if (addToBackStack) {  // add to back stack or not
-
-            if (currentFragment != null) {
-                getFragmentManager().beginTransaction()
-                        //  .detach(currentFragment)
-                        .replace(R.id.container, frag, tag)
-                        .addToBackStack(null)
-                        .commit();
-            }
-
-            if (currentFragment == null) {
-                getFragmentManager().beginTransaction()
-                        .add(R.id.container, frag, tag)
-                        .addToBackStack(null)
-                        .commit();
-            }
-
-        } else {
-            if (currentFragment != null) {
-                getFragmentManager().beginTransaction()
-                        // .detach(currentFragment)
-                        .replace(R.id.container, frag, tag)
-                        .commit();
-            }
-
-            if (currentFragment == null) {
-                getFragmentManager().beginTransaction()
-                        .add(R.id.container, frag, tag)
-                        .commit();
-            }
-        }
-        currentFragment = frag;
-    }*/
 
     //-------------------------------------------------------------------------------------
     public static class BackStackChanged implements FragmentManager.OnBackStackChangedListener {

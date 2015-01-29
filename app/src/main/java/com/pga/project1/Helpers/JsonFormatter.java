@@ -19,7 +19,7 @@ public class JsonFormatter {
 
     public static String format(final String jsonString) throws JSONException {
         final JsonVisitor visitor = new JsonVisitor(4, ' ');
-        visitor.visit(new JSONObject(jsonString), 0);
+        visitor.visit(new JSONArray(jsonString), 0);
         return visitor.toString();
     }
 

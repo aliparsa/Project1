@@ -307,7 +307,7 @@ public class SyncHelper {
 
     public static void syncAnbarTransaction(final Context context, final CallBack callBack) {
         DatabaseHelper db = new DatabaseHelper(context);
-        final ArrayList<AnbarTransaction> anbarTransactions = db.getAllAnbarTransactions();
+        final ArrayList<AnbarTransaction> anbarTransactions = db.getAllUnsentAnbarTransactions();
         if (anbarTransactions.size() > 0)
 
             Webservice.sendAnbarTransaction(context, anbarTransactions, new CallBack<ServerResponse>() {

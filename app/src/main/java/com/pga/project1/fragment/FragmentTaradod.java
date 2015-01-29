@@ -90,6 +90,7 @@ public class FragmentTaradod extends Fragment {
                                 // continue with delete
                             }
                         })
+
                         .show();
             }
         });
